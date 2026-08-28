@@ -1,0 +1,1746 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Наталья Алифер · хаб</title>
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --paper: #fff;
+      --ink: #17222d;
+      --muted: #4c5e70;
+      --line: #e6dfd3;
+      --accent: #0f4f92;
+      --soft: #eaf3fd;
+      --ok: #1a7f4e;
+      --warn: #b45309;
+      --stop: #9b2335;
+      --radius: 14px;
+      --shadow: 0 10px 24px rgba(20, 33, 45, 0.08);
+      --max: 1320px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      line-height: 1.5;
+      background:
+        radial-gradient(circle at 8% 0%, #efe6d8 0%, transparent 42%),
+        radial-gradient(circle at 93% 5%, #e6effb 0%, transparent 34%),
+        var(--bg);
+    }
+    .layout {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 22px 16px 40px;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 14px;
+    }
+    .side, .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .side { position: sticky; top: 12px; height: fit-content; padding: 14px; }
+    .side h1 { margin: 0; font-size: 21px; letter-spacing: -0.03em; line-height: 1.15; }
+    .side p { margin: 8px 0 12px; color: var(--muted); font-size: 13px; }
+    .nav-kicker {
+      margin: 12px 0 4px; font-size: 10px; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted); font-weight: 700;
+    }
+    .nav-kicker:first-of-type { margin-top: 2px; }
+    .nav-kicker.other { color: #8a4b12; }
+    .switches { display: grid; gap: 6px; margin-bottom: 10px; }
+    .switch {
+      display: block; padding: 8px 10px; border-radius: 10px;
+      border: 1px solid var(--line); background: #faf8f3;
+      font-size: 12.5px; font-weight: 600; cursor: pointer;
+    }
+    .switch:focus-visible { outline: 3px solid #c9daef; outline-offset: 2px; }
+    .mini { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .mini div { border: 1px solid var(--line); border-radius: 10px; text-align: center; padding: 8px; background: #fffdf9; }
+    .mini b { display: block; color: var(--accent); font-size: 15px; line-height: 1.15; }
+    .mini span { font-size: 11px; color: var(--muted); }
+    .main { display: grid; gap: 12px; min-width: 0; }
+    .tabs input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+    .panel { display: none; padding: 18px 20px 28px; overflow-x: auto; }
+    .panel h2 { margin: 0; font-size: 24px; letter-spacing: -0.03em; }
+    .sec { margin: 18px 0 8px; font-size: 16px; }
+    .lead { margin: 8px 0 14px; color: var(--muted); font-size: 14px; }
+    .grid2 { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+    .grid3 { display: grid; gap: 10px; grid-template-columns: 1fr 1fr 1fr; }
+    .card { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #fffdfa; }
+    .card h3 { margin: 0 0 8px; font-size: 16px; }
+    table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); overflow: hidden; background: #fff; }
+    th, td { padding: 8px 9px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 13px; }
+    th { background: #f6f8fb; font-weight: 700; }
+    tr:last-child td { border-bottom: none; }
+    ul, ol { margin: 8px 0 0; padding-left: 18px; }
+    li + li { margin-top: 3px; }
+    .hint { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+    .callout {
+      border-left: 4px solid var(--accent); background: #f8fbff;
+      border-radius: 10px; padding: 10px 12px; margin-top: 10px; font-size: 14px;
+    }
+    .quote {
+      margin: 10px 0 0; padding: 10px 12px; border-left: 3px solid var(--accent);
+      background: #f7fafd; font-size: 14px;
+    }
+    .quote small { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; }
+    .panel .toc { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 18px; }
+    .panel .toc a {
+      font-size: 12px; font-weight: 650; color: var(--accent); text-decoration: none;
+      border: 1px solid #c9daef; background: var(--soft); border-radius: 999px; padding: 5px 10px;
+    }
+    .panel .chapter { margin: 28px 0 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 20px; letter-spacing: -0.03em; }
+    .panel .chapter:first-of-type { border-top: 0; margin-top: 8px; padding-top: 0; }
+    .panel .prose { max-width: 72ch; font-size: 15px; line-height: 1.62; }
+    .panel .prose p { margin: 0 0 10px; }
+    .how {
+      margin: 0 0 16px; padding: 12px 14px; background: #fffdfa;
+      border: 1px solid var(--line); border-radius: 12px; font-size: 14px; line-height: 1.5;
+    }
+    .how b { display: block; margin-bottom: 6px; font-size: 13px; letter-spacing: .02em; }
+    .theses { margin: 10px 0 0; padding-left: 22px; }
+    .theses li { margin-top: 6px; font-size: 14.5px; }
+    .warnbox { border-left: 4px solid var(--warn); background: #fff8ee; border-radius: 10px; padding: 10px 12px; margin-top: 10px; font-size: 14px; }
+    .stopbox { border-left: 4px solid var(--stop); background: #fdf2f4; border-radius: 10px; padding: 10px 12px; margin-top: 10px; font-size: 14px; }
+    .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; margin: 8px 0 0; }
+    .flow .box { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 7px 10px; font-weight: 650; }
+    .flow .arr { color: var(--muted); }
+    .price { font-size: 22px; font-weight: 800; color: var(--accent); letter-spacing: -0.03em; margin: 0 0 4px; }
+    .price span { font-size: 13px; font-weight: 650; color: var(--muted); }
+    .say {
+      margin-top: 10px; padding: 10px 12px; background: #17222d; color: #eef2f6;
+      border-radius: 10px; font-size: 13.5px; line-height: 1.5;
+    }
+    .say i { display: block; font-style: normal; color: #9ec5f0; font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+    .field { border: 1px solid var(--line); border-radius: 12px; padding: 14px; background: #fff; margin-top: 10px; }
+    .field h3 { margin: 0 0 6px; font-size: 17px; }
+    .field .meta { font-size: 12px; color: var(--muted); margin: 0 0 8px; }
+    .ok { color: var(--ok); font-weight: 700; }
+    .no { color: var(--stop); font-weight: 700; }
+    #tab0:checked ~ .main .switches label[for="tab0"],
+    #tab1:checked ~ .main .switches label[for="tab1"],
+    #tab2:checked ~ .main .switches label[for="tab2"],
+    #tab3:checked ~ .main .switches label[for="tab3"],
+    #tab4:checked ~ .main .switches label[for="tab4"],
+    #tab5:checked ~ .main .switches label[for="tab5"],
+    #tab6:checked ~ .main .switches label[for="tab6"],
+    #tab7:checked ~ .main .switches label[for="tab7"],
+    #tab8:checked ~ .main .switches label[for="tab8"],
+    #tab9:checked ~ .main .switches label[for="tab9"],
+    #tab10:checked ~ .main .switches label[for="tab10"],
+    #tab11:checked ~ .main .switches label[for="tab11"],
+    #tab12:checked ~ .main .switches label[for="tab12"],
+    #tab13:checked ~ .main .switches label[for="tab13"],
+    #tab14:checked ~ .main .switches label[for="tab14"],
+    #tab15:checked ~ .main .switches label[for="tab15"],
+    #tab16:checked ~ .main .switches label[for="tab16"],
+    #tab17:checked ~ .main .switches label[for="tab17"],
+    #tab18:checked ~ .main .switches label[for="tab18"],
+    #tab20:checked ~ .main .switches label[for="tab20"] {
+      background: #eef5fd; border-color: #c9daef; color: var(--accent);
+    }
+    label[for="tab19"],
+    label[for="tab22"] { background: #fdf6f0; border-color: #ead8c8; }
+    #tab19:checked ~ .main .switches label[for="tab19"],
+    #tab22:checked ~ .main .switches label[for="tab22"] {
+      background: #fdeee4; border-color: #e8c4a0; color: #8a4b12;
+    }
+    label[for="tab21"] { background: #f7faf3; border-color: #d5e4c8; }
+    #tab21:checked ~ .main .switches label[for="tab21"] {
+      background: #eef6e6; border-color: #c5d9ae; color: #3d5a2a;
+    }
+    #tab0:checked ~ .main .p0,
+    #tab1:checked ~ .main .p1,
+    #tab2:checked ~ .main .p2,
+    #tab3:checked ~ .main .p3,
+    #tab4:checked ~ .main .p4,
+    #tab5:checked ~ .main .p5,
+    #tab6:checked ~ .main .p6,
+    #tab7:checked ~ .main .p7,
+    #tab8:checked ~ .main .p8,
+    #tab9:checked ~ .main .p9,
+    #tab10:checked ~ .main .p10,
+    #tab11:checked ~ .main .p11,
+    #tab12:checked ~ .main .p12,
+    #tab13:checked ~ .main .p13,
+    #tab14:checked ~ .main .p14,
+    #tab15:checked ~ .main .p15,
+    #tab16:checked ~ .main .p16,
+    #tab17:checked ~ .main .p17,
+    #tab18:checked ~ .main .p18,
+    #tab19:checked ~ .main .p19,
+    #tab20:checked ~ .main .p20,
+    #tab21:checked ~ .main .p21,
+    #tab22:checked ~ .main .p22 { display: block; }
+    .panel.p19, .panel.p22 { box-shadow: inset 4px 0 0 #c47a3a, var(--shadow); }
+    .panel.p21 { box-shadow: inset 4px 0 0 #6a8f4e, var(--shadow); }
+    @media (max-width: 1080px) {
+      .layout { grid-template-columns: 1fr; }
+      .side { position: static; }
+      .grid2, .grid3 { grid-template-columns: 1fr; }
+    }
+  </style>
+
+</head>
+<body>
+  <div class="tabs layout">
+    <input type="radio" name="main-tab" id="tab0" checked>
+    <input type="radio" name="main-tab" id="tab1">
+    <input type="radio" name="main-tab" id="tab2">
+    <input type="radio" name="main-tab" id="tab3">
+    <input type="radio" name="main-tab" id="tab4">
+    <input type="radio" name="main-tab" id="tab5">
+    <input type="radio" name="main-tab" id="tab6">
+    <input type="radio" name="main-tab" id="tab7">
+    <input type="radio" name="main-tab" id="tab8">
+    <input type="radio" name="main-tab" id="tab9">
+    <input type="radio" name="main-tab" id="tab10">
+    <input type="radio" name="main-tab" id="tab11">
+    <input type="radio" name="main-tab" id="tab12">
+    <input type="radio" name="main-tab" id="tab13">
+    <input type="radio" name="main-tab" id="tab14">
+    <input type="radio" name="main-tab" id="tab15">
+    <input type="radio" name="main-tab" id="tab16">
+    <input type="radio" name="main-tab" id="tab17">
+    <input type="radio" name="main-tab" id="tab18">
+    <input type="radio" name="main-tab" id="tab19">
+    <input type="radio" name="main-tab" id="tab20">
+    <input type="radio" name="main-tab" id="tab21">
+    <input type="radio" name="main-tab" id="tab22">
+
+    <aside class="side main">
+      <h1>Наталья Алифер</h1>
+      <p>Сначала кто покупает. Потом что продаём. Потом как уже продают.</p>
+      <div class="switches">
+        <p class="nav-kicker">Как читать</p>
+        <label class="switch" for="tab0">0. Читать</label>
+        <p class="nav-kicker">Кто покупает</p>
+        <label class="switch" for="tab1">1. Кто она</label>
+        <label class="switch" for="tab2">2. День и боль</label>
+        <label class="switch" for="tab3">3. Чего хочет</label>
+        <label class="switch" for="tab4">4. Почему нет</label>
+        <label class="switch" for="tab5">5. Десять полей</label>
+        <p class="nav-kicker">Что продаём</p>
+        <label class="switch" for="tab6">6. Всё что можно купить</label>
+        <label class="switch" for="tab7">7. Курс</label>
+        <label class="switch" for="tab8">8. Десять комбо</label>
+        <label class="switch" for="tab9">9. Клуб</label>
+        <label class="switch" for="tab10">10. Ведение</label>
+        <p class="nav-kicker">Как уже продают</p>
+        <label class="switch" for="tab11">11. Воронки</label>
+        <p class="nav-kicker">Про Наталью</p>
+        <label class="switch" for="tab12">12. Кто она как эксперт</label>
+        <p class="nav-kicker">ДНК</p>
+        <label class="switch" for="tab13">13. Барьеры</label>
+        <label class="switch" for="tab14">14. Жизнь после</label>
+        <label class="switch" for="tab15">15. Когда покупают</label>
+        <label class="switch" for="tab16">16. Скрытое</label>
+        <label class="switch" for="tab17">17. Язык для текстов</label>
+        <label class="switch" for="tab18">18. Кто купит ближе</label>
+        <p class="nav-kicker">Рынок</p>
+        <label class="switch" for="tab20">20. Конкуренты и паттерны</label>
+        <p class="nav-kicker">Запуск</p>
+        <label class="switch" for="tab21">21. Что это значит для запуска</label>
+        <p class="nav-kicker other">Не смешивать</p>
+        <label class="switch" for="tab19">19. Где спорят цифры</label>
+        <label class="switch" for="tab22">22. Что есть и чего нет</label>
+      </div>
+        <div class="mini">
+        <div><b>23</b><span>вкладки</span></div>
+        <div><b>10</b><span>полей боли</span></div>
+        <div><b>16</b><span>модулей курса C</span></div>
+        <div><b>1 890 ₽</b><span>клуб / мес</span></div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <section class="panel p0">
+        <h2>Как читать этот хаб</h2>
+        <p class="lead">Это карта проекта, не лендинг. Один проход — чтобы село: кто покупает, какие у неё десять болей, что уже лежит на витрине, чего в рекламу нельзя.</p>
+        <div class="how">
+          <b>Простыми словами</b>
+          Наталья Алифер учит женщин разбираться с телом через кишечник. Не диета «съешь меньше». Картина такая: живот, кожа, усталость, сладкое, цикл, молочница часто растут из одного места. Покупают не «ещё одну диету». Покупают «наконец понять, почему ничего не работало».
+        </div>
+        <div class="callout">Это <b>не</b> Наташа-психолог из другой папки. Эксперт здесь: Наталья Сергеевна Алифер. Ключ в чат: алифер / нутрициология / здоровая девочка.</div>
+
+        <h3 class="chapter">Слова, которые здесь значат простые вещи</h3>
+        <table>
+          <tr><th>Слово</th><th>Что это</th></tr>
+          <tr><td>Гайд</td><td>Бесплатная памятка или видео. Дарят, чтобы потом продать клуб или комбо.</td></tr>
+          <tr><td>Комбо</td><td>Несколько готовых уроков под одну боль. Например только железо, только сладкое, только живот. 2 490 ₽ двое суток, потом 3 490 ₽.</td></tr>
+          <tr><td>Клуб «Здоровая девочка»</td><td>Подписка 1 890 ₽ в месяц. Чат, зумы, «своя» атмосфера.</td></tr>
+          <tr><td>Курс</td><td>Большая программа про кишечник. На старом сайте — 8 лекций за 15 000 ₽. На новом ленде — 16 уроков и три цены. Это два разных состава. Не склеивать.</td></tr>
+          <tr><td>Ведение</td><td>Она ведёт тебя месяц. Группа 20 000 ₽ или одна на одну 70 000 ₽.</td></tr>
+          <tr><td>Старый сайт</td><td>alifernutriciology.com — витрина всего сразу, «тело мечты».</td></tr>
+          <tr><td>Новый ленд курса</td><td>GetCourse. «Причина не слабая воля — кишечник».</td></tr>
+        </table>
+
+        <h3 class="chapter">Один проход за пять минут</h3>
+        <ol class="theses">
+          <li><b>Кто покупает.</b> Женщина примерно 25–45. Русский язык. Уже сидела на диетах, пила банки, ходила к врачам. Анализы «норма», ей не норма. Стыдно за живот. Винит характер.</li>
+          <li><b>Чего хочет.</b> Шесть вещей, не одна «похудеть»: понять почему; не стыдиться живота; вернуть силы; перестать воевать с собой; сделать мягко; разобраться один раз.</li>
+          <li><b>Почему не покупает.</b> Семь страхов: развод / уже всё пробовала / навяжут банки на 10 тысяч / поток, до меня нет дела / это не врач / дорого и бросят / навредят протоколом.</li>
+          <li><b>Десять полей.</b> Десять входов в одну боль: живот, железо, стресс, отёки, щитовидка, сладкое, молочница, цикл, вес, «невидимые гости». Под каждое поле уже есть своё комбо.</li>
+          <li><b>Что продаём.</b> Сейчас это прилавок, не один главный продукт. Бесплатный гайд → клуб 1 890 → комбо ~2 500 → меню 2 990 → курс 15–45 тысяч → гипно 10 тысяч → ведение 20 / 70 тысяч.</li>
+          <li><b>Как уже продают.</b> Четыре параллельные кассы: клуб, десять прямых комбо, десять комбо через гайд, бот ведения. Плюс прошедший веб 24 июня на курс.</li>
+        </ol>
+
+        <h3 class="chapter">Карта объёма. Сколько единиц лежит в сырье</h3>
+        <p class="lead" style="margin-top:0">Считать. Если в источнике десять, в хабе десять. Слой «как читать» сверху, полные списки во вкладках ниже. Ничего не «примерно».</p>
+        <table>
+          <tr><th>Что посчитать</th><th>Сколько</th><th>Вкладка</th></tr>
+          <tr><td>Блоки исследования аудитории</td><td>10</td><td>1–4, 20</td></tr>
+          <tr><td>Работы, которые она нанимает продукт сделать</td><td>6</td><td>3</td></tr>
+          <tr><td>Дыры рынка: чего хотят и не получают</td><td>6</td><td>3</td></tr>
+          <tr><td>Страхи, из-за которых не платит</td><td>7</td><td>4</td></tr>
+          <tr><td>Паттерны мышления</td><td>7</td><td>20</td></tr>
+          <tr><td>Поля боли = комбо</td><td>10</td><td>5 и 8</td></tr>
+          <tr><td>Крючки прямых воронок</td><td>10</td><td>8 и 11</td></tr>
+          <tr><td>Магниты бесплатников</td><td>10</td><td>8 и 11</td></tr>
+          <tr><td>Мосты «гайд → комбо»</td><td>10</td><td>8</td></tr>
+          <tr><td>Давления 15 минут: типичная ошибка</td><td>10</td><td>8</td></tr>
+          <tr><td>Меню на главной</td><td>6</td><td>6</td></tr>
+          <tr><td>Лекции старого курса</td><td>8</td><td>7</td></tr>
+          <tr><td>Боли первого экрана нового ленда</td><td>6</td><td>7</td></tr>
+          <tr><td>Модули нового курса + результат модуля</td><td>16</td><td>7</td></tr>
+          <tr><td>Тарифы нового курса</td><td>3</td><td>7</td></tr>
+          <tr><td>Отзывы на ленде (тексты ленда)</td><td>6</td><td>7</td></tr>
+          <tr><td>Входы в клуб</td><td>3</td><td>9</td></tr>
+          <tr><td>Пакеты ведения на сайте</td><td>3</td><td>10</td></tr>
+          <tr><td>Кнопки бота «что беспокоит»</td><td>5</td><td>10</td></tr>
+          <tr><td>Блоки веба 24 июня</td><td>5</td><td>11</td></tr>
+          <tr><td>Вопросы подписчицы до прогрева</td><td>4</td><td>13</td></tr>
+          <tr><td>Строки, где источники спорят</td><td>11</td><td>19</td></tr>
+          <tr><td>Системы воронок рядом</td><td>5 (A–E)</td><td>11</td></tr>
+        </table>
+        <div class="callout"><b>Два слоя.</b> Вкладки 0–6 и 12–18: понять картину. Вкладки 7–11: полные составы и воронки. 20: рынок. 21: прогноз запуска (гипотеза). 22: чего в папке нет. Не пропускай 8, 19, 22.</div>
+        <div class="warnbox">Доска Miro Алифер в хаб не снята: доступ у Cursor ещё не принят. Ссылка живая, содержимое не выдумываем. Три teletype-гайда при съёме не открылись.</div>
+
+        <h3 class="chapter">Как писать тексты из этого хаба</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>Её слова. Тащить</h3>
+            <p>Живот как шар. Хожу как беременная. Выжатый лимон. Протащить себя. Качели с весом. Срывы. Заедания. Всё перепробовала. Анализы норма — мне не норма. Без жёстких диет. По-человечески.</p>
+          </article>
+          <article class="card">
+            <h3>Не тащить в новые тексты</h3>
+            <p>Тело мечты. Лучшая версия себя. Прайм эра. Убиваешь свой кишечник. Кто убивает организм изнутри. Тысячи учениц. 0+ учениц. «Навсегда забыть» про диагноз. Лечение, снять СПКЯ, слезть с таблеток врача.</p>
+          </article>
+        </div>
+        <div class="say"><i>Копирайтер · рабочая формула</i>Всё перепробовала. Дело не в характере. Тело кричит из одного места. Разберёмся спокойно, без голода и без аптеки «на десять тысяч».</div>
+        <div class="warnbox">Цифры учениц, лет стажа, «тысячи девушек» в источниках спорят. В новый текст не ставить, пока Наталья не подтвердит одну цифру.</div>
+        <div class="stopbox">Не обещать лечение. Курс дополняет врача, не заменяет. На ведении она продаёт банки, капельницы и пептиды. На новом ленде курса пишет «добавки не навязываем». Это два разных обещания. Не маскировать одно другим.</div>
+      </section>
+
+      <section class="panel p1">
+        <h2>Кто она</h2>
+        <p class="lead">Портрет покупательницы. Не «все женщины». Та, кто уже пробовала и устала винить себя.</p>
+        <div class="how">
+          <b>Одной картинкой</b>
+          Городская женщина. Работа или дети, часто и то и другое. Вечером живот как шар, утром нет сил, в зеркале отёк. Врач сказал «норма». Она слышит: «ты выдумываешь». Диеты держались две недели. Банки стоят в шкафу. Стыдно застегнуть брюки и выйти в кабинет.
+        </div>
+
+        <h3 class="chapter">Кого описывают материалы</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>Факт из файлов</h3>
+            <ul>
+              <li>Русскоязычные женщины.</li>
+              <li>Исследование рынка: примерно 25–45 лет.</li>
+              <li>Отзывы на новом ленде курса: 27, 29, 33, 34, 38, 41.</li>
+              <li>Уже были диеты, чистки, добавки, врачи.</li>
+              <li>Не мужчины как ядро бренда.</li>
+              <li>Детское меню 3+ есть как товар. Это не «мамы детей» как главная аудитория.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Кто это не она</h3>
+            <ul>
+              <li>Хочет таблетку за неделю и не менять еду.</li>
+              <li>Ищет только список банок «выпить и забыть».</li>
+              <li>Не готова 30–40 минут в день, если берёт дешёвый тариф курса «я сама».</li>
+              <li>Ищет фитнес «минус кг к пляжу» — это другой проект.</li>
+              <li>Ищет психолога по отношениям — это другая Наташа.</li>
+            </ul>
+          </article>
+        </div>
+
+        <h3 class="chapter">Что у неё в теле</h3>
+        <ul class="theses">
+          <li>Вздутие к вечеру. «Как беременная». «Шар». Брюки не застёгиваются.</li>
+          <li>Запор или стул как лотерея. Тяжесть. Изжога. Урчание, которое слышат в кабинете.</li>
+          <li>Утро уже устала. Кофе не берёт. Туман. Прогулка как марафон.</li>
+          <li>Вес: ест «правильно» — стоит. Сбросила — вернула. Качели.</li>
+          <li>Кожа, волосы, акне, тусклость. Кремы не закрывают.</li>
+          <li>Лицо подушкой. Кольца не надеваются. Ноги свинцовые. Целлюлит, который не уходит спортом.</li>
+          <li>Вечером сладкое «чтобы дотянуть». Потом вина.</li>
+          <li>ПМС, сбой цикла, задержки. Врачи разводят руками.</li>
+          <li>Молочница и цистит кругами: вылечилась — через месяц снова.</li>
+        </ul>
+
+        <h3 class="chapter">Что у неё в голове</h3>
+        <div class="prose">
+          <p>Винит характер. «Нет силы воли.» «Опять сорвалась.» Не связывает кожу, вес и настроение с кишечником, пока ей это не собрать в одну картину.</p>
+          <p>Хочет причину. Хочет, чтобы не бросили после оплаты. Боится, что снова заплатит блогеру. Боится потока на 500 человек. Боится аптеки на десять тысяч. Боится жёсткого протокола, после которого станет хуже.</p>
+        </div>
+        <div class="quote">«Анализы норма. Мне не норма.»<small>Так звучит вход. Не «хочу биохакинг».</small></div>
+        <div class="say"><i>Как она уже пишет на новом ленде</i>Причина вздутия, усталости и лишнего веса — не слабая воля. Причина — в кишечнике.</div>
+        <div class="say"><i>Как нам писать. Не усиливать «лечение»</i>Врач сказал норма, а ты ходишь как в чужом теле. Давай найдём, откуда кричит. Без голода. Без обещания снять диагноз.</div>
+
+        <h3 class="chapter">Не путать с другими папками</h3>
+        <table>
+          <tr><th>Папка</th><th>Что покупают там</th><th>Что покупают здесь</th></tr>
+          <tr><td>Ксения, фитнес</td><td>Тренировки, калории, антисрыв</td><td>Кишечник как причина разрозненных жалоб</td></tr>
+          <tr><td>Наташа-психолог</td><td>Отношения, эмоции, тренажёры</td><td>Тело, еда, самочувствие</td></tr>
+          <tr><td>Оля и Даша</td><td>Умная сушка, кг</td><td>Не кг как витрина. Стыд и хаос</td></tr>
+          <tr><td>Карина</td><td>Бег</td><td>—</td></tr>
+        </table>
+      </section>
+
+      <section class="panel p2">
+        <h2>День и боль</h2>
+        <p class="lead">Как это сидит в сутках. Не диагноз. Стыд, тело, кабинет, холодильник.</p>
+
+        <h3 class="chapter">Обычный день</h3>
+        <div class="prose">
+          <p><b>Утро.</b> Проснулась — уже устала. Лицо одутловатое, «не нравлюсь себе». Кофе. Обещание себе «сегодня без сладкого».</p>
+          <p><b>День.</b> В кабинете держит живот. Думает, что съесть в обед, чтобы вечером не раздуло. Коллеги не должны услышать урчание. Платье на встречу выбирает «посвободнее».</p>
+          <p><b>Вечер.</b> Живот как шар. Кольца не лезут. Держал весь день — и полхолодильника. Вина. «С понедельника.» Засыпает на мысли «сколько ещё так».</p>
+        </div>
+
+        <h3 class="chapter">Боль их словами. Считать все</h3>
+        <div class="quote">Хожу как беременная опять, еле брюки застёгиваются.</div>
+        <div class="quote">Живот раздулся как шар. Пуки… все в кабинете слышали бы.</div>
+        <div class="quote">Дня три я не хожу вообще. Лицо отёкшее, одутловатое. Вообще не нравлюсь себе.</div>
+        <div class="quote">Состояние, как будто слегка отравилась.</div>
+        <div class="quote">Почему я не могу похудеть? Уже столько диет.</div>
+        <div class="quote">Не могу не есть. Объедаюсь.</div>
+        <div class="quote">Устала от этих качелей с весом.</div>
+        <div class="quote">Протащила себя через день. Как выжатый лимон.</div>
+        <p class="hint">Цитаты из исследования рынка (форумы, отзывы). Это не расшифровки её клиенток. Её собственного кастдева в папке нет.</p>
+
+        <h3 class="chapter">Что болит на самом деле</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>Снаружи кажется</h3>
+            <p>Вздутие. Запор. Вес. Кожа. Усталость. ПМС. Молочница. Десять разных «болезней».</p>
+          </article>
+          <article class="card">
+            <h3>Внутри</h3>
+            <p>Стыд. Хаос. «Со мной что-то не так.» Страх, что это навсегда. Надежда, что дело не в характере.</p>
+          </article>
+        </div>
+        <div class="callout">Вздутие она описывает как социальный стыд: работа, свидание, пляж. Не как «диагноз СРК». В текстах бить в стыд и в «почему ничего не работало», не в латинские буквы.</div>
+
+        <h3 class="chapter">Микро-капает каждый день</h3>
+        <ul>
+          <li>Выбрать, что надеть, чтобы живот не предал.</li>
+          <li>Кольцо, которое вчера надевалось.</li>
+          <li>Обед «правильный» и шар к шести.</li>
+          <li>Шоколад «только кусочек» и ненависть к себе.</li>
+          <li>Ответ врача «у вас всё хорошо».</li>
+          <li>Чужая «лёгкая» в сторис.</li>
+          <li>Весы утром. Качели.</li>
+        </ul>
+        <div class="say"><i>Как она пишет в комбо про живот</i>Скажи честно: постоянно думаешь, что съесть, чтобы не раздуло?</div>
+        <div class="say"><i>Как нам писать</i>К вечеру живот как шар, хотя ела «как надо». Стыдно в брюках. Хочется понять, откуда это, а не ещё один запрет на хлеб.</div>
+      </section>
+
+      <section class="panel p3">
+        <h2>Чего хочет</h2>
+        <p class="lead">Шесть работ, которые она нанимает продукт сделать. Не схлопывать в «похудеть».</p>
+        <div class="how">
+          <b>Главное</b>
+          Исследование прямо говорит: эта аудитория покупает избавление от стыда и хаоса. Продукт продавать как «наконец понять причину, почему ничего не работало».
+        </div>
+
+        <article class="field">
+          <h3>1. Наконец понять почему</h3>
+          <p>Всё перепробовала. Ничего не держится. Хочет картину: как связано. В отзывах рынка звучит «на диагностике всё наконец сложилось».</p>
+          <div class="say"><i>Копирайтер</i>Ты не слабая. Ты не видела связку. Живот, кожа, силы, сладкое — часто один корень.</div>
+        </article>
+        <article class="field">
+          <h3>2. Перестать стыдиться живота и лица</h3>
+          <p>Брюки. Кабинет. Пляж. «Не нравлюсь себе.» Клуб давит сюда мягко. Старый сайт давит в «тело мечты» — это слабее, чем стыд.</p>
+          <div class="say"><i>Копирайтер</i>Хочется застегнуть брюки и не думать, кто услышит живот. Не «модель к пятнице».</div>
+        </article>
+        <article class="field">
+          <h3>3. Вернуть энергию</h3>
+          <p>«Не мечтать спать с утра до вечера, а жить.» Выжатый лимон. Новый ленд курса закрывает это в лоб: просыпаешься — уже устала.</p>
+          <div class="say"><i>Копирайтер</i>Утро без подвига. Кофе не единственный способ дотянуть до обеда.</div>
+        </article>
+        <article class="field">
+          <h3>4. Перестать воевать с собой</h3>
+          <p>Срывы, заедания, вина, «с понедельника». Хочет доказать себе: дело не в силе воли. Комбо «сладкоежка» и «вес» живут здесь. Психологии срывов как отдельного урока в 16 модулях нет. Есть стресс и ось мозг–кишечник.</p>
+          <div class="say"><i>Копирайтер</i>Вечерний жор — не «ты опять». Часто это сон, стресс и сахар, а не «плохой характер».</div>
+        </article>
+        <article class="field">
+          <h3>5. Сделать по-человечески</h3>
+          <p>Без голодовок, без жести, без «убери всё». Безопасность как ценность. Клуб: безопасное пространство. Новый ленд: без жёстких запретов, 30–40 минут в день.</p>
+          <div class="say"><i>Копирайтер</i>Можно есть. Можно не ненавидеть себя за круассан. Нужен план, не наказание.</div>
+        </article>
+        <article class="field">
+          <h3>6. Разобраться один раз</h3>
+          <p>Не очередной марафон на две недели. Система, чтобы не откатиться. Рынок орёт: курс кончился, куратор не успел. Новый ленд обещает план на 6 месяцев в 16-м уроке и куратора 1,5 месяца на средних тарифах.</p>
+          <div class="say"><i>Копирайтер</i>Не «ещё один заход». Карта, по которой можно жить, когда чат закроется.</div>
+        </article>
+
+        <div class="warnbox">Платье, отпуск, «чтобы муж смотрел» в этой нише вторичны. Можно мелькнуть. Не делать главной витриной. Старый сайт как раз делает витриной стройность и «тело мечты».</div>
+
+        <h3 class="chapter">Чего хотят и не получают на рынке</h3>
+        <p class="hint">Шесть дыр из исследования. Считать 6.</p>
+        <ol>
+          <li>Индивидуальность при живой цене. Поток 500 бесит.</li>
+          <li>Чтобы не бросили после курса.</li>
+          <li>Без аптеки на 10 000 ₽.</li>
+          <li>Коротко и по-человечески, уроки 15–20 минут. У неё на новом ленде 20–30 минут. Почти попали.</li>
+          <li>Психология срывов и вины. Чисто «про микробы» это не закрывает.</li>
+          <li>Быстрый первый результат: ушло вздутие. В каталоге нет отдельного «вздутие за 7 дней». Ближе всего комбо ЖКТ и SOS-гайд от запора.</li>
+        </ol>
+      </section>
+
+      <section class="panel p4">
+        <h2>Почему нет</h2>
+        <p class="lead">Семь страхов, из-за которых не платит. Уже хочет, рука не жмёт.</p>
+
+        <article class="field">
+          <h3>1. Очередной развод. Блогерский сбор</h3>
+          <p>В голове: «сведения есть в открытом доступе». «Обычный сбор денег.»</p>
+          <p>Что уже лежит: награды, Life.ru, «не заменяет врача» внизу нового ленда. Чего нет: живая касса, антикейсы, честный «кому не зашло».</p>
+          <div class="say"><i>Копирайтер</i>Не «тысячи счастливых». Одна понятная система. Имя, ИП, что будет на экране после оплаты.</div>
+        </article>
+        <article class="field">
+          <h3>2. Я уже всё пробовала. Это тоже не сработает</h3>
+          <p>Выученная беспомощность. Диеты, банки, врачи, рилсы.</p>
+          <p>Новый ленд отвечает: не сила воли — кишечник. Личная история Натальи. Комбо-дисклеймер «внутри отсылки к урокам, которых нет в этом комбо» этот страх усиливает: снова кусок, не целое.</p>
+        </article>
+        <article class="field">
+          <h3>3. Навяжут банки на 10 тысяч</h3>
+          <p>Дословный негатив рынка: «напрописывала БАДов на 10к на месяц.»</p>
+          <p>Новый ленд курса: не навязываем, всегда есть путь через еду. Сайт ведения: подбор БАДов, капельниц, пептидов. Комбо молочницы: схема нутрицевтиков. В одном бренде два обещания.</p>
+          <div class="say"><i>Копирайтер · массовый курс</i>Список банок не продаём. Сначала еда и понимание. Если добавка — по делу, не «корзина бренда».</div>
+        </article>
+        <article class="field">
+          <h3>4. Поток. До меня нет дела</h3>
+          <p>Отзыв на чужой курс: 500 человек, «никому не интересны ваши проблемы», обещали решить всё.</p>
+          <p>У неё: куратор 1,5 мес, VIP-сессия с Натальей, чат. Размер потока неизвестен. На ленде торчит счётчик «0+ учениц».</p>
+        </article>
+        <article class="field">
+          <h3>5. Это не врач. Кто угодно так называется</h3>
+          <p>«Проблемы со здоровьем решают в кабинете.» Нутрициологом может назваться любой.</p>
+          <p>Её ответ: дополняет врача, превентивные нормы, дипломы. Граница «когда только к врачу, не на курс» в текстах слабая.</p>
+        </article>
+        <article class="field">
+          <h3>6. Дорого. Нет времени. Курс кончится, бросят</h3>
+          <p>Рассрочка 6 месяцев на курсе есть. Комбо орёт 48 часов. Клуб 1 890 «всего». Почему ведение 70 000 — на сайте список услуг, не объяснение.</p>
+          <p>30–40 минут в день, уроки 20–30 минут. Это закрывает «нет времени» лучше, чем «нет денег».</p>
+        </article>
+        <article class="field">
+          <h3>7. Навредят протоколом</h3>
+          <p>На рынке есть истории: рвота, сыпь, слишком жёсткая «чистка».</p>
+          <p>Новый ленд: без голода и крайностей. Веб и бонус: «кто убивает организм изнутри», паразитоз. Страшилка кормит этот же страх.</p>
+          <div class="say"><i>Копирайтер</i>Без перца, без голода, без «вычистим за неделю». Если болит так, что нужен врач — сначала врач.</div>
+        </article>
+      </section>
+      <section class="panel p5">
+        <h2>Десять полей</h2>
+        <p class="lead">Десять дверей в одну боль. Каждое поле = как она говорит, что у неё в голове, какой гайд дарят, что продают следом, какая фраза для текста. Не склеивать в «проблемы с ЖКТ».</p>
+        <div class="how">
+          <b>Как пользоваться</b>
+          Запуск можно собрать вокруг одного поля или вокруг связки «все жалобы из одного места». Десять комбо уже нарезаны под эти поля. Один и тот же урок «ЖКТ» продаётся в четырёх комбо. Человек, купивший три комбо, дважды платит за один урок.
+        </div>
+        <nav class="toc">
+          <a href="#f1">1. Живот</a>
+          <a href="#f2">2. Железо</a>
+          <a href="#f3">3. Стресс</a>
+          <a href="#f4">4. Отёки</a>
+          <a href="#f5">5. Щитовидка</a>
+          <a href="#f6">6. Сладкое</a>
+          <a href="#f7">7. Молочница</a>
+          <a href="#f8">8. Цикл</a>
+          <a href="#f9">9. Вес</a>
+          <a href="#f10">10. Паразиты</a>
+        </nav>
+
+        <article class="field" id="f1">
+          <h3>1. Живот, запор, тяжесть, изжога</h3>
+          <p class="meta">Комбо «Здоровый ЖКТ» · код 6666 · SOS-гайд клуба про запор</p>
+          <p><b>Как она говорит.</b> Воздушный шарик. Постоянно думаешь, что съесть, чтобы не раздуло. Тяжесть, урчание. На сайте: «ежедневно мучаетесь от вздутия, тяжести после еды».</p>
+          <p><b>Что у неё в голове.</b> Стыд в кабинете и в брюках. Еда = лотерея. Хочет есть без страха.</p>
+          <p><b>Что дарят.</b> Видео «5 признаков проблем с кишечником» (Telegram). Клуб: «3 SOS-средства от запора без Микролакса». Внимание: кнопка «забрать гайд» у клуба ведёт на ту же ссылку, что и «Цикл семян».</p>
+          <p><b>Что продают следом.</b> Комбо ЖКТ 2 490 / 3 490. Или клуб 1 890. Или меню «Комфорт ЖКТ» 2 990. Или курс. Четыре кассы на одну боль, без правила «следующий шаг».</p>
+          <p><b>Уроки внутри комбо.</b> ЖКТ (&gt;50 мин) · питание (&gt;50) · отёки / СИБР / ГЭРБ / запоры / целлюлит (&gt;45) · ферментированные (&gt;10). Статья про вздутие, рецепты.</p>
+          <p><b>Рядом на полке.</b> Паразиты и женское здоровье.</p>
+          <div class="warnbox">В бесплатнике ЖКТ написано «систему уже испытали тысячи женщин». На ленде курса стоит 0+. Цифру не размножать.</div>
+          <div class="say"><i>Как она</i>Скажи честно: постоянно думаешь, что съесть, чтобы не раздуло?</div>
+          <div class="say"><i>Как нам</i>К вечеру шар, хотя обед был «правильный». Хочется есть и не гадать, раздует или нет.</div>
+        </article>
+
+        <article class="field" id="f2">
+          <h3>2. Железо. Батарейка села</h3>
+          <p class="meta">Комбо «Анемия» · код 3333</p>
+          <p><b>Как она говорит.</b> Выжатый лимон. Устаёшь с утра, туман, прогулка как марафон. «Носить воду в решете»: пьёшь железо, не усваивается. Сайт: «устали от состояния севшей батарейки?»</p>
+          <p><b>Что у неё в голове.</b> Лень? Возраст? Характер? Хочет причину, почему ферритин не растёт.</p>
+          <p><b>Что дарят.</b> Гайд «Всё о ферритине». Ссылка в Notion не проставлена.</p>
+          <p><b>Что продают следом.</b> Комбо: уроки ЖКТ, питание, железо (&gt;30 мин) + три гайда (причина анемии, железо в продуктах, витамин B12). Кросс: ЖКТ и паразиты. Меню «Железный план» 2 990.</p>
+          <p><b>Типичная ошибка, которую она разбирает через 15 минут.</b> «Просто попить железо» → ферритин ненадолго, волосы, и «усиливаются симптомы грибка».</p>
+          <div class="say"><i>Как она</i>Пить добавки = носить воду в решете. Нужна причина, почему не усваивается.</div>
+          <div class="say"><i>Как нам</i>Утро как после болезни. Железо пьёшь, цифры не едут. Сначала понять, куда оно девается.</div>
+        </article>
+
+        <article class="field" id="f3">
+          <h3>3. Стресс, сон, сладкое «взбодриться»</h3>
+          <p class="meta">Комбо «Стресс» · код 1111</p>
+          <p><b>Как она говорит.</b> Белка в колесе. Тревожность, раздражительность, вечная тяга к сладкому. Сайт: «постоянное напряжение и тяга к сладкому стали нормой?»</p>
+          <p><b>Что у неё в голове.</b> «Надо успокоиться.» Не видит связку сон → надпочечники → шоколад вечером.</p>
+          <p><b>Что дарят.</b> «5 скрытых дефицитов, которые лишают вас качественного сна» — teletype 1lflMA5cjzY.</p>
+          <p><b>Что продают следом.</b> Комбо: ритмы/сон (&gt;30) · стресс и СУН (&gt;40) · тяга к сладкому (&gt;30) + статья «синдром уставших надпочечников». Кросс: сладкоежка и лишний вес.</p>
+          <p><b>Слово СУН.</b> У неё так: синдром уставших надпочечников. В рекламе как диагноз не ставить. Можно «тело на пределе, сон не чинит».</p>
+          <div class="say"><i>Как она</i>Нервная система просит помощи. Сбитые настройки, не успокаивающие техники.</div>
+          <div class="say"><i>Как нам</i>День на зубах, вечером сладкое «чтобы дотянуть». Это не слабость. Так тело просит передышку.</div>
+        </article>
+
+        <article class="field" id="f4">
+          <h3>4. Отёки, кольца, целлюлит</h3>
+          <p class="meta">Комбо «Отёки и целлюлит» · код 2222</p>
+          <p><b>Как она говорит.</b> Просыпаешься уставшей. Лицо подушкой. Кольца не надеваются. Ноги свинцовые. Неровности кожи не убираются спортом и диетами.</p>
+          <p><b>Что у неё в голове.</b> «Это жир. Надо меньше есть и больше зал.» Стыд в зеркале сильнее, чем слово «лимфа».</p>
+          <p><b>Что дарят.</b> «Отёки и целлюлит: настоящие причины и взаимосвязь» — teletype PiaYthRaJQ9.</p>
+          <p><b>Что продают следом.</b> Комбо: ЖКТ · ритмы/сон · вода (&gt;15) · отёки/СИБР/ГЭРБ/запоры/целлюлит (&gt;45). Кросс: щитовидка и ЖКТ. Кнопка в директ: «Хочу легкое тело!»</p>
+          <p><b>Типичная ошибка.</b> Целлюлит = жир. Она говорит: ткани держат жидкость, микроциркуляция, лимфа.</p>
+          <div class="say"><i>Как она</i>Боретесь с отеками и неровностями кожи, но безрезультатно?</div>
+          <div class="say"><i>Как нам</i>Утром лицо чужое, кольцо не лезет. Зал и диета это не двигают. Хочется лёгкости, не нового «антицеллюлитного» крема.</div>
+        </article>
+
+        <article class="field" id="f5">
+          <h3>5. Щитовидка. Ничего не хочу и не могу</h3>
+          <p class="meta">Комбо «Щитовидка» · код 4444</p>
+          <p><b>Как она говорит.</b> Батарейка села. Вес от воздуха. Подавленность. Сайт: «постоянная усталость, необъяснимый набор веса и подавленность». На сайте жёстче: «при любой её патологии».</p>
+          <p><b>Что у неё в голове.</b> Возраст. Стресс. «Так всем после 35.» Анализы ТТГ «норма» — ей не норма. Это рифмуется с общим «анализы норма».</p>
+          <p><b>Что дарят.</b> Подкаст «Щитовидка: то, что вы стеснялись спросить». Ссылка в Notion нет.</p>
+          <p><b>Что продают следом.</b> Комбо: ритмы/сон + PRO-гормоны (&gt;45) + гайды питание при щитовидке и 3 схемы пищеварения при гипотиреозе. Кросс: женское здоровье и стресс. Кнопка: «Вернуть себе энергию!»</p>
+          <div class="stopbox">«Патология», «гипотиреоз», «слезем с таблеток» в рекламу не ставить. Образование, не лечение железы.</div>
+          <div class="say"><i>Как нам</i>Вес растёт «от воздуха», сил нет, ТТГ в бланке зелёный. Хочется понять связку щитовидка — сон — кишечник, не новый диагноз из рилса.</div>
+        </article>
+
+        <article class="field" id="f6">
+          <h3>6. Сладкоежка. День держалась, вечер сожрала</h3>
+          <p class="meta">Комбо «Сладкоежка» · код 5555</p>
+          <p><b>Как она говорит.</b> Вечерний жор, полхолодильника, вина, «с понедельника». «Сахарная зависимость — это реальность.» Сайт: «боретесь с тягой к сладкому и чувством вины после шоколадки?»</p>
+          <p><b>Что у неё в голове.</b> «Взять себя в руки.» Стыд сильнее, чем интерес к сахарозаменителям.</p>
+          <p><b>Что дарят.</b> «14 десертов без вреда» на 2 недели, без рафинированного сахара и глютена. Ссылки нет.</p>
+          <p><b>Что продают следом.</b> Комбо: питание (&gt;55) · тяга (&gt;30) · стресс/СУН (&gt;40) · сахарозаменители (&gt;80) + статья. Кросс: щитовидка и ЖКТ. Кнопка: «Хочу свободу от сладкого!»</p>
+          <p><b>Мост гайд → комбо.</b> ПП-десерты не решают: скачки сахара, стресс, нехватка энергии → снова сладкое.</p>
+          <div class="say"><i>Как она</i>Либо бороться с собой, либо инструменты и свобода.</div>
+          <div class="say"><i>Как нам</i>День на гречке, вечер на шоколаде, ночь на вине. Это не «нет стержня». Нужен разбор, почему вечером сносит.</div>
+        </article>
+
+        <article class="field" id="f7">
+          <h3>7. Молочница, цистит, грибок кругами</h3>
+          <p class="meta">Комбо «Молочница» · код 7777</p>
+          <p><b>Как она говорит.</b> Бесконечная война. Вылечилась — через месяц снова. Таблетки и свечи глушат. Сайт: «устали от бесконечной борьбы с молочницей, циститом и грибковыми инфекциями?»</p>
+          <p><b>Что у неё в голове.</b> «Грязная.» «Опять к гинекологу.» Стыд интимный, вслух реже, чем про живот.</p>
+          <p><b>Что дарят.</b> «10 признаков грибковой перегрузки, которые женщины списывают на что угодно.» Ссылки нет.</p>
+          <p><b>Что продают следом.</b> Комбо: блок отёки/СИБР (&gt;45) · грибок/молочница/цистит (&gt;15) · схема нутрицевтиков. Кросс: ЖКТ и паразиты. В прямой воронке claim: «90% успеха начинается в кишечнике».</p>
+          <p><b>Слово СИГР.</b> У неё: синдром избыточного грибкового роста. Меню «Анти-кандида» 2 990. В рекламе как диагноз не ставить.</p>
+          <div class="stopbox">Не обещать «забыть о рецидивах» как лечение. Её напоминание так и звучит. Нам: «понять, почему кругами, и собрать план с врачом, не вместо врача».</div>
+          <div class="say"><i>Как нам</i>Свечи помогают на месяц. Потом то же. Хочется увидеть, что кишечник здесь ни при чём — или как раз при чём.</div>
+        </article>
+
+        <article class="field" id="f8">
+          <h3>8. Цикл, ПМС, СПКЯ, кисты</h3>
+          <p class="meta">Комбо «Женское здоровье» · код 8888 · клуб «Цикл семян» и «ПМС»</p>
+          <p><b>Как она говорит.</b> Хаос, задержки, боли. Врачи разводят руками. СПКЯ / кисты / мастопатия «кажутся приговором». Сайт: «столкнулись с нерегулярным циклом, СПКЯ или другими гинекологическими проблемами?»</p>
+          <p><b>Что у неё в голове.</b> «Я сломанная.» «Только КОК.» Хочет регулярность и не войну с телом каждый месяц.</p>
+          <p><b>Что дарят.</b> Гайд «Цикл семян» — тот же, что у клуба. Teletype 3AqESJRvZas. Клуб ещё: «привычки, которые усугубляют ПМС» (ссылка та же, баг).</p>
+          <p><b>Что продают следом.</b> Комбо: менструация (&gt;50) · печень (&gt;25) · стресс/СУН + статья. Кросс: щитовидка и стресс. ИЛИ клуб 1 890. Один гайд кормит две кассы. Правила «куда вести» в источниках нет.</p>
+          <p><b>Клуб обещает в давлении 15 мин шире комбо:</b> похудение, цикл и кожа сразу.</p>
+          <div class="stopbox">Не обещать снять СПКЯ, убрать кисты, отменить КОК. Бот ведения как раз обещает «слезть с КОК». В наших текстах это стоп.</div>
+          <div class="say"><i>Как нам</i>Каждый месяц как лотерея. Врач говорит «пейте противозачаточные или подождите». Хочется понять цикл, печень и стресс своими словами.</div>
+        </article>
+
+        <article class="field" id="f9">
+          <h3>9. Вес. Качели</h3>
+          <p class="meta">Комбо «Лишний вес» · код 9999 · старый сайт живёт этим полем</p>
+          <p><b>Как она говорит.</b> Все диеты. Сбросила — набрала. Угрызения, мысли о еде. Сайт: «пробовали разные диеты, но вес возвращается?»</p>
+          <p><b>Что у неё в голове.</b> «Похудеть.» Рынок говорит: на самом деле хочет причину и контроль. Похудение вторично, но витрина старого сайта именно про стройность.</p>
+          <p><b>Что дарят.</b> Гайд здоровых завтраков. В тексте: предыдущий гайд «Не только овсянка» помог более 7000 девушек. Эта цифра больше нигде не повторяется. Не ставить.</p>
+          <p><b>Что продают следом.</b> Комбо: питание · тяга к сладкому · ритмы/сон + гайд «как спать и худеть». Кросс: щитовидка и ЖКТ. Меню «сытное похудение» 2 990. Курс. Ведение «быстрое снижение веса» с датчиком глюкозы.</p>
+          <div class="say"><i>Как она на старом сайте</i>Без диет и срывов приведу тебя к телу мечты.</div>
+          <div class="say"><i>Как нам</i>Вес уходит и возвращается. Хочется понять, почему тело не слушается, а не ещё одно меню «до −5 к отпуску».</div>
+        </article>
+
+        <article class="field" id="f10">
+          <h3>10. «Так и должно быть». Паразиты</h3>
+          <p class="meta">Комбо «Паразиты» · код 1010 · бонус веба «кто убивает организм»</p>
+          <p><b>Как она говорит.</b> Смирилась. Усталость, кожа, вздутие. Врачи разводят руками, анализы «чистые». Сайт: «страдаете от необъяснимых симптомов, проблем с кожей или хронической усталости?»</p>
+          <p><b>Что у неё в голове.</b> Страх страшилок и одновременно готовность купить «чистки». Рынок расколот: научный полюс и детокс из рилса. Она в бренде держит оба.</p>
+          <p><b>Что дарят.</b> «10 признаков паразитов, которые большинство игнорирует.» Веб: видео «Паразитоз. Кто убивает твой организм изнутри?»</p>
+          <p><b>Что продают следом.</b> Комбо: ЖКТ (&gt;50) · паразитоз (&gt;40) + гайд «протестируй себя». Кросс: ЖКТ и молочница. Кнопка выхода: «детокс без страшилок» — тон уже мягче заголовка веба.</p>
+          <div class="stopbox">Заголовок веба и бонус — агрессивные. В новых текстах не усиливать «убиваешь / убивает». Можно: необъяснимые симптомы, анализы чистые, хочется спокойно проверить гипотезу, не панику.</div>
+          <div class="say"><i>Как нам</i>Анализы чистые, тебе не чисто. Не народные «выгони всех за неделю». Понять, стоит ли копать, и как это связано с кишечником.</div>
+        </article>
+
+        <h3 class="chapter">Один урок в нескольких полях</h3>
+        <table>
+          <tr><th>Урок</th><th>В каких комбо ещё раз продаётся</th></tr>
+          <tr><td>ЖКТ</td><td>Анемия, отёки, ЖКТ, паразиты</td></tr>
+          <tr><td>Питание для здоровья</td><td>Анемия, сладкоежка, ЖКТ, лишний вес</td></tr>
+          <tr><td>Ритмы и сон</td><td>Стресс, отёки, щитовидка, лишний вес</td></tr>
+          <tr><td>Стресс / СУН</td><td>Стресс, сладкоежка, женское</td></tr>
+          <tr><td>Тяга к сладкому</td><td>Стресс, сладкоежка, лишний вес</td></tr>
+          <tr><td>Отёки / СИБР / ГЭРБ / запоры / целлюлит</td><td>Отёки, ЖКТ, молочница</td></tr>
+        </table>
+        <p class="hint">Только в одном комбо: железо, вода, щитовидка PRO-гормоны, сахарозаменители, ферментированные, грибок, менструация, печень, паразитоз.</p>
+      </section>
+      <section class="panel p6">
+        <h2>Всё что можно купить</h2>
+        <p class="lead">Витрина на 28 августа 2026. Это не «как надо собрать запуск». Это как лежит сейчас. Где цены спорят — оба числа, среднее не считаем.</p>
+        <div class="flow">
+          <span class="box">Бесплатный гайд</span><span class="arr">→</span>
+          <span class="box">Клуб 1 890</span><span class="arr">→</span>
+          <span class="box">Комбо 2 490</span><span class="arr">→</span>
+          <span class="box">Меню 2 990</span><span class="arr">→</span>
+          <span class="box">Курс 15–45 тыс</span><span class="arr">→</span>
+          <span class="box">Гипно 10 тыс</span><span class="arr">→</span>
+          <span class="box">Ведение 20 / 70 тыс</span>
+        </div>
+
+        <h3 class="chapter">Бесплатно. Чтобы войти</h3>
+        <table>
+          <tr><th>Что дарят</th><th>Куда потом</th></tr>
+          <tr><td>Цикл семян</td><td>Клуб или комбо «женское»</td></tr>
+          <tr><td>3 SOS от запора</td><td>Клуб, упаковка ЖКТ</td></tr>
+          <tr><td>Привычки, которые усугубляют ПМС</td><td>Клуб, гормоны</td></tr>
+          <tr><td>Всё о ферритине</td><td>Комбо анемия</td></tr>
+          <tr><td>5 дефицитов сна</td><td>Комбо стресс</td></tr>
+          <tr><td>Отёки и целлюлит: причины</td><td>Комбо отёки</td></tr>
+          <tr><td>Подкаст про щитовидку</td><td>Комбо щитовидка</td></tr>
+          <tr><td>14 десертов без вреда</td><td>Комбо сладкоежка</td></tr>
+          <tr><td>Видео 5 признаков ЖКТ</td><td>Комбо ЖКТ</td></tr>
+          <tr><td>10 признаков грибковой перегрузки</td><td>Комбо молочница</td></tr>
+          <tr><td>Гайд здоровых завтраков</td><td>Комбо вес</td></tr>
+          <tr><td>10 признаков паразитов</td><td>Комбо паразиты</td></tr>
+          <tr><td>Веб «убиваешь свой кишечник» (был 24 июня)</td><td>Курс. Бонус: видео про паразитоз</td></tr>
+          <tr><td>Запись «Секрет здоровой тарелки»</td><td>590 ₽, старый сайт /food</td></tr>
+        </table>
+        <p class="hint">Почти везде перед подарком просят подписку Instagram.</p>
+
+        <h3 class="chapter">Дешёвый порог. 590–3 490 ₽</h3>
+        <table>
+          <tr><th>Что</th><th>Цена</th><th>Где</th></tr>
+          <tr><td>Запись веба «Секрет здоровой тарелки»</td><td>590 ₽</td><td>/food</td></tr>
+          <tr><td>Клуб «Здоровая девочка»</td><td>1 890 ₽ / мес</td><td>бот @zdorovaya_devochka_bot</td></tr>
+          <tr><td>10 комбо</td><td>3 490, двое суток 2 490</td><td>сайт + директ</td></tr>
+          <tr><td>6 меню (каждое отдельно)</td><td>2 990 ₽</td><td>главная</td></tr>
+          <tr><td>«Система общения с организмом» + меню на месяц, 50+ рецептов</td><td>2 990 ₽</td><td>/pit</td></tr>
+        </table>
+        <p>Шесть меню по именам: 1) веган баланс 2) детское без глютена 3+ 3) сытное похудение 4) железный план 5) анти-кандида 6) комфорт ЖКТ.</p>
+        <div class="callout">Клуб дешевле комбо. По смыслу клуб продают как «система и свои», не как нарезка уроков. В воронках клуба обещают и живот, и гормоны, и вес, и кожу.</div>
+
+        <h3 class="chapter">Курс. Три состава одного имени</h3>
+        <table>
+          <tr><th>Где написано</th><th>Что внутри</th><th>Цена</th></tr>
+          <tr><td>Старый сайт</td><td>8 лекций + книга банок + меню + «Сама себе терапевт» + Will Way 3 мес. Доступ 3 мес</td><td>15 000 (было 20 000)</td></tr>
+          <tr><td>Чужой маркетплейс</td><td>9 лекций, добавлен сахар. Не наша касса</td><td>—</td></tr>
+          <tr><td>Новый ленд GetCourse</td><td>16 уроков, 30 дней, 3 тарифа</td><td>15 490 / 24 990 / 44 990</td></tr>
+        </table>
+        <p>Веб ещё говорит «16 часов лекций». Четвёртое измерение. Рассрочка на GetCourse: 6 месяцев, 2 582 / 4 165 / 7 498 ₽. Если взять на вебе или за 24 часа — доступ удваивают (так в вопросах ленда).</p>
+
+        <h3 class="chapter">Разово и дорого</h3>
+        <table>
+          <tr><th>Что</th><th>Цена</th></tr>
+          <tr><td>Психосоматическая гипно-сессия</td><td>10 000 (было 15 000)</td></tr>
+          <tr><td>Групповое ведение</td><td>20 000 ₽ / мес</td></tr>
+          <tr><td>Индивидуальное ведение</td><td>70 000 ₽ / мес</td></tr>
+          <tr><td>Индивид + датчик глюкозы 14 дней</td><td>цены на главной нет. 2 месяца → курс в подарок</td></tr>
+          <tr><td>Омега и коллаген под её именем</td><td>цены в съёме нет</td></tr>
+        </table>
+
+        <h3 class="chapter">Где витрина бьёт сама себя</h3>
+        <ol>
+          <li>Боль «вздутие» можно закрыть гайдом, клубом, комбо, меню, курсом или ведением. Все кричат «причина, не симптом».</li>
+          <li>Комбо нарезаны из курса на 8 лекций. Новый ленд — 16 уроков. Похожее имя, разный товар.</li>
+          <li>«Цикл семян» продаёт и клуб, и комбо «женское».</li>
+          <li>Ведение из Instagram уводят в бота «не мучить директом». Это закрытые продажи, не запуск на базу.</li>
+        </ol>
+        <div class="say"><i>Копирайтер · не писать</i>«Полная экосистема заботы о себе». Писать конкретную ступень: гайд / клуб / комбо / курс / ведение.</div>
+      </section>
+
+      <section class="panel p7">
+        <h2>Курс</h2>
+        <p class="lead">Одно имя. Два живых состава. Пока не ясно, что выдают после оплаты. В рекламу программу не писать, пока не подтвердят.</p>
+
+        <h3 class="chapter">Старый сайт. 8 лекций. 15 000 ₽</h3>
+        <p>Имена: «Pro здоровый кишечник 2.0» на карточке, «Здоровый кишечник» в окошке. Комбо режут именно отсюда.</p>
+        <ol>
+          <li>Введение и план системы</li>
+          <li>Кишечник и микрофлора</li>
+          <li>Иммунитет: почему все проблемы начинаются здесь</li>
+          <li>Детокс печени, почек, желчный</li>
+          <li>Отёки, вздутие, целлюлит</li>
+          <li>Грибок, цистит, молочница, акне</li>
+          <li>Паразитоз</li>
+          <li>БАДы: что это и как принимать</li>
+        </ol>
+        <p>Плюс: книга банок и отваров · план питания на месяц · методичка «Сама себе терапевт» (разбор крови и мочи) · Will Way 3 месяца · доступ 3 месяца.</p>
+        <div class="say"><i>Голос старого сайта</i>Стань лучшей версией себя: стройность, энергия и гармония без диет. Внешность отражает кишечник. Приведу к телу мечты.</div>
+
+        <h3 class="chapter">Новый ленд. 16 уроков. Три цены</h3>
+        <p>Адрес: alifernutritionology.getcourse.ru/kurs_zdorov_kishechnik. Другая орфография бренда: nutrition, не nutrici.</p>
+        <div class="say"><i>Заголовок нового ленда</i>Причина вздутия, усталости и лишнего веса — не слабая воля. Причина — в кишечнике. Смотри → делай → получай результат. 30 дней.</div>
+
+        <h4 class="sec">Шесть болей на первом экране</h4>
+        <ol>
+          <li>Живот как шар к вечеру. Надеваешь одно — выглядишь иначе.</li>
+          <li>Просыпаешься — уже устала. Кофе не помогает. В обед как выжатый лимон.</li>
+          <li>Всё перепробовала — не держится. Диеты, чистки, банки. Круг.</li>
+          <li>Кожа говорит что-то, но что? Кремы не решают.</li>
+          <li>Туман в голове. Всё через силу. Раздражительность без причины.</li>
+          <li>Вес не уходит, даже если стараться. Тело не слушается.</li>
+        </ol>
+        <p>Сшивка: всё это сигналы одной причины. Причина в кишечнике.</p>
+
+        <h4 class="sec">Четыре недели</h4>
+        <ol>
+          <li>Диагностика своего тела</li>
+          <li>Питание и микробиом</li>
+          <li>Восстановление и поддержка</li>
+          <li>Система на всю жизнь</li>
+        </ol>
+
+        <h4 class="sec">16 уроков. Заголовок и результат с ленда. Считать 16</h4>
+        <p class="hint">Результат колонки: как написано на ленде. Слово «лечит» в заголовке 3 и «светиться» в 7 в новую рекламу не тащить. Это её ленд, не наш оффер.</p>
+        <table>
+          <tr><th>#</th><th>Урок на ленде</th><th>Результат на ленде</th></tr>
+          <tr><td>1</td><td>Как читать сигналы своего тела. Связь кишечник → кожа → вес → настроение</td><td>Знаешь, что именно «ломается» в твоём теле</td></tr>
+          <tr><td>2</td><td>Микробиом: что это и почему всё зависит от него</td><td>Понимание своего «второго мозга»</td></tr>
+          <tr><td>3</td><td>Питание, которое лечит — без жёстких запретов</td><td>Персональная карта питания</td></tr>
+          <tr><td>4</td><td>Воспаление в кишечнике: как обнаружить и убрать</td><td>Уходит вздутие и тяжесть</td></tr>
+          <tr><td>5</td><td>Пробиотики и пребиотики: как не тратить деньги впустую</td><td>Рабочая схема поддержки микробиома</td></tr>
+          <tr><td>6</td><td>Связь кишечника с гормонами и весом (лептин, инсулин, кортизол)</td><td>Вес начинает двигаться</td></tr>
+          <tr><td>7</td><td>Кожа изнутри: акне, высыпания, тусклость</td><td>Кожа начинает светиться</td></tr>
+          <tr><td>8</td><td>Иммунитет: 70% живёт в кишечнике</td><td>Укреплённый иммунитет</td></tr>
+          <tr><td>9</td><td>«Дырявый кишечник»: миф или реальность. В рекламе как диагноз не ставить</td><td>Понимание скрытой причины симптомов</td></tr>
+          <tr><td>10</td><td>Стресс и кишечник, ось мозг–кишечник</td><td>Меньше тревоги, лучше пищеварение</td></tr>
+          <tr><td>11</td><td>Детокс без голода и крайностей</td><td>Тело очищается мягко и эффективно</td></tr>
+          <tr><td>12</td><td>Ферменты и желчь</td><td>Питательные вещества наконец усваиваются</td></tr>
+          <tr><td>13</td><td>Пищевые непереносимости без анализов (элиминация)</td><td>Персональный список продуктов</td></tr>
+          <tr><td>14</td><td>Сон, восстановление и кишечник</td><td>Глубокий сон и лёгкое пробуждение</td></tr>
+          <tr><td>15</td><td>Движение и пищеварение: сколько и как</td><td>Физическая активность, которая помогает</td></tr>
+          <tr><td>16</td><td>Система на всю жизнь. План на 6 месяцев</td><td>Система, которая работает без постоянного контроля</td></tr>
+        </table>
+        <p>Формат: 15+ видео по 20–30 мин, PDF, чат. На среднем и VIP куратор 1,5 мес. На VIP сессия с Натальей и разбор анализов. Доступ 3 или 6 месяцев.</p>
+
+        <h4 class="sec">Три тарифа</h4>
+        <table>
+          <tr><th></th><th>Я сама</th><th>С нутрициологом</th><th>VIP с Натальей</th></tr>
+          <tr><td>Было</td><td>22 900</td><td>34 900</td><td>84 900</td></tr>
+          <tr><td>Сейчас</td><td>15 490</td><td>24 990</td><td>44 990</td></tr>
+          <tr><td>Рассрочка 6 мес</td><td>2 582</td><td>4 165</td><td>7 498</td></tr>
+          <tr><td>Доступ</td><td>3 мес</td><td>6 мес</td><td>6 мес</td></tr>
+          <tr><td>Сессия с ней, разбор анализов</td><td>нет</td><td>нет</td><td>да</td></tr>
+        </table>
+        <p class="hint">В таблице ленда куратор отмечен у всех трёх. «Личная работа с Натальей» только VIP.</p>
+
+        <h4 class="sec">Для кого / не для кого на ленде</h4>
+        <div class="grid2">
+          <article class="card">
+            <h3>Да</h3>
+            <ul>
+              <li>Диеты не держатся</li>
+              <li>Вздутие, запоры, диарея</li>
+              <li>Усталость без причины</li>
+              <li>Проблемная кожа</li>
+              <li>Хочет систему, не запреты</li>
+              <li>Готова 30–40 мин в день</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Нет</h3>
+            <ul>
+              <li>Быстрый результат без смены еды</li>
+              <li>Просто список банок</li>
+              <li>Не готова работать сама</li>
+            </ul>
+          </article>
+        </div>
+        <p>Вопросы-ответы: банки не навязывают. Курс не заменяет врача. Приходят с СРК, гастритом, «дисбактериозом». Подготовка не нужна.</p>
+
+        <h4 class="sec">Шесть отзывов на ленде. Тексты ленда, не проверенные интервью</h4>
+        <ol>
+          <li>Анна, 34, Москва — минус 5 кг, плоский живот; на 3 неделе ушло вздутие</li>
+          <li>Екатерина, 29, СПб — кожа за 2 недели, 3 месяца без тонального</li>
+          <li>Мария, 41, Екатеринбург — энергия, «дырявый кишечник»</li>
+          <li>Дарья, 27, Новосибирск — СРК под контролем впервые за 5 лет</li>
+          <li>Ольга, 38, Краснодар — тяга к сладкому ушла после 10-го урока</li>
+          <li>Наталья, 33, Казань — минус 4 кг, кожа, сон, «перестала бояться своего тела»</li>
+        </ol>
+        <div class="warnbox">На том же ленде в шапке: 0+ учениц прошли · 30 дней · 4 года практики. «0+» — пустой счётчик. На вебе те же руки пишут 500+ клиентов и 1000+ без откатов. В рекламу ни то, ни другое.</div>
+        <div class="say"><i>Копирайтер · курс</i>30 дней. Смотришь урок, делаешь шаг. Без «характер слабый». Без обещания снять диагноз. Три двери: сама / с куратором / разбор с Натальей.</div>
+      </section>
+
+      <section class="panel p8">
+        <h2>Десять комбо</h2>
+        <p class="lead">Нарезка уроков со старого курса. Цена везде одна: 3 490 ₽, двое суток 2 490 ₽ (−30%). На GetCourse в каждом: внутри могут быть отсылки к материалам, которых в этом комбо нет. Ниже все десять: уроки, код, крючок, магнит, мост, давление 15 минут, кнопка. Не «см. вкладку 5».</p>
+        <div class="say"><i>Голос прямых комбо</i>Скажи честно + сцена тела + «я собрала КОМБО» + 48 часов, скидка сгорит.</div>
+        <div class="callout">В конце каждого комбо на GetCourse всегда два соседних. Человек может купить четыре нарезки и дважды заплатить за урок «ЖКТ».</div>
+        <nav class="toc">
+          <a href="#c1">1. Анемия</a>
+          <a href="#c2">2. Стресс</a>
+          <a href="#c3">3. Отёки</a>
+          <a href="#c4">4. Щитовидка</a>
+          <a href="#c5">5. Сладкоежка</a>
+          <a href="#c6">6. ЖКТ</a>
+          <a href="#c7">7. Молочница</a>
+          <a href="#c8">8. Женское</a>
+          <a href="#c9">9. Вес</a>
+          <a href="#c10">10. Паразиты</a>
+        </nav>
+
+        <article class="field" id="c1">
+          <h3>1. Анемия · код 3333</h3>
+          <p><b>Уроки.</b> ЖКТ (&gt;50 мин) · питание (&gt;50) · железо (&gt;30). Гайды: причина и диагностика анемии · железо в продуктах · активный витамин B12.</p>
+          <p><b>Кросс на GetCourse.</b> Здоровый ЖКТ + паразиты.</p>
+          <p><b>Крючок Direct.</b> Выжатый лимон. Устаёшь с утра, голова в тумане, прогулка как марафон. Чаще всего нехватка железа. Пить добавки = носить воду в решете. Нужна причина, почему не усваивается.</p>
+          <p><b>Хук сайта.</b> «Устали от состояния севшей батарейки?»</p>
+          <p><b>Магнит бесплатника.</b> Гайд «Всё о ферритине»: зачем ферритин, кожа/волосы, почему «сливается». Ссылка в Notion не проставлена. Код ветки: ФЕРРИТИН.</p>
+          <p><b>Мост гайд → комбо.</b> Повысить железо ≠ добавить продукты или банки. Без причин ферритин снова падает.</p>
+          <p><b>15 минут, типичная ошибка.</b> Просто попить железо → ферритин ненадолго, усталость, волосы, усиливаются симптомы грибка.</p>
+          <p><b>Сообщение 2.</b> 3 лекции + 3 гайда. Кнопка «Хочу комбо!». Напоминание: энергия для жизни, а не для выживания. Выход в канал: энергия. Ссылка на канал пустая.</p>
+        </article>
+
+        <article class="field" id="c2">
+          <h3>2. Стресс · код 1111</h3>
+          <p><b>Уроки.</b> Основы: циркадные ритмы, сон, «как спать и худеть» (&gt;30) · стресс и методы, СУН (&gt;40) · тяга к сладкому (&gt;30). Статья «Синдром уставших надпочечников».</p>
+          <p><b>Кросс.</b> Сладкоежка + лишний вес.</p>
+          <p><b>Крючок Direct.</b> Режим «белки в колесе». Тревожность, раздражительность, вечная тяга к сладкому «взбодриться». Сбитые настройки, не успокаивающие техники.</p>
+          <p><b>Хук сайта.</b> «Постоянное напряжение и тяга к сладкому стали нормой?»</p>
+          <p><b>Магнит.</b> «5 скрытых дефицитов, которые лишают вас качественного сна» — teletype 1lflMA5cjzY. Код: СОН.</p>
+          <p><b>Мост.</b> Плохой сон почти никогда не один: стресс, усталость, тяга к сладкому, перегруженная нервная система.</p>
+          <p><b>15 минут.</b> Плохой сон = усталость → на деле кортизол, мозг не в восстановление → бессонница, тревога, сладкое.</p>
+          <p><b>Сообщение 2.</b> 3 лекции + статья СУН. «Хочу комбо!». Напоминание: спокойная жизнь, выйти из вечной тревоги. Выход: спокойствие.</p>
+        </article>
+
+        <article class="field" id="c3">
+          <h3>3. Отёки и целлюлит · код 2222</h3>
+          <p><b>Уроки.</b> ЖКТ (&gt;50) · ритмы/сон (&gt;30) · вода: как пить правильно (&gt;15) · отёки, вздутие, СИБР, ГЭРБ, запоры и целлюлит (&gt;45). В Direct отдельных гайдов нет.</p>
+          <p><b>Кросс.</b> Щитовидка + здоровый ЖКТ.</p>
+          <p><b>Крючок Direct.</b> Просыпаешься уставшей. Лицо подушкой, кольца не надеваются, ноги свинцовые. Неровности кожи не убираются спортом и диетами. Сигналы: кишечник, лимфоток, гормоны.</p>
+          <p><b>Хук сайта.</b> «Боретесь с отеками и неровностями кожи, но безрезультатно?»</p>
+          <p><b>Магнит.</b> «Отёки и целлюлит: настоящие причины и взаимосвязь» — teletype PiaYthRaJQ9. Код: ОТЁКИ.</p>
+          <p><b>Мост.</b> У большинства не сами по себе: замедленный метаболизм, гормоны, щитовидка.</p>
+          <p><b>15 минут.</b> Целлюлит = жир → ткани держат жидкость, микроциркуляция, лимфа, бугристая кожа.</p>
+          <p><b>Сообщение 2.</b> 4 лекции. Кнопка «Хочу легкое тело!». Напоминание: лёгкое и послушное тело, уверенность. Выход: комфорт и лёгкость.</p>
+        </article>
+
+        <article class="field" id="c4">
+          <h3>4. Щитовидка · код 4444</h3>
+          <p><b>Уроки.</b> Ритмы/сон (&gt;30) · PRO-гормоны: щитовидная железа (&gt;45). Гайды: питание при проблемах щитовидки · 3 схемы коррекции пищеварения при гипотиреозе.</p>
+          <p><b>Кросс.</b> Женское здоровье + стресс.</p>
+          <p><b>Крючок Direct.</b> «Ничего не хочу и не могу». Батарейка села: усталость, вес от воздуха, подавленность. Так говорит щитовидка.</p>
+          <p><b>Хук сайта.</b> «Чувствуете постоянную усталость, необъяснимый набор веса и подавленность?» На сайте жёстче: «при любой её патологии».</p>
+          <p><b>Магнит.</b> Подкаст «Щитовидка: то, что вы стеснялись спросить»: ТТГ в норме / самочувствие плохое; какие симптомы игнорируют; какие анализы важны; вес при «правильном» питании. Ссылки нет. Код: ЩИТОВИДКА.</p>
+          <p><b>Мост.</b> Женщины лечат симптомы по отдельности. Если дело в щитовидке — вернутся.</p>
+          <p><b>15 минут.</b> Усталость и вес = стресс или возраст → замедленный обмен, вес держится, настроение.</p>
+          <p><b>Сообщение 2.</b> 2 лекции + 2 гайда. «Вернуть себе энергию!». Напоминание: прилив сил, подарок метаболизму. Выход: гормональный баланс.</p>
+          <div class="stopbox">«Патология», гипотиреоз как обещание лечения, «слезем с таблеток» в рекламу не ставить.</div>
+        </article>
+
+        <article class="field" id="c5">
+          <h3>5. Сладкоежка · код 5555</h3>
+          <p><b>Уроки.</b> Питание (&gt;55) · тяга к сладкому (&gt;30) · стресс/СУН (&gt;40) · сахарозаменители (&gt;80) + статья «какие бывают и как выбрать».</p>
+          <p><b>Кросс.</b> Щитовидка + здоровый ЖКТ.</p>
+          <p><b>Крючок Direct.</b> День держалась — вечером жор, полхолодильника, вина, «с понедельника». Биохимия мозга, сахарная зависимость. Можно исправить.</p>
+          <p><b>Хук сайта.</b> «Постоянно боретесь с тягой к сладкому и чувством вины после шоколадки?»</p>
+          <p><b>Магнит.</b> «14 десертов без вреда»: ПП-версии, без рафинированного сахара и глютена, 2 недели. Ссылки нет. Код: ДЕСЕРТ.</p>
+          <p><b>Мост.</b> ПП-десерты не решают: скачки сахара, стресс, нехватка энергии → снова сладкое и вина.</p>
+          <p><b>15 минут.</b> «Взять себя в руки» → вечерняя тяга, падение энергии, сладкое как стресс-копинг. «Это не слабость характера.»</p>
+          <p><b>Сообщение 2.</b> 4 лекции + статья. «Хочу свободу от сладкого!». Напоминание: либо бороться с собой, либо инструменты и свобода. Выход: свобода от сахара.</p>
+        </article>
+
+        <article class="field" id="c6">
+          <h3>6. Здоровый ЖКТ · код 6666</h3>
+          <p><b>Уроки.</b> ЖКТ (&gt;50) · питание (&gt;50) · отёки/СИБР/ГЭРБ/запоры/целлюлит (&gt;45) · ферментированные продукты (&gt;10). Статья «Вздутие» · рецепты ферментированных.</p>
+          <p><b>Кросс.</b> Паразиты + женское здоровье.</p>
+          <p><b>Крючок Direct.</b> Постоянно думаешь, что съесть, чтобы не раздуло. Тяжесть, урчание, воздушный шарик. План причин, не маскировка.</p>
+          <p><b>Хук сайта.</b> «Ежедневно мучаетесь от вздутия, тяжести после еды или других проблем с пищеварением?»</p>
+          <p><b>Магнит.</b> Видео «5 признаков проблем с кишечником» — t.me/nutri_podruga/981. Код: ЗДОРОВЬЕ. Обращение «Привет», не «Здравствуй, дорогая». Пауза до апселла 30 минут, не 2 часа. Кнопка «Проверить подписку».</p>
+          <p><b>Мост.</b> Узнала себя в пункте видео → нужно понимать устройство пищеварения, продукты, вздутие, запоры, микрофлору. Тон: «сообщество осознанных женщин».</p>
+          <p><b>15 минут.</b> Справиться самой → вздутие/тяжесть/запор возвращаются, потому что убран симптом. В этом сообщении claim: «тысячи женщин». Цифру не размножать.</p>
+          <p><b>Сообщение 2.</b> Короче остальных: сразу цена. 4 лекции + статья и рецепты. «Вернуть комфорт!». Напоминание: есть без страха. Выход: радость от еды.</p>
+        </article>
+
+        <article class="field" id="c7">
+          <h3>7. Молочница, цистит, грибок · код 7777</h3>
+          <p><b>Уроки.</b> Отёки/СИБР/ГЭРБ (&gt;45) · грибок, молочница, цистит и микробиом (&gt;15) · схема нутрицевтиков от грибка.</p>
+          <p><b>Кросс.</b> Здоровый ЖКТ + паразиты.</p>
+          <p><b>Крючок Direct.</b> Бесконечная война. Вылечилась — через месяц снова. Таблетки и свечи временно глушат.</p>
+          <p><b>Хук сайта.</b> «Устали от бесконечной борьбы с молочницей, циститом и грибковыми инфекциями?»</p>
+          <p><b>Магнит.</b> «10 признаков грибковой перегрузки, которые женщины списывают на что угодно». Ссылки нет. Код: ДРОЖЖИ.</p>
+          <p><b>Мост.</b> Редко «просто так»: микробиом, кишечник, избыточный рост грибка.</p>
+          <p><b>15 минут.</b> Проблема только в инфекции → лечат симптом, микробиом нарушен, воспаление возвращается.</p>
+          <p><b>Сообщение 2.</b> ЖКТ 45 мин + грибок 15 мин + схема. Claim в Direct: «90% успеха начинается здесь». «Хочу комбо!». Напоминание: забыть о рецидивах. Выход: баланс микрофлоры.</p>
+          <div class="stopbox">Не обещать «забыть о рецидивах» как лечение. Схема нутрицевтиков внутри — не маскировать под «без банок» курса C.</div>
+        </article>
+
+        <article class="field" id="c8">
+          <h3>8. Женское здоровье · код 8888</h3>
+          <p><b>Уроки.</b> Что такое менструация (&gt;50) · печень (&gt;25) · стресс/СУН + статья СУН.</p>
+          <p><b>Кросс.</b> Щитовидка + стресс.</p>
+          <p><b>Крючок Direct.</b> Хаос: задержки, боли, врачи разводят руками. СПКЯ, кисты, мастопатия кажутся приговором. Баланс изнутри: гормоны, печень, стресс.</p>
+          <p><b>Хук сайта.</b> «Столкнулись с нерегулярным циклом, СПКЯ или другими гинекологическими проблемами?»</p>
+          <p><b>Магнит.</b> «Цикл семян» — тот же, что у клуба. Код: ПМС. В клубе URL 3AqESJRvZas; в этой ветке «ссылка на гайд» без URL. Обращение «Привет».</p>
+          <p><b>Мост.</b> Цикл семян лучше работает, когда понимаешь гормональную систему, питание–стресс–печень.</p>
+          <p><b>15 минут.</b> Цикл сам наладится → нерегулярность, СПКЯ, кисты, ПМС, причины дисбаланса не убраны.</p>
+          <p><b>Сообщение 2.</b> 3 лекции + СУН. «Хочу комбо!». Напоминание: регулярный цикл и гормональное равновесие. Выход: женское здоровье.</p>
+          <div class="stopbox">Не обещать снять СПКЯ, убрать кисты, отменить КОК. Один гайд кормит и клуб, и это комбо. Правила «куда вести» в источниках нет.</div>
+        </article>
+
+        <article class="field" id="c9">
+          <h3>9. Лишний вес · код 9999</h3>
+          <p><b>Уроки.</b> Питание (&gt;50) · тяга к сладкому (&gt;30) · ритмы/сон (&gt;30) + гайд «Как спать и худеть».</p>
+          <p><b>Кросс.</b> Щитовидка + здоровый ЖКТ.</p>
+          <p><b>Крючок Direct.</b> Все диеты. Сбросила — набрала. Угрызения совести, мысли о еде. Не очередная диета: гормоны, сахарная зависимость, сон.</p>
+          <p><b>Хук сайта.</b> «Пробовали разные диеты, но вес возвращается?»</p>
+          <p><b>Магнит.</b> Гайд здоровых завтраков. В тексте: предыдущий гайд «Не только овсянка» помог более 7000 девушек. Цифра больше нигде не повторяется. Не ставить. Код: ЗАВТРАК.</p>
+          <p><b>Мост.</b> Неправильный завтрак → скачки сахара → тяга → голод → переедание вечером → вес, нет энергии, диеты не работают.</p>
+          <p><b>15 минут.</b> Просто меньше есть → голод, тяга, вес возвращается; вес регулируют гормоны, сон, сахар крови.</p>
+          <p><b>Сообщение 2.</b> 3 лекции + «Как спать и худеть». «Хочу комбо!». Напоминание: лёгкость и уверенность. Выход: гармония с телом.</p>
+        </article>
+
+        <article class="field" id="c10">
+          <h3>10. Паразиты · код 1010</h3>
+          <p><b>Уроки.</b> ЖКТ (&gt;50) · паразитоз: невидимая угроза (&gt;40) + гайд «Протестируй себя на паразитов».</p>
+          <p><b>Кросс.</b> Здоровый ЖКТ + молочница/цистит/грибок.</p>
+          <p><b>Крючок Direct.</b> Смирилась, что «так и должно быть». Усталость, кожа, вздутие. Врачи разводят руками, анализы «чистые». Не страшилки и не народные методы — научный подход.</p>
+          <p><b>Хук сайта.</b> «Страдаете от необъяснимых симптомов, проблем с кожей или хронической усталости?»</p>
+          <p><b>Магнит.</b> «10 признаков паразитов, которые большинство людей игнорирует»: симптомы, анализы, сигналы. Ссылки нет. Код: ПАРАЗИТЫ. Веб отдельно дарит видео «Паразитоз. Кто убивает твой организм изнутри?».</p>
+          <p><b>Мост.</b> Точечно: препараты, случайные добавки, народные методы — без целостной системы не работает.</p>
+          <p><b>15 минут.</b> Пропить препарат → симптомы меньше, потом снова; связано с кишечником, микробиомом, иммунитетом.</p>
+          <p><b>Сообщение 2.</b> 2 лекции + самодиагностика. «Хочу комбо!». Напоминание: избавиться от необъяснимых симптомов. Выход: детокс без страшилок. Тон выхода мягче заголовка веба.</p>
+          <div class="stopbox">Заголовок веба и бонус агрессивные. В новых текстах не усиливать «убиваешь / убивает».</div>
+        </article>
+
+        <h3 class="chapter">Каркас Direct. Один на все десять</h3>
+        <ol>
+          <li>«Скажи честно» + телесная сцена + имя комбо + кнопка узнать</li>
+          <li>Состав лекций с минутами + «вместо того чтобы самой рыскать» + окно 48 часов + кнопка оплаты 2 490</li>
+          <li>Напоминание ~через 23 часа: осталось ~24 часа до 3 490</li>
+          <li>Через 30 минут: «может, не хватает информации» → Telegram-канал. Ссылка везде пустая</li>
+        </ol>
+      </section>
+
+      <section class="panel p9">
+        <h2>Клуб «Здоровая девочка»</h2>
+        <p class="lead">1 890 ₽ в месяц. Вход через бота @zdorovaya_devochka_bot. Три входа, один продукт. Тон мягче комбо: «дорогая», безопасное пространство, «девочка».</p>
+        <p class="price">1 890 ₽ <span>каждый месяц</span></p>
+
+        <h3 class="chapter">Что обещают во всех трёх входах</h3>
+        <ul>
+          <li>Чат со своими</li>
+          <li>Зум-встречи</li>
+          <li>Рамка: без стресса и жёстких ограничений, система не крупицы</li>
+        </ul>
+
+        <h3 class="chapter">Что уникально у каждого входа</h3>
+        <article class="field">
+          <h3>Цикл семян</h3>
+          <p>Гайд: полное руководство по циклу семян. В клубе ещё: раздел PRO-гормоны, основы нутрициологии, наука о питании без мифов. Крючок: гармоничный цикл = настроение, энергия, красота. Давление через 15 мин: сколько ещё циклов жертвовать комфортом. В этом сообщении обещают ещё похудение и кожу.</p>
+        </article>
+        <article class="field">
+          <h3>SOS / запор</h3>
+          <p>Гайд: 3 средства с кухни, без Микролакса и Сенаде. В клубе: система ЖКТ, питание для лёгкого пищеварения, протоколы при СРК / запорах / дисбактериозе, нутрициология + гормоны, меню и чек-листы. После гайда: SOS снимает сейчас, не причину. Давление: «запор — крик организма», «билет к свободе от проблем с кишечником». Пауза 2 часа перед апселлом в тексте не проставлена.</p>
+        </article>
+        <article class="field">
+          <h3>ПМС</h3>
+          <p>Гайд: пищевые и поведенческие привычки. В клубе: руководство по циклу, PRO-гормоны (эстроген, прогестерон, кортизол), питание по фазам, психология (тревога, границы, выгорание), меню, шаблоны. Давление: «и так сойдёт». Тело говорит через боль, перепады, отёки. «Цикл без боли и срывов».</p>
+        </article>
+        <div class="warnbox">Три названия гайдов. Одна ссылка teletype 3AqESJRvZas. Баг или заглушка. Не чинить в рекламе «три разных подарка», пока ссылки не разойдутся.</div>
+
+        <h3 class="chapter">Каркас воронки клуба</h3>
+        <ol>
+          <li>Привет + боль темы</li>
+          <li>Бесплатный гайд, проверка подписки Instagram</li>
+          <li>Спасибо + «забрать гайд»</li>
+          <li>Пауза 2 часа (в SOS пауза не указана)</li>
+          <li>«Гайд — первый шаг, нужна система» → клуб</li>
+          <li>«Расскажи о клубе»</li>
+          <li>Оффер 1 890 + «хочу в клуб» на бота</li>
+          <li>Пауза 15 минут</li>
+          <li>Возражение → снова кнопка на бота</li>
+        </ol>
+        <div class="say"><i>Голос клуба. Не мешать с комбо</i>Дорогая. БЛАГОдарю. Безопасное пространство. Цветы в тексте. «Всего 1 890».</div>
+        <p class="hint">Исследование рынка ставит клуб после курса, чтобы не бросили. У неё клуб продаётся с холодного гайда, как маленький главный продукт.</p>
+      </section>
+
+      <section class="panel p10">
+        <h2>Ведение</h2>
+        <p class="lead">Дорогой формат. Сайт продаёт список услуг. Бот диагностики обрывается. Два обещания: «Наталья читает ответы» в директ и «свяжитесь с менеджером» на сайте.</p>
+
+        <div class="grid2">
+          <article class="card">
+            <h3>Группа · 20 000 ₽ / мес</h3>
+            <ul>
+              <li>Zoom 30 мин с Натальей: анализы и цели</li>
+              <li>План питания по таблице предпочтений</li>
+              <li>Групповой протокол</li>
+              <li>Подбор банок</li>
+              <li>Чат Наталья + куратор, проверка отчётов</li>
+              <li>2 созвона в месяц</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Одна на одну · 70 000 ₽ / мес</h3>
+            <ul>
+              <li>Zoom, анализы, цели</li>
+              <li>Индивидуальный протокол и план еды</li>
+              <li>Методичка: рестораны и кафе</li>
+              <li>Гаджеты</li>
+              <li>Банки, смежные специалисты, капельницы, пептиды</li>
+              <li>Чат и отчёты, 2 созвона в месяц</li>
+            </ul>
+          </article>
+        </div>
+        <article class="field">
+          <h3>Плюс датчик глюкозы</h3>
+          <p>Цены на главной нет. +14 дней датчика к обычному индивидуальному. Ежедневная правка по цифрам. Два месяца покупки → курс «здоровый кишечник» в подарок.</p>
+        </article>
+        <div class="callout">Исследование: типичное сопровождение на рынке 15–35 тысяч в месяц. 70 тысяч выше полки. Либо упаковать как «трансформацию один на один», либо нужен средний тариф 35–45.</div>
+        <div class="stopbox">Новый ленд курса: банки не навязываем. Ведение: капельницы и пептиды в списке. Массовый курс нельзя продавать языком ведения. Ведение нельзя маскировать под «без банок».</div>
+
+        <h3 class="chapter">Что уже есть в боте. Хвост обрывается</h3>
+        <p>Директ: не мучить перепиской, уходи в Telegram. Напоминание через 20–60 минут. Фраза, которой больше нигде нет: «первый шаг к твоей прайм эре».</p>
+        <p>Бот: «Лучший нутрициолог России 2025». Помогла сотням: ЖКТ, вес без калорий, энергия, кожа, цикл, слезть с КОК, забыть молочницу и цистит.</p>
+        <p>Пять кнопок, что беспокоит: вздутие / вес / усталость / кожа / несколько сразу. Потом всем одно: желчь, микробиота, инсулин, дефициты. Потом: как давно — месяцы / больше года / несколько лет. <b>Дальше в Notion нет.</b> Нет выбора группа / индивид, нет цены, нет слота, нет менеджера.</p>
+        <div class="say"><i>Копирайтер · ведение</i>Не «прайм эра». Не «слезем с таблеток врача». «Разберём твои анализы и соберём план на месяц. Группа или одна на одну. Банки только если нужны, не корзина».</div>
+      </section>
+
+      <section class="panel p11">
+        <h2>Воронки</h2>
+        <p class="lead">Четыре системы рядом. К одной кассе не сведены. Календарь прогрева, видео-продавец и цифры конверсий в папке нет.</p>
+        <div class="flow">
+          <span class="box">Instagram</span><span class="arr">→</span>
+          <span class="box">проверка подписки</span><span class="arr">→</span>
+          <span class="box">клуб / 10 прямых комбо / 10 гайдов</span>
+        </div>
+        <div class="flow">
+          <span class="box">Шапка профиля</span><span class="arr">→</span>
+          <span class="box">старый сайт-витрина всего</span>
+        </div>
+        <div class="flow">
+          <span class="box">GetCourse</span><span class="arr">→</span>
+          <span class="box">веб 24 июня (прошёл)</span><span class="arr">→</span>
+          <span class="box">новый ленд курса</span>
+        </div>
+        <div class="flow">
+          <span class="box">Директ «ведение»</span><span class="arr">→</span>
+          <span class="box">бот</span><span class="arr">→</span>
+          <span class="box">обрыв после «как давно»</span>
+        </div>
+
+        <h3 class="chapter">Прямые комбо. Один каркас, десять крючков</h3>
+        <ol>
+          <li>«Скажи честно» + сцена тела + имя комбо</li>
+          <li>Состав лекций с минутами + цена 3490 → 2490 на 48 часов</li>
+          <li>Через ~23 часа: осталось ~24 часа до 3490</li>
+          <li>Ещё через 30 минут: «может, не хватает информации» → Telegram-канал. Ссылка везде пустая.</li>
+        </ol>
+        <p>Что сгорает в напоминании, по полям: энергия не выживание · спокойная жизнь · лёгкое тело · прилив сил · свобода от сахара · есть без страха · забыть рецидивы · регулярный цикл · лёгкость · избавиться от необъяснимого.</p>
+
+        <h3 class="chapter">Комбо через гайд. Другой каркас</h3>
+        <ol>
+          <li>«Здравствуй, дорогая» (ЖКТ и женское: «Привет») + узкий гайд</li>
+          <li>Подписка → выдача</li>
+          <li>Пауза 2 часа. Исключение ЖКТ: 30 минут после видео</li>
+          <li>«База есть, причина глубже» → состав комбо</li>
+          <li>Через 15 минут: типичная ошибка поля → кнопка «хочу комбо»</li>
+        </ol>
+        <p>Цены 2490/3490 в этих ветках <b>не названы</b>. В прямых названы. Либо ставит страница оплаты, либо воронка недописана.</p>
+
+        <h3 class="chapter">Десять магнитов. Считать 10</h3>
+        <table>
+          <tr><th>Комбо</th><th>Код Notion</th><th>Магнит</th><th>Ссылка в источнике</th></tr>
+          <tr><td>Анемия</td><td>ФЕРРИТИН</td><td>Гайд «Всё о ферритине»</td><td>нет</td></tr>
+          <tr><td>Стресс</td><td>СОН</td><td>5 скрытых дефицитов сна</td><td>teletype 1lflMA5cjzY</td></tr>
+          <tr><td>Отёки</td><td>ОТЁКИ</td><td>Отёки и целлюлит: причины</td><td>teletype PiaYthRaJQ9</td></tr>
+          <tr><td>Щитовидка</td><td>ЩИТОВИДКА</td><td>Подкаст «то, что вы стеснялись спросить»</td><td>нет</td></tr>
+          <tr><td>Сладкоежка</td><td>ДЕСЕРТ</td><td>14 десертов без вреда, 2 недели</td><td>нет</td></tr>
+          <tr><td>ЖКТ</td><td>ЗДОРОВЬЕ</td><td>Видео «5 признаков проблем с кишечником»</td><td>t.me/nutri_podruga/981</td></tr>
+          <tr><td>Молочница</td><td>ДРОЖЖИ</td><td>10 признаков грибковой перегрузки</td><td>нет</td></tr>
+          <tr><td>Женское</td><td>ПМС</td><td>Цикл семян (тот же, что у клуба)</td><td>в клубе 3AqESJRvZas; здесь URL пустой</td></tr>
+          <tr><td>Вес</td><td>ЗАВТРАК</td><td>Гайд завтраков. Claim 7000 девушек</td><td>нет</td></tr>
+          <tr><td>Паразиты</td><td>ПАРАЗИТЫ</td><td>10 признаков паразитов</td><td>нет</td></tr>
+        </table>
+
+        <h3 class="chapter">Десять мостов «гайд закрывает симптом, комбо — причину»</h3>
+        <ol>
+          <li>Анемия: повысить железо ≠ добавить продукты или банки.</li>
+          <li>Стресс: плохой сон почти никогда не один.</li>
+          <li>Отёки: чаще метаболизм, гормоны, щитовидка.</li>
+          <li>Щитовидка: симптомы лечат по отдельности, возвращаются.</li>
+          <li>Сладкоежка: ПП-десерты не рвут круг сахар → стресс → вина.</li>
+          <li>ЖКТ: узнала себя в видео → нужна система пищеварения. Пауза 30 мин.</li>
+          <li>Молочница: редко «просто инфекция».</li>
+          <li>Женское: цикл семян работает, когда понятна связка гормоны–еда–печень.</li>
+          <li>Вес: плохой завтрак → скачки сахара → вечерний жор.</li>
+          <li>Паразиты: препарат или народный метод без системы не держит.</li>
+        </ol>
+
+        <h3 class="chapter">Десять давлений через 15 минут</h3>
+        <ol>
+          <li>Анемия: просто попить железо.</li>
+          <li>Стресс: плохой сон = просто усталость.</li>
+          <li>Отёки: целлюлит = жир.</li>
+          <li>Щитовидка: усталость и вес = стресс или возраст.</li>
+          <li>Сладкоежка: взять себя в руки.</li>
+          <li>ЖКТ: справиться самой. Здесь «тысячи женщин».</li>
+          <li>Молочница: проблема только в инфекции.</li>
+          <li>Женское: цикл сам наладится.</li>
+          <li>Вес: просто меньше есть.</li>
+          <li>Паразиты: пропить препарат.</li>
+        </ol>
+        <p class="hint">Полный текст каждого давления и крючка — вкладка 8. Здесь карта, чтобы видеть: десять разных страхов, один приём.</p>
+
+        <h3 class="chapter">Веб 24 июня. Уже прошёл, ленд живой</h3>
+        <p>Заголовок: «Лишний вес, акне, усталость и вздутие — как ты медленно убиваешь свой кишечник?» Было 990 ₽, сделали бесплатно. 1,5 часа. Бонус: паразитоз.</p>
+        <p>Пять блоков эфира:</p>
+        <ol>
+          <li>Волшебные таблетки. Почему продают то, что вредит (Оземпик, детоксы, пробиотики из рекламы)</li>
+          <li>Кишечник — второй мозг. Вес, кожа, настроение, энергия = один корень</li>
+          <li>Анализы: «норма» не равно «здоровье»</li>
+          <li>Почему страх не похудеть мешает похудеть (кортизол, кишечник, тревога вокруг еды)</li>
+          <li>Пять шагов: какие анализы первыми, что убрать, что добавить, психосоматика, когда добавки. Потом вопросы</li>
+        </ol>
+        <p>Для кого на вебе, шесть пунктов: качели веса · шар к вечеру · анализы норма / мне не норма · тащишь себя · срыв на сладкое и ненависть · кожа/волосы/настроение, неясно с чего начать. Не для кого, три: таблетка без смены жизни · результат за неделю без причин · не готова менять еду.</p>
+        <p>Спикер на вебе: 500+ клиентов, 1000+ учениц без откатов. На /food и /pit: 1500+ женщин. Не ставить.</p>
+        <div class="say"><i>Копирайтер · веб</i>Можно: почему банки и детоксы из рекламы не закрывают шар и лимон. Нельзя: «убиваешь кишечник», «кто убивает организм», тысячи без откатов.</div>
+      </section>
+
+      <section class="panel p12">
+        <h2>Кто она как эксперт</h2>
+        <p class="lead">Наталья (на сайте иногда Наталия) Сергеевна Алифер. ИП ИНН 502716470653, ОГРНИП 325508100162127. Instagram @alifer_natalia. Telegram @nutri_podruga, @alifer_intestines, @AliferNataliservice. Клубный бот @zdorovaya_devochka_bot.</p>
+
+        <h3 class="chapter">Право говорить</h3>
+        <div class="prose">
+          <p>Личная история, которую она повторяет: диеты, зал, массажи, отёки, акне, целлюлит, низ живота, отёк под глазами, тяга к сладкому. Всё «правильно» — не работает. Нутрициология: вес, кожа, «просыпаться без тонального». Бывшая модель и мама — в подкасте, не на сайте.</p>
+          <p>На новом ленде: «Я сама прошла этот путь — годы поисков ответа, почему я всё делаю правильно, а ничего не работает.»</p>
+        </div>
+        <div class="quote">Здоровье — это новый тренд, а красота — его результат.<small>Старый сайт. Для курса про причину слабее, чем «я была такой».</small></div>
+
+        <h3 class="chapter">Образование. Одна карточка, не вываливать всё в каждый оффер</h3>
+        <ul>
+          <li>NSA: превентивная нутрициология, паразитология, аллергология</li>
+          <li>Биохимия стройности и микробиома: на сайте МИИН, на новом ленде МНТК. Пока не подтвердит диплом — аббревиатуру не писать</li>
+          <li>CNM, партнёр CNM в России</li>
+          <li>Университет образовательной медицины — health-коуч</li>
+          <li>На ленде курса: Natural Ways to Improve Fertility</li>
+          <li>На сайте: телесно-эмоциональный терапевт, нейрокоуч, ПРЕВЕНТМЕД, партия «Новые люди» / ЗОЖ при Госдуме</li>
+          <li>re.awards 2025 «лучший нутрициолог». В боте ведения то же без уточнения премии. Life.ru апрель 2024. Заявка на Marie Claire</li>
+        </ul>
+        <p>Стаж: сайт «более 5 лет», ленд курса и /food «4 года». Число не писать.</p>
+
+        <h3 class="chapter">Как помогает, её словами</h3>
+        <p>Не запреты. «Подружиться с кишечником.» Превентивные нормы анализов, не только зелёная колонка лаборатории. Еда + психосоматика + добавки + анализы. На ведении ещё гаджеты, капельницы, пептиды, смежные врачи.</p>
+        <p>На /pit: гастрит, мини-интенсив детокс, «система общения с организмом».</p>
+
+        <h3 class="chapter">Три голоса. Пока не сведены</h3>
+        <div class="grid3">
+          <article class="card">
+            <h3>Клуб</h3>
+            <p>Дорогая. Девочка. Безопасно. Цветы. 1 890 «всего».</p>
+          </article>
+          <article class="card">
+            <h3>Комбо в директ</h3>
+            <p>Скажи честно. Удар. 48 часов. Скидка сгорит.</p>
+          </article>
+          <article class="card">
+            <h3>Новый ленд курса</h3>
+            <p>Коротко, телесно. Не сила воли. Ближе к исследованию аудитории.</p>
+          </article>
+        </div>
+        <p class="hint">Живого голоса (сторис, эфиры расшифровкой) в папке нет. Не имитировать «как она говорит в рилсе».</p>
+        <div class="say"><i>Копирайтер · эксперт в тексте</i>Я сама ходила с шаром и лимоном, пока не собрала причину. Теперь собираю систему без голода. Не врач. Если нужен врач — к врачу. Я про еду, привычки и как читать своё тело.</div>
+      </section>
+      <section class="panel p13">
+        <h2>ДНК · барьеры</h2>
+        <p class="lead">Уже хочет что-то сделать. Рука не жмёт кнопку. Или жмёт не ту.</p>
+
+        <h3 class="chapter">Семь препятствий. Считать 7</h3>
+        <ol class="theses">
+          <li><b>Развод / блогер.</b> Сильнее цены. Пока не доказали, что это система, а не сторис, она скроллит дальше.</li>
+          <li><b>Я уже всё пробовала.</b> Беспомощность. Любой новый оффер звучит как прошлый.</li>
+          <li><b>Аптека на 10 тысяч.</b> Даже если курс хороший, тень прошлого нутрициолога.</li>
+          <li><b>Поток, до меня нет дела.</b> 500 человек в чужом отзыве сидит в голове.</li>
+          <li><b>Это не врач.</b> Стыдно купить «курс» вместо кабинета. Или наоборот: кабинет сказал норма, курс кажется глупостью.</li>
+          <li><b>Дорого / нет времени / брошу.</b> Курс кончится, куратор не успеет. Знакомо с чужих потоков.</li>
+          <li><b>Навредят.</b> Жёсткий протокол, страшилки про паразитов, «чистки».</li>
+        </ol>
+
+        <h3 class="chapter">В голове / снаружи / не умею / нет ресурса</h3>
+        <div class="grid2">
+          <article class="card">
+            <h3>В голове</h3>
+            <p>«Нет силы воли.» «Со мной что-то не так.» «Опять потрачу и будет стыдно.» Голос: не пытайся, ты уже сидела на гречке.</p>
+          </article>
+          <article class="card">
+            <h3>Снаружи</h3>
+            <p>Врач «норма». Подруга на Оземпике. Шкаф с банками. Семья «просто меньше ешь». Время: дети, работа, 30–40 минут в день всё равно надо найти.</p>
+          </article>
+          <article class="card">
+            <h3>Не знает как</h3>
+            <p>Не связывает кожу, вес и шар. Не читает анализы дальше зелёной колонки. Не отличает «симптом заглушила» от «причина закрыта».</p>
+          </article>
+          <article class="card">
+            <h3>Ресурс</h3>
+            <p>1 890 за клуб кажется «можно». 70 000 без картины «что будет через месяц» — стоп. Рассрочка курса снимает часть. 48 часов на комбо давят, не объясняют.</p>
+          </article>
+        </div>
+
+        <h3 class="chapter">Где сливается</h3>
+        <table>
+          <tr><th>Когда</th><th>Что происходит</th></tr>
+          <tr><td>До покупки</td><td>Скачала гайд, не дошла до оплаты. Или купила комбо вместо курса и решила, что «уже закрыла кишечник»</td></tr>
+          <tr><td>48 часов комбо</td><td>Скидка сгорела, обида сильнее боли. Или купила в панике</td></tr>
+          <tr><td>Середина курса</td><td>Рынок орёт: куратор не успел, поток. У неё куратор 1,5 мес — как раз этот страх</td></tr>
+          <tr><td>Вместо движения</td><td>Новый рилс, новая банка, «с понедельника», Оземпик, детокс из рекламы</td></tr>
+        </table>
+
+        <h3 class="chapter">Пять мифов</h3>
+        <table>
+          <tr><th>Как звучит</th><th>Что делает</th><th>Что ей отвечать</th></tr>
+          <tr><td>Дело в силе воли</td><td>Винит себя, срывается, стыдится</td><td>Новый ленд уже: причина в кишечнике. Не усиливать «ты жертва», дать механизм своими словами</td></tr>
+          <tr><td>Анализы норма = я здорова</td><td>Откладывает, пока шар не станет невыносимым</td><td>«Норма лаборатории» и «мне норма» — разные линейки. Без антимедицины</td></tr>
+          <tr><td>Ещё одна диета закроет</td><td>Качели веса</td><td>Диета без причины — круг. Не обещать «похудеешь навсегда»</td></tr>
+          <tr><td>Банка / свеча / Оземпик закроет</td><td>Глушит симптом</td><td>Массовый курс: сначала еда и понимание. Не война с аптекой врача</td></tr>
+          <tr><td>Если не пьёт и не орёт, рано идти к нутрициологу</td><td>Ждёт диагноза</td><td>Приходят, когда достало. Профилактику не покупают. Бить в «достало», не в «заботься заранее»</td></tr>
+        </table>
+
+        <h3 class="chapter">Что уже пробовала. Пять путей</h3>
+        <ol>
+          <li>Диеты и «правильный понедельник»</li>
+          <li>Зал, массажи, антицеллюлит — как у самой Натальи в истории</li>
+          <li>Банки с рилса и с прошлого нутрициолога</li>
+          <li>Гастроэнтеролог / гинеколог / эндокринолог: «норма»</li>
+          <li>YouTube, детоксы, пробиотик из рекламы, иногда Оземпик</li>
+        </ol>
+        <p class="hint">Её кастдева нет. Это сборка из исследования рынка + её воронок + её личной истории. Не выдавать за интервью клиенток.</p>
+      </section>
+
+      <section class="panel p14">
+        <h2>ДНК · жизнь после</h2>
+        <p class="lead">Картинка, которую они сами называют. Не «тело мечты» со старого сайта.</p>
+        <div class="prose">
+          <p>Лёгкий живот вечером. Застегнула брюки и забыла. Утро без подвига. Кожа, на которую не нужен тональный каждый день. Цикл без лотереи. Сладкое не как наказание и не как враг. «Наконец сложилось.» Ест без страха, что раздует.</p>
+          <p>Первое чувство, которое продаёт рынок: облегчение «дело не во мне». Потом энергия. Потом внешность как следствие, не как цель.</p>
+          <p>Кем себя называет после, если честно: не «исцелилась». «Я понимаю своё тело.» «Не боюсь своего тела» — так в отзыве на ленде (Наталья, Казань). «На троечку» про кишечник в источниках нет: здесь ждут «систему на всю жизнь».</p>
+        </div>
+
+        <h3 class="chapter">Что хотят услышать</h3>
+        <table>
+          <tr><th>От кого</th><th>Что</th></tr>
+          <tr><td>Себе</td><td>Я не слабая. Я разобралась. Могу есть среди людей</td></tr>
+          <tr><td>Врач</td><td>Реже «выдумываете». Или хотя бы «давайте посмотрим превентивно»</td></tr>
+          <tr><td>Близкие</td><td>Меньше советов «просто меньше ешь». В исследовании вторично «чтобы муж смотрел»</td></tr>
+          <tr><td>Лента / «враги»</td><td>Не найдено как драйвер. Не выдумывать «утри нос бывшей»</td></tr>
+        </table>
+
+        <h3 class="chapter">Чего не хочет делать, чтобы «получилось»</h3>
+        <ul>
+          <li>Голод. Жёсткий детокс. «Убери всё».</li>
+          <li>Аптека на 10 тысяч в обязаловку.</li>
+          <li>Поток, где её не видят.</li>
+          <li>Ещё одна диета на две недели.</li>
+          <li>Считать калории как характер (ведение как раз обещает вес без подсчёта).</li>
+        </ul>
+
+        <h3 class="chapter">Что обещают разные полки. Не склеивать</h3>
+        <table>
+          <tr><th>Полка</th><th>Картинка после</th></tr>
+          <tr><td>Новый ленд курса</td><td>30 дней, система, план на полгода, вздутие уходит (отзыв: 3 неделя)</td></tr>
+          <tr><td>Старый сайт</td><td>Тело мечты, стройность, гармония, круассаны в подтексте «без ограничений»</td></tr>
+          <tr><td>Клуб</td><td>Свои, безопасно, цикл, кожа, иногда вес в одном сообщении</td></tr>
+          <tr><td>Комбо</td><td>Точечно: энергия / лёгкое тело / есть без страха / свобода от сахара</td></tr>
+          <tr><td>Ведение</td><td>Протокол под тебя, гаджеты, банки, капельницы</td></tr>
+        </table>
+        <div class="say"><i>Копирайтер · жизнь после</i>К вечеру живот тихий. Утром не надо себя тащить. Ты понимаешь, почему так было, и знаешь, что делать, когда чат закроется. Без «навсегда» и без «тело мечты».</div>
+      </section>
+
+      <section class="panel p15">
+        <h2>ДНК · когда покупают</h2>
+        <p class="lead">Не «когда увидела красивый баннер». Когда достало. Исследование: профилактику не покупают.</p>
+
+        <h3 class="chapter">Путь как на рынке</h3>
+        <ol>
+          <li>Точка боли: шар / вес / лимон / врач «норма».</li>
+          <li>Рилс, подписка, долгое присматривание. Недели и месяцы.</li>
+          <li>Бесплатный эфир или диагностика. Микро-результат до оплаты («уже после веба вес пошёл») — главный конвертер у конкурентов.</li>
+          <li>Доверие «такая же, как я».</li>
+          <li>Покупка на эмоции эфира. Рассрочка снимает цену.</li>
+        </ol>
+        <p>У неё веб 24 июня уже был. Микро-результат до покупки цифрами не доказан. В источниках заложен в механику, не в отчёт.</p>
+
+        <h3 class="chapter">Когда именно жмёт</h3>
+        <ul>
+          <li>Брюки / кольцо / лицо в зеркале утром.</li>
+          <li>Третий круг молочницы или запора.</li>
+          <li>Ответ врача «всё хорошо» в день, когда ей не хорошо.</li>
+          <li>Срыв вечером после «идеального» дня.</li>
+          <li>Чужой отзыв «на третьей неделе ушло вздутие» — узнала себя.</li>
+          <li>48 часов на комбо — искусственный дедлайн. Покупает страх упустить, не зрелость.</li>
+        </ul>
+
+        <h3 class="chapter">Что у неё уже собрано как окна</h3>
+        <table>
+          <tr><th>Окно</th><th>Как греет</th><th>Дыра</th></tr>
+          <tr><td>Директ комбо</td><td>Боль сегодня, скидка двое суток</td><td>Нет длинного прогрева. Канал-ссылка пустая</td></tr>
+          <tr><td>Гайд → комбо</td><td>Подарок, через 2 часа «причина глубже»</td><td>Цена в переписке не названа</td></tr>
+          <tr><td>Клуб</td><td>Мягко, свои, 1890</td><td>Три гайда, одна ссылка. Пересекается с комбо «женское»</td></tr>
+          <tr><td>Веб</td><td>1,5 часа, пять блоков, бонус-страшилка</td><td>Дата прошла, ленд орёт «сегодня»</td></tr>
+          <tr><td>Ведение</td><td>Увод в бота</td><td>Нет оффера после «как давно»</td></tr>
+        </table>
+        <div class="callout">Исследование: рилс → сторис → запись на эфир. У неё много окон и нет одного главного продукта. Для нового запуска сначала один главный продукт, окна вокруг него.</div>
+        <div class="say"><i>Копирайтер · момент покупки</i>Не «успей, пока −30%» как главный смысл. «Достало ходить с шаром и слышать норма.» Скидка может быть. Не вместо причины.</div>
+      </section>
+
+      <section class="panel p16">
+        <h2>ДНК · скрытое</h2>
+        <p class="lead">Что стыдно сказать вслух. Что бренд сам себе подставляет. Что нельзя дописывать.</p>
+
+        <h3 class="chapter">Стыдно признать</h3>
+        <ul>
+          <li>Пуки в кабинете. Живот как беременность без беременности.</li>
+          <li>Объелась ночью и ненавижу себя.</li>
+          <li>Пью железо / свечи / банки и всё равно никак.</li>
+          <li>Хочу волшебную таблетку. И стыжусь, что хочу.</li>
+          <li>Боюсь, что я «выдумываю», раз анализы зелёные.</li>
+          <li>Молочницу и цикл вслух говорят реже, чем про вес. Чаще про шар и лимон.</li>
+        </ul>
+
+        <h3 class="chapter">Скрытое в бренде. Не для рекламы, для нас</h3>
+        <ul>
+          <li>Два курса под одним именем. Неясно, что отгружают.</li>
+          <li>Один урок продаётся в четырёх комбо.</li>
+          <li>«Без банок» на курсе и банки/капельницы на ведении.</li>
+          <li>Страшилка паразитоза рядом с «научным подходом».</li>
+          <li>Счётчик 0+ на главном новом ленде.</li>
+          <li>Клуб и комбо дерутся за «Цикл семян».</li>
+          <li>Бот ведения обещает, что Наталья читает. Сайт шлёт к менеджеру.</li>
+          <li>В боте: слезть с КОК. Для наших текстов это мед. риск.</li>
+        </ul>
+
+        <h3 class="chapter">Чего в источниках нет. Не выдумывать</h3>
+        <ul>
+          <li>Её разговоры с клиентками. Только рынок и её написанные воронки</li>
+          <li>Живые цифры Instagram, веба, кассы</li>
+          <li>Клуб уже идёт или только тексты</li>
+          <li>Комбо живые или черновик Notion</li>
+          <li>Хвост бота после «как давно»</li>
+          <li>Цена датчика глюкозы, омеги, коллагена</li>
+          <li>Как она говорит в сторис</li>
+          <li>Что запускаем мы следующим</li>
+          <li>Явный «не для беременных / онко / детей» кроме «не для волшебной таблетки»</li>
+        </ul>
+      </section>
+
+      <section class="panel p17">
+        <h2>ДНК · язык для текстов</h2>
+        <p class="lead">Два слоя. Слой А: как она уже пишет. Слой Б: как нам писать, чтобы попасть в аудиторию и не усилить мед. риск.</p>
+
+        <h3 class="chapter">Тащить. Их рот</h3>
+        <div class="quote">Хожу как беременная. Еле брюки застёгиваются.</div>
+        <div class="quote">Живот как шар. Воздушный шарик.</div>
+        <div class="quote">Выжатый лимон. Протащить себя через день.</div>
+        <div class="quote">Качели с весом. Срывы. Заедания.</div>
+        <div class="quote">Всё перепробовала. Наконец сложилось.</div>
+        <div class="quote">Анализы норма — мне не норма.</div>
+        <div class="quote">Без жёстких диет. По-человечески.</div>
+        <div class="quote">Скажи честно… (её директ)</div>
+        <p>Маркеры: нет силы воли, дырявый кишечник (осторожно), с понедельника, батарейка села, носить воду в решете, белка в колесе.</p>
+
+        <h3 class="chapter">Как она уже пишет. Три регистра</h3>
+        <table>
+          <tr><th>Где</th><th>Как звучит</th><th>Брать?</th></tr>
+          <tr><td>Новый ленд курса</td><td>Коротко, тело, не воля</td><td>Да, это ближайший к исследованию</td></tr>
+          <tr><td>Прямые комбо</td><td>Честно + удар + 48 часов</td><td>Сцены тела да. Срочность 48 ч — по задаче, не как голос бренда</td></tr>
+          <tr><td>Клуб</td><td>Дорогая, девочка, благодарю</td><td>Только если продаём клуб. На курс не переносить</td></tr>
+          <tr><td>Старый сайт</td><td>Тело мечты, лучшая версия, гармония</td><td>Нет для нового главного продукта</td></tr>
+          <tr><td>Веб / бонус</td><td>Убиваешь кишечник, кто убивает организм</td><td>Нет</td></tr>
+          <tr><td>Бот ведения</td><td>Прайм эра, слезть с КОК, лучший в России</td><td>Нет</td></tr>
+        </table>
+
+        <h3 class="chapter">Как нам писать. Правила</h3>
+        <ul>
+          <li>Телесно и стыд, не латынь. СРК и СПКЯ можно в «если уже сказал врач», не в заголовок рекламы.</li>
+          <li>Одна мысль в блоке. Причина → что делать. Не каталог диагнозов.</li>
+          <li>Обещание: понять почему + план. Не «вылечим», не «навсегда», не «снимем кисту».</li>
+          <li>Дополняет врача. Если болит остро — сначала кабинет.</li>
+          <li>Банки: на курсе «не корзина». На ведении не притворяться, что банок нет.</li>
+          <li>Цифры учениц, лет, «тысячи», 7000, 0+ — стоп.</li>
+          <li>Не мешать голос клуба и голос курса в одном письме.</li>
+          <li>Не тащить слова Ксении (антисрыв, калории) и Наташи-психолога (рот, листы, тренажёр).</li>
+        </ul>
+
+        <h3 class="chapter">Готовые куски. Можно класть в черновик</h3>
+        <div class="say"><i>Первый экран курса</i>Всё перепробовала. Анализы зелёные, тебе не зелёные. Живот к вечеру как шар, утром лимон. Давай найдём, откуда это, и соберём 30 дней без голода.</div>
+        <div class="say"><i>Клуб</i>Не одна с гайдом в заметках. Свои, спокойный чат, зумы. 1 890 в месяц. Без жести и без «убери всё».</div>
+        <div class="say"><i>Комбо живот</i>Ешь и гадаешь, раздует или нет. Здесь не список запретов. Причины шара и что делать с едой.</div>
+        <div class="say"><i>Возражение банки</i>Курс не про корзину на десять тысяч. Сначала еда и понимание. Добавка — если нужна, не потому что «так надо всем».</div>
+        <div class="say"><i>Возражение врач</i>Это не вместо гастроэнтеролога. Если врач нужен — к врачу. Здесь: как читать сигналы и собрать питание, когда «норма» на бланке, а в теле нет.</div>
+        <div class="say"><i>Не писать</i>Тело мечты. Прайм эра. Убиваешь кишечник. Тысячи учениц без откатов. Навсегда забудешь про молочницу. Слезем с КОК. Лучший нутрициолог России.</div>
+      </section>
+
+      <section class="panel p18">
+        <h2>ДНК · кто купит ближе</h2>
+        <p class="lead">Не «всем женщинам 25–45». Кто ближе к кнопке при текущей витрине.</p>
+
+        <h3 class="chapter">Ближе всего</h3>
+        <ol class="theses">
+          <li><b>Шар + лимон + «всё пробовала».</b> Новый ленд курса написан под неё. Шесть болей первого экрана — это она.</li>
+          <li><b>Стыд живота сильнее желания «минус 5 кг».</b> Купит «понять почему», не меню сушки.</li>
+          <li><b>Уже подписана, уже забирала гайд.</b> Прогрев неделями. Холодный таргет без её лица и истории — слабее.</li>
+          <li><b>Готова 30–40 минут сама</b> на тарифе «я сама». Если хочет, чтобы сделали за неё — это ведение, другой чек и другой страх банок.</li>
+          <li><b>Не ищет волшебную неделю.</b> Ищет систему. Согласна, что еду придётся менять.</li>
+        </ol>
+
+        <h3 class="chapter">Купит комбо, не курс, если</h3>
+        <ul>
+          <li>Боль узкая и орёт сегодня: железо, сладкое, молочница, кольца.</li>
+          <li>Не готова 15–45 тысяч.</li>
+          <li>Попала в директ «скажи честно» и 48 часов.</li>
+        </ul>
+        <p>Риск: думает, что нарезка = весь кишечник. Потом злится на отсылки к урокам вне комбо.</p>
+
+        <h3 class="chapter">Купит клуб, не курс, если</h3>
+        <ul>
+          <li>Хочет своих и мягко, не «удар».</li>
+          <li>Цикл / ПМС / запор как вход, не «большая система 30 дней».</li>
+          <li>1 890 психологически легче, чем 15 тысяч.</li>
+        </ul>
+
+        <h3 class="chapter">Купит ведение, если</h3>
+        <ul>
+          <li>Хочет протокол под себя, анализы, чтобы вели.</li>
+          <li>Готова к банкам и смежным специалистам. Это не та, кто бежит от «аптеки на 10к» — или она ещё не прочитала состав.</li>
+          <li>70 тысяч надо отдельно объяснять. Сейчас на сайте список, не картина месяца.</li>
+        </ul>
+
+        <h3 class="chapter">Дальше от кнопки</h3>
+        <ul>
+          <li>Хочет таблетку за неделю, еду не меняет.</li>
+          <li>Ищет только список банок.</li>
+          <li>Мужчины как ядро.</li>
+          <li>«Пусть сделают за меня» на тарифе 15 490.</li>
+          <li>Острый мед. случай, где нужен врач сейчас, не курс.</li>
+          <li>Пришла за фитнесом Ксении или за отношениями другой Наташи.</li>
+        </ul>
+        <div class="say"><i>Копирайтер · для кого</i>Для той, кто всё перепробовала, стыдится шара и лимона, слышит «норма» и больше не хочет воевать с собой. Не для той, кто ищет неделю до пляжа и корзину банок.</div>
+      </section>
+
+      <section class="panel p19">
+        <h2>Где спорят цифры и продукты</h2>
+        <p class="lead">Не усреднять. В работу брать пометку: факт / конфликт / в источниках нет.</p>
+        <table>
+          <tr><th>Тема</th><th>Одно место</th><th>Другое</th><th>Что делать</th></tr>
+          <tr><td>Имя</td><td>Наталия (сайт)</td><td>Наталья (ИП, ленды, бот)</td><td>В текстах Наталья Алифер. В юрблоке как в оферте</td></tr>
+          <tr><td>Стаж</td><td>Более 5 лет</td><td>4 года</td><td>Не писать число</td></tr>
+          <tr><td>Ученицы</td><td>0+ на новом ленде</td><td>500+ / 1000+ / 1500+ / сотни / тысячи / 7000</td><td>Не ставить цифру, пока нет кабинета</td></tr>
+          <tr><td>Курс</td><td>8 лекций, 15 000</td><td>16 уроков, 15 490–44 990; ещё «16 часов»</td><td>Спросить, что выдают после оплаты</td></tr>
+          <tr><td>Банки</td><td>Курс: не навязываем</td><td>Ведение: банки, капельницы, пептиды</td><td>Не маскировать</td></tr>
+          <tr><td>Школа биохимии</td><td>МИИН</td><td>МНТК</td><td>Не писать аббревиатуру</td></tr>
+          <tr><td>Цикл семян</td><td>Клуб</td><td>Комбо «женское»</td><td>Выбрать главную ветку</td></tr>
+          <tr><td>Три гайда клуба</td><td>Три имени</td><td>Одна ссылка</td><td>Баг</td></tr>
+          <tr><td>Домен</td><td>nutriciology</td><td>nutritionology</td><td>Две орфографии</td></tr>
+          <tr><td>Ведение: кто читает</td><td>Наталья в директ</td><td>Менеджер на сайте</td><td>Не обещать личное чтение</td></tr>
+        </table>
+
+        <h3 class="chapter">Агрессивные формулировки в сырье. Не усиливать</h3>
+        <p>Протоколы при СРК / СПКЯ / гипотиреозе. «Лечение» паразитоза. «Устранить причину анемии.» СИБР, ГЭРБ, СИГР. Слезть с КОК. Капельницы и пептиды. «Кто убивает организм изнутри.»</p>
+        <p>Правило: образовательный характер. Не лечение. Не отмена назначений врача. Формулу футера нового ленда держать.</p>
+
+        <h3 class="chapter">Баги копирайта. Не размножать</h3>
+        <ul>
+          <li>Три гайда клуба → один URL</li>
+          <li>Счётчик 0+ учениц</li>
+          <li>Опечатки сайта: стройиности, телестно, Улучишь</li>
+          <li>«Тысячи женщин» в бесплатнике ЖКТ</li>
+          <li>Пустые ссылки на Telegram-канал во всех 10 прямых комбо</li>
+        </ul>
+
+        <div class="stopbox">Следующий шаг: выбрать один главный продукт нового запуска. Пока в сырье четыре кассы сразу. Хаб это карта. Не стратегия «продаём всё».</div>
+      </section>
+
+      <section class="panel p20">
+        <h2>Конкуренты и паттерны</h2>
+        <p class="lead">Блок исследования рынка. Рамка: русскоязычные женщины 25–45, кишечник, оздоровление через нутрициологию. Цены в рекомендациях подогнаны под её витрину. Это не абстрактный рынок и не материал для рекламы «мы лучше Губаревой».</p>
+
+        <h3 class="chapter">Семь паттернов мышления. Считать 7</h3>
+        <ol class="theses">
+          <li>Винят себя, не подход. «Нет силы воли.» Новый ленд бьёт сюда в лоб.</li>
+          <li>Хотят таблетку и стыдятся этого. Курс C говорит «не список банок». Ведение продаёт банки и капельницы.</li>
+          <li>Доверяют «таким же» больше врачей. Растёт спрос на доказательность. Отсюда сила личной истории и слабость пустого счётчика 0+.</li>
+          <li>Профилактику не покупают. Приходят, когда достало. Прогрев «пока не болит» для этой ЦА слабый.</li>
+          <li>Здоровье слито с внешностью. Живот, лицо, кольца. Старый сайт делает витриной стройность. Research сильнее бьёт в стыд, чем в «тело мечты».</li>
+          <li>Сами «психосоматизируют» кишечник. «От нервов бурлит.» Модуль 10 курса C это закрывает. Отдельного урока пищевого поведения в 16 модулях нет.</li>
+          <li>Рынок расколот: научный полюс и детокс из рилса. В её бренде оба: CNM и превентивные нормы на ленде C и страшилка паразитоза на вебе.</li>
+        </ol>
+
+        <h3 class="chapter">Конкуренты как в исследовании. Цены с оговоркой давности</h3>
+        <table>
+          <tr><th>Имя</th><th>Что написано в research</th><th>Что аудитория хвалит / ругает</th></tr>
+          <tr><td>Губарева «Здоровый ЖКТ»</td><td>34 900–99 900. Часть цен с ленда 2022</td><td>Хвалят структуру. Ругают поток 500 и банки + анализы отдельно</td></tr>
+          <tr><td>LM Academy / Мариса Мариш</td><td>15 999–23 999</td><td>Полка «курс про кишечник»</td></tr>
+          <tr><td>Надусова</td><td>19 900, 4R, схемы в PDF</td><td>—</td></tr>
+          <tr><td>Новикова</td><td>Цены закрыты, запуски</td><td>—</td></tr>
+          <tr><td>Борова</td><td>Доказательный полюс</td><td>Не курс по кишечнику</td></tr>
+          <tr><td>Ведение рынка</td><td>8–50 тыс/мес, типично 15–35</td><td>Её 70 тысяч выше полки</td></tr>
+        </table>
+        <p>Вывод research: 15 000 за флагман ниже рынка, поднимать до 19–24 тысяч с сеткой. На ленде C сетка уже 15 490 / 24 990 / 44 990. Рекомендация частично исполнена. Цифры конкурентов в рекламу Алифер не ставить.</p>
+        <div class="warnbox">Оговорка самого research: цены Губаревой старые, часть курсов не верифицирована, цитаты с форумов не репрезентативны. Это ориентир, не тендер.</div>
+
+        <h3 class="chapter">Как на рынке покупают. Путь решения</h3>
+        <div class="flow">
+          <span class="box">Боль</span><span class="arr">→</span>
+          <span class="box">контент в соцсетях</span><span class="arr">→</span>
+          <span class="box">долгий прогрев, недели и месяцы</span><span class="arr">→</span>
+          <span class="box">веб или диагностика с микро-результатом</span><span class="arr">→</span>
+          <span class="box">«такая же как я»</span><span class="arr">→</span>
+          <span class="box">покупка на эмоции веба, рассрочка</span>
+        </div>
+        <p>У неё веб 24 июня уже был. Микро-результат до покупки цифрами не доказан. Календарь прогрева в папке нет.</p>
+
+        <h3 class="chapter">Углы, которые research считает рабочими</h3>
+        <ul>
+          <li>Один корень: кишечник.</li>
+          <li>95% диет не работают.</li>
+          <li>Дело не в силе воли.</li>
+          <li>7 признаков.</li>
+          <li>Личная история.</li>
+          <li>Reels → сторис → веб.</li>
+          <li>Бесплатный веб или диагностика с микро-результатом как главный конвертер.</li>
+        </ul>
+        <p>Ленд C уже держит первые три. «7 признаков» в каталоге как отдельный лидмагнит нет. Ближе: видео «5 признаков ЖКТ».</p>
+
+        <h3 class="chapter">Лестница research vs факт витрины. Не схлопывать</h3>
+        <table>
+          <tr><th>Что советовал research</th><th>Что лежит у неё</th></tr>
+          <tr><td>Лидмагнит «7 признаков» + веб</td><td>Много гайдов, веб был 24 июня, видео «5 признаков» есть</td></tr>
+          <tr><td>Трипваер 1 500–3 000 «вздутие за 7 дней»</td><td>Именно этого нет. Есть меню 2 990, комбо 2 490, клуб 1 890, веб 590</td></tr>
+          <tr><td>Флагман 15к → 19–24к, сетка</td><td>C: 15 490 / 24 990 / 44 990</td></tr>
+          <tr><td>Премиум 35–45к с разбором анализов</td><td>VIP 44 990</td></tr>
+          <tr><td>Ведение 70к упаковать как трансформацию</td><td>70к есть. На сайте список услуг, не картина месяца</td></tr>
+          <tr><td>Клуб 1 500–3 000 после курса, чтобы не бросили</td><td>Клуб 1 890 есть. Продаётся с холодного гайда, не как шаг после курса</td></tr>
+        </table>
+        <div class="say"><i>Копирайтер · рынок</i>Не писать «единственный курс про кишечник» и не мерить себя чужими ценниками в рекламе. Писать: поток 500 бесит, аптека на 10 тысяч бесит, «норма» на бланке бесит. Здесь система на 30 дней и можно с куратором.</div>
+      </section>
+
+      <section class="panel p21">
+        <h2>Что это значит для запуска</h2>
+        <p class="lead">Гипотеза продюсера на 28 августа 2026. Не бриф Натальи. Не «продаём вот это». Пока она не скажет, что отгружается после оплаты, программу в рекламу не писать.</p>
+
+        <div class="how">
+          <b>Диагноз</b>
+          Витрина собрана. Флагман нового окна не выбран. Четыре кассы кричат одну фразу: «причина, не симптом». Человек с шаром к вечеру может купить гайд, клуб, комбо, меню, курс или ведение. Playbook: сначала что продаём и кому. Сейчас «что» плавает.
+        </div>
+
+        <h3 class="chapter">Четыре вопроса подписчицы. Как закрыты сейчас</h3>
+        <ol>
+          <li><b>Ниша закрывает потребность?</b> Да, если потребность = здоровье и состояние через тело. Личная история и «кишечник как корень» это держат. Слабое место: слишком много корней сразу (паразиты, щитовидка, грибок, СПКЯ). Ниша широкая до потери остроты.</li>
+          <li><b>Она эксперт?</b> Креды и СМИ есть. Счётчики учениц спорят. «0+» на новом ленде убивает вопрос.</li>
+          <li><b>У меня получится?</b> Закрывают историей «я была такой» и шестью отзывами ленда. Мало антикейсов. Нет разговора с её клиентками. Research с форумов — не её база.</li>
+          <li><b>Почему её курс?</b> Ленд C отвечает: не поток «решим всё», не аптека, 30 дней, можно с куратором. Старый сайт это не договаривает. Ведение 70 тысяч не объясняет, чем дороже рынка.</li>
+        </ol>
+
+        <h3 class="chapter">Три пути. Считать 3</h3>
+        <article class="field">
+          <h3>Путь 1. Флагман = курс C на GetCourse</h3>
+          <p>16 уроков. Три тарифа. Ближе к тому, как аудитория покупает. Прошедший веб уже вёл сюда. Рассрочка есть.</p>
+          <p><b>Цена пути.</b> Не ясно, что выдают после оплаты: 8 лекций сайта или 16 модулей. Счётчик 0+. Старый сайт рядом орёт «тело мечты» и 15 000 за другой состав.</p>
+        </article>
+        <article class="field">
+          <h3>Путь 2. Одно поле как вход. Комбо как порог. Курс C как касса</h3>
+          <p>Узкий вход: живот или железо. Комбо 2 490 за двое суток. Потом курс.</p>
+          <p><b>Цена пути.</b> Десять одинаковых окон 48 часов рядом — это не стратегия запуска, это десять копий шаблона. Человек, купивший три комбо, дважды платит за урок «ЖКТ». Дисклеймер про отсылки вне комбо усиливает страх «опять кусок».</p>
+        </article>
+        <article class="field">
+          <h3>Путь 3. Флагман = клуб 1 890</h3>
+          <p>Легче цена. Мягкий тон. Свои в чате. Три входа: цикл, запор, ПМС.</p>
+          <p><b>Цена пути.</b> Исследование ставит клуб после курса, чтобы не бросили. У неё клуб продаётся с холодного гайда как маленький главный продукт. Три имени гайдов, одна ссылка. Не ясно, клуб уже идёт или это черновик Notion.</p>
+        </article>
+
+        <h3 class="chapter">Рекомендация. Гипотеза</h3>
+        <p>Путь 1 как окно запуска: один продукт, одна программа, три двери цены. Клуб оставить на удержание после. Комбо оставить вечнозелёным директом, не десятью одновременными «запусками».</p>
+        <p>Не выбирать за Наталью в рекламе. Сначала вопрос: что человек получает на почте после оплаты курса.</p>
+        <div class="say"><i>Копирайтер · пока флагман не выбран</i>Не писать «полная экосистема». Писать одну ступень. Для курса C: 30 дней, смотришь и делаешь, без «характер слабый», без снятия диагноза.</div>
+
+        <h3 class="chapter">Порядок, если берём путь 1</h3>
+        <ol>
+          <li>День 0. Наталья отвечает: какая версия курса отгружается. Живой ли клуб. Живые ли комбо.</li>
+          <li>Дни 1–2. Одна карточка эксперта. Одна цифра учениц или ни одной. Починить 0+ и три гайда на один URL, если клуб в работе.</li>
+          <li>Дни 3–7. Календарь прогрева к одному окну. Не десять комбо-окон. Веб или диагностика с микро-результатом, как советует рынок.</li>
+          <li>Дальше копирайт и воронка уже под выбранный SKU. Не раньше.</li>
+        </ol>
+        <div class="warnbox">Чего нет, чтобы снять гипотезу: версия после оплаты; цифры Instagram и веба 24 июня; Miro; её живой голос; разговор с её клиентками; цена датчика глюкозы и коллагена.</div>
+      </section>
+
+      <section class="panel p22">
+        <h2>Что есть и чего нет</h2>
+        <p class="lead">Потолок папки на 28 августа 2026. Не выдумывать. Не заполнять дыру «логичным».</p>
+
+        <h3 class="chapter">Снято и лежит в хабе</h3>
+        <ul>
+          <li>Сайт alifernutriciology.com: главная, /food, /pit</li>
+          <li>Ленд курса GetCourse и ленд веба 24 июня</li>
+          <li>Notion: клуб, 10 комбо, три типа воронок, ведение (fetch страницы обрезался, корпус взят из чата)</li>
+          <li>Исследование аудитории, 10 блоков</li>
+          <li>Внешние следы: Telegram, Life.ru, чужой маркетплейс</li>
+        </ul>
+
+        <h3 class="chapter">В источниках нет. Блокеры</h3>
+        <ul>
+          <li>Какая версия курса приходит после оплаты</li>
+          <li>Подписчики Instagram, охваты, конверсия веба 24 июня, продажи комбо / клуба / курса / ведения</li>
+          <li>Клуб уже идёт или только тексты Notion</li>
+          <li>Комбо уже продаются или черновик воронок</li>
+          <li>Хвост бота ведения после «как давно»</li>
+          <li>Цены пакета с датчиком глюкозы и омеги/коллагена</li>
+          <li>Живой голос: сторис, расшифровки, как она говорит вслух</li>
+          <li>Разговор с её клиентками. Research = форумы рынка, не её база</li>
+          <li>Что продаём в новом запуске с продюсером</li>
+          <li>Анти-оффер «не для беременных / онко / детей» кроме общих «не для волшебной таблетки»</li>
+          <li>Содержимое доски Miro. URL есть, доступ Cursor не принят</li>
+          <li>Тексты трёх teletype-гайдов. При съёме 429/500</li>
+          <li>Кейсы «до/после» с главной сайта: блок в вёрстке есть, тексты не развернулись</li>
+        </ul>
+
+        <h3 class="chapter">Баги сырья. Не размножать в новых текстах</h3>
+        <ul>
+          <li>Три гайда клуба → один URL teletype</li>
+          <li>Счётчик 0+ учениц на новом ленде</li>
+          <li>Опечатки сайта: стройиности, телестно, Улучишь</li>
+          <li>«Тысячи женщин» в бесплатнике ЖКТ при 0+ на курсе</li>
+          <li>Пустые ссылки на Telegram-канал во всех 10 прямых комбо</li>
+          <li>Две орфографии бренда: nutriciology и nutritionology</li>
+        </ul>
+
+        <h3 class="chapter">Как читать пометки</h3>
+        <table>
+          <tr><th>Пометка</th><th>Что делать</th></tr>
+          <tr><td>Факт</td><td>Есть в файле источника. Можно опираться</td></tr>
+          <tr><td>Конфликт</td><td>Два числа или два состава. Не среднее. Вкладка 19</td></tr>
+          <tr><td>Гипотеза</td><td>Вывод продюсера. Вкладка 21. Не писать клиентке как обещание</td></tr>
+          <tr><td>В источниках нет</td><td>Пусто. Не додумывать «наверное курс C»</td></tr>
+        </table>
+        <div class="stopbox">Это не хаб Наташи-психолога. Не Ксения. Не Умная сушка. Не Карина. Ключ в чат: алифер / нутрициология / здоровая девочка.</div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
