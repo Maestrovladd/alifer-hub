@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Анкета · Наталья Алифер</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --muted: #5c574e;
+      --sage: #7a8c52;
+      --sage-deep: #5c6b3e;
+      --cream: #d9d3c9;
+      --paper: #fffcf7;
+      --bg: #f3efe7;
+      --line: color-mix(in oklab, var(--cream) 70%, var(--ink));
+      --shadow: 0 18px 40px color-mix(in oklab, var(--sage-deep) 16%, transparent);
+      --radius: 24px;
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --col: 720px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Figtree, ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 420px at 80% -10%, color-mix(in oklab, var(--sage) 18%, transparent), transparent 70%),
+        var(--bg);
+      line-height: 1.55;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .banner {
+      display: block;
+      width: 100%;
+      background: #fff;
+    }
+    .banner img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1920 / 720;
+      object-fit: cover;
+      object-position: center;
+    }
+    .wrap {
+      width: min(var(--col), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 80px;
+    }
+    .intro p {
+      margin: 0 0 14px;
+      font-size: 18px;
+      line-height: 1.55;
+      text-wrap: pretty;
+    }
+    .gift {
+      margin: 22px 0 8px;
+      padding: 20px 22px;
+      background: color-mix(in oklab, var(--sage) 12%, var(--paper));
+      border: 1px solid color-mix(in oklab, var(--sage) 28%, var(--cream));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .gift p { margin: 0; font-size: 17px; }
+    .gift p + p { margin-top: 10px; }
+    form { margin-top: 28px; display: grid; gap: 14px; }
+    .q {
+      background: var(--paper);
+      border: 1px solid color-mix(in oklab, var(--cream) 80%, var(--ink));
+      border-radius: var(--radius);
+      padding: 18px 20px 20px;
+      box-shadow: 0 10px 28px color-mix(in oklab, var(--sage-deep) 8%, transparent);
+    }
+    .num {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--sage-deep);
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .q h2, .q legend {
+      display: block;
+      margin: 0;
+      padding: 0;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .q legend {
+      float: none;
+      width: 100%;
+      max-width: 100%;
+    }
+    .q legend .num { display: block; }
+    .hint {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .poles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 12px 0 14px;
+    }
+    .poles p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .poles strong { display: block; color: var(--ink); font-weight: 700; margin-bottom: 2px; }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      margin-top: 12px;
+      border: 1px solid color-mix(in oklab, var(--cream) 55%, var(--ink));
+      border-radius: 16px;
+      background: #fff;
+      color: var(--ink);
+      font: 400 16px/1.45 Figtree, ui-sans-serif, system-ui, sans-serif;
+      padding: 14px 16px;
+      outline: none;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    input:focus-visible,
+    textarea:focus-visible {
+      border-color: var(--sage-deep);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--sage) 35%, transparent);
+    }
+    .scale {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .scale label {
+      min-width: 44px;
+      min-height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      border: 1px solid color-mix(in oklab, var(--cream) 50%, var(--ink));
+      background: #fff;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      cursor: pointer;
+      user-select: none;
+    }
+    .scale input { position: absolute; opacity: 0; pointer-events: none; }
+    .scale label:has(input:checked) {
+      background: var(--sage-deep);
+      border-color: var(--sage-deep);
+      color: #fff;
+    }
+    .scale label:hover { border-color: var(--sage-deep); }
+    .opts { display: grid; gap: 8px; margin-top: 14px; }
+    .opt {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
+      background: #fff;
+      cursor: pointer;
+    }
+    .opt:hover { border-color: var(--sage); }
+    .opt:has(input:checked) {
+      border-color: var(--sage-deep);
+      background: color-mix(in oklab, var(--sage) 10%, #fff);
+    }
+    .opt input {
+      width: 18px;
+      height: 18px;
+      margin: 3px 0 0;
+      accent-color: var(--sage-deep);
+    }
+    .opt span { font-size: 16px; line-height: 1.4; }
+    .submit-wrap { margin-top: 8px; }
+    button[type="submit"] {
+      appearance: none;
+      border: 0;
+      width: 100%;
+      min-height: 58px;
+      border-radius: 999px;
+      background: var(--sage-deep);
+      color: #fff;
+      font: 700 16px/1.2 Figtree, ui-sans-serif, system-ui, sans-serif;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 180ms var(--ease-out), background 180ms ease;
+    }
+    button[type="submit"]:hover { background: #4e5c34; transform: translateY(-2px); }
+    button[type="submit"]:active { transform: scale(0.98); }
+    .legal {
+      margin: 16px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .thanks {
+      display: none;
+      margin-top: 28px;
+      padding: 28px 24px;
+      background: var(--paper);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .thanks h2 { margin: 0 0 8px; font-size: 24px; letter-spacing: -0.03em; }
+    .thanks p { margin: 0; color: var(--muted); }
+    body.sent form, body.sent .intro, body.sent .gift { display: none; }
+    body.sent .thanks { display: block; }
+    @media (max-width: 640px) {
+      .wrap { padding-top: 20px; }
+      .intro p, .gift p { font-size: 16px; }
+      .q { padding: 16px; border-radius: 20px; }
+      .q h2, .q legend { font-size: 18px; }
+      .poles { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      button[type="submit"] { transition: none; }
+      button[type="submit"]:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="banner">
+    <img
+      src="cover.png"
+      alt="Анкета обратной связи. Наталья Алифер"
+      width="1920"
+      height="720">
+  </header>
+
+  <main class="wrap">
+    <div class="intro">
+      <p>Спасибо, что откликнулись на мою просьбу и решили поучаствовать в опросе.</p>
+      <p>Он займёт у вас не более 3–5 минут.</p>
+      <p>Одна просьба: пиши как есть. Не «беспокоит вздутие», а как это выглядит у тебя в семь вечера. Правильных ответов здесь нет, и оценивать тебя никто не будет.</p>
+      <p>От твоих ответов зависит, что я буду разбирать в блоге бесплатно и что войдёт в мой следующий курс. Мне важнее твой запрос, чем моя догадка.</p>
+    </div>
+
+    <div class="gift">
+      <p>🎁 За твоё время я хочу отдать тебе урок из моего курса «Здоровый кишечник» — открою доступ на 7 дней.</p>
+      <p>В нём разбираю, почему живот к вечеру раздувается как шар и откуда берётся усталость «выжатого лимона». Это механизм, а не список запрещённых продуктов: поймёшь, что происходит именно в твоём теле.</p>
+    </div>
+
+    <form id="survey" action="#" method="post">
+      <div class="q">
+        <div class="num">1</div>
+        <label for="q1"><h2>Как тебя зовут?</h2></label>
+        <input id="q1" name="name" type="text" autocomplete="name" required>
+      </div>
+
+      <div class="q">
+        <div class="num">2</div>
+        <label for="q2"><h2>Твой email</h2></label>
+        <input id="q2" name="email" type="email" autocomplete="email" required>
+      </div>
+
+      <div class="q">
+        <div class="num">3</div>
+        <label for="q3"><h2>Чем занимаешься, кем работаешь?</h2></label>
+        <input id="q3" name="work" type="text" autocomplete="organization-title">
+      </div>
+
+      <fieldset class="q">
+        <legend><span class="num">4</span> Как ты себя чувствуешь в обычный день — от 0 до 10?</legend>
+        <div class="poles">
+          <p><strong>0 — плохо</strong>живот шаром, сил нет, с едой война, вес качелями</p>
+          <p><strong>10 — нормально</strong>живот спокойный, силы есть, с едой без войны</p>
+        </div>
+        <div class="scale" role="radiogroup" aria-label="Оценка обычного дня от 0 до 10">
+          <label><input type="radio" name="scale" value="0" required>0</label>
+          <label><input type="radio" name="scale" value="1">1</label>
+          <label><input type="radio" name="scale" value="2">2</label>
+          <label><input type="radio" name="scale" value="3">3</label>
+          <label><input type="radio" name="scale" value="4">4</label>
+          <label><input type="radio" name="scale" value="5">5</label>
+          <label><input type="radio" name="scale" value="6">6</label>
+          <label><input type="radio" name="scale" value="7">7</label>
+          <label><input type="radio" name="scale" value="8">8</label>
+          <label><input type="radio" name="scale" value="9">9</label>
+          <label><input type="radio" name="scale" value="10">10</label>
+        </div>
+      </fieldset>
+
+      <div class="q">
+        <div class="num">5</div>
+        <label for="q5"><h2>Как ты сама объясняешь, почему с тобой так происходит?</h2></label>
+        <p class="hint">Напиши как думаешь, даже если не уверена</p>
+        <textarea id="q5" name="why"></textarea>
+      </div>
+
+      <fieldset class="q">
+        <legend><span class="num">6</span> С чем из этого тебе чаще всего тяжело?</legend>
+        <p class="hint">Можно несколько. Отметь своё, не всё подряд</p>
+        <div class="opts">
+          <label class="opt"><input type="checkbox" name="heavy" value="шар"><span>Живот как шар. Тяжесть, урчание, думаю, что съесть, чтобы не раздуло</span></label>
+          <label class="opt"><input type="checkbox" name="heavy" value="лимон"><span>Выжатый лимон. Устаю с утра, голова в тумане</span></label>
+          <label class="opt"><input type="checkbox" name="heavy" value="качели"><span>Качели с весом. Сбросила — набрала</span></label>
+          <label class="opt"><input type="checkbox" name="heavy" value="белка"><span>Белка в колесе. Тревога, тянет на сладкое просто взбодриться</span></label>
+          <label class="opt"><input type="checkbox" name="heavy" value="отеки"><span>Отёки. Лицо подушкой, кольца не надеваются</span></label>
+          <label class="opt"><input type="checkbox" name="heavy" value="жор"><span>Вечерний жор. День держалась, вечером полхолодильника</span></label>
+          <label class="opt"><input type="checkbox" name="heavy" value="цикл"><span>Цикл как хаос. ПМС, задержки</span></label>
+          <label class="opt"><input type="checkbox" name="heavy" value="молочница"><span>Молочница или цистит кругами</span></label>
+          <label class="opt"><input type="checkbox" name="heavy" value="батарейка"><span>Батарейка села. Ничего не хочу, вес растёт от воздуха</span></label>
+          <label class="opt"><input type="checkbox" name="heavy" value="анализы"><span>Анализы «норма», а мне не норма</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="q">
+        <legend><span class="num">7</span> А одно самое тяжёлое — какое?</legend>
+        <p class="hint">Тот же список, один вариант</p>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="heaviest" value="шар"><span>Живот как шар. Тяжесть, урчание, думаю, что съесть, чтобы не раздуло</span></label>
+          <label class="opt"><input type="radio" name="heaviest" value="лимон"><span>Выжатый лимон. Устаю с утра, голова в тумане</span></label>
+          <label class="opt"><input type="radio" name="heaviest" value="качели"><span>Качели с весом. Сбросила — набрала</span></label>
+          <label class="opt"><input type="radio" name="heaviest" value="белка"><span>Белка в колесе. Тревога, тянет на сладкое просто взбодриться</span></label>
+          <label class="opt"><input type="radio" name="heaviest" value="отеки"><span>Отёки. Лицо подушкой, кольца не надеваются</span></label>
+          <label class="opt"><input type="radio" name="heaviest" value="жор"><span>Вечерний жор. День держалась, вечером полхолодильника</span></label>
+          <label class="opt"><input type="radio" name="heaviest" value="цикл"><span>Цикл как хаос. ПМС, задержки</span></label>
+          <label class="opt"><input type="radio" name="heaviest" value="молочница"><span>Молочница или цистит кругами</span></label>
+          <label class="opt"><input type="radio" name="heaviest" value="батарейка"><span>Батарейка села. Ничего не хочу, вес растёт от воздуха</span></label>
+          <label class="opt"><input type="radio" name="heaviest" value="анализы"><span>Анализы «норма», а мне не норма</span></label>
+        </div>
+      </fieldset>
+
+      <div class="q">
+        <div class="num">8</div>
+        <label for="q8"><h2>С какими проблемами ты сталкиваешься из-за этого?</h2></label>
+        <textarea id="q8" name="problems"></textarea>
+      </div>
+
+      <div class="q">
+        <div class="num">9</div>
+        <label for="q9"><h2>Что ты делаешь, когда тебе так — а потом больше всего об этом жалеешь?</h2></label>
+        <textarea id="q9" name="regret"></textarea>
+      </div>
+
+      <div class="q">
+        <div class="num">10</div>
+        <label for="q10"><h2>Если бы тебе уже не было так плохо — что изменилось бы в обычной жизни?</h2></label>
+        <textarea id="q10" name="after"></textarea>
+      </div>
+
+      <div class="q">
+        <div class="num">11</div>
+        <label for="q11"><h2>Когда снова становится плохо — что хочешь сделать по-другому в этот момент, а не на следующий день?</h2></label>
+        <textarea id="q11" name="differently"></textarea>
+      </div>
+
+      <div class="q">
+        <div class="num">12</div>
+        <label for="q12"><h2>Что ты уже пробовала, чтобы стало лучше?</h2></label>
+        <p class="hint">Напиши как есть: диеты, банки, таблетки, свечи, врачи, курсы</p>
+        <textarea id="q12" name="tried"></textarea>
+      </div>
+
+      <div class="q">
+        <div class="num">13</div>
+        <label for="q13"><h2>Что тебе сейчас сильнее всего мешает с этим справиться?</h2></label>
+        <textarea id="q13" name="block"></textarea>
+      </div>
+
+      <div class="q">
+        <div class="num">14</div>
+        <label for="q14"><h2>Есть ещё что-то про это, о чём я не спросила?</h2></label>
+        <p class="hint">Если бы мы пили кофе — какой вопрос задала бы мне как нутрициологу? Если можно 20 минут голосом — напиши telegram</p>
+        <textarea id="q14" name="else"></textarea>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit">Отправить ответы</button>
+        <p class="legal">Ответы и урок — не диагностика и не назначение. Если состояние острое, сначала к врачу.</p>
+      </div>
+    </form>
+
+    <div class="thanks" id="thanks">
+      <h2>Спасибо, что написала.</h2>
+      <p>Я прочитаю каждый ответ. Ссылку на урок пришлю на почту.</p>
+    </div>
+  </main>
+  <script>
+    document.getElementById("survey").addEventListener("submit", function (e) {
+      e.preventDefault();
+      document.body.classList.add("sent");
+      window.scrollTo(0, 0);
+    });
+  </script>
+</body>
+</html>
