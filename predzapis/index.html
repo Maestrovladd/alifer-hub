@@ -111,20 +111,27 @@
       width: fit-content;
     }
     .hero h1 {
-      margin: 0 0 16px;
-      font-size: clamp(28px, 3vw, 44px);
+      margin: 0 0 14px;
+      font-size: clamp(34px, 4.2vw, 56px);
       font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
+      letter-spacing: -0.045em;
+      line-height: 1.05;
       color: #fff;
     }
-    .hero .lead {
-      margin: 0 0 22px;
-      font-size: 16px;
-      color: rgba(255,255,255,.55);
-      max-width: 46ch;
+    .hero h1 span {
+      display: block;
+      font-weight: 500;
+      font-size: 0.62em;
+      letter-spacing: -0.03em;
+      color: rgba(255,255,255,.72);
+      margin-bottom: 6px;
     }
-    .hero .lead b { color: #fff; font-weight: 600; }
+    .hero .lead {
+      margin: 0 0 32px;
+      font-size: 17px;
+      color: rgba(255,255,255,.55);
+      max-width: 36ch;
+    }
     .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
     .tag {
       display: inline-flex;
@@ -196,8 +203,14 @@
     }
     .photo-cap strong { display: block; font-size: 18px; font-weight: 800; }
     .photo-cap span { font-size: 13px; color: rgba(255,255,255,.55); }
-    .hero-cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .hero .legal { margin: 0; color: rgba(255,255,255,.35); max-width: 28ch; }
+    .hero-cta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .hero-aside {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.45;
+      color: rgba(255,255,255,.55);
+      max-width: 26ch;
+    }
 
     .btn {
       appearance: none;
@@ -224,6 +237,13 @@
     /* Экран 2 — как у Арины: светлый, заголовок по центру, панель на всю ширину, 3 карточки */
     .get { background: var(--off); padding: 88px 0 0; }
     .center { text-align: center; }
+    .lead-get {
+      margin: 0 auto 18px;
+      max-width: 44ch;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.45;
+    }
     h2 {
       margin: 0 0 14px;
       font-size: clamp(28px, 3.2vw, 44px);
@@ -534,22 +554,11 @@
         <div class="hero-inner">
           <p class="eyebrow">Предзапись · нутрициолог</p>
           <div class="date-badge">20 сентября · 18:00 мск</div>
-          <h1>Займи место в предзаписи и получи доступ к эфиру, где разберём, почему причина не в силе воли</h1>
-          <p class="lead">За 30 дней: <b>смотри → делай → результат</b>. Вздутие, усталость и лишний вес — сигналы кишечника, не характер.</p>
-          <div class="tags">
-            <span class="tag accent">Первый поток</span>
-            <span class="tag">Онлайн</span>
-            <span class="tag">Оплаты нет</span>
-          </div>
-          <div class="bonus">
-            <div>
-              <b>Бонус за анкету</b>
-              <span>Видео-разбор «Паразитоз. Кто убивает твой организм изнутри?»</span>
-            </div>
-          </div>
+          <h1><span>Эфир</span>Почему причина не в силе воли</h1>
+          <p class="lead">Вздутие, усталость и вес. Разберём на эфире.</p>
           <div class="hero-cta">
             <a class="btn" href="#form">Занять место</a>
-            <p class="legal">Оплаты нет. Это не диагностика и не лечение.</p>
+            <p class="hero-aside">Займи место в предзаписи — и зайдёшь на эфир. Оплаты нет.</p>
           </div>
         </div>
       </div>
@@ -565,7 +574,8 @@
     <section class="get" id="get">
       <div class="col">
         <h2 class="center">В предзаписи <em>ты получишь</em></h2>
-        <div class="center-wrap"><span class="center-pill">Эфир 20 сентября · бонус сразу после анкеты</span></div>
+        <p class="center lead-get">Вздутие, усталость и лишний вес — сигналы кишечника, не характер.</p>
+        <div class="center-wrap"><span class="center-pill">Первый поток · эфир 20 сентября · бонус после анкеты</span></div>
 
         <div class="panel">
           <h3>На эфире <em>ты узнаешь</em></h3>
@@ -596,7 +606,7 @@
           <article class="card">
             <div class="ico ico-door" aria-hidden="true"></div>
             <h3>Условия старта первого потока</h3>
-            <p>На эфире, не в открытом доступе. Только тем, кто в анкете.</p>
+            <p>Смотри → делай → результат. 30 дней. Цифры и дата учёбы — только на эфире, тем кто в анкете.</p>
           </article>
         </div>
       </div>
