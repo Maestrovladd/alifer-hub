@@ -403,28 +403,7 @@
       border-top: 1px solid rgba(255,255,255,.08);
     }
     .reg h2 { margin-top: 8px; }
-    .steps { margin: 24px 0 0; }
-    .step {
-      display: grid;
-      grid-template-columns: 32px 1fr;
-      gap: 14px;
-      padding: 16px 0;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      color: rgba(255,255,255,.65);
-      font-size: 14px;
-      line-height: 1.45;
-    }
-    .step:first-child { border-top: 1px solid rgba(255,255,255,.08); }
-    .n {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: var(--g);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 800;
-      display: grid;
-      place-items: center;
-    }
+    .reg .bonus { margin: 24px 0 0; }
 
     .form {
       color: var(--ink);
@@ -672,11 +651,12 @@
           <div>
             <p class="eyebrow">Анкета</p>
             <h2>Если хочешь быть в первом потоке — заполняй анкету</h2>
-            <p class="lead" style="margin-bottom:0">Жду на эфире 20 сентября. Три поля. Дальше бот пришлёт канал, бонус и напоминание.</p>
-            <div class="steps">
-              <div class="step"><span class="n">1</span><span>Имя и Telegram или email</span></div>
-              <div class="step"><span class="n">2</span><span>С чем сейчас тяжелее всего</span></div>
-              <div class="step"><span class="n">3</span><span>Бот пришлёт канал и бонус</span></div>
+            <p class="lead" style="margin-bottom:0">Жду на эфире 20 сентября.</p>
+            <div class="bonus">
+              <div>
+                <b>Бонус за анкету</b>
+                <span>Видео-разбор «Паразитоз. Кто убивает твой организм изнутри?» — сразу в закрытый канал.</span>
+              </div>
             </div>
           </div>
           <form class="form" action="#" method="post">
