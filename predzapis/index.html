@@ -7,7 +7,7 @@
   <meta name="description" content="Предзапись на эфир 20 сентября. Первый поток курса «Пошаговая система оздоровления через кишечник».">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
       --g: #7a8c52;
@@ -15,31 +15,32 @@
       --g-light: #eff2e8;
       --cream: #d9d3c9;
       --paper: #fffcf7;
-      --bg: #f9f8f5;
+      --off: #f9f8f5;
       --ink: #1a1a1a;
       --muted: #6b7180;
       --line: #e5e7eb;
-      --radius: 24px;
+      --r: 24px;
       --shadow: 0 18px 40px color-mix(in oklab, var(--g-dark) 16%, transparent);
       --ease: cubic-bezier(0.23, 1, 0.32, 1);
-      --col: 1120px;
     }
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: Figtree, ui-sans-serif, system-ui, sans-serif;
       color: var(--ink);
-      background: var(--bg);
+      background: #fff;
       line-height: 1.55;
       font-size: 16px;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
     img { display: block; max-width: 100%; }
-    a { color: inherit; }
+    a { color: inherit; text-decoration: none; }
     button, input { font-family: inherit; }
+    ul { margin: 0; padding: 0; list-style: none; }
     .col {
-      width: min(var(--col), calc(100% - 40px));
+      width: min(1120px, calc(100% - 96px));
       margin: 0 auto;
     }
     .nav {
@@ -47,38 +48,49 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 18px 0;
-      border-bottom: 1px solid var(--line);
+      padding: 20px 48px;
       background: #fff;
+      border-bottom: 1px solid var(--line);
     }
-    .nav-wrap { background: #fff; }
     .logo { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
-    .nav-meta { font-size: 13px; color: var(--muted); font-weight: 600; }
-    .chip {
+    .nav-cta {
       display: inline-flex;
       align-items: center;
-      height: 28px;
-      padding: 0 14px;
+      height: 40px;
+      padding: 0 20px;
       background: var(--g);
       color: #fff;
       border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin: 0 0 14px;
+      font-size: 14px;
+      font-weight: 600;
     }
-    .jump { display: none; max-width: 420px; margin: 0 0 28px; }
+    .nav-cta:hover { background: var(--g-dark); }
+
+    /* Hero — как курс/веб: на весь экран, фото — правая половина */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      height: calc(100svh - 81px);
+      min-height: 640px;
+      background: #fff;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 56px 48px 48px;
+    }
+    .hero-inner { width: min(540px, 100%); }
     .eyebrow {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--g);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
     .eyebrow::before {
       content: "";
@@ -86,146 +98,198 @@
       height: 1px;
       background: var(--g);
     }
+    .date-badge {
+      display: inline-flex;
+      align-items: center;
+      height: 34px;
+      padding: 0 14px;
+      margin-bottom: 14px;
+      background: color-mix(in oklab, var(--g) 12%, #fff);
+      border: 1px solid color-mix(in oklab, var(--g) 28%, #fff);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--g-dark);
+      width: fit-content;
+    }
     h1 {
-      margin: 0 0 14px;
-      font-size: clamp(28px, 3.4vw, 44px);
-      font-weight: 700;
+      margin: 0 0 12px;
+      font-size: clamp(26px, 2.6vw, 38px);
+      font-weight: 800;
       letter-spacing: -0.04em;
       line-height: 1.12;
     }
     h2 {
       margin: 0 0 12px;
       font-size: clamp(26px, 3vw, 40px);
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: -0.04em;
-      line-height: 1.15;
+      line-height: 1.12;
     }
     .lead {
-      margin: 0 0 28px;
-      font-size: 17px;
+      margin: 0 0 16px;
+      font-size: 16px;
       color: var(--muted);
       max-width: 46ch;
     }
     .lead b { color: var(--ink); font-weight: 600; }
-    .hero {
-      background: #fff;
-      padding: 28px 0 72px;
-    }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 48px;
-      align-items: start;
-    }
-    .block-title {
-      margin: 28px 0 12px;
-      font-size: 13px;
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 28px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
+      color: var(--muted);
+    }
+    .tag.accent {
+      background: color-mix(in oklab, var(--g) 14%, #fff);
+      border-color: color-mix(in oklab, var(--g) 30%, #fff);
       color: var(--g-dark);
     }
-    .ticks { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+    .ticks { display: grid; gap: 8px; margin: 0 0 18px; }
     .ticks li {
       display: grid;
       grid-template-columns: 18px 1fr;
       gap: 10px;
-      align-items: start;
-      font-size: 15px;
-      line-height: 1.45;
+      font-size: 14px;
+      line-height: 1.4;
     }
     .ticks li::before {
       content: "";
       width: 18px;
       height: 18px;
-      margin-top: 2px;
+      margin-top: 1px;
       border-radius: 50%;
       background: var(--g-light) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%235C6B3E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M2.5 6.2 5 8.6 9.5 3.4'/%3E%3C/svg%3E") center / 10px no-repeat;
     }
-    .photo-wrap { position: relative; margin-bottom: 22px; }
-    .photo-shadow {
+    .bonus {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      margin: 0 0 18px;
+      background: color-mix(in oklab, var(--g) 12%, #fff);
+      border: 1px solid color-mix(in oklab, var(--g) 28%, #fff);
+      border-radius: 14px;
+    }
+    .bonus b {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--g-dark);
+      margin-bottom: 2px;
+    }
+    .bonus span { font-size: 13px; line-height: 1.4; }
+    .hero-right {
+      position: relative;
+      background: var(--cream);
+      overflow: hidden;
+      min-height: 100%;
+    }
+    .hero-right img {
       position: absolute;
       inset: 0;
-      background: var(--g);
-      border-radius: var(--radius);
-      transform: translate(12px, 12px);
-    }
-    .photo-wrap img {
-      position: relative;
       width: 100%;
-      aspect-ratio: 4 / 5;
+      height: 100%;
       object-fit: cover;
-      object-position: center 18%;
-      border-radius: var(--radius);
-      background: var(--cream);
+      object-position: center 12%;
     }
-    .hero-side .form { position: sticky; top: 16px; }
+    .photo-cap {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 28px 28px 24px;
+      background: linear-gradient(to top, rgba(26,26,26,.72), transparent);
+      color: #fff;
+    }
+    .photo-cap strong { display: block; font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
+    .photo-cap span { font-size: 13px; color: rgba(255,255,255,.7); }
+
+    .btn-hero {
+      width: auto;
+      max-width: 100%;
+      padding: 0 32px;
+      margin-top: 4px;
+    }
+    .reg { background: var(--off); padding: 80px 0; }
+    .reg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
     .form {
+      color: var(--ink);
       background: var(--paper);
       border: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
-      border-radius: var(--radius);
-      padding: 24px;
+      border-radius: var(--r);
+      padding: 28px;
       box-shadow: var(--shadow);
     }
-    .form h3 { margin: 0 0 6px; font-size: 22px; letter-spacing: -0.03em; }
-    .form .hint { margin: 0 0 18px; color: var(--muted); font-size: 14px; }
-    .field { display: grid; gap: 6px; margin-bottom: 12px; }
-    .field label, .pains-legend {
-      font-size: 13px;
-      font-weight: 700;
+    .form h3 { margin: 0 0 4px; font-size: 18px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+    .form .hint { margin: 0 0 14px; color: var(--muted); font-size: 13px; }
+    .field {
+      margin-bottom: 10px;
     }
-    input[type="text"],
-    input[type="email"] {
+    .field label, .pains-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    input[type="text"] {
       width: 100%;
       border: 1px solid color-mix(in oklab, var(--cream) 55%, var(--ink));
-      border-radius: 16px;
+      border-radius: 14px;
       background: #fff;
       color: var(--ink);
       font-size: 16px;
-      line-height: 1.45;
-      padding: 14px 16px;
+      line-height: 1.4;
+      padding: 12px 14px;
       outline: none;
     }
     input:focus-visible {
       border-color: var(--g-dark);
       box-shadow: 0 0 0 3px color-mix(in oklab, var(--g) 35%, transparent);
     }
-    .opts { display: grid; gap: 8px; margin: 8px 0 14px; }
-    .opt {
-      display: grid;
-      grid-template-columns: 22px 1fr;
-      gap: 10px;
-      align-items: start;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in oklab, var(--cream) 60%, var(--ink));
       background: #fff;
+      font-size: 13px;
+      line-height: 1.3;
       cursor: pointer;
-      font-size: 15px;
-      line-height: 1.4;
     }
-    .opt:hover { border-color: var(--g); }
-    .opt:has(input:checked) {
+    .pill input { position: absolute; opacity: 0; pointer-events: none; }
+    .pill:has(input:checked) {
+      background: var(--g-dark);
       border-color: var(--g-dark);
-      background: color-mix(in oklab, var(--g) 10%, #fff);
-    }
-    .opt input {
-      width: 18px;
-      height: 18px;
-      margin: 2px 0 0;
-      accent-color: var(--g-dark);
+      color: #fff;
     }
     .consent {
       display: grid;
-      grid-template-columns: 22px 1fr;
-      gap: 10px;
+      grid-template-columns: 18px 1fr;
+      gap: 8px;
       align-items: start;
-      margin: 0 0 10px;
-      font-size: 13px;
+      margin: 0 0 8px;
+      font-size: 12px;
       color: var(--muted);
-      line-height: 1.4;
+      line-height: 1.35;
     }
-    .consent input { width: 18px; height: 18px; margin-top: 1px; accent-color: var(--g-dark); }
+    .consent input { width: 16px; height: 16px; margin-top: 1px; accent-color: var(--g-dark); }
     .btn {
       appearance: none;
       border: 0;
@@ -233,141 +297,153 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 58px;
-      padding: 0 24px;
+      min-height: 56px;
+      padding: 0 22px;
       border-radius: 999px;
       background: var(--g-dark);
       color: #fff;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
-      text-decoration: none;
       cursor: pointer;
-      box-shadow: var(--shadow);
+      box-shadow: 0 8px 32px color-mix(in oklab, var(--g) 35%, transparent);
       transition: transform 180ms var(--ease), background 180ms ease;
     }
     .btn:hover { background: #4e5c34; transform: translateY(-2px); }
-    .btn:active { transform: scale(0.98); }
-    .btn-light {
-      background: #fff;
-      color: var(--g-dark);
-    }
+    .btn-light { background: #fff; color: var(--g-dark); width: auto; padding: 0 28px; }
     .btn-light:hover { background: var(--g-light); color: var(--g-dark); }
-    .legal {
-      margin: 12px 0 0;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.45;
+    .legal { margin: 10px 0 0; font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+    .learn { padding: 72px 0; background: var(--off); }
+    .learn-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 64px;
+      align-items: start;
     }
-    .loss {
-      background: var(--g-dark);
-      color: #fff;
-      padding: 88px 0;
+    .row {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
     }
-    .loss h2, .loss p, .loss li { color: #fff; }
-    .loss p { max-width: 52ch; color: rgba(255,255,255,.72); }
+    .row:first-of-type { border-top: 1px solid var(--line); }
+    .rn { font-size: 11px; font-weight: 700; color: var(--g); letter-spacing: 0.06em; padding-top: 3px; }
+    .rt { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.35; }
+
+    .loss { background: var(--g-dark); color: #fff; padding: 80px 0; }
+    .loss h2 { color: #fff; }
+    .loss p { max-width: 54ch; color: rgba(255,255,255,.72); }
+    .loss .ticks { max-width: 640px; margin: 20px 0 28px; }
     .loss .ticks li::before {
       background: rgba(255,255,255,.16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' d='M3 3l6 6M9 3L3 9'/%3E%3C/svg%3E") center / 9px no-repeat;
     }
-    .loss .btn { max-width: 420px; margin-top: 28px; }
-    .course { padding: 88px 0 40px; }
-    .course .lead { max-width: 54ch; }
+
+    .course { padding: 80px 0; background: #fff; }
     .bento {
       display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
+      grid-template-columns: 1.3fr 1fr 1fr;
       gap: 12px;
-      margin: 36px 0 40px;
+      margin: 32px 0 28px;
     }
     .b-card {
       background: var(--g);
       color: #fff;
-      border-radius: var(--radius);
+      border-radius: 20px;
       padding: 28px;
     }
-    .b-card.light {
-      background: #fff;
-      color: var(--ink);
-      border: 1.5px solid var(--line);
-    }
-    .b-k { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; opacity: .7; margin-bottom: 10px; }
+    .b-card.light { background: var(--off); color: var(--ink); }
+    .b-k { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 10px; opacity: .75; }
     .b-card.light .b-k { color: var(--g-dark); opacity: 1; }
     .b-card p { margin: 0; font-size: 15px; line-height: 1.5; }
     .b-card.light p { color: var(--muted); }
-    .fw {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 36px 0;
-    }
-    .fw-card { border-radius: var(--radius); padding: 36px 32px; }
+    .note { margin: 0 0 32px; color: var(--muted); font-size: 15px; }
+    .fw { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .fw-card { border-radius: 20px; padding: 36px 32px; }
     .fw-yes { background: var(--g); color: #fff; }
-    .fw-no { background: #fff; color: var(--muted); border: 1.5px solid var(--line); }
-    .fw-card h3 { margin: 0 0 18px; font-size: 17px; letter-spacing: -0.02em; }
+    .fw-no { background: var(--off); color: var(--muted); }
+    .fw-card h3 { margin: 0 0 18px; font-size: 17px; font-weight: 800; }
     .fw-yes h3 { color: #fff; }
-    .fw-card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
-    .fw-card li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 14px; line-height: 1.45; }
+    .fw-card li {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 10px;
+      font-size: 14px;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+    .fw-card li:last-child { margin-bottom: 0; }
     .fw-card li::before {
       content: "";
-      width: 18px;
-      height: 18px;
-      margin-top: 1px;
-      border-radius: 50%;
+      width: 18px; height: 18px; margin-top: 1px; border-radius: 50%;
     }
     .fw-yes li::before { background: rgba(255,255,255,.2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M2.5 6.2 5 8.6 9.5 3.4'/%3E%3C/svg%3E") center / 10px no-repeat; }
     .fw-no li::before { background: var(--line) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%236B7180' stroke-width='2' stroke-linecap='round' d='M3 3l6 6M9 3L3 9'/%3E%3C/svg%3E") center / 9px no-repeat; }
     .lock {
-      margin: 8px 0 0;
-      padding: 20px 22px;
+      margin: 28px 0 0;
+      padding: 4px 0 4px 18px;
       border-left: 3px solid var(--g);
       color: var(--muted);
       font-size: 16px;
       line-height: 1.65;
     }
-    .close { background: var(--g); color: #fff; padding: 88px 0; }
+
+    .close {
+      background: var(--ink);
+      color: #fff;
+      padding: 80px 0;
+    }
+    .close-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
     .close h2 { color: #fff; }
-    .close p { color: rgba(255,255,255,.72); max-width: 48ch; }
-    .close .form { margin-top: 32px; max-width: 520px; }
+    .close .lead { color: rgba(255,255,255,.55); }
+    .close .form { position: sticky; top: 24px; color: var(--ink); }
+
     .footer {
-      background: #1a1a1a;
-      color: rgba(255,255,255,.55);
-      padding: 36px 0 28px;
+      background: #111;
+      color: rgba(255,255,255,.45);
+      padding: 36px 48px 28px;
     }
     .footer .logo { color: rgba(255,255,255,.85); }
     .f-ip { margin: 10px 0 0; font-size: 12px; line-height: 1.6; color: rgba(255,255,255,.28); }
     .f-copy { margin: 18px 0 0; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08); font-size: 11px; color: rgba(255,255,255,.22); }
+
     .thanks {
       display: none;
       min-height: 100svh;
-      background:
-        radial-gradient(900px 360px at 80% -10%, color-mix(in oklab, var(--g) 22%, transparent), transparent 70%),
-        var(--bg);
-      padding: 72px 0;
+      background: var(--off);
+      padding: 80px 24px;
     }
     .thanks-card {
-      width: min(640px, calc(100% - 40px));
+      width: min(560px, 100%);
       margin: 0 auto;
       background: var(--paper);
-      border-radius: var(--radius);
+      border-radius: var(--r);
       box-shadow: var(--shadow);
       padding: 40px 32px;
     }
-    .thanks-card h1 { font-size: 32px; }
     body.sent .page { display: none; }
     body.sent .thanks { display: block; }
-    @media (max-width: 900px) {
-      .hero-grid, .bento, .fw { grid-template-columns: 1fr; }
-      .photo-wrap { max-width: 420px; }
-      .hero { padding-bottom: 48px; }
-      .loss, .course, .close { padding: 56px 0; }
+
+    @media (max-width: 960px) {
+      .col { width: min(1120px, calc(100% - 40px)); }
+      .nav, .footer { padding-left: 20px; padding-right: 20px; }
+      .hero { grid-template-columns: 1fr; height: auto; min-height: 0; }
+      .hero-right { order: -1; height: 64vw; min-height: 280px; max-height: 420px; }
+      .hero-right img { position: absolute; }
+      .hero-left { padding: 28px 20px 40px; }
+      .hero-inner { width: 100%; }
+      .learn-grid, .bento, .fw, .close-grid, .reg-grid { grid-template-columns: 1fr; gap: 28px; }
+      .close .form { position: static; }
+      .learn, .loss, .course, .close, .reg { padding: 56px 0; }
     }
     @media (max-width: 640px) {
-      .col { width: min(var(--col), calc(100% - 32px)); }
-      .nav { padding: 14px 0; }
-      .hero-side { display: contents; }
-      .photo-wrap { order: -1; max-width: none; margin: 0 0 22px; }
-      .form { position: static; margin-top: 8px; padding: 18px 16px; }
-      .jump { display: inline-flex; }
-      .fw-card { padding: 24px 20px; }
-      .photo-shadow { transform: translate(8px, 8px); }
+      .photo-cap { display: none; }
+      .btn-light { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -378,72 +454,99 @@
 </head>
 <body>
   <div class="page">
-    <div class="nav-wrap">
-      <header class="nav col">
-        <div class="logo">Наталья Алифер</div>
-        <div class="nav-meta">20 сентября · 18:00 мск</div>
-      </header>
-    </div>
+    <header class="nav">
+      <div class="logo">Наталья Алифер</div>
+      <a class="nav-cta" href="#form1">Занять место</a>
+    </header>
 
-    <section class="hero" id="top">
-      <div class="col hero-grid">
-        <div class="hero-copy">
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-inner">
           <p class="eyebrow">Предзапись · нутрициолог</p>
+          <div class="date-badge">20 сентября · 18:00 мск</div>
           <h1>Займи место в предзаписи и получи доступ к эфиру, где разберём, почему причина не в силе воли</h1>
-          <span class="chip">Первый поток</span>
           <p class="lead">За 30 дней: <b>смотри → делай → результат</b>. Вздутие, усталость и лишний вес — сигналы кишечника, не характер.</p>
-          <a class="btn jump" href="#form1">Заполнить анкету и занять место</a>
+          <div class="tags">
+            <span class="tag accent">Первый поток</span>
+            <span class="tag">Онлайн</span>
+            <span class="tag">Оплаты нет</span>
+          </div>
+          <ul class="ticks">
+            <li>Место на эфире 20 сентября</li>
+            <li>Условия старта первого потока — на эфире, не в открытом доступе</li>
+          </ul>
+          <div class="bonus">
+            <div>
+              <b>Бонус за анкету</b>
+              <span>Видео-разбор «Паразитоз. Кто убивает твой организм изнутри?»</span>
+            </div>
+          </div>
+          <a class="btn btn-hero" href="#form1">Заполнить анкету и занять место</a>
+          <p class="legal">Оплаты нет. Это не диагностика и не лечение.</p>
+        </div>
+      </div>
+      <div class="hero-right">
+        <img src="hero.jpg" alt="Наталья Алифер, нутрициолог" width="900" height="1200">
+        <div class="photo-cap">
+          <strong>Наталья Алифер</strong>
+          <span>нутрициолог</span>
+        </div>
+      </div>
+    </section>
 
-          <p class="block-title">В предзаписи ты получишь</p>
+    <section class="reg" id="anketa">
+      <div class="col reg-grid">
+        <div>
+          <p class="eyebrow">Анкета</p>
+          <h2>Займи место в предзаписи</h2>
+          <p class="lead">Три поля. Дальше бот пришлёт канал, бонус и напоминание на эфир.</p>
           <ul class="ticks">
             <li>Место на эфире 20 сентября · 18:00 мск</li>
             <li>Бонус сразу после анкеты — видео-разбор «Паразитоз. Кто убивает твой организм изнутри?»</li>
-            <li>Условия старта первого потока курса — на эфире, не в открытом доступе</li>
-          </ul>
-
-          <p class="block-title">На эфире ты узнаешь</p>
-          <ul class="ticks">
-            <li>Почему диеты, чистки и БАДы работают — и потом всё по кругу</li>
-            <li>Как кишечник управляет весом, кожей, энергией и тягой к сладкому</li>
-            <li>Почему «анализы в норме» — а тебе не норма</li>
-            <li>С чего начать: какие анализы первыми, что убрать из тарелки, что добавить</li>
-            <li>Как устроена система на 30 дней, если после эфира зайдёшь в поток</li>
+            <li>Условия старта первого потока — на эфире, не в открытом доступе</li>
           </ul>
         </div>
-
-        <div class="hero-side">
-          <div class="photo-wrap">
-            <div class="photo-shadow" aria-hidden="true"></div>
-            <img src="hero.jpg" alt="Наталья Алифер, нутрициолог" width="720" height="900">
+        <form class="form" id="form1" action="#" method="post">
+          <h3>Анкета предзаписи</h3>
+          <p class="hint">Имя, контакт и с чем тяжелее всего.</p>
+          <div class="field">
+            <label for="name1">Как тебя зовут</label>
+            <input id="name1" name="name" type="text" autocomplete="name" required>
           </div>
-          <form class="form" id="form1" action="#" method="post">
-            <h3>Анкета предзаписи</h3>
-            <p class="hint">Три поля. Дальше бот пришлёт канал, бонус и напоминание на эфир.</p>
-            <div class="field">
-              <label for="name1">Как тебя зовут</label>
-              <input id="name1" name="name" type="text" autocomplete="name" required>
-            </div>
-            <div class="field">
-              <label for="contact1">Telegram или email</label>
-              <input id="contact1" name="contact" type="text" autocomplete="email" required>
-            </div>
-            <fieldset class="field" style="border:0;padding:0;margin:0 0 12px">
-              <legend class="pains-legend">С чем сейчас тяжелее всего</legend>
-              <p class="hint" style="margin:6px 0 0">Можно несколько</p>
-              <div class="opts">
-                <label class="opt"><input type="checkbox" name="pain" value="шар"><span>Живот шаром к вечеру</span></label>
-                <label class="opt"><input type="checkbox" name="pain" value="lemon"><span>Просыпаюсь уже уставшей</span></label>
-                <label class="opt"><input type="checkbox" name="pain" value="loop"><span>Всё перепробовала, не держится</span></label>
-                <label class="opt"><input type="checkbox" name="pain" value="skin"><span>Кожа</span></label>
-                <label class="opt"><input type="checkbox" name="pain" value="weight"><span>Вес не уходит, хотя ем «правильно»</span></label>
-                <label class="opt"><input type="checkbox" name="pain" value="fog"><span>Туман в голове</span></label>
-              </div>
-            </fieldset>
-            <label class="consent"><input type="checkbox" name="pd" required><span>Согласна на обработку персональных данных</span></label>
-            <label class="consent"><input type="checkbox" name="mail" required><span>Письма про эфир и про первый поток</span></label>
-            <button class="btn" type="submit">Заполнить анкету и занять место</button>
-            <p class="legal">Оплаты нет. Это не диагностика и не лечение.</p>
-          </form>
+          <div class="field">
+            <label for="contact1">Telegram или email</label>
+            <input id="contact1" name="contact" type="text" autocomplete="email" required>
+          </div>
+          <p class="pains-label">С чем сейчас тяжелее всего · можно несколько</p>
+          <div class="pills">
+            <label class="pill"><input type="checkbox" name="pain" value="шар"><span>Живот шаром к вечеру</span></label>
+            <label class="pill"><input type="checkbox" name="pain" value="lemon"><span>Просыпаюсь уже уставшей</span></label>
+            <label class="pill"><input type="checkbox" name="pain" value="loop"><span>Всё перепробовала</span></label>
+            <label class="pill"><input type="checkbox" name="pain" value="skin"><span>Кожа</span></label>
+            <label class="pill"><input type="checkbox" name="pain" value="weight"><span>Вес не уходит</span></label>
+            <label class="pill"><input type="checkbox" name="pain" value="fog"><span>Туман в голове</span></label>
+          </div>
+          <label class="consent"><input type="checkbox" name="pd" required><span>Согласна на обработку персональных данных</span></label>
+          <label class="consent"><input type="checkbox" name="mail" required><span>Письма про эфир и про первый поток</span></label>
+          <button class="btn" type="submit">Заполнить анкету и занять место</button>
+          <p class="legal">Оплаты нет. Это не диагностика и не лечение.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="learn" id="learn">
+      <div class="col learn-grid">
+        <div>
+          <p class="eyebrow">На эфире</p>
+          <h2>Что разберём</h2>
+          <p class="lead">Не «ещё одно полезное видео». Собираем, почему ты лечишь симптомы, а они возвращаются.</p>
+        </div>
+        <div>
+          <div class="row"><div class="rn">01</div><div class="rt">Почему диеты, чистки и БАДы работают — и потом всё по кругу</div></div>
+          <div class="row"><div class="rn">02</div><div class="rt">Как кишечник управляет весом, кожей, энергией и тягой к сладкому</div></div>
+          <div class="row"><div class="rn">03</div><div class="rt">Почему «анализы в норме» — а тебе не норма</div></div>
+          <div class="row"><div class="rn">04</div><div class="rt">С чего начать: какие анализы первыми, что убрать из тарелки, что добавить</div></div>
+          <div class="row"><div class="rn">05</div><div class="rt">Как устроена система на 30 дней, если после эфира зайдёшь в поток</div></div>
         </div>
       </div>
     </section>
@@ -457,7 +560,6 @@
           <li>бонус-видео в закрытый канал</li>
           <li>место в первом потоке и условия старта, которые звучат только на эфире</li>
         </ul>
-        <p>Не «ещё одно полезное видео». На эфире собираем, почему ты лечишь симптомы, а они возвращаются.</p>
         <a class="btn btn-light" href="#form1">Заполнить анкету и занять место</a>
       </div>
     </section>
@@ -466,8 +568,7 @@
       <div class="col">
         <p class="eyebrow">Первый поток</p>
         <h2>Пошаговая система оздоровления через кишечник</h2>
-        <p class="lead">Не диета и не список БАДов. Понимание, что происходит в твоём теле, и план на 30 дней.<br><b>Смотри → делай → получаешь результат.</b></p>
-
+        <p class="lead">Не диета и не список БАДов. Понимание, что происходит в твоём теле, и план на 30 дней. <b>Смотри → делай → получаешь результат.</b></p>
         <div class="bento">
           <article class="b-card">
             <div class="b-k">Уроки</div>
@@ -482,8 +583,7 @@
             <p>Три двери: «Я сама» · «Хочу с нутрициологом» · «VIP с Наташей»</p>
           </article>
         </div>
-        <p class="lead">Цифры и дата старта учёбы — на эфире.</p>
-
+        <p class="note">Цифры и дата старта учёбы — на эфире.</p>
         <div class="fw">
           <div class="fw-card fw-yes">
             <h3>Это для тебя, если</h3>
@@ -504,15 +604,17 @@
             </ul>
           </div>
         </div>
-
         <p class="lock">Я сама шла через «всё правильно — не работает». Эфир и курс не отменяют врача и не ставят диагноз.</p>
       </div>
     </section>
 
     <section class="close">
-      <div class="col">
-        <h2>Если хочешь быть в первом потоке — заполняй анкету</h2>
-        <p>Жду на эфире 20 сентября.</p>
+      <div class="col close-grid">
+        <div>
+          <p class="eyebrow">Предзапись</p>
+          <h2>Если хочешь быть в первом потоке — заполняй анкету</h2>
+          <p class="lead">Жду на эфире 20 сентября.</p>
+        </div>
         <form class="form" id="form2" action="#" method="post">
           <h3>Анкета предзаписи</h3>
           <p class="hint">Три поля. Дальше бот пришлёт канал, бонус и напоминание на эфир.</p>
@@ -524,18 +626,15 @@
             <label for="contact2">Telegram или email</label>
             <input id="contact2" name="contact" type="text" autocomplete="email" required>
           </div>
-          <fieldset class="field" style="border:0;padding:0;margin:0 0 12px">
-            <legend class="pains-legend">С чем сейчас тяжелее всего</legend>
-            <p class="hint" style="margin:6px 0 0">Можно несколько</p>
-            <div class="opts">
-              <label class="opt"><input type="checkbox" name="pain" value="шар"><span>Живот шаром к вечеру</span></label>
-              <label class="opt"><input type="checkbox" name="pain" value="lemon"><span>Просыпаюсь уже уставшей</span></label>
-              <label class="opt"><input type="checkbox" name="pain" value="loop"><span>Всё перепробовала, не держится</span></label>
-              <label class="opt"><input type="checkbox" name="pain" value="skin"><span>Кожа</span></label>
-              <label class="opt"><input type="checkbox" name="pain" value="weight"><span>Вес не уходит, хотя ем «правильно»</span></label>
-              <label class="opt"><input type="checkbox" name="pain" value="fog"><span>Туман в голове</span></label>
-            </div>
-          </fieldset>
+          <p class="pains-label">С чем сейчас тяжелее всего · можно несколько</p>
+          <div class="pills">
+            <label class="pill"><input type="checkbox" name="pain" value="шар"><span>Живот шаром к вечеру</span></label>
+            <label class="pill"><input type="checkbox" name="pain" value="lemon"><span>Просыпаюсь уже уставшей</span></label>
+            <label class="pill"><input type="checkbox" name="pain" value="loop"><span>Всё перепробовала</span></label>
+            <label class="pill"><input type="checkbox" name="pain" value="skin"><span>Кожа</span></label>
+            <label class="pill"><input type="checkbox" name="pain" value="weight"><span>Вес не уходит</span></label>
+            <label class="pill"><input type="checkbox" name="pain" value="fog"><span>Туман в голове</span></label>
+          </div>
           <label class="consent"><input type="checkbox" name="pd" required><span>Согласна на обработку персональных данных</span></label>
           <label class="consent"><input type="checkbox" name="mail" required><span>Письма про эфир и про первый поток</span></label>
           <button class="btn" type="submit">Заполнить анкету и занять место</button>
@@ -545,11 +644,9 @@
     </section>
 
     <footer class="footer">
-      <div class="col">
-        <div class="logo">Наталья Алифер · нутрициолог</div>
-        <p class="f-ip">Индивидуальный предприниматель Алифер Наталья Сергеевна<br>ОГРНИП: 325508100162127 · ИНН: 502716470653</p>
-        <p class="f-copy">© 2026 Наталья Алифер. Информация носит образовательный характер и не является медицинской рекомендацией. При остром состоянии — к врачу.</p>
-      </div>
+      <div class="logo">Наталья Алифер · нутрициолог</div>
+      <p class="f-ip">Индивидуальный предприниматель Алифер Наталья Сергеевна<br>ОГРНИП: 325508100162127 · ИНН: 502716470653</p>
+      <p class="f-copy">© 2026 Наталья Алифер. Информация носит образовательный характер и не является медицинской рекомендацией. При остром состоянии — к врачу.</p>
     </footer>
   </div>
 
@@ -557,8 +654,7 @@
     <div class="thanks-card">
       <p class="eyebrow">Предзапись</p>
       <h1>Место в предзаписи занято</h1>
-      <p class="lead">Эфир 20 сентября · 18:00 мск. За час напомню. Старт курса назовём на эфире — кто в анкете, услышит первой.</p>
-      <p class="legal">Канал и бонус-видео «Паразитоз. Кто убивает твой организм изнутри?» пришлёт бот. Форма пока в превью: GetCourse ещё не подключён.</p>
+      <p class="lead">Эфир 20 сентября · 18:00 мск. За час напомню. Старт курса назовём на эфире — кто в анкете, услышит первой. Канал и бонус пришлёт бот.</p>
     </div>
   </section>
 
