@@ -1,11 +1,12 @@
 <!doctype html>
 <!-- impeccable-disable single-font: Alifer kit, one family Figtree per LEND-BRIEF -->
+<!-- impeccable-disable em-dash-overuse: VSL title locked from deck slide 1 -->
 <html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Пошаговый план к здоровому кишечнику · Наталья Алифер</title>
-  <meta name="description" content="Видео и предзапись на эфир 20 сентября. Первый поток курса «Пошаговая система оздоровления через кишечник».">
+  <title>Как ты медленно убиваешь свой кишечник · Наталья Алифер</title>
+  <meta name="description" content="Видео: лишний вес, акне, усталость и вздутие. Пошаговый план к здоровому кишечнику. После видео — анкета предзаписи на эфир.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -71,39 +72,26 @@
       color: #fff;
     }
     .hero h1 {
-      margin: 0 0 8px;
-      font-size: clamp(32px, 4.4vw, 56px);
-      font-weight: 800;
-      letter-spacing: -0.045em;
-      line-height: 1.08;
-    }
-    .hero .who {
-      margin: 0 0 14px;
-      font-size: clamp(28px, 3.6vw, 44px);
+      margin: 0 auto 12px;
+      max-width: 16em;
+      font-size: clamp(26px, 3.6vw, 44px);
       font-weight: 800;
       letter-spacing: -0.04em;
-      line-height: 1.1;
+      line-height: 1.12;
+    }
+    .hero .who {
+      margin: 0 0 10px;
+      font-size: clamp(22px, 2.8vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
       color: var(--g);
     }
     .hero .hook {
-      margin: 0 auto 20px;
-      max-width: 42ch;
-      font-size: 17px;
+      margin: 0 auto 36px;
+      font-size: 16px;
       line-height: 1.45;
-      color: rgba(255,255,255,.55);
-    }
-    .date-badge {
-      display: inline-flex;
-      align-items: center;
-      height: 34px;
-      padding: 0 14px;
-      margin-bottom: 36px;
-      background: rgba(122,140,82,.12);
-      border: 1px solid rgba(122,140,82,.28);
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--g);
+      color: rgba(255,255,255,.5);
     }
 
     .player {
@@ -151,32 +139,6 @@
       border-color: transparent transparent transparent #fff;
     }
     .play:hover span { background: var(--g-dark); }
-
-    .thesis {
-      background: var(--ink);
-      padding: 0 0 72px;
-      text-align: center;
-      color: #fff;
-    }
-    .thesis h2 {
-      margin: 0 0 22px;
-      font-size: clamp(26px, 3vw, 36px);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.15;
-    }
-    .thesis .prose {
-      margin: 0 auto;
-      max-width: 62ch;
-      text-align: left;
-    }
-    .thesis p {
-      margin: 0 0 16px;
-      font-size: 17px;
-      line-height: 1.6;
-      color: rgba(255,255,255,.72);
-    }
-    .thesis p:last-child { margin-bottom: 0; color: rgba(255,255,255,.55); }
 
     .learn {
       padding: 72px 0 24px;
@@ -393,7 +355,7 @@
     @media (max-width: 960px) {
       .col { width: min(1120px, calc(100% - 40px)); }
       .nav, .footer { padding-left: 20px; padding-right: 20px; }
-      .hero { padding: 36px 0 0; }
+      .hero { padding: 36px 0 48px; }
       .learn-grid, .bonuses { grid-template-columns: 1fr; }
       .offer-box { padding: 28px 20px 20px; }
     }
@@ -418,24 +380,12 @@
 
     <section class="hero">
       <div class="col">
-        <h1>Пошаговый план к здоровому кишечнику</h1>
-        <p class="who">Натальи Алифер</p>
-        <p class="hook">Почему вздутие, усталость и вес возвращаются, даже когда ты всё делаешь правильно</p>
-        <div class="date-badge">20 сентября · 18:00 мск · эфир первого потока</div>
+        <h1>Лишний вес, акне, усталость и вздутие — как ты медленно убиваешь свой кишечник</h1>
+        <p class="who">Пошаговый план к здоровому кишечнику</p>
+        <p class="hook">Наталья Алифер · нутрициолог</p>
         <div class="player" id="vsl">
           <img src="hero.jpg" alt="Наталья Алифер, нутрициолог" width="1280" height="720">
           <button class="play" type="button" aria-label="Смотреть видео"><span></span></button>
-        </div>
-      </div>
-    </section>
-
-    <section class="thesis">
-      <div class="col">
-        <h2>Посмотри это видео</h2>
-        <div class="prose">
-          <p>Наталья разбирает, почему диеты, чистки и даже укол вроде Оземпика дают две недели облегчения, а потом та же история: ты работала с симптомом, а причина сидела в кишечнике.</p>
-          <p>В видео три части. Почему то, что ты уже пробовала, не держало результат. Как кишечник управляет весом, кожей, энергией и настроением: здоровый кишечник сам производит гормон насыщения, который укол даёт извне. И пять шагов, с которых начинали женщины, когда результат наконец стал держаться: какие анализы сдать первыми, что убрать из тарелки, что добавить, как не игнорировать стресс вокруг еды и когда подключать добавки.</p>
-          <p>Когда досмотришь, заполни анкету внизу. Так ты зайдёшь на эфир 20 сентября и заберёшь бонус в закрытый канал. Оплаты нет.</p>
         </div>
       </div>
     </section>
@@ -445,22 +395,22 @@
         <h2>Посмотри видео, чтобы узнать:</h2>
         <div class="learn-grid">
           <article class="learn-card">
-            <p>Почему всё, что ты уже пробовала, <em>держалось две недели</em> и откатывалось</p>
+            <p>Почему всё, что ты пробовала, <em>не держало результат</em></p>
           </article>
           <article class="learn-card">
-            <p>Как кишечник связан с <em>весом, кожей, энергией</em> и тягой к сладкому</p>
+            <p>Как включить насыщение <em>без укола и без отката</em></p>
           </article>
           <article class="learn-card">
-            <p>Почему «всё в норме» в бланке ещё не <em>здоровье</em></p>
+            <p>Как кишечник управляет <em>весом, кожей, энергией</em> и настроением</p>
           </article>
           <article class="learn-card">
-            <p>Что даёт укол вроде Оземпика, и что умеет делать сам <em>здоровый кишечник</em></p>
+            <p>Почему «норма» в бланке ещё не <em>здоровье</em></p>
           </article>
           <article class="learn-card">
-            <p><em>Пять шагов</em>, с которых начинали женщины, когда результат стал держаться</p>
+            <p><em>Пять шагов</em>, с которых начинали женщины, увидевшие результат</p>
           </article>
           <article class="learn-card">
-            <p>Как устроена система на <em>30 дней</em>, если после эфира зайдёшь в первый поток</p>
+            <p>Три пути: услышать «всё в норме», спросить ChatGPT или <em>разобраться системно</em></p>
           </article>
         </div>
       </div>
@@ -469,7 +419,7 @@
     <section class="offer" id="form">
       <div class="col">
         <div class="offer-box">
-          <h2>Заполни анкету сейчас, чтобы получить:</h2>
+          <h2>Заполни анкету предзаписи, чтобы получить:</h2>
           <ul class="bonuses">
             <li>Место на эфире 20 сентября, 18:00 мск. Без анкеты ссылки в канал не будет.</li>
             <li>Видео «Паразитоз. Кто убивает твой организм изнутри?» сразу после анкеты, в закрытом канале.</li>
