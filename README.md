@@ -5,3 +5,5 @@
 Инструкция для команды, не лендинг покупательнице.
 
 Страница: https://maestrovladd.github.io/alifer-hub/
+
+Предзапись: https://maestrovladd.github.io/alifer-hub/predzapis/
