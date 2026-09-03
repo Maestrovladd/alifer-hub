@@ -297,44 +297,63 @@
       line-height: 1.12;
     }
     h2 em { font-style: normal; color: var(--g-dark); }
-    .panel {
-      background: #fff;
-      border-radius: var(--r);
-      padding: 0;
-      margin-bottom: 20px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .panel-split {
+    .ephir {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      min-height: 360px;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 300px) minmax(0, 1fr);
+      gap: 8px 28px;
+      align-items: center;
+      margin-bottom: 28px;
     }
-    .panel-copy { padding: 40px 36px; }
-    .panel-photo {
+    .ephir-list {
+      margin: 0;
+      padding: 0;
+    }
+    .ephir-list li {
       position: relative;
-      background: var(--g-dark);
+      padding-left: 18px;
+      margin-bottom: 18px;
+      font-size: 16px;
+      line-height: 1.45;
+      font-weight: 600;
     }
-    .panel-photo img {
+    .ephir-list li:last-child { margin-bottom: 0; }
+    .ephir-list li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 8px;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--g);
+    }
+    .ephir-window {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--r);
+      overflow: hidden;
+      background: var(--g-dark);
+      box-shadow: var(--shadow);
+    }
+    .ephir-window img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 22%;
+      object-position: 32% 28%;
     }
-    .panel-photo::after {
+    .ephir-window::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgb(26 26 26 / .5), transparent 48%);
+      z-index: 1;
+      background: linear-gradient(to top, rgb(26 26 26 / .45), transparent 42%);
       pointer-events: none;
     }
     .play {
       position: absolute;
       top: 46%;
       left: 50%;
-      z-index: 1;
+      z-index: 2;
       width: 58px;
       height: 58px;
       border-radius: 50%;
@@ -356,7 +375,7 @@
       left: 16px;
       right: 16px;
       bottom: 16px;
-      z-index: 1;
+      z-index: 2;
       padding: 12px 14px;
       border-radius: 16px;
       background: var(--paper);
@@ -364,36 +383,10 @@
     }
     .photo-chip b { display: block; font-size: 14px; font-weight: 800; letter-spacing: -0.02em; }
     .photo-chip span { font-size: 12px; color: var(--muted); }
-    .cols2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px 36px;
-    }
-    .cols2 ul:first-child {
-      border-right: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
-      padding-right: 28px;
-    }
     .gathered {
       margin: 0 0 12px;
       font-size: 14px;
       color: rgba(255,255,255,.5);
-    }
-    .cols2 li {
-      position: relative;
-      padding-left: 18px;
-      margin-bottom: 16px;
-      font-size: 16px;
-      line-height: 1.45;
-      font-weight: 600;
-    }
-    .cols2 li:last-child { margin-bottom: 0; }
-    .cols2 li::before {
-      content: "";
-      position: absolute;
-      left: 0; top: 8px;
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--g);
     }
     .cards3 {
       display: grid;
@@ -642,16 +635,17 @@
       .hero-left { padding: 28px 20px 88px; }
       .hero-inner { width: 100%; }
       .scroll-cue { left: 20px; }
-      .cols2, .cards3 { grid-template-columns: 1fr; gap: 16px; }
+      .cards3 { grid-template-columns: 1fr; gap: 16px; }
+      .ephir { grid-template-columns: 1fr; gap: 24px; }
+      .ephir-window {
+        order: -1;
+        width: min(300px, 100%);
+        margin: 0 auto;
+      }
       .stream-head { grid-template-columns: 1fr; gap: 28px; }
       .stream-tags { padding-top: 0; }
       .prog-pills { flex: none; }
       .stream-close { flex-direction: column; align-items: stretch; gap: 20px; }
-      .panel-split { grid-template-columns: 1fr; min-height: 0; }
-      .panel-photo { order: -1; height: 280px; }
-      .panel-copy { padding: 24px 20px; }
-      .cols2 ul:first-child { border-right: 0; padding-right: 0; }
-      .panel { padding: 0; }
       .get { padding: 56px 0; }
       .stream { padding: 56px 0 56px; }
       .btn { width: 100%; }
@@ -718,29 +712,25 @@
         <div class="center-wrap"><span class="get-pill">доступ к закрытому эфиру и бесплатному уроку</span></div>
         <h3 class="learn-h">На закрытом эфире <em>ты узнаешь</em></h3>
 
-        <div class="panel panel-split">
-          <div class="panel-copy">
-            <div class="cols2">
-              <ul>
-                <li>Почему диеты и чистки держат две недели, а потом живот и вес возвращаются</li>
-                <li>Как живот, кожа и усталость к обеду связаны с одним местом, а не с характером</li>
-                <li>Почему врач говорит «всё хорошо», а ты себя так не чувствуешь</li>
-              </ul>
-              <ul>
-                <li>Что из рекламы маскирует причину: детокс, банки, уколы</li>
-                <li>С каких анализов начать, что убрать с тарелки, что добавить</li>
-                <li>Как за 30 дней собрать план под своё тело, а не ещё один список «нельзя»</li>
-              </ul>
-            </div>
-          </div>
-          <aside class="panel-photo">
-            <img src="ephir.jpg" alt="Наталья Алифер, RE.AWARDS" width="640" height="800">
+        <div class="ephir">
+          <ul class="ephir-list">
+            <li>Почему диеты и чистки держат две недели, а потом живот и вес возвращаются</li>
+            <li>Как живот, кожа и усталость к обеду связаны с одним местом, а не с характером</li>
+            <li>Почему врач говорит «всё хорошо», а ты себя так не чувствуешь</li>
+          </ul>
+          <div class="ephir-window">
+            <img src="vsl.jpg" alt="Наталья Алифер" width="800" height="1000">
             <span class="play" aria-hidden="true"></span>
             <div class="photo-chip">
               <b>20 сентября · 18:00 мск</b>
               <span>Закрытый эфир после анкеты</span>
             </div>
-          </aside>
+          </div>
+          <ul class="ephir-list">
+            <li>Что из рекламы маскирует причину: детокс, банки, уколы</li>
+            <li>С каких анализов начать, что убрать с тарелки, что добавить</li>
+            <li>Как за 30 дней собрать план под своё тело, а не ещё один список «нельзя»</li>
+          </ul>
         </div>
 
         <div class="cards3">
