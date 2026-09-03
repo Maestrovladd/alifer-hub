@@ -393,15 +393,28 @@
     }
 
     .fit { background: var(--paper); padding: 88px 0; }
-    .fit h2 { margin-bottom: 28px; }
+    .fit h2 { margin-bottom: 10px; }
+    .fit-lead {
+      margin: 0 0 28px;
+      max-width: 48ch;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.45;
+    }
+    .fit-h3 {
+      margin: 0 0 12px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
     .fit-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       border: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
       border-radius: var(--r);
       overflow: hidden;
       background: #fff;
-      margin-bottom: 16px;
+      margin-bottom: 28px;
     }
     .fit-cell {
       padding: 28px 24px;
@@ -409,16 +422,11 @@
       border-bottom: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
       font-size: 16px;
       font-weight: 600;
-      line-height: 1.4;
+      line-height: 1.45;
     }
-    .fit-cell:nth-child(4n) { border-right: 0; }
-    .fit-cell.wide {
-      grid-column: span 2;
-      font-weight: 500;
-      color: var(--muted);
-      border-bottom: 0;
-    }
-    .fit-cell.wide strong { display: block; color: var(--ink); font-weight: 800; margin-bottom: 8px; }
+    .fit-cell:nth-child(2n) { border-right: 0; }
+    .fit-cell:nth-child(n+3) { border-bottom: 0; }
+    .fit-anti .fit-cell { border-bottom: 0; font-weight: 500; color: var(--muted); }
     .fit-lock {
       margin: 0 0 28px;
       padding: 4px 0 4px 18px;
@@ -467,21 +475,23 @@
       line-height: 1.25;
     }
     .prog-pills {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
       margin: 0;
     }
     .prog-pills span {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      height: 36px;
-      padding: 0 14px;
+      justify-content: center;
+      min-height: 40px;
+      padding: 8px 12px;
       border: 1px solid rgba(255,255,255,.18);
       border-radius: 999px;
       font-size: 13px;
       font-weight: 600;
       color: rgba(255,255,255,.8);
+      text-align: center;
     }
 
     .close-row {
@@ -641,10 +651,6 @@
       .scroll-cue { left: 20px; }
       .cols2, .cards3, .unify, .close-row { grid-template-columns: 1fr; gap: 16px; }
       .unify-say { padding: 8px 0 24px; }
-      .fit-grid { grid-template-columns: 1fr 1fr; }
-      .fit-cell:nth-child(4n) { border-right: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink)); }
-      .fit-cell:nth-child(2n) { border-right: 0; }
-      .fit-cell.wide { grid-column: span 2; }
       .panel-split { grid-template-columns: 1fr; min-height: 0; }
       .panel-photo { order: -1; height: 280px; }
       .panel-copy { padding: 24px 20px; }
@@ -660,8 +666,13 @@
       .hero-cta { flex-direction: column; align-items: stretch; }
       .hero-cta .btn { width: 100%; }
       .fit-grid { grid-template-columns: 1fr; }
-      .fit-cell, .fit-cell:nth-child(2n), .fit-cell:nth-child(4n) { border-right: 0; }
-      .fit-cell.wide { grid-column: span 1; }
+      .fit-cell {
+        border-right: 0;
+        border-bottom: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
+      }
+      .fit-cell:nth-child(n+3),
+      .fit-anti .fit-cell { border-bottom: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink)); }
+      .fit-cell:last-child { border-bottom: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -758,22 +769,20 @@
 
     <section class="fit" id="fit">
       <div class="col">
-        <h2>Курс подойдёт, <em>если ты</em></h2>
+        <h2>Узнаёшь себя?</h2>
+        <p class="fit-lead">Если хоть один пункт про тебя: живот, усталость, кожа и вес здесь не разные проблемы, а сигналы одной причины, и эта причина в кишечнике.</p>
         <div class="fit-grid">
-          <div class="fit-cell">Диеты и чистки уже были. Результат держится две недели и откатывается</div>
-          <div class="fit-cell">К вечеру живот как шар. Утром встаёшь уже уставшей. Кожа или вес не слушаются</div>
-          <div class="fit-cell">Хочешь понять, что происходит в теле, а не получить ещё один список «нельзя»</div>
-          <div class="fit-cell">Готова уделять 30–40 минут в день, в своём темпе</div>
-          <div class="fit-cell wide">
-            <strong>Что даёт анкета</strong>
-            Попадаешь в список следующего потока и слышишь условия, которых не будет снаружи.
-          </div>
-          <div class="fit-cell wide">
-            <strong>Пока не сюда, если</strong>
-            Ждёшь результат без смены еды, нужен только список банок из аптеки, или острый живот, кровь, температура: сначала к врачу.
-          </div>
+          <div class="fit-cell">К вечеру живот как шар, даже если ела правильно. Вздутие и тяжесть уже стали нормой.</div>
+          <div class="fit-cell">Просыпаешься уже уставшей. Кофе не помогает, к обеду как выжатый лимон.</div>
+          <div class="fit-cell">Диеты, чистки и банки уже были. Две недели легче, потом снова всё по кругу.</div>
+          <div class="fit-cell">Считаешь калории и ешь правильно, а вес стоит. Кожа то чистится, то вспыхивает, и косметика это не снимает.</div>
         </div>
-        <p class="fit-lock">Я сама ходила через «ем правильно, а тело не слушается». Курс не ставит диагноз и не отменяет врача.</p>
+        <h3 class="fit-h3">Пока не сюда, если ты</h3>
+        <div class="fit-grid fit-anti">
+          <div class="fit-cell">Ждёшь результат за неделю без смены еды и хочешь только список банок из аптеки.</div>
+          <div class="fit-cell">Острый живот, кровь или температура. Тогда сначала к врачу: курс не ставит диагноз и не отменяет лечение.</div>
+        </div>
+        <p class="fit-lock">Я сама ходила через «ем правильно, а тело не слушается».</p>
         <div class="fit-cta">
           <button class="btn" type="button" data-open="anketa">Занять место в предзаписи</button>
         </div>
@@ -792,12 +801,16 @@
               <span>сигналы тела</span>
               <span>питание без запретов</span>
               <span>кожа, гормоны, вес</span>
+              <span>энергия с утра</span>
+              <span>тяга к сладкому</span>
+              <span>сон</span>
+              <span>лёгкость к вечеру</span>
               <span>план на 30 дней</span>
             </div>
           </article>
           <div class="unify-say">
             <p class="k">Почему так</p>
-            <p>Ты лечишь симптомы. Они возвращаются. Потому что причина осталась в кишечнике.</p>
+            <p>Ты лечишь симптомы, они возвращаются, потому что причина осталась в кишечнике.</p>
           </div>
         </div>
         <div class="close-row">
