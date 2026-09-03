@@ -350,6 +350,11 @@
       gap: 16px;
       margin-bottom: 0;
     }
+    .get-cta {
+      display: flex;
+      justify-content: center;
+      margin-top: 36px;
+    }
     .card {
       background: #fff;
       border-radius: var(--r);
@@ -383,51 +388,6 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
-
-    .fit { background: var(--paper); padding: 88px 0; }
-    .fit h2 { margin-bottom: 10px; }
-    .fit-lead {
-      margin: 0 0 28px;
-      max-width: 48ch;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.45;
-    }
-    .fit-h3 {
-      margin: 0 0 12px;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-    .fit-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
-      border-radius: var(--r);
-      overflow: hidden;
-      background: #fff;
-      margin-bottom: 28px;
-    }
-    .fit-cell {
-      padding: 28px 24px;
-      border-right: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
-      border-bottom: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.45;
-    }
-    .fit-cell:nth-child(2n) { border-right: 0; }
-    .fit-cell:nth-child(n+3) { border-bottom: 0; }
-    .fit-anti .fit-cell { border-bottom: 0; font-weight: 500; color: var(--muted); }
-    .fit-lock {
-      margin: 0 0 28px;
-      padding: 4px 0 4px 18px;
-      border-left: 3px solid var(--g);
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.65;
-    }
-    .fit-cta { display: flex; justify-content: center; }
 
     .stream { background: var(--ink); color: #fff; padding: 88px 0 80px; }
     .stream-head {
@@ -641,24 +601,17 @@
       .panel-copy { padding: 24px 20px; }
       .cols2 ul:first-child { border-right: 0; padding-right: 0; }
       .panel { padding: 0; }
-      .get, .fit { padding: 56px 0; }
+      .get { padding: 56px 0; }
       .stream { padding: 56px 0 56px; }
       .btn { width: 100%; }
-      .hero-cta .btn { width: auto; }
+      .hero-cta .btn,
+      .get-cta .btn { width: auto; }
       .prog-pills span { white-space: normal; }
     }
     @media (max-width: 640px) {
       .photo-cap { display: none; }
       .hero-cta { flex-direction: column; align-items: stretch; }
       .hero-cta .btn { width: 100%; }
-      .fit-grid { grid-template-columns: 1fr; }
-      .fit-cell {
-        border-right: 0;
-        border-bottom: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
-      }
-      .fit-cell:nth-child(n+3),
-      .fit-anti .fit-cell { border-bottom: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink)); }
-      .fit-cell:last-child { border-bottom: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -750,26 +703,7 @@
             <p>Придёт в канал сразу после анкеты.</p>
           </article>
         </div>
-      </div>
-    </section>
-
-    <section class="fit" id="fit">
-      <div class="col">
-        <h2>Узнаёшь себя?</h2>
-        <p class="fit-lead">Если хоть один пункт про тебя: живот, усталость, кожа и вес здесь не разные проблемы, а сигналы одной причины, и эта причина в кишечнике.</p>
-        <div class="fit-grid">
-          <div class="fit-cell">К вечеру живот как шар, даже если ела правильно. Вздутие и тяжесть уже стали нормой.</div>
-          <div class="fit-cell">Просыпаешься уже уставшей. Кофе не помогает, к обеду как выжатый лимон.</div>
-          <div class="fit-cell">Диеты, чистки и банки уже были. Две недели легче, потом снова всё по кругу.</div>
-          <div class="fit-cell">Считаешь калории и ешь правильно, а вес стоит. Кожа то чистится, то вспыхивает, и косметика это не снимает.</div>
-        </div>
-        <h3 class="fit-h3">Пока не сюда, если ты</h3>
-        <div class="fit-grid fit-anti">
-          <div class="fit-cell">Ждёшь результат за неделю без смены еды и хочешь только список банок из аптеки.</div>
-          <div class="fit-cell">Острый живот, кровь или температура. Тогда сначала к врачу: курс не ставит диагноз и не отменяет лечение.</div>
-        </div>
-        <p class="fit-lock">Я сама ходила через «ем правильно, а тело не слушается».</p>
-        <div class="fit-cta">
+        <div class="get-cta">
           <button class="btn" type="button" data-open="anketa">Занять место в предзаписи</button>
         </div>
       </div>
