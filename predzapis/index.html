@@ -413,16 +413,9 @@
     }
 
     .stream { background: var(--ink); color: #fff; padding: 88px 0 80px; }
-    .stream-head {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
-      gap: 12px 56px;
-      align-items: stretch;
-      margin-bottom: 8px;
-    }
     .stream h2 {
       color: #fff;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       line-height: 1.18;
     }
     .stream .lead {
@@ -431,10 +424,27 @@
       font-size: 18px;
       line-height: 1.55;
     }
-    .stream-tags {
-      padding-top: 38px;
-      display: flex;
-      flex-direction: column;
+    .stream-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
+      gap: 28px 48px;
+      align-items: start;
+      margin-bottom: 36px;
+    }
+    .unify-say .k {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--g);
+    }
+    .unify-say p {
+      margin: 0;
+      font-size: clamp(22px, 2.4vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
     }
     .stream .gathered {
       margin: 0 0 14px;
@@ -442,42 +452,44 @@
       color: rgba(255,255,255,.45);
     }
     .prog-pills {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       margin: 0;
     }
     .prog-pills span {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 8px 12px;
+      min-height: 40px;
+      padding: 8px 16px;
       border: 1px solid rgba(255,255,255,.16);
       border-radius: 999px;
       font-size: 14px;
       font-weight: 600;
       color: rgba(255,255,255,.82);
-      text-align: center;
     }
-    .stream-close {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
+    .close-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 40px;
+      align-items: start;
       margin-top: 44px;
       padding-top: 36px;
       border-top: 1px solid rgba(255,255,255,.12);
     }
-    .stream-close p {
+    .close-left {
       margin: 0;
-      max-width: 46ch;
+      font-size: clamp(22px, 2.4vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.22;
+    }
+    .close-right p {
+      margin: 0 0 24px;
       font-size: 17px;
-      line-height: 1.55;
+      line-height: 1.5;
       color: rgba(255,255,255,.7);
     }
-    .stream-close .btn { flex-shrink: 0; }
 
     .modal {
       position: fixed;
@@ -621,10 +633,8 @@
         width: min(300px, 100%);
         margin: 0 auto;
       }
-      .stream-head { grid-template-columns: 1fr; gap: 28px; }
-      .stream-tags { padding-top: 0; }
-      .prog-pills { flex: none; }
-      .stream-close { flex-direction: column; align-items: stretch; gap: 20px; }
+      .stream-head,
+      .close-row { grid-template-columns: 1fr; gap: 24px; }
       .get { padding: 56px 0; }
       .stream { padding: 56px 0 56px; }
       .btn { width: 100%; }
@@ -734,29 +744,34 @@
 
     <section class="stream" id="course">
       <div class="col">
+        <p class="eyebrow">Следующий поток</p>
         <div class="stream-head">
           <div>
-            <p class="eyebrow">Следующий поток</p>
-            <h2>Ты лечишь симптомы, они возвращаются,<br>потому что причина осталась в кишечнике.</h2>
-            <p class="lead">Следующий поток — 30 дней работы с причиной, а не с очередной диетой. Не диета и не список банок. Понимание, что происходит именно в твоём теле, и конкретный план.</p>
+            <h2>Это программа курса «Пошаговая система оздоровления через кишечник»</h2>
+            <p class="lead">Не диета и не список банок. Понимание, что происходит именно в твоём теле, и конкретный план на 30 дней.</p>
           </div>
-          <div class="stream-tags">
-            <p class="gathered">В этот раз собрали</p>
-            <div class="prog-pills">
-              <span>сигналы тела</span>
-              <span>питание без запретов</span>
-              <span>кожа, гормоны, вес</span>
-              <span>энергия с утра</span>
-              <span>тяга к сладкому</span>
-              <span>сон</span>
-              <span>лёгкость к вечеру</span>
-              <span>план на 30 дней</span>
-            </div>
+          <div class="unify-say">
+            <p class="k">Почему так</p>
+            <p>Ты лечишь симптомы, они возвращаются, потому что причина осталась в кишечнике.</p>
           </div>
         </div>
-        <div class="stream-close">
-          <p>Я собираю тех, кто уже ходила по кругу: диеты, чистки, банки. Если хочешь быть в следующем потоке, заполняй анкету. Жду тебя.</p>
-          <button class="btn" type="button" data-open="anketa">Заполнить анкету</button>
+        <p class="gathered">В этот раз собрали</p>
+        <div class="prog-pills">
+          <span>сигналы тела</span>
+          <span>питание без запретов</span>
+          <span>кожа, гормоны, вес</span>
+          <span>энергия с утра</span>
+          <span>тяга к сладкому</span>
+          <span>сон</span>
+          <span>лёгкость к вечеру</span>
+          <span>план на 30 дней</span>
+        </div>
+        <div class="close-row">
+          <p class="close-left">Следующий поток — 30 дней работы с причиной, а не с очередной диетой.</p>
+          <div class="close-right">
+            <p>Я собираю тех, кто уже ходила по кругу: диеты, чистки, банки. Если хочешь быть в следующем потоке, заполняй анкету. Жду тебя.</p>
+            <button class="btn" type="button" data-open="anketa">Заполнить анкету</button>
+          </div>
         </div>
       </div>
     </section>
