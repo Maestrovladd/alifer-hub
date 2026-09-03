@@ -1,7 +1,8 @@
 <!doctype html>
 <!-- impeccable-disable single-font: Alifer kit, Figtree only -->
+<!-- impeccable-disable dark-glow: same dark hero as predzapis -->
+<!-- impeccable-disable numbered-section-markers: survey question numbers -->
 <!-- impeccable-disable em-dash-overuse: existing CA copy locked -->
-<!-- impeccable-disable numbered-section-markers: survey question numbers, not section chrome -->
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -9,52 +10,131 @@
   <title>Анкета · Наталья Алифер</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #1a1a1a;
-      --muted: #5c574e;
-      --sage: #7a8c52;
-      --sage-deep: #5c6b3e;
+      --g: #7a8c52;
+      --g-dark: #5c6b3e;
+      --g-light: #eff2e8;
       --cream: #d9d3c9;
       --paper: #fffcf7;
-      --bg: #f3efe7;
-      --line: color-mix(in oklab, var(--cream) 70%, var(--ink));
-      --shadow: 0 18px 40px color-mix(in oklab, var(--sage-deep) 16%, transparent);
-      --radius: 24px;
-      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-      --col: 720px;
+      --off: #f9f8f5;
+      --ink: #1a1a1a;
+      --muted: #6b7180;
+      --r: 24px;
+      --shadow: 0 18px 40px color-mix(in oklab, var(--g-dark) 16%, transparent);
+      --ease: cubic-bezier(0.23, 1, 0.32, 1);
     }
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: Figtree, ui-sans-serif, system-ui, sans-serif;
       color: var(--ink);
-      background:
-        radial-gradient(1200px 420px at 80% -10%, color-mix(in oklab, var(--sage) 18%, transparent), transparent 70%),
-        var(--bg);
+      background: var(--ink);
       line-height: 1.55;
       font-size: 16px;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-    .banner {
-      display: block;
-      width: 100%;
-      background: #fff;
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font-family: inherit; }
+    .col { width: min(720px, calc(100% - 96px)); margin: 0 auto; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 48px;
+      background: var(--ink);
+      border-bottom: 1px solid rgba(255,255,255,.08);
     }
-    .banner img {
-      display: block;
+    .logo { font-size: 15px; font-weight: 600; color: #fff; }
+    .nav-cta {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      height: 40px;
+      padding: 0 20px;
+      background: var(--g);
+      color: #fff;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .nav-cta:hover { background: var(--g-dark); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      min-height: 520px;
+      background: var(--ink);
+      color: #fff;
+    }
+    .hero-left {
+      display: flex;
+      align-items: center;
+      padding: 64px 48px 72px;
+    }
+    .hero-inner { width: min(560px, 100%); }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--g);
+    }
+    .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--g); }
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+    }
+    .hero .who {
+      margin: 0 0 28px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--g);
+    }
+    .hero .btn { width: auto; }
+    .hero-right {
+      position: relative;
+      min-height: 420px;
+      overflow: hidden;
+    }
+    .hero-right img {
       width: 100%;
-      height: auto;
-      aspect-ratio: 1920 / 720;
+      height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: 50% 18%;
     }
-    .wrap {
-      width: min(var(--col), calc(100% - 32px));
-      margin: 0 auto;
-      padding: 28px 0 80px;
+    .photo-chip {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+    }
+    .photo-chip b { display: block; font-size: 14px; font-weight: 800; letter-spacing: -0.02em; }
+    .photo-chip span { font-size: 12px; color: var(--muted); }
+
+    .board {
+      background: var(--off);
+      color: var(--ink);
+      padding: 72px 0 88px;
     }
     .intro p {
       margin: 0 0 14px;
@@ -63,46 +143,42 @@
       text-wrap: pretty;
     }
     .gift {
-      margin: 22px 0 8px;
-      padding: 20px 22px;
-      background: color-mix(in oklab, var(--sage) 12%, var(--paper));
-      border: 1px solid color-mix(in oklab, var(--sage) 28%, var(--cream));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      margin: 28px 0 0;
+      padding: 24px 26px;
+      background: #fff;
+      border-radius: var(--r);
+      box-shadow: 0 10px 28px color-mix(in oklab, var(--g-dark) 8%, transparent);
+      border-left: 4px solid var(--g);
     }
-    .gift p { margin: 0; font-size: 17px; }
-    .gift p + p { margin-top: 10px; }
-    form { margin-top: 28px; display: grid; gap: 14px; }
+    .gift p { margin: 0; font-size: 16px; line-height: 1.5; }
+    .gift p + p { margin-top: 10px; color: var(--muted); }
+
+    form { margin-top: 36px; display: grid; gap: 14px; }
     .q {
-      background: var(--paper);
-      border: 1px solid color-mix(in oklab, var(--cream) 80%, var(--ink));
-      border-radius: var(--radius);
-      padding: 18px 20px 20px;
-      box-shadow: 0 10px 28px color-mix(in oklab, var(--sage-deep) 8%, transparent);
+      background: #fff;
+      border-radius: var(--r);
+      padding: 24px 26px 26px;
+      box-shadow: 0 10px 28px color-mix(in oklab, var(--g-dark) 8%, transparent);
     }
     .num {
       display: inline-block;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--sage-deep);
-      letter-spacing: 0.04em;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--g-dark);
     }
     .q h2, .q legend {
       display: block;
       margin: 0;
       padding: 0;
       font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-weight: 800;
+      letter-spacing: -0.03em;
       line-height: 1.25;
       color: var(--ink);
     }
-    .q legend {
-      float: none;
-      width: 100%;
-      max-width: 100%;
-    }
+    .q legend { float: none; width: 100%; max-width: 100%; }
     .q legend .num { display: block; }
     .hint {
       margin: 8px 0 0;
@@ -113,273 +189,336 @@
     .poles {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin: 12px 0 14px;
+      gap: 12px;
+      margin: 16px 0 18px;
     }
     .poles p {
       margin: 0;
+      padding: 14px 16px;
+      background: var(--off);
+      border-radius: 16px;
       font-size: 14px;
       color: var(--muted);
       line-height: 1.4;
     }
-    .poles strong { display: block; color: var(--ink); font-weight: 700; margin-bottom: 2px; }
+    .poles strong { display: block; color: var(--ink); font-weight: 800; margin-bottom: 4px; }
     input[type="text"],
     input[type="email"],
     textarea {
       width: 100%;
-      margin-top: 12px;
+      margin-top: 14px;
       border: 1px solid color-mix(in oklab, var(--cream) 55%, var(--ink));
       border-radius: 16px;
-      background: #fff;
+      background: var(--paper);
       color: var(--ink);
-      font: 400 16px/1.45 Figtree, ui-sans-serif, system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.45;
       padding: 14px 16px;
       outline: none;
     }
-    textarea { min-height: 120px; resize: vertical; }
+    textarea { min-height: 128px; resize: vertical; }
     input:focus-visible,
     textarea:focus-visible {
-      border-color: var(--sage-deep);
-      box-shadow: 0 0 0 3px color-mix(in oklab, var(--sage) 35%, transparent);
+      border-color: var(--g-dark);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--g) 35%, transparent);
     }
     .scale {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
+      display: grid;
+      grid-template-columns: repeat(11, 1fr);
+      gap: 6px;
     }
     .scale label {
-      min-width: 44px;
-      min-height: 44px;
+      min-height: 48px;
       display: grid;
       place-items: center;
-      border-radius: 999px;
+      border-radius: 14px;
       border: 1px solid color-mix(in oklab, var(--cream) 50%, var(--ink));
-      background: #fff;
-      font-weight: 700;
+      background: var(--paper);
+      font-weight: 800;
       font-variant-numeric: tabular-nums;
       cursor: pointer;
       user-select: none;
     }
     .scale input { position: absolute; opacity: 0; pointer-events: none; }
     .scale label:has(input:checked) {
-      background: var(--sage-deep);
-      border-color: var(--sage-deep);
+      background: var(--g-dark);
+      border-color: var(--g-dark);
       color: #fff;
     }
-    .scale label:hover { border-color: var(--sage-deep); }
-    .opts { display: grid; gap: 8px; margin-top: 14px; }
+    .scale label:hover { border-color: var(--g-dark); }
+    .opts { display: grid; gap: 8px; margin-top: 16px; }
     .opt {
       display: grid;
       grid-template-columns: 22px 1fr;
       gap: 12px;
       align-items: start;
-      padding: 12px 14px;
+      padding: 14px 16px;
       border-radius: 16px;
       border: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
-      background: #fff;
+      background: var(--paper);
       cursor: pointer;
     }
-    .opt:hover { border-color: var(--sage); }
+    .opt:hover { border-color: var(--g); }
     .opt:has(input:checked) {
-      border-color: var(--sage-deep);
-      background: color-mix(in oklab, var(--sage) 10%, #fff);
+      border-color: var(--g-dark);
+      background: var(--g-light);
     }
     .opt input {
       width: 18px;
       height: 18px;
       margin: 3px 0 0;
-      accent-color: var(--sage-deep);
+      accent-color: var(--g-dark);
     }
     .opt span { font-size: 16px; line-height: 1.4; }
     .submit-wrap { margin-top: 8px; }
-    button[type="submit"] {
+    .btn {
       appearance: none;
       border: 0;
-      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       min-height: 58px;
+      padding: 0 32px;
       border-radius: 999px;
-      background: var(--sage-deep);
+      background: var(--g);
       color: #fff;
-      font: 700 16px/1.2 Figtree, ui-sans-serif, system-ui, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: var(--shadow);
-      transition: transform 180ms var(--ease-out), background 180ms ease;
+      box-shadow: 0 8px 24px color-mix(in oklab, var(--g-dark) 28%, transparent);
+      transition: transform 180ms var(--ease), background 180ms ease;
     }
-    button[type="submit"]:hover { background: #4e5c34; transform: translateY(-2px); }
-    button[type="submit"]:active { transform: scale(0.98); }
+    .btn:hover { background: var(--g-dark); transform: translateY(-2px); }
+    .btn-wide { width: 100%; }
     .legal {
       margin: 16px 0 0;
       font-size: 14px;
       color: var(--muted);
       line-height: 1.45;
     }
+
+    .footer {
+      background: #111;
+      color: rgba(255,255,255,.45);
+      padding: 36px 48px 28px;
+    }
+    .footer .logo { color: rgba(255,255,255,.85); }
+    .f-ip { margin: 10px 0 0; font-size: 12px; line-height: 1.6; color: rgba(255,255,255,.28); }
+    .f-copy { margin: 18px 0 0; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08); font-size: 11px; color: rgba(255,255,255,.22); }
+
     .thanks {
       display: none;
-      margin-top: 28px;
-      padding: 28px 24px;
-      background: var(--paper);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      min-height: 70svh;
+      background: var(--off);
+      color: var(--ink);
+      padding: 80px 24px;
     }
-    .thanks h2 { margin: 0 0 8px; font-size: 24px; letter-spacing: -0.03em; }
-    .thanks p { margin: 0; color: var(--muted); }
-    body.sent form, body.sent .intro, body.sent .gift { display: none; }
+    .thanks-card {
+      width: min(560px, 100%);
+      margin: 0 auto;
+      background: var(--paper);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      padding: 40px 32px;
+    }
+    .thanks-card .eyebrow { color: var(--g-dark); }
+    .thanks-card h1 { margin: 0 0 12px; font-size: 32px; letter-spacing: -0.03em; }
+    .thanks-card p { margin: 0; color: var(--muted); }
+    body.sent .page { display: none; }
     body.sent .thanks { display: block; }
+
+    @media (max-width: 960px) {
+      .col { width: min(720px, calc(100% - 40px)); }
+      .nav, .footer, .hero-left { padding-left: 20px; padding-right: 20px; }
+      .hero { grid-template-columns: 1fr; min-height: 0; }
+      .hero-right { order: -1; height: 56vw; min-height: 240px; max-height: 360px; }
+      .hero-left { padding-top: 36px; padding-bottom: 48px; }
+      .scale { grid-template-columns: repeat(6, 1fr); }
+      .scale label:last-child { grid-column: span 1; }
+    }
     @media (max-width: 640px) {
-      .wrap { padding-top: 20px; }
-      .intro p, .gift p { font-size: 16px; }
-      .q { padding: 16px; border-radius: 20px; }
-      .q h2, .q legend { font-size: 18px; }
       .poles { grid-template-columns: 1fr; }
+      .q { padding: 20px 18px; }
+      .q h2, .q legend { font-size: 18px; }
+      .hero h1 { font-size: 34px; }
+      .btn { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      button[type="submit"] { transition: none; }
-      button[type="submit"]:hover { transform: none; }
+      .btn { transition: none; }
+      .btn:hover { transform: none; }
     }
   </style>
 </head>
 <body>
-  <header class="banner">
-    <img
-      src="cover.png"
-      alt="Анкета обратной связи. Наталья Алифер"
-      width="1920"
-      height="720">
-  </header>
+  <div class="page">
+    <header class="nav">
+      <div class="logo">Наталья Алифер</div>
+      <a class="nav-cta" href="#survey">К вопросам</a>
+    </header>
 
-  <main class="wrap">
-    <div class="intro">
-      <p>Спасибо, что откликнулись на мою просьбу и решили поучаствовать в опросе.</p>
-      <p>Он займёт у вас не более 3–5 минут.</p>
-      <p>Одна просьба: пишите как есть. Не «беспокоит вздутие», а как это выглядит у тебя в семь вечера. Правильных ответов здесь нет, и оценивать тебя никто не будет.</p>
-      <p>От ваших ответов зависит, что я буду разбирать в блоге бесплатно и что войдёт в мой следующий курс.</p>
-    </div>
-
-    <div class="gift">
-      <p>🎁 За ваше время я хочу отдать урок из моего курса «Здоровый кишечник» — открою доступ на 7 дней.</p>
-      <p>В нём разбираю, почему живот к вечеру раздувается как шар и откуда берётся усталость «выжатого лимона». Это механизм, а не список запрещённых продуктов: поймёшь, что происходит именно в твоём теле.</p>
-    </div>
-
-    <form id="survey" action="#" method="post">
-      <div class="q">
-        <div class="num">1</div>
-        <label for="q1"><h2>Как тебя зовут?</h2></label>
-        <input id="q1" name="name" type="text" autocomplete="name" required>
-      </div>
-
-      <div class="q">
-        <div class="num">2</div>
-        <label for="q2"><h2>Твой email</h2></label>
-        <input id="q2" name="email" type="email" autocomplete="email" required>
-      </div>
-
-      <div class="q">
-        <div class="num">3</div>
-        <label for="q3"><h2>Чем занимаешься, кем работаешь?</h2></label>
-        <input id="q3" name="work" type="text" autocomplete="organization-title">
-      </div>
-
-      <fieldset class="q">
-        <legend><span class="num">4</span> Как ты себя чувствуешь в обычный день — от 0 до 10?</legend>
-        <div class="poles">
-          <p><strong>0 — плохо</strong>живот шаром, сил нет, с едой война, вес качелями</p>
-          <p><strong>10 — нормально</strong>живот спокойный, силы есть, с едой без войны</p>
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-inner">
+          <p class="eyebrow">Пиши как есть</p>
+          <h1>Анкета<br>обратной связи</h1>
+          <p class="who">Наталья Алифер · нутрициолог</p>
+          <a class="btn" href="#survey">К вопросам</a>
         </div>
-        <div class="scale" role="radiogroup" aria-label="Оценка обычного дня от 0 до 10">
-          <label><input type="radio" name="scale" value="0" required>0</label>
-          <label><input type="radio" name="scale" value="1">1</label>
-          <label><input type="radio" name="scale" value="2">2</label>
-          <label><input type="radio" name="scale" value="3">3</label>
-          <label><input type="radio" name="scale" value="4">4</label>
-          <label><input type="radio" name="scale" value="5">5</label>
-          <label><input type="radio" name="scale" value="6">6</label>
-          <label><input type="radio" name="scale" value="7">7</label>
-          <label><input type="radio" name="scale" value="8">8</label>
-          <label><input type="radio" name="scale" value="9">9</label>
-          <label><input type="radio" name="scale" value="10">10</label>
+      </div>
+      <div class="hero-right">
+        <img src="hero.jpg" alt="Наталья Алифер, нутрициолог" width="900" height="1200">
+        <div class="photo-chip">
+          <b>3–5 минут</b>
+          <span>11 вопросов · пиши как есть</span>
         </div>
-      </fieldset>
-
-      <div class="q">
-        <div class="num">5</div>
-        <label for="q5"><h2>Как ты сама объясняешь, почему с тобой так происходит?</h2></label>
-        <p class="hint">Напиши как думаешь, даже если не уверена</p>
-        <textarea id="q5" name="why"></textarea>
       </div>
+    </section>
 
-      <fieldset class="q">
-        <legend><span class="num">6</span> С чем из этого тебе чаще всего тяжело?</legend>
-        <p class="hint">Можно несколько. Отметь своё, не всё подряд</p>
-        <div class="opts">
-          <label class="opt"><input type="checkbox" name="heavy" value="шар"><span>Живот как шар. Тяжесть, урчание, думаю, что съесть, чтобы не раздуло</span></label>
-          <label class="opt"><input type="checkbox" name="heavy" value="лимон"><span>Выжатый лимон. Устаю с утра, голова в тумане</span></label>
-          <label class="opt"><input type="checkbox" name="heavy" value="качели"><span>Качели с весом. Сбросила — набрала</span></label>
-          <label class="opt"><input type="checkbox" name="heavy" value="белка"><span>Белка в колесе. Тревога, тянет на сладкое просто взбодриться</span></label>
-          <label class="opt"><input type="checkbox" name="heavy" value="отеки"><span>Отёки. Лицо подушкой, кольца не надеваются</span></label>
-          <label class="opt"><input type="checkbox" name="heavy" value="жор"><span>Вечерний жор. День держалась, вечером полхолодильника</span></label>
-          <label class="opt"><input type="checkbox" name="heavy" value="цикл"><span>Цикл как хаос. ПМС, задержки</span></label>
-          <label class="opt"><input type="checkbox" name="heavy" value="молочница"><span>Молочница или цистит кругами</span></label>
-          <label class="opt"><input type="checkbox" name="heavy" value="батарейка"><span>Батарейка села. Ничего не хочу, вес растёт от воздуха</span></label>
-          <label class="opt"><input type="checkbox" name="heavy" value="анализы"><span>Анализы «норма», а мне не норма</span></label>
+    <section class="board">
+      <div class="col">
+        <div class="intro">
+          <p>Спасибо, что откликнулись на мою просьбу и решили поучаствовать в опросе.</p>
+          <p>Он займёт у вас не более 3–5 минут.</p>
+          <p>Одна просьба: пишите как есть. Не «беспокоит вздутие», а как это выглядит у тебя в семь вечера. Правильных ответов здесь нет, и оценивать тебя никто не будет.</p>
+          <p>От ваших ответов зависит, что я буду разбирать в блоге бесплатно и что войдёт в мой следующий курс.</p>
         </div>
-      </fieldset>
 
-      <div class="q">
-        <div class="num">7</div>
-        <label for="q7"><h2>С какими проблемами ты сталкиваешься из-за такого самочувствия?</h2></label>
-        <textarea id="q7" name="problems"></textarea>
-      </div>
-
-      <div class="q">
-        <div class="num">8</div>
-        <label for="q8"><h2>Что ты делаешь, когда снова плохо себя чувствуешь, а потом больше всего об этом жалеешь?</h2></label>
-        <textarea id="q8" name="regret"></textarea>
-      </div>
-
-      <div class="q">
-        <div class="num">9</div>
-        <label for="q9"><h2>Что в твоей жизни изменилось бы, если бы живот больше не раздувался, а силы были с утра?</h2></label>
-        <textarea id="q9" name="after"></textarea>
-      </div>
-
-      <fieldset class="q">
-        <legend><span class="num">10</span> Что ты уже пробовала, чтобы стало лучше?</legend>
-        <p class="hint">Можно несколько. Отметь своё, не всё подряд</p>
-        <div class="opts">
-          <label class="opt"><input type="checkbox" name="tried" value="diety"><span>Диеты, калории, «с понедельника»</span></label>
-          <label class="opt"><input type="checkbox" name="tried" value="detox"><span>Голодание, детокс, чистки</span></label>
-          <label class="opt"><input type="checkbox" name="tried" value="bady"><span>Банки, БАДы, аптека «для кишечника»</span></label>
-          <label class="opt"><input type="checkbox" name="tried" value="doctors"><span>Врачи: гастро, эндокринолог, гинеколог</span></label>
-          <label class="opt"><input type="checkbox" name="tried" value="courses"><span>Курсы, марафоны, вебинары</span></label>
-          <label class="opt"><input type="checkbox" name="tried" value="gym"><span>Зал, тренер, «просто меньше есть»</span></label>
-          <label class="opt"><input type="checkbox" name="tried" value="ozempic"><span>Уколы или таблетки для похудения: Оземпик и похожие</span></label>
-          <label class="opt"><input type="checkbox" name="tried" value="iv"><span>Капельницы</span></label>
-          <label class="opt"><input type="checkbox" name="tried" value="self"><span>Сама: гугл, рилсы, ChatGPT</span></label>
-          <label class="opt"><input type="checkbox" name="tried" value="symptom"><span>Свечи, ферменты, то что снимает симптом на неделю</span></label>
+        <div class="gift">
+          <p>За ваше время я хочу отдать урок из моего курса «Здоровый кишечник» — открою доступ на 7 дней.</p>
+          <p>В нём разбираю, почему живот к вечеру раздувается как шар и откуда берётся усталость «выжатого лимона». Это механизм, а не список запрещённых продуктов: поймёшь, что происходит именно в твоём теле.</p>
         </div>
-        <p class="hint">Если чего-то нет в списке, допиши</p>
-        <input id="q10other" name="tried_other" type="text" autocomplete="off">
-      </fieldset>
 
-      <div class="q">
-        <div class="num">11</div>
-        <label for="q11"><h2>Что тебе сейчас сильнее всего мешает справиться с таким самочувствием?</h2></label>
-        <textarea id="q11" name="block"></textarea>
+        <form id="survey" action="#" method="post">
+          <div class="q">
+            <div class="num">01</div>
+            <label for="q1"><h2>Как тебя зовут?</h2></label>
+            <input id="q1" name="name" type="text" autocomplete="name" required>
+          </div>
+
+          <div class="q">
+            <div class="num">02</div>
+            <label for="q2"><h2>Твой email</h2></label>
+            <input id="q2" name="email" type="email" autocomplete="email" required>
+          </div>
+
+          <div class="q">
+            <div class="num">03</div>
+            <label for="q3"><h2>Чем занимаешься, кем работаешь?</h2></label>
+            <input id="q3" name="work" type="text" autocomplete="organization-title">
+          </div>
+
+          <fieldset class="q">
+            <legend><span class="num">04</span> Как ты себя чувствуешь в обычный день — от 0 до 10?</legend>
+            <div class="poles">
+              <p><strong>0 — плохо</strong>живот шаром, сил нет, с едой война, вес качелями</p>
+              <p><strong>10 — нормально</strong>живот спокойный, силы есть, с едой без войны</p>
+            </div>
+            <div class="scale" role="radiogroup" aria-label="Оценка обычного дня от 0 до 10">
+              <label><input type="radio" name="scale" value="0" required>0</label>
+              <label><input type="radio" name="scale" value="1">1</label>
+              <label><input type="radio" name="scale" value="2">2</label>
+              <label><input type="radio" name="scale" value="3">3</label>
+              <label><input type="radio" name="scale" value="4">4</label>
+              <label><input type="radio" name="scale" value="5">5</label>
+              <label><input type="radio" name="scale" value="6">6</label>
+              <label><input type="radio" name="scale" value="7">7</label>
+              <label><input type="radio" name="scale" value="8">8</label>
+              <label><input type="radio" name="scale" value="9">9</label>
+              <label><input type="radio" name="scale" value="10">10</label>
+            </div>
+          </fieldset>
+
+          <div class="q">
+            <div class="num">05</div>
+            <label for="q5"><h2>Как ты сама объясняешь, почему с тобой так происходит?</h2></label>
+            <p class="hint">Напиши как думаешь, даже если не уверена</p>
+            <textarea id="q5" name="why"></textarea>
+          </div>
+
+          <fieldset class="q">
+            <legend><span class="num">06</span> С чем из этого тебе чаще всего тяжело?</legend>
+            <p class="hint">Можно несколько. Отметь своё, не всё подряд</p>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="heavy" value="шар"><span>Живот как шар. Тяжесть, урчание, думаю, что съесть, чтобы не раздуло</span></label>
+              <label class="opt"><input type="checkbox" name="heavy" value="лимон"><span>Выжатый лимон. Устаю с утра, голова в тумане</span></label>
+              <label class="opt"><input type="checkbox" name="heavy" value="качели"><span>Качели с весом. Сбросила — набрала</span></label>
+              <label class="opt"><input type="checkbox" name="heavy" value="белка"><span>Белка в колесе. Тревога, тянет на сладкое просто взбодриться</span></label>
+              <label class="opt"><input type="checkbox" name="heavy" value="отеки"><span>Отёки. Лицо подушкой, кольца не надеваются</span></label>
+              <label class="opt"><input type="checkbox" name="heavy" value="жор"><span>Вечерний жор. День держалась, вечером полхолодильника</span></label>
+              <label class="opt"><input type="checkbox" name="heavy" value="цикл"><span>Цикл как хаос. ПМС, задержки</span></label>
+              <label class="opt"><input type="checkbox" name="heavy" value="молочница"><span>Молочница или цистит кругами</span></label>
+              <label class="opt"><input type="checkbox" name="heavy" value="батарейка"><span>Батарейка села. Ничего не хочу, вес растёт от воздуха</span></label>
+              <label class="opt"><input type="checkbox" name="heavy" value="анализы"><span>Анализы «норма», а мне не норма</span></label>
+            </div>
+          </fieldset>
+
+          <div class="q">
+            <div class="num">07</div>
+            <label for="q7"><h2>С какими проблемами ты сталкиваешься из-за такого самочувствия?</h2></label>
+            <textarea id="q7" name="problems"></textarea>
+          </div>
+
+          <div class="q">
+            <div class="num">08</div>
+            <label for="q8"><h2>Что ты делаешь, когда снова плохо себя чувствуешь, а потом больше всего об этом жалеешь?</h2></label>
+            <textarea id="q8" name="regret"></textarea>
+          </div>
+
+          <div class="q">
+            <div class="num">09</div>
+            <label for="q9"><h2>Что в твоей жизни изменилось бы, если бы живот больше не раздувался, а силы были с утра?</h2></label>
+            <textarea id="q9" name="after"></textarea>
+          </div>
+
+          <fieldset class="q">
+            <legend><span class="num">10</span> Что ты уже пробовала, чтобы стало лучше?</legend>
+            <p class="hint">Можно несколько. Отметь своё, не всё подряд</p>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="tried" value="diety"><span>Диеты, калории, «с понедельника»</span></label>
+              <label class="opt"><input type="checkbox" name="tried" value="detox"><span>Голодание, детокс, чистки</span></label>
+              <label class="opt"><input type="checkbox" name="tried" value="bady"><span>Банки, БАДы, аптека «для кишечника»</span></label>
+              <label class="opt"><input type="checkbox" name="tried" value="doctors"><span>Врачи: гастро, эндокринолог, гинеколог</span></label>
+              <label class="opt"><input type="checkbox" name="tried" value="courses"><span>Курсы, марафоны, вебинары</span></label>
+              <label class="opt"><input type="checkbox" name="tried" value="gym"><span>Зал, тренер, «просто меньше есть»</span></label>
+              <label class="opt"><input type="checkbox" name="tried" value="ozempic"><span>Уколы или таблетки для похудения: Оземпик и похожие</span></label>
+              <label class="opt"><input type="checkbox" name="tried" value="iv"><span>Капельницы</span></label>
+              <label class="opt"><input type="checkbox" name="tried" value="self"><span>Сама: гугл, рилсы, ChatGPT</span></label>
+              <label class="opt"><input type="checkbox" name="tried" value="symptom"><span>Свечи, ферменты, то что снимает симптом на неделю</span></label>
+            </div>
+            <p class="hint">Если чего-то нет в списке, допиши</p>
+            <input id="q10other" name="tried_other" type="text" autocomplete="off">
+          </fieldset>
+
+          <div class="q">
+            <div class="num">11</div>
+            <label for="q11"><h2>Что тебе сейчас сильнее всего мешает справиться с таким самочувствием?</h2></label>
+            <textarea id="q11" name="block"></textarea>
+          </div>
+
+          <div class="submit-wrap">
+            <button class="btn btn-wide" type="submit">Отправить ответы</button>
+            <p class="legal">Ответы и урок — не диагностика и не назначение. Если состояние острое, сначала к врачу.</p>
+          </div>
+        </form>
       </div>
+    </section>
 
-      <div class="submit-wrap">
-        <button type="submit">Отправить ответы</button>
-        <p class="legal">Ответы и урок — не диагностика и не назначение. Если состояние острое, сначала к врачу.</p>
-      </div>
-    </form>
+    <footer class="footer">
+      <div class="logo">Наталья Алифер · нутрициолог</div>
+      <p class="f-ip">Индивидуальный предприниматель Алифер Наталья Сергеевна<br>ОГРНИП: 325508100162127 · ИНН: 502716470653</p>
+      <p class="f-copy">© 2026 Наталья Алифер. Информация носит образовательный характер и не является медицинской рекомендацией. При остром состоянии к врачу.</p>
+    </footer>
+  </div>
 
-    <div class="thanks" id="thanks">
-      <h2>Спасибо, что написала.</h2>
+  <section class="thanks" id="thanks" aria-live="polite">
+    <div class="thanks-card">
+      <p class="eyebrow">Анкета</p>
+      <h1>Спасибо, что написала.</h1>
       <p>Я прочитаю каждый ответ. Ссылку на урок пришлю на почту.</p>
     </div>
-  </main>
+  </section>
+
   <script>
     document.getElementById("survey").addEventListener("submit", function (e) {
       e.preventDefault();
