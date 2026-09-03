@@ -429,44 +429,37 @@
     }
     .fit-cta { display: flex; justify-content: center; }
 
-    .stream { background: var(--ink); color: #fff; padding: 88px 0 72px; }
-    .stream h2 { color: #fff; }
-    .stream .lead { color: rgba(255,255,255,.55); max-width: 58ch; margin: 0 0 28px; }
-    .unify {
+    .stream { background: var(--ink); color: #fff; padding: 88px 0 80px; }
+    .stream-head {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 20px;
-      margin-bottom: 40px;
+      grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+      gap: 12px 56px;
+      align-items: stretch;
+      margin-bottom: 8px;
     }
-    .unify-card {
-      background: #243018;
-      border-radius: var(--r);
-      padding: 36px 32px;
+    .stream h2 {
+      color: #fff;
+      margin-bottom: 20px;
+      line-height: 1.18;
     }
-    .unify-card h2 { margin-bottom: 16px; }
-    .unify-card .lead { margin-bottom: 24px; color: rgba(255,255,255,.7); }
-    .unify-say {
+    .stream .lead {
+      color: rgba(255,255,255,.62);
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+    .stream-tags {
+      padding-top: 38px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 12px 8px 12px 20px;
     }
-    .unify-say .k {
-      margin: 0 0 12px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--g);
-    }
-    .unify-say p {
-      margin: 0;
-      font-size: clamp(22px, 2.4vw, 30px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.25;
+    .stream .gathered {
+      margin: 0 0 14px;
+      font-size: 14px;
+      color: rgba(255,255,255,.45);
     }
     .prog-pills {
+      flex: 1;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
@@ -476,35 +469,32 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 40px;
+      min-height: 44px;
       padding: 8px 12px;
-      border: 1px solid rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.16);
       border-radius: 999px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
-      color: rgba(255,255,255,.8);
+      color: rgba(255,255,255,.82);
       text-align: center;
     }
-
-    .close-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .stream-close {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
       gap: 40px;
-      align-items: start;
+      margin-top: 44px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255,255,255,.12);
     }
-    .close-left {
+    .stream-close p {
       margin: 0;
-      font-size: clamp(22px, 2.4vw, 32px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.22;
-    }
-    .close-right p {
-      margin: 0 0 24px;
+      max-width: 46ch;
       font-size: 17px;
-      line-height: 1.5;
+      line-height: 1.55;
       color: rgba(255,255,255,.7);
     }
+    .stream-close .btn { flex-shrink: 0; }
 
     .modal {
       position: fixed;
@@ -641,17 +631,21 @@
       .hero-left { padding: 28px 20px 88px; }
       .hero-inner { width: 100%; }
       .scroll-cue { left: 20px; }
-      .cols2, .cards3, .unify, .close-row { grid-template-columns: 1fr; gap: 16px; }
-      .unify-say { padding: 8px 0 24px; }
+      .cols2, .cards3 { grid-template-columns: 1fr; gap: 16px; }
+      .stream-head { grid-template-columns: 1fr; gap: 28px; }
+      .stream-tags { padding-top: 0; }
+      .prog-pills { flex: none; }
+      .stream-close { flex-direction: column; align-items: stretch; gap: 20px; }
       .panel-split { grid-template-columns: 1fr; min-height: 0; }
       .panel-photo { order: -1; height: 280px; }
       .panel-copy { padding: 24px 20px; }
       .cols2 ul:first-child { border-right: 0; padding-right: 0; }
       .panel { padding: 0; }
       .get, .fit { padding: 56px 0; }
-      .stream { padding: 56px 0 32px; }
+      .stream { padding: 56px 0 56px; }
       .btn { width: 100%; }
       .hero-cta .btn { width: auto; }
+      .prog-pills span { white-space: normal; }
     }
     @media (max-width: 640px) {
       .photo-cap { display: none; }
@@ -783,11 +777,13 @@
 
     <section class="stream" id="course">
       <div class="col">
-        <div class="unify">
-          <article class="unify-card">
+        <div class="stream-head">
+          <div>
             <p class="eyebrow">Следующий поток</p>
-            <h2>Это программа курса «Пошаговая система оздоровления через кишечник»</h2>
-            <p class="lead">Не диета и не список банок. Понимание, что происходит именно в твоём теле, и конкретный план на 30 дней.</p>
+            <h2>Ты лечишь симптомы, они возвращаются,<br>потому что причина осталась в кишечнике.</h2>
+            <p class="lead">Это 30 дней работы с причиной, а не с очередной диетой. Программа курса «Пошаговая система оздоровления через кишечник». Не диета и не список банок. Понимание, что происходит именно в твоём теле, и конкретный план.</p>
+          </div>
+          <div class="stream-tags">
             <p class="gathered">В этот раз собрали</p>
             <div class="prog-pills">
               <span>сигналы тела</span>
@@ -799,18 +795,11 @@
               <span>лёгкость к вечеру</span>
               <span>план на 30 дней</span>
             </div>
-          </article>
-          <div class="unify-say">
-            <p class="k">Почему так</p>
-            <p>Ты лечишь симптомы, они возвращаются, потому что причина осталась в кишечнике.</p>
           </div>
         </div>
-        <div class="close-row">
-          <p class="close-left">Следующий поток — 30 дней работы с причиной, а не с очередной диетой.</p>
-          <div class="close-right">
-            <p>Я собираю тех, кто уже ходила по кругу: диеты, чистки, банки. Если хочешь быть в следующем потоке, заполняй анкету. Жду тебя.</p>
-            <button class="btn" type="button" data-open="anketa">Заполнить анкету</button>
-          </div>
+        <div class="stream-close">
+          <p>Я собираю тех, кто уже ходила по кругу: диеты, чистки, банки. Если хочешь быть в следующем потоке, заполняй анкету. Жду тебя.</p>
+          <button class="btn" type="button" data-open="anketa">Заполнить анкету</button>
         </div>
       </div>
     </section>
