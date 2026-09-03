@@ -373,49 +373,148 @@
     }
     .stream .lead {
       color: rgba(255,255,255,.62);
-      margin: 0;
+      margin: 0 0 28px;
       font-size: 18px;
       line-height: 1.55;
     }
-    .stream-head {
+    .stream-stage {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
-      gap: 28px 48px;
-      align-items: start;
-      margin-bottom: 36px;
+      grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+      gap: 40px;
+      align-items: stretch;
+      margin-bottom: 48px;
     }
-    .unify-say .k {
-      margin: 0 0 12px;
+    .stream-photo {
+      position: relative;
+      margin: 0;
+      border-radius: var(--r);
+      overflow: hidden;
+      background: #111;
+      box-shadow: 0 18px 40px color-mix(in oklab, var(--g-dark) 28%, transparent);
+      min-height: 520px;
+    }
+    .stream-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 18%;
+    }
+    .stream-photo .photo-chip {
+      left: 18px;
+      right: auto;
+      bottom: 18px;
+      width: max-content;
+      max-width: calc(100% - 36px);
+      color: var(--ink);
+    }
+    .why-viz {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 20px 24px;
+      align-items: center;
+      padding: 22px 22px 22px 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--r);
+      background: rgba(255,255,255,.03);
+    }
+    .why-viz .k {
+      grid-column: 1 / -1;
+      margin: 0;
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--g);
     }
-    .unify-say p {
+    .loop {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+    .loop svg { width: 200px; height: 200px; display: block; }
+    .loop .ln {
+      position: absolute;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    .loop .ln.a { top: 6px; left: 50%; transform: translateX(-50%); }
+    .loop .ln.b { right: 4px; bottom: 42px; }
+    .loop .ln.c { left: 8px; bottom: 42px; }
+    .why-viz .why-line {
       margin: 0;
-      font-size: clamp(22px, 2.4vw, 30px);
+      font-size: clamp(20px, 2.2vw, 28px);
       font-weight: 800;
       letter-spacing: -0.03em;
       line-height: 1.25;
       color: #fff;
     }
-    .stream .gathered {
+    .day-ruler {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 14px;
       margin: 0 0 14px;
+    }
+    .day-ruler b {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--g);
+      letter-spacing: 0.04em;
+    }
+    .ticks {
+      height: 8px;
+      border-radius: 999px;
+      background: repeating-linear-gradient(90deg,
+        rgba(122,140,82,.95) 0 2px,
+        transparent 2px 3.4%);
+    }
+    .stream .gathered {
+      margin: 0 0 16px;
       font-size: 14px;
       color: rgba(255,255,255,.45);
     }
-    .prog-pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
-    .prog-pills span {
-      display: inline-flex;
-      align-items: center;
-      min-height: 40px;
-      padding: 8px 16px;
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 999px;
-      font-size: 14px;
-      font-weight: 600;
-      color: rgba(255,255,255,.82);
+    .prog-map {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .prog-map li {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 132px;
+      padding: 18px 16px 20px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      background: rgba(255,255,255,.03);
+    }
+    .prog-map .n {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--g);
+    }
+    .prog-map svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--g);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .prog-map b {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+      color: #fff;
     }
     .close-row {
       display: grid;
@@ -606,7 +705,11 @@
       .cards3 { grid-template-columns: 1fr; }
       .ephir { grid-template-columns: 1fr; gap: 24px; }
       .ephir-window { order: -1; width: min(300px, 100%); margin: 0 auto; }
-      .stream-head, .close-row { grid-template-columns: 1fr; gap: 24px; }
+      .stream-stage,
+      .why-viz,
+      .close-row { grid-template-columns: 1fr; gap: 24px; }
+      .stream-photo { min-height: 0; height: 64vw; max-height: 420px; }
+      .prog-map { grid-template-columns: 1fr 1fr; }
       .get { padding: 56px 0; }
       .stream { padding: 56px 0 56px; }
       .btn { width: 100%; }
@@ -758,27 +861,90 @@
     <section class="stream" id="course">
       <div class="col">
         <p class="eyebrow">Следующий поток</p>
-        <div class="stream-head">
+        <div class="stream-stage">
+          <figure class="stream-photo">
+            <img src="hero-gc.jpg" alt="Наталья Алифер" width="800" height="1000">
+            <figcaption class="photo-chip">
+              <b>30 дней</b>
+              <span>работа с причиной</span>
+            </figcaption>
+          </figure>
           <div>
             <h2>Это программа курса «Пошаговая система оздоровления через кишечник»</h2>
             <p class="lead">Не диета и не список банок. Понимание, что происходит именно в твоём теле, и конкретный план на 30 дней.</p>
+            <div class="why-viz">
+              <p class="k">Почему так</p>
+              <div class="loop" aria-hidden="true">
+                <svg viewBox="0 0 200 200">
+                  <defs>
+                    <marker id="loop-arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                      <path d="M0 1 L8 4 L0 7 Z" fill="#7a8c52"></path>
+                    </marker>
+                  </defs>
+                  <circle cx="100" cy="108" r="62" fill="none" stroke="rgba(122,140,82,.35)" stroke-width="1.5" stroke-dasharray="3 8"></circle>
+                  <path d="M100 46 A62 62 0 0 1 153.7 139" fill="none" stroke="#7a8c52" stroke-width="1.7" marker-end="url(#loop-arr)"></path>
+                  <path d="M148 150 A62 62 0 0 1 52 150" fill="none" stroke="#7a8c52" stroke-width="1.7" marker-end="url(#loop-arr)"></path>
+                  <path d="M46.3 139 A62 62 0 0 1 100 46" fill="none" stroke="#7a8c52" stroke-width="1.7" marker-end="url(#loop-arr)"></path>
+                  <circle cx="100" cy="46" r="4" fill="#7a8c52"></circle>
+                  <circle cx="153.7" cy="139" r="4" fill="#7a8c52"></circle>
+                  <circle cx="46.3" cy="139" r="4" fill="#7a8c52"></circle>
+                </svg>
+                <span class="ln a">диеты</span>
+                <span class="ln b">чистки</span>
+                <span class="ln c">банки</span>
+              </div>
+              <p class="why-line">Ты лечишь симптомы, они возвращаются, потому что причина осталась в кишечнике.</p>
+            </div>
           </div>
-          <div class="unify-say">
-            <p class="k">Почему так</p>
-            <p>Ты лечишь симптомы, они возвращаются, потому что причина осталась в кишечнике.</p>
-          </div>
+        </div>
+        <div class="day-ruler" aria-hidden="true">
+          <b>1</b>
+          <div class="ticks"></div>
+          <b>30</b>
         </div>
         <p class="gathered">В этот раз собрали</p>
-        <div class="prog-pills">
-          <span>сигналы тела</span>
-          <span>питание без запретов</span>
-          <span>кожа, гормоны, вес</span>
-          <span>энергия с утра</span>
-          <span>тяга к сладкому</span>
-          <span>сон</span>
-          <span>лёгкость к вечеру</span>
-          <span>план на 30 дней</span>
-        </div>
+        <ol class="prog-map">
+          <li>
+            <span class="n">01</span>
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            <b>сигналы тела</b>
+          </li>
+          <li>
+            <span class="n">02</span>
+            <svg viewBox="0 0 24 24"><path d="M3 12h18"></path><path d="M5 12V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5"></path><path d="M5 12v4a7 7 0 0 0 14 0v-4"></path></svg>
+            <b>питание без запретов</b>
+          </li>
+          <li>
+            <span class="n">03</span>
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 20a8 8 0 0 1 16 0"></path></svg>
+            <b>кожа, гормоны, вес</b>
+          </li>
+          <li>
+            <span class="n">04</span>
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+            <b>энергия с утра</b>
+          </li>
+          <li>
+            <span class="n">05</span>
+            <svg viewBox="0 0 24 24"><path d="M12 3c4 5 7 8 7 11a7 7 0 1 1-14 0c0-3 3-6 7-11z"></path></svg>
+            <b>тяга к сладкому</b>
+          </li>
+          <li>
+            <span class="n">06</span>
+            <svg viewBox="0 0 24 24"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"></path></svg>
+            <b>сон</b>
+          </li>
+          <li>
+            <span class="n">07</span>
+            <svg viewBox="0 0 24 24"><path d="M3 12h13M12 7l8 5-8 5"></path></svg>
+            <b>лёгкость к вечеру</b>
+          </li>
+          <li>
+            <span class="n">08</span>
+            <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"></rect><path d="M8 3v4M16 3v4M4 11h16"></path></svg>
+            <b>план на 30 дней</b>
+          </li>
+        </ol>
         <div class="close-row">
           <p class="close-left">Следующий поток — 30 дней работы с причиной, а не с очередной диетой.</p>
           <div class="close-right">
