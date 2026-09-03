@@ -41,51 +41,27 @@
     a { color: inherit; text-decoration: none; }
     button, input, textarea { font-family: inherit; }
     .col { width: min(720px, calc(100% - 96px)); margin: 0 auto; }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 20px 48px;
-      background: var(--ink);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
     .logo { font-size: 15px; font-weight: 600; color: #fff; }
-    .nav-cta {
-      appearance: none;
-      border: 0;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      height: 40px;
-      padding: 0 20px;
-      background: var(--g);
-      color: #fff;
-      border-radius: 999px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .nav-cta:hover { background: var(--g-dark); }
 
+    /* GetCourse-style cover: 1920×720 strip, not a landing hero */
     .hero {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      min-height: 520px;
+      height: 280px;
       background: var(--ink);
       color: #fff;
     }
     .hero-left {
       display: flex;
       align-items: center;
-      padding: 64px 48px 72px;
+      padding: 28px 40px;
     }
-    .hero-inner { width: min(560px, 100%); }
+    .hero-inner { width: min(520px, 100%); }
     .eyebrow {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin: 0 0 18px;
+      margin: 0 0 10px;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -94,22 +70,21 @@
     }
     .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--g); }
     .hero h1 {
-      margin: 0 0 16px;
-      font-size: clamp(36px, 5vw, 58px);
+      margin: 0 0 8px;
+      font-size: clamp(26px, 3.2vw, 40px);
       font-weight: 800;
       letter-spacing: -0.045em;
       line-height: 1.05;
     }
     .hero .who {
-      margin: 0 0 28px;
-      font-size: 18px;
+      margin: 0;
+      font-size: 15px;
       font-weight: 600;
       color: var(--g);
     }
-    .hero .btn { width: auto; }
     .hero-right {
       position: relative;
-      min-height: 420px;
+      min-height: 0;
       overflow: hidden;
     }
     .hero-right img {
@@ -118,23 +93,11 @@
       object-fit: cover;
       object-position: 50% 18%;
     }
-    .photo-chip {
-      position: absolute;
-      left: 20px;
-      bottom: 20px;
-      padding: 12px 16px;
-      border-radius: 16px;
-      background: var(--paper);
-      color: var(--ink);
-      box-shadow: var(--shadow);
-    }
-    .photo-chip b { display: block; font-size: 14px; font-weight: 800; letter-spacing: -0.02em; }
-    .photo-chip span { font-size: 12px; color: var(--muted); }
 
     .board {
       background: var(--off);
       color: var(--ink);
-      padding: 72px 0 88px;
+      padding: 40px 0 88px;
     }
     .intro p {
       margin: 0 0 14px;
@@ -329,10 +292,9 @@
 
     @media (max-width: 960px) {
       .col { width: min(720px, calc(100% - 40px)); }
-      .nav, .footer, .hero-left { padding-left: 20px; padding-right: 20px; }
-      .hero { grid-template-columns: 1fr; min-height: 0; }
-      .hero-right { order: -1; height: 56vw; min-height: 240px; max-height: 360px; }
-      .hero-left { padding-top: 36px; padding-bottom: 48px; }
+      .footer, .hero-left { padding-left: 20px; padding-right: 20px; }
+      .hero { height: 200px; }
+      .hero-left { padding-top: 20px; padding-bottom: 20px; }
       .scale { grid-template-columns: repeat(6, 1fr); }
       .scale label:last-child { grid-column: span 1; }
     }
@@ -340,7 +302,10 @@
       .poles { grid-template-columns: 1fr; }
       .q { padding: 20px 18px; }
       .q h2, .q legend { font-size: 18px; }
-      .hero h1 { font-size: 34px; }
+      .hero { height: 168px; grid-template-columns: 1.05fr 0.95fr; }
+      .hero h1 { font-size: 22px; }
+      .hero .who { font-size: 13px; }
+      .hero-left { padding: 16px; }
       .btn { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -352,26 +317,16 @@
 </head>
 <body>
   <div class="page">
-    <header class="nav">
-      <div class="logo">Наталья Алифер</div>
-      <a class="nav-cta" href="#survey">К вопросам</a>
-    </header>
-
-    <section class="hero">
+    <section class="hero" aria-label="Анкета обратной связи">
       <div class="hero-left">
         <div class="hero-inner">
           <p class="eyebrow">Пиши как есть</p>
           <h1>Анкета<br>обратной связи</h1>
           <p class="who">Наталья Алифер · нутрициолог</p>
-          <a class="btn" href="#survey">К вопросам</a>
         </div>
       </div>
       <div class="hero-right">
         <img src="hero.jpg" alt="Наталья Алифер, нутрициолог" width="900" height="1200">
-        <div class="photo-chip">
-          <b>3–5 минут</b>
-          <span>11 вопросов · пиши как есть</span>
-        </div>
       </div>
     </section>
 
