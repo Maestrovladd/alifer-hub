@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Как ты медленно убиваешь свой кишечник · Наталья Алифер</title>
-  <meta name="description" content="Видео: лишний вес, акне, усталость и вздутие. Пошаговый план к здоровому кишечнику. После видео — анкета предзаписи на эфир.">
+  <meta name="description" content="Видео: лишний вес, акне, усталость и вздутие. Предзапись на следующий поток и закрытый эфир 20 сентября.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -54,6 +54,10 @@
     }
     .logo { font-size: 15px; font-weight: 600; color: #fff; }
     .nav-cta {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
       display: inline-flex;
       align-items: center;
       height: 40px;
@@ -142,7 +146,7 @@
     .play:hover span { background: var(--g-dark); }
 
     .learn {
-      padding: 8px 0 64px;
+      padding: 8px 0 48px;
     }
     .learn h2 {
       margin: 0 0 28px;
@@ -199,67 +203,291 @@
     }
     .learn-ico svg { width: 26px; height: 26px; }
 
-    .offer {
-      padding: 48px 0 72px;
+    .get { background: var(--off); color: var(--ink); padding: 88px 0; }
+    .center { text-align: center; }
+    .center-wrap { display: flex; justify-content: center; margin: 0 0 40px; }
+    .get h2 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 3.2vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.12;
+      color: var(--ink);
     }
-    .offer-box {
-      background: var(--g);
-      border-radius: 28px;
-      padding: 40px 40px 28px;
-      box-shadow: var(--shadow);
-    }
-    .offer-box > h2 {
-      margin: 0 0 24px;
+    .get h2 em, .learn-h em { font-style: normal; color: var(--g-dark); }
+    .get-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 10px 28px;
+      background: var(--g-dark);
+      color: #fff;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 600;
       text-align: center;
-      font-size: clamp(22px, 2.6vw, 32px);
+    }
+    .learn-h {
+      text-align: center;
+      margin: 0 0 24px;
+      font-size: clamp(24px, 2.8vw, 36px);
       font-weight: 800;
       letter-spacing: -0.03em;
-      color: #fff;
+      color: var(--ink);
     }
-    .bonuses {
+    .ephir {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px 28px;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 300px) minmax(0, 1fr);
+      gap: 8px 28px;
+      align-items: center;
       margin-bottom: 28px;
     }
-    .bonuses li {
-      display: grid;
-      grid-template-columns: 22px 1fr;
-      gap: 12px;
-      align-items: start;
-      font-size: 15px;
-      font-weight: 600;
+    .ephir-list { margin: 0; padding: 0; }
+    .ephir-list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 18px;
+      font-size: 16px;
       line-height: 1.45;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .ephir-list li:last-child { margin-bottom: 0; }
+    .ephir-list li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 8px;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--g);
+    }
+    .ephir-window {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--r);
+      overflow: hidden;
+      background: var(--g-dark);
+      box-shadow: var(--shadow);
+    }
+    .ephir-window img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 32% 28%;
+    }
+    .ephir-window::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to top, rgb(26 26 26 / .45), transparent 42%);
+      pointer-events: none;
+    }
+    .win-play {
+      position: absolute;
+      top: 46%;
+      left: 50%;
+      z-index: 2;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: rgb(255 252 247 / .94);
+      box-shadow: 0 10px 28px color-mix(in oklab, var(--g-dark) 28%, transparent);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .win-play::after {
+      content: "";
+      position: absolute;
+      left: 23px;
+      top: 18px;
+      border-style: solid;
+      border-width: 11px 0 11px 18px;
+      border-color: transparent transparent transparent var(--g-dark);
+    }
+    .photo-chip {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      z-index: 2;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      text-align: left;
+    }
+    .photo-chip b { display: block; font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+    .photo-chip span { font-size: 12px; color: var(--muted); }
+    .cards3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+    .get-cta { display: flex; justify-content: center; margin-top: 36px; }
+    .card {
+      background: #fff;
+      border-radius: var(--r);
+      padding: 28px 26px 32px;
+      box-shadow: 0 10px 28px color-mix(in oklab, var(--g-dark) 8%, transparent);
+      text-align: left;
+    }
+    .ico {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--g);
+      margin-bottom: 16px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 20px;
+    }
+    .ico-place { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3C/svg%3E"); }
+    .ico-gift { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8M12 22V12M2 7h20v5H2zM12 7a3 3 0 1 0-3-3c0 3 3 3 3 3zm0 0a3 3 0 1 1 3-3c0 3-3 3-3 3z'/%3E%3C/svg%3E"); }
+    .ico-stamp { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M12 3l2.2 4.6L19 8.2l-3.4 3.3.8 4.7L12 14.6 7.6 16.2l.8-4.7L5 8.2l4.8-.6L12 3z'/%3E%3C/svg%3E"); }
+    .card h3 { margin: 0 0 10px; font-size: 17px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.3; color: var(--ink); }
+    .card p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+    .stream { background: var(--ink); color: #fff; padding: 88px 0 80px; text-align: left; }
+    .stream .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--g);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .stream .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--g); }
+    .stream h2 {
+      margin: 0 0 16px;
+      color: #fff;
+      font-size: clamp(28px, 3.2vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.18;
+    }
+    .stream .lead {
+      color: rgba(255,255,255,.62);
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+    .stream-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.85fr);
+      gap: 28px 48px;
+      align-items: start;
+      margin-bottom: 36px;
+    }
+    .unify-say .k {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--g);
+    }
+    .unify-say p {
+      margin: 0;
+      font-size: clamp(22px, 2.4vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
       color: #fff;
     }
-    .bonuses li::before {
-      content: "";
-      width: 22px;
-      height: 22px;
-      margin-top: 1px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.18) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M2.5 6.2 5 8.6 9.5 3.4'/%3E%3C/svg%3E") center / 10px no-repeat;
+    .stream .gathered {
+      margin: 0 0 14px;
+      font-size: 14px;
+      color: rgba(255,255,255,.45);
+    }
+    .prog-pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+    .prog-pills span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,.82);
+    }
+    .close-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+      margin-top: 44px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    .close-left {
+      margin: 0;
+      font-size: clamp(22px, 2.4vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.22;
+      color: #fff;
+    }
+    .close-right p {
+      margin: 0 0 24px;
+      font-size: 17px;
+      line-height: 1.5;
+      color: rgba(255,255,255,.7);
     }
 
-    .form-wrap {
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .modal[hidden] { display: none; }
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgb(26 26 26 / .62);
+    }
+    .modal-card {
+      position: relative;
+      z-index: 1;
+      width: min(480px, 100%);
+      max-height: min(92svh, 820px);
+      overflow: auto;
+    }
+    .modal-x {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      z-index: 2;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--g-light);
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    body.modal-open { overflow: hidden; }
+    .modal-card .form {
+      width: 100%;
+      margin: 0;
+      padding: 44px 28px 32px;
       background: var(--paper);
       color: var(--ink);
-      border-radius: 22px;
-      padding: 32px 28px;
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
     }
-    .form-wrap .lead {
-      margin: 0 auto 22px;
-      max-width: 46ch;
-      text-align: center;
-      font-size: 17px;
-      font-weight: 600;
-      line-height: 1.45;
-    }
-    .form {
-      width: min(520px, 100%);
-      margin: 0 auto;
-    }
-    .form h3 { margin: 0 0 4px; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
+    .form h3 { margin: 0 0 4px; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
     .form .hint { margin: 0 0 18px; color: var(--muted); font-size: 13px; }
     .field { margin-bottom: 12px; }
     .field label, .pains-label {
@@ -311,13 +539,7 @@
       line-height: 1.35;
     }
     .consent input { width: 16px; height: 16px; margin-top: 1px; accent-color: var(--g-dark); }
-    .legal {
-      margin: 14px 0 0;
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--muted);
-      text-align: center;
-    }
+    .legal { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
 
     .btn {
       appearance: none;
@@ -380,8 +602,15 @@
       .col { width: min(1120px, calc(100% - 40px)); }
       .nav, .footer { padding-left: 20px; padding-right: 20px; }
       .hero { padding: 36px 0 28px; }
-      .learn-grid, .bonuses { grid-template-columns: 1fr; }
-      .offer-box { padding: 28px 20px 20px; }
+      .learn-grid { grid-template-columns: 1fr; }
+      .cards3 { grid-template-columns: 1fr; }
+      .ephir { grid-template-columns: 1fr; gap: 24px; }
+      .ephir-window { order: -1; width: min(300px, 100%); margin: 0 auto; }
+      .stream-head, .close-row { grid-template-columns: 1fr; gap: 24px; }
+      .get { padding: 56px 0; }
+      .stream { padding: 56px 0 56px; }
+      .btn { width: 100%; }
+      .get-cta .btn { width: auto; }
     }
     @media (max-width: 640px) {
       .player { border-radius: 14px; }
@@ -399,7 +628,7 @@
   <div class="page">
     <header class="nav">
       <div class="logo">Наталья Алифер</div>
-      <a class="nav-cta" href="#form">Заполнить анкету</a>
+      <button class="nav-cta" type="button" data-open="anketa">Заполнить анкету</button>
     </header>
 
     <section class="hero">
@@ -476,43 +705,85 @@
       </div>
     </section>
 
-    <section class="offer" id="form">
+    <section class="get" id="get">
       <div class="col">
-        <div class="offer-box">
-          <h2>Заполни анкету предзаписи, чтобы получить:</h2>
-          <ul class="bonuses">
-            <li>Место на эфире 20 сентября, 18:00 мск. Без анкеты ссылки в канал не будет.</li>
-            <li>Видео «Паразитоз. Кто убивает твой организм изнутри?» сразу после анкеты, в закрытом канале.</li>
-            <li>Условия старта первого потока: 30 дней, смотри → делай → результат. Цифры и дату учёбы назовём на эфире, тем кто в анкете.</li>
-            <li>Напоминание за час до эфира.</li>
+        <h2 class="center">В предзаписи <em>ты получишь</em></h2>
+        <div class="center-wrap"><span class="get-pill">доступ к закрытому эфиру и бесплатному уроку</span></div>
+        <h3 class="learn-h">На закрытом эфире <em>ты узнаешь</em></h3>
+
+        <div class="ephir">
+          <ul class="ephir-list">
+            <li>Почему диеты и чистки держат две недели, а потом живот и вес возвращаются</li>
+            <li>Как живот, кожа и усталость к обеду связаны с одним местом, а не с характером</li>
+            <li>Почему врач говорит «всё хорошо», а ты себя так не чувствуешь</li>
           </ul>
-          <div class="form-wrap">
-            <p class="lead">Заполни анкету предзаписи, чтобы попасть на эфир, забрать бонус и услышать условия первого потока ещё до открытия продаж.</p>
-            <form class="form" action="#" method="post">
-              <h3>Анкета предзаписи</h3>
-              <p class="hint">Оплаты нет. Место в предзаписи открывает вход на эфир.</p>
-              <div class="field">
-                <label for="name1">Как тебя зовут</label>
-                <input id="name1" name="name" type="text" autocomplete="name" required>
-              </div>
-              <div class="field">
-                <label for="contact1">Telegram или email</label>
-                <input id="contact1" name="contact" type="text" autocomplete="email" required>
-              </div>
-              <p class="pains-label">С чем сейчас тяжелее всего · можно несколько</p>
-              <div class="pills">
-                <label class="pill"><input type="checkbox" name="pain" value="шар"><span>Живот шаром к вечеру</span></label>
-                <label class="pill"><input type="checkbox" name="pain" value="lemon"><span>Просыпаюсь уже уставшей</span></label>
-                <label class="pill"><input type="checkbox" name="pain" value="loop"><span>Всё перепробовала</span></label>
-                <label class="pill"><input type="checkbox" name="pain" value="skin"><span>Кожа</span></label>
-                <label class="pill"><input type="checkbox" name="pain" value="weight"><span>Вес не уходит</span></label>
-                <label class="pill"><input type="checkbox" name="pain" value="fog"><span>Туман в голове</span></label>
-              </div>
-              <label class="consent"><input type="checkbox" name="pd" required><span>Согласна на обработку персональных данных</span></label>
-              <label class="consent"><input type="checkbox" name="mail" required><span>Письма про эфир и про первый поток</span></label>
-              <button class="btn btn-wide" type="submit">Заполнить анкету и занять место</button>
-              <p class="legal">Эфир и курс не отменяют врача и не ставят диагноз. Если острый живот, кровь или температура, сначала к врачу.</p>
-            </form>
+          <div class="ephir-window">
+            <img src="vsl.jpg" alt="Наталья Алифер" width="800" height="1000">
+            <span class="win-play" aria-hidden="true"></span>
+            <div class="photo-chip">
+              <b>20 сентября · 18:00 мск</b>
+              <span>Закрытый эфир</span>
+            </div>
+          </div>
+          <ul class="ephir-list">
+            <li>Что из рекламы маскирует причину: детокс, банки, уколы</li>
+            <li>С каких анализов начать, что убрать с тарелки, что добавить</li>
+            <li>Как за 30 дней собрать план под своё тело, а не ещё один список «нельзя»</li>
+          </ul>
+        </div>
+
+        <div class="cards3">
+          <article class="card">
+            <div class="ico ico-place" aria-hidden="true"></div>
+            <h3>Занять место на следующий поток</h3>
+            <p>Курса «Пошаговая система оздоровления через кишечник» по эксклюзивным условиям.</p>
+          </article>
+          <article class="card">
+            <div class="ico ico-stamp" aria-hidden="true"></div>
+            <h3>Гарантированно получить бонусы и самую низкую стоимость</h3>
+            <p>Только тем, кто в анкете. Какие именно цифры, скажу на эфире.</p>
+          </article>
+          <article class="card">
+            <div class="ico ico-gift" aria-hidden="true"></div>
+            <h3>Бонус-урок «Паразитоз. Кто убивает твой организм изнутри?»</h3>
+            <p>Придёт в канал.</p>
+          </article>
+        </div>
+        <div class="get-cta">
+          <button class="btn" type="button" data-open="anketa">Занять место в предзаписи</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="stream" id="course">
+      <div class="col">
+        <p class="eyebrow">Следующий поток</p>
+        <div class="stream-head">
+          <div>
+            <h2>Это программа курса «Пошаговая система оздоровления через кишечник»</h2>
+            <p class="lead">Не диета и не список банок. Понимание, что происходит именно в твоём теле, и конкретный план на 30 дней.</p>
+          </div>
+          <div class="unify-say">
+            <p class="k">Почему так</p>
+            <p>Ты лечишь симптомы, они возвращаются, потому что причина осталась в кишечнике.</p>
+          </div>
+        </div>
+        <p class="gathered">В этот раз собрали</p>
+        <div class="prog-pills">
+          <span>сигналы тела</span>
+          <span>питание без запретов</span>
+          <span>кожа, гормоны, вес</span>
+          <span>энергия с утра</span>
+          <span>тяга к сладкому</span>
+          <span>сон</span>
+          <span>лёгкость к вечеру</span>
+          <span>план на 30 дней</span>
+        </div>
+        <div class="close-row">
+          <p class="close-left">Следующий поток — 30 дней работы с причиной, а не с очередной диетой.</p>
+          <div class="close-right">
+            <p>Я собираю тех, кто уже ходила по кругу: диеты, чистки, банки. Если хочешь быть в следующем потоке, заполняй анкету. Жду тебя.</p>
+            <button class="btn" type="button" data-open="anketa">Заполнить анкету</button>
           </div>
         </div>
       </div>
@@ -525,20 +796,76 @@
     </footer>
   </div>
 
+  <div class="modal" id="anketa" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="anketa-title">
+      <button class="modal-x" type="button" data-close aria-label="Закрыть">×</button>
+      <form class="form" action="#" method="post">
+        <h3 id="anketa-title">Занять место</h3>
+        <p class="hint">Анкета ставит тебя в список следующего потока и открывает эфир.</p>
+        <div class="field">
+          <label for="name1">Как тебя зовут</label>
+          <input id="name1" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="contact1">Telegram или email</label>
+          <input id="contact1" name="contact" type="text" autocomplete="email" required>
+        </div>
+        <p class="pains-label">С чем сейчас тяжелее всего · можно несколько</p>
+        <div class="pills">
+          <label class="pill"><input type="checkbox" name="pain" value="шар"><span>Живот шаром к вечеру</span></label>
+          <label class="pill"><input type="checkbox" name="pain" value="lemon"><span>Просыпаюсь уже уставшей</span></label>
+          <label class="pill"><input type="checkbox" name="pain" value="loop"><span>Всё перепробовала</span></label>
+          <label class="pill"><input type="checkbox" name="pain" value="skin"><span>Кожа</span></label>
+          <label class="pill"><input type="checkbox" name="pain" value="weight"><span>Вес не уходит</span></label>
+          <label class="pill"><input type="checkbox" name="pain" value="fog"><span>Туман в голове</span></label>
+        </div>
+        <label class="consent"><input type="checkbox" name="pd" required><span>Согласна на обработку персональных данных</span></label>
+        <label class="consent"><input type="checkbox" name="mail" required><span>Письма про следующий поток и закрытый эфир</span></label>
+        <button class="btn btn-wide" type="submit">Заполнить анкету и занять место</button>
+        <p class="legal">Это не диагностика и не лечение.</p>
+      </form>
+    </div>
+  </div>
+
   <section class="thanks" id="thanks" aria-live="polite">
     <div class="thanks-card">
       <p class="eyebrow">Предзапись</p>
       <h1>Место в предзаписи занято</h1>
-      <p>Эфир 20 сентября · 18:00 мск. За час напомню. Старт курса назовём на эфире: кто в анкете, услышит первой. Канал и бонус пришлёт бот.</p>
+      <p>Бот пришлёт канал и видео про паразитоз. Эфир 20 сентября, 18:00 мск. За час напомню. Условия следующего потока скажу на эфире.</p>
     </div>
   </section>
 
   <script>
-    document.querySelector(".form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      document.body.classList.add("sent");
-      window.scrollTo(0, 0);
-    });
+    (function () {
+      var modal = document.getElementById("anketa");
+      var form = modal.querySelector(".form");
+      var first = document.getElementById("name1");
+      function openModal() {
+        modal.hidden = false;
+        document.body.classList.add("modal-open");
+        first.focus();
+      }
+      function closeModal() {
+        modal.hidden = true;
+        document.body.classList.remove("modal-open");
+      }
+      document.querySelectorAll("[data-open=anketa]").forEach(function (el) {
+        el.addEventListener("click", openModal);
+      });
+      modal.querySelectorAll("[data-close]").forEach(function (el) {
+        el.addEventListener("click", closeModal);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.hidden) closeModal();
+      });
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        closeModal();
+        document.body.classList.add("sent");
+        window.scrollTo(0, 0);
+      });
+    })();
   </script>
 </body>
 </html>
