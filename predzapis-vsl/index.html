@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- impeccable-disable single-font: Alifer kit, one family Figtree per LEND-BRIEF -->
-<!-- impeccable-disable em-dash-overuse: VSL title locked from deck slide 1 -->
+<!-- impeccable-disable em-dash-overuse: deck title split into chips + stacked h1 -->
 <!-- impeccable-disable dark-glow: Thomas closedstrategy composition, Alifer sage not neon -->
 <html lang="ru">
 <head>
@@ -72,31 +72,55 @@
 
     .hero {
       background: var(--ink);
-      padding: 64px 0 40px;
+      padding: 56px 0 48px;
       text-align: center;
       color: #fff;
     }
+    .pains {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 10px;
+      margin: 0 auto 28px;
+      max-width: 640px;
+    }
+    .pains span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 14px;
+      border: 1px solid rgba(217,211,201,.28);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.72);
+    }
     .hero h1 {
-      margin: 0 auto 12px;
-      max-width: 16em;
-      font-size: clamp(26px, 3.6vw, 44px);
+      margin: 0 auto 20px;
+      max-width: 14em;
+      font-size: clamp(32px, 5vw, 58px);
       font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.12;
+      letter-spacing: -0.045em;
+      line-height: 1.06;
     }
     .hero .who {
-      margin: 0 0 10px;
-      font-size: clamp(22px, 2.8vw, 32px);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.15;
+      margin: 0 auto 8px;
+      max-width: 22em;
+      font-size: clamp(18px, 2vw, 22px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.35;
       color: var(--g);
     }
     .hero .hook {
-      margin: 0 auto 36px;
-      font-size: 16px;
+      margin: 0 auto 40px;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
       line-height: 1.45;
-      color: rgba(255,255,255,.5);
+      color: rgba(255,255,255,.46);
     }
 
     .player {
@@ -146,39 +170,48 @@
     .play:hover span { background: var(--g-dark); }
 
     .learn {
-      padding: 8px 0 48px;
+      padding: 12px 0 56px;
     }
     .learn h2 {
-      margin: 0 0 28px;
+      margin: 0 auto 12px;
+      max-width: 18em;
       text-align: center;
-      font-size: clamp(24px, 2.8vw, 34px);
+      font-size: clamp(26px, 3vw, 38px);
       font-weight: 800;
       letter-spacing: -0.04em;
-      line-height: 1.2;
+      line-height: 1.18;
       color: #fff;
+    }
+    .learn .lead {
+      margin: 0 auto 32px;
+      max-width: 36em;
+      text-align: center;
+      font-size: 17px;
+      line-height: 1.5;
+      color: rgba(255,255,255,.55);
     }
     .learn-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 16px;
     }
     .learn-card {
       display: grid;
       grid-template-columns: 1fr 56px;
-      gap: 16px;
-      align-items: center;
-      min-height: 136px;
-      padding: 22px 20px 22px 24px;
+      gap: 18px;
+      align-items: start;
+      padding: 28px 24px 28px 28px;
       background: #222;
       border: 1px solid rgba(255,255,255,.06);
       border-radius: 20px;
       text-align: left;
     }
     .learn-q {
-      margin: 0 0 8px;
-      font-size: 17px;
+      margin: 0 0 12px;
+      font-size: 18px;
       font-weight: 700;
-      line-height: 1.3;
+      line-height: 1.28;
+      letter-spacing: -0.02em;
       color: #fff;
     }
     .learn-q em {
@@ -187,14 +220,15 @@
     }
     .learn-t {
       margin: 0;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 400;
-      line-height: 1.45;
-      color: rgba(255,255,255,.55);
+      line-height: 1.55;
+      color: rgba(255,255,255,.62);
     }
     .learn-ico {
       width: 52px;
       height: 52px;
+      margin-top: 2px;
       border-radius: 16px;
       background: rgba(122,140,82,.16);
       display: grid;
@@ -717,7 +751,10 @@
     }
     @media (max-width: 640px) {
       .player { border-radius: 14px; }
-      .learn-card { min-height: 0; }
+      .learn-card { min-height: 0; padding: 24px 20px; }
+      .pains { display: grid; grid-template-columns: 1fr 1fr; max-width: 320px; }
+      .pains span { justify-content: center; }
+      .hero h1 { font-size: 32px; }
       .btn { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -736,7 +773,13 @@
 
     <section class="hero">
       <div class="col">
-        <h1>Лишний вес, акне, усталость и вздутие — как ты медленно убиваешь свой кишечник</h1>
+        <p class="pains">
+          <span>Лишний вес</span>
+          <span>Акне</span>
+          <span>Усталость</span>
+          <span>Вздутие</span>
+        </p>
+        <h1>Как ты медленно<br>убиваешь свой кишечник</h1>
         <p class="who">Пошаговый план к здоровому кишечнику</p>
         <p class="hook">Наталья Алифер · нутрициолог</p>
         <div class="player" id="vsl">
@@ -748,12 +791,13 @@
 
     <section class="learn">
       <div class="col">
-        <h2>Посмотри видео, чтобы узнать:</h2>
+        <h2>Посмотри видео</h2>
+        <p class="lead">В нём разберём, почему всё, что ты пробовала, держало две недели, и что делать вместо очередного круга.</p>
         <div class="learn-grid">
           <article class="learn-card">
             <div>
-              <p class="learn-q">Почему всё, что ты пробовала, <em>не держало результат</em></p>
-              <p class="learn-t">Диеты, чистки и укол вроде Оземпика дают две недели облегчения. Потом та же история: ты лечила симптом, причина сидела в кишечнике.</p>
+              <p class="learn-q">Почему диеты, чистки и уколы <em>держат только две недели</em></p>
+              <p class="learn-t">Ты убираешь хлеб, пьёшь банки, колешь то, что сейчас в рекламе. Две недели легче. Потом живот и вес возвращаются: ты снимала симптом, а причина осталась в кишечнике.</p>
             </div>
             <div class="learn-ico" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
@@ -761,8 +805,8 @@
           </article>
           <article class="learn-card">
             <div>
-              <p class="learn-q">Как включить насыщение <em>без укола и без отката</em></p>
-              <p class="learn-t">Оземпик даёт извне то, что здоровый кишечник делает сам. Вопрос не «колоть или нет», а почему кишечник перестал это делать.</p>
+              <p class="learn-q">Почему укол для похудения работает, <em>пока колешь</em></p>
+              <p class="learn-t">Оземпик даёт снаружи сигнал «ты поела, остановись». Этот сигнал здоровый кишечник делает сам. Пока колешь, легче. Как только перестала, тяга приходит обратно. Это не решение, а аренда чужого гормона.</p>
             </div>
             <div class="learn-ico" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M8 8c2-2 6-2 8 0"/><path d="M8 16c2 2 6 2 8 0"/></svg>
@@ -770,8 +814,8 @@
           </article>
           <article class="learn-card">
             <div>
-              <p class="learn-q">Как кишечник управляет <em>весом, кожей, энергией</em> и настроением</p>
-              <p class="learn-t">Вес, кожа, тяга к сладкому и туман в голове идут из одного центра. Это не сила воли.</p>
+              <p class="learn-q">Почему вес, кожа, сладкое и усталость <em>приходят пачкой</em></p>
+              <p class="learn-t">К вечеру живот как шар, кожа вспышками, после обеда тянет на сладкое, с утра нет сил. Кажется, это четыре разные проблемы. В видео соберём их в одно место: кишечник. Характер тут ни при чём, и дело не в том, что мало двигаешься.</p>
             </div>
             <div class="learn-ico" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M5 5l1.5 1.5M17.5 17.5 19 19M3 12h2M19 12h2M5 19l1.5-1.5M17.5 6.5 19 5"/></svg>
@@ -779,8 +823,8 @@
           </article>
           <article class="learn-card">
             <div>
-              <p class="learn-q">Почему «норма» в бланке ещё не <em>здоровье</em></p>
-              <p class="learn-t">Шкала от нуля до ста. Можно быть на двадцати и услышать «всё хорошо», хотя тебе не норма.</p>
+              <p class="learn-q">Почему в бланке «всё нормально», <em>а тебе не нормально</em></p>
+              <p class="learn-t">Лаборатория ставит широкую норму и пишет «всё хорошо». Ты можешь быть у самого края этой нормы, слышать это и просыпаться уже уставшей. Норма в бумаге и самочувствие разные вещи.</p>
             </div>
             <div class="learn-ico" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7V3h8v4"/><path d="M6 7h12v14H6z"/><path d="M9 12h6M9 16h4"/></svg>
@@ -788,8 +832,8 @@
           </article>
           <article class="learn-card">
             <div>
-              <p class="learn-q"><em>Пять шагов</em>, с которых начинали женщины, увидевшие результат</p>
-              <p class="learn-t">Какие анализы сдать первыми, что убрать из тарелки, что добавить, как не игнорировать стресс вокруг еды и когда подключать добавки.</p>
+              <p class="learn-q">С чего начинали женщины, у которых результат <em>остался</em></p>
+              <p class="learn-t">Не новый список «нельзя». В видео пять шагов: какие анализы сдать первыми, что убрать с тарелки на время, что добавить, как не игнорировать стресс вокруг еды и когда банки имеют смысл.</p>
             </div>
             <div class="learn-ico" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>
@@ -797,8 +841,8 @@
           </article>
           <article class="learn-card">
             <div>
-              <p class="learn-q">Три пути: «всё в норме», ChatGPT или <em>разобраться системно</em></p>
-              <p class="learn-t">Пойти к врачу и услышать «всё хорошо». Вбить бланк в нейросеть. Или собрать причину в одно место.</p>
+              <p class="learn-q">К врачу, в нейросеть или <em>разобраться с причиной</em></p>
+              <p class="learn-t">Можно пойти к врачу и услышать «всё в норме». Можно вбить бланк в ChatGPT: нейросеть видит цифры, не твою историю. Третий путь: собрать причину в одно место и идти от неё. В видео покажу, чем эти три дороги отличаются.</p>
             </div>
             <div class="learn-ico" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h6v6H4zM14 6h6v6h-6zM9 14h6v6H9z"/></svg>
