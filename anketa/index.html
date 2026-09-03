@@ -1,4 +1,7 @@
 <!doctype html>
+<!-- impeccable-disable single-font: Alifer kit, Figtree only -->
+<!-- impeccable-disable em-dash-overuse: existing CA copy locked -->
+<!-- impeccable-disable numbered-section-markers: survey question numbers, not section chrome -->
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -341,30 +344,29 @@
         <textarea id="q9" name="after"></textarea>
       </div>
 
-      <div class="q">
-        <div class="num">10</div>
-        <label for="q10"><h2>Что ты больше всего хочешь научиться делать иначе, когда снова живот шаром или нет сил?</h2></label>
-        <textarea id="q10" name="differently"></textarea>
-      </div>
+      <fieldset class="q">
+        <legend><span class="num">10</span> Что ты уже пробовала, чтобы стало лучше?</legend>
+        <p class="hint">Можно несколько. Отметь своё, не всё подряд</p>
+        <div class="opts">
+          <label class="opt"><input type="checkbox" name="tried" value="diety"><span>Диеты, калории, «с понедельника»</span></label>
+          <label class="opt"><input type="checkbox" name="tried" value="detox"><span>Голодание, детокс, чистки</span></label>
+          <label class="opt"><input type="checkbox" name="tried" value="bady"><span>Банки, БАДы, аптека «для кишечника»</span></label>
+          <label class="opt"><input type="checkbox" name="tried" value="doctors"><span>Врачи: гастро, эндокринолог, гинеколог</span></label>
+          <label class="opt"><input type="checkbox" name="tried" value="courses"><span>Курсы, марафоны, вебинары</span></label>
+          <label class="opt"><input type="checkbox" name="tried" value="gym"><span>Зал, тренер, «просто меньше есть»</span></label>
+          <label class="opt"><input type="checkbox" name="tried" value="ozempic"><span>Уколы или таблетки для похудения: Оземпик и похожие</span></label>
+          <label class="opt"><input type="checkbox" name="tried" value="iv"><span>Капельницы</span></label>
+          <label class="opt"><input type="checkbox" name="tried" value="self"><span>Сама: гугл, рилсы, ChatGPT</span></label>
+          <label class="opt"><input type="checkbox" name="tried" value="symptom"><span>Свечи, ферменты, то что снимает симптом на неделю</span></label>
+        </div>
+        <p class="hint">Если чего-то нет в списке, допиши</p>
+        <input id="q10other" name="tried_other" type="text" autocomplete="off">
+      </fieldset>
 
       <div class="q">
         <div class="num">11</div>
-        <label for="q11"><h2>Что ты уже пробовала, чтобы стало лучше?</h2></label>
-        <p class="hint">Напиши как есть: диеты, банки, таблетки, свечи, врачи, курсы</p>
-        <textarea id="q11" name="tried"></textarea>
-      </div>
-
-      <div class="q">
-        <div class="num">12</div>
-        <label for="q12"><h2>Что тебе сейчас сильнее всего мешает справиться с таким самочувствием?</h2></label>
-        <textarea id="q12" name="block"></textarea>
-      </div>
-
-      <div class="q">
-        <div class="num">13</div>
-        <label for="q13"><h2>Есть ещё что-то про самочувствие, о чём я не спросила?</h2></label>
-        <p class="hint">Если бы мы пили кофе, какой вопрос ты задала бы мне как нутрициологу?</p>
-        <textarea id="q13" name="else"></textarea>
+        <label for="q11"><h2>Что тебе сейчас сильнее всего мешает справиться с таким самочувствием?</h2></label>
+        <textarea id="q11" name="block"></textarea>
       </div>
 
       <div class="submit-wrap">
