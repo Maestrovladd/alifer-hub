@@ -7,8 +7,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Предзапись · Наталья Алифер</title>
-  <meta name="description" content="Предзапись на эфир 20 сентября. Первый поток курса «Пошаговая система оздоровления через кишечник».">
+  <title>Предзапись · первый поток · Наталья Алифер</title>
+  <meta name="description" content="Анкета предзаписи на первый поток курса «Пошаговая система оздоровления через кишечник». Лучшие условия и скидки только участникам анкеты.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -70,7 +70,6 @@
     }
     .nav-cta:hover { background: var(--g-dark); }
 
-    /* Экран 1 — как веб: тёмный split, фото на всю высоту, одна кнопка */
     .hero {
       display: grid;
       grid-template-columns: 1.25fr 0.85fr;
@@ -83,7 +82,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 48px 56px 48px 48px;
+      padding: 48px 56px 72px 48px;
       position: relative;
       z-index: 1;
     }
@@ -100,22 +99,8 @@
       margin-bottom: 14px;
     }
     .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--g); }
-    .date-badge {
-      display: inline-flex;
-      align-items: center;
-      height: 34px;
-      padding: 0 14px;
-      margin-bottom: 16px;
-      background: rgba(122,140,82,.12);
-      border: 1px solid rgba(122,140,82,.28);
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--g);
-      width: fit-content;
-    }
     .hero h1 {
-      margin: 0 0 14px;
+      margin: 0 0 18px;
       font-size: clamp(34px, 4.2vw, 56px);
       font-weight: 800;
       letter-spacing: -0.045em;
@@ -125,56 +110,17 @@
     .hero h1 span {
       display: block;
       font-weight: 500;
-      font-size: 0.62em;
+      font-size: 0.58em;
       letter-spacing: -0.03em;
       color: rgba(255,255,255,.72);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .hero .lead {
       margin: 0 0 32px;
       font-size: 17px;
       color: rgba(255,255,255,.55);
-      max-width: 36ch;
+      max-width: 38ch;
     }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      height: 28px;
-      padding: 0 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.4);
-    }
-    .tag.accent {
-      background: rgba(122,140,82,.15);
-      border-color: rgba(122,140,82,.3);
-      color: var(--g);
-    }
-    .bonus {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 14px 16px;
-      margin: 0 0 28px;
-      background: rgba(122,140,82,.13);
-      border: 1px solid rgba(122,140,82,.3);
-      border-radius: 14px;
-    }
-    .bonus b {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--g);
-      margin-bottom: 2px;
-    }
-    .bonus span { font-size: 13px; line-height: 1.45; color: rgba(255,255,255,.82); }
     .hero-right {
       position: relative;
       overflow: hidden;
@@ -207,13 +153,36 @@
     }
     .photo-cap strong { display: block; font-size: 18px; font-weight: 800; }
     .photo-cap span { font-size: 13px; color: rgba(255,255,255,.55); }
-    .hero-cta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .hero-cta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 22px; }
     .hero-aside {
       margin: 0;
       font-size: 14px;
-      line-height: 1.45;
+      line-height: 1.5;
       color: rgba(255,255,255,.55);
-      max-width: 26ch;
+      max-width: 32ch;
+    }
+    .scroll-cue {
+      position: absolute;
+      left: 48px;
+      bottom: 28px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,.45);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .scroll-cue svg {
+      width: 28px;
+      height: 28px;
+      animation: cue 1.6s var(--ease) infinite;
+    }
+    @keyframes cue {
+      0%, 100% { transform: translateY(0); opacity: .55; }
+      50% { transform: translateY(8px); opacity: 1; }
     }
 
     .btn {
@@ -235,13 +204,19 @@
     }
     .btn:hover { background: var(--g-dark); transform: translateY(-2px); }
     .btn-wide { width: 100%; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--g-dark);
+      border: 1px solid color-mix(in oklab, var(--g) 45%, var(--ink));
+      box-shadow: none;
+    }
+    .btn-ghost:hover { background: var(--g-light); }
 
-    /* Экран 2 — как у Арины: светлый, заголовок по центру, панель на всю ширину, 3 карточки */
     .get { background: var(--off); padding: 88px 0; }
     .center { text-align: center; }
     .lead-get {
-      margin: 0 auto 18px;
-      max-width: 44ch;
+      margin: 0 auto 28px;
+      max-width: 46ch;
       color: var(--muted);
       font-size: 17px;
       line-height: 1.45;
@@ -254,19 +229,6 @@
       line-height: 1.12;
     }
     h2 em { font-style: normal; color: var(--g-dark); }
-    .center-pill {
-      display: inline-flex;
-      align-items: center;
-      height: 34px;
-      padding: 0 16px;
-      margin: 0 auto 36px;
-      background: var(--g);
-      color: #fff;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .center + .center-pill, .center-wrap { display: flex; justify-content: center; }
     .panel {
       background: #fff;
       border-radius: var(--r);
@@ -275,12 +237,17 @@
       box-shadow: var(--shadow);
     }
     .panel h3 {
-      margin: 0 0 24px;
+      margin: 0 0 8px;
       font-size: 22px;
       font-weight: 800;
       letter-spacing: -0.03em;
     }
     .panel h3 em { font-style: normal; color: var(--g-dark); }
+    .panel-note {
+      margin: 0 0 24px;
+      font-size: 14px;
+      color: var(--muted);
+    }
     .cols2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -326,25 +293,81 @@
     }
     .ico-place { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%235C6B3E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M8 7V3m8 4V3M3 11h18M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z'/%3E%3C/svg%3E"); }
     .ico-gift { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%235C6B3E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8M12 22V12M2 7h20v5H2zM12 7a3 3 0 1 0-3-3c0 3 3 3 3 3zm0 0a3 3 0 1 1 3-3c0 3-3 3-3 3z'/%3E%3C/svg%3E"); }
-    .ico-door { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%235C6B3E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M3 21h18M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M10 12h.01'/%3E%3C/svg%3E"); }
+    .ico-stamp { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%235C6B3E' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M12 3l2.2 4.6L19 8.2l-3.4 3.3.8 4.7L12 14.6 7.6 16.2l.8-4.7L5 8.2l4.8-.6L12 3z'/%3E%3C/svg%3E"); }
     .card h3 { margin: 0 0 10px; font-size: 17px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.3; }
     .card p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
-
-    .who {
-      background: var(--ink);
-      color: #fff;
-      padding: 88px 0;
-      min-height: calc(100svh - 81px);
-      display: flex;
+    .stamp {
+      display: inline-flex;
       align-items: center;
+      margin: 12px 0 0;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--g-light);
+      color: var(--g-dark);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
-    .who .lock { margin-bottom: 0; }
 
-    /* Экран 3 — поток, форма внизу */
+    .fit { background: var(--paper); padding: 88px 0; }
+    .fit h2 { margin-bottom: 28px; }
+    .fit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      border: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
+      border-radius: var(--r);
+      overflow: hidden;
+      background: #fff;
+      margin-bottom: 16px;
+    }
+    .fit-cell {
+      padding: 28px 24px;
+      border-right: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
+      border-bottom: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink));
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .fit-cell:nth-child(4n) { border-right: 0; }
+    .fit-cell.wide {
+      grid-column: span 2;
+      font-weight: 500;
+      color: var(--muted);
+      border-bottom: 0;
+    }
+    .fit-cell.wide strong { display: block; color: var(--ink); font-weight: 800; margin-bottom: 8px; }
+    .fit-lock {
+      margin: 0 0 28px;
+      padding: 4px 0 4px 18px;
+      border-left: 3px solid var(--g);
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    .fit-cta { display: flex; justify-content: center; }
+
     .stream { background: var(--ink); color: #fff; padding: 88px 0 40px; }
     .stream h2 { color: #fff; }
-    .stream .lead { color: rgba(255,255,255,.55); max-width: 58ch; margin: 0 0 36px; }
+    .stream .lead { color: rgba(255,255,255,.55); max-width: 58ch; margin: 0 0 28px; }
     .stream .lead b { color: #fff; }
+    .prog-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 28px;
+    }
+    .prog-pills span {
+      display: inline-flex;
+      align-items: center;
+      height: 36px;
+      padding: 0 14px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,.8);
+    }
     .bento {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -362,32 +385,6 @@
     .b-k { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 12px; opacity: .75; }
     .b-card p { margin: 0; font-size: 15px; line-height: 1.5; }
     .note { margin: 0 0 36px; color: rgba(255,255,255,.4); font-size: 14px; }
-    .fw { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
-    .fw-card { border-radius: 20px; padding: 36px 32px; }
-    .fw-yes { background: var(--g); }
-    .fw-no { background: #1c1c1c; color: rgba(255,255,255,.65); border: 1px solid rgba(255,255,255,.08); }
-    .fw-card h3 { margin: 0 0 18px; font-size: 17px; font-weight: 800; color: #fff; }
-    .fw-no h3 { color: rgba(255,255,255,.45); }
-    .fw-card li {
-      display: grid;
-      grid-template-columns: 18px 1fr;
-      gap: 10px;
-      font-size: 14px;
-      line-height: 1.45;
-      margin-bottom: 12px;
-    }
-    .fw-card li:last-child { margin-bottom: 0; }
-    .fw-card li::before { content: ""; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; }
-    .fw-yes li::before { background: rgba(255,255,255,.2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M2.5 6.2 5 8.6 9.5 3.4'/%3E%3C/svg%3E") center / 10px no-repeat; }
-    .fw-no li::before { background: rgba(255,255,255,.08) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' d='M3 3l6 6M9 3L3 9'/%3E%3C/svg%3E") center / 9px no-repeat; }
-    .lock {
-      margin: 0 0 64px;
-      padding: 4px 0 4px 18px;
-      border-left: 3px solid var(--g);
-      color: rgba(255,255,255,.5);
-      font-size: 16px;
-      line-height: 1.65;
-    }
 
     .reg {
       display: grid;
@@ -398,7 +395,26 @@
       border-top: 1px solid rgba(255,255,255,.08);
     }
     .reg h2 { margin-top: 8px; }
-    .reg .bonus { margin: 24px 0 0; }
+    .reg .bonus {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      margin: 24px 0 0;
+      background: rgba(122,140,82,.13);
+      border: 1px solid rgba(122,140,82,.3);
+      border-radius: 14px;
+    }
+    .reg .bonus b {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--g);
+      margin-bottom: 2px;
+    }
+    .reg .bonus span { font-size: 13px; line-height: 1.45; color: rgba(255,255,255,.82); }
 
     .form {
       color: var(--ink);
@@ -494,12 +510,16 @@
       .hero { grid-template-columns: 1fr; height: auto; min-height: 0; }
       .hero-right { order: -1; height: 64vw; min-height: 280px; max-height: 420px; }
       .hero-right::before { width: 100%; height: 80px; inset: auto 0 0; background: linear-gradient(to bottom, transparent, var(--ink)); }
-      .hero-left { padding: 28px 20px 40px; }
+      .hero-left { padding: 28px 20px 88px; }
       .hero-inner { width: 100%; }
-      .cols2, .cards3, .fw, .bento, .reg { grid-template-columns: 1fr; gap: 16px; }
+      .scroll-cue { left: 20px; }
+      .cols2, .cards3, .bento, .reg { grid-template-columns: 1fr; gap: 16px; }
+      .fit-grid { grid-template-columns: 1fr 1fr; }
+      .fit-cell:nth-child(4n) { border-right: 1px solid color-mix(in oklab, var(--cream) 70%, var(--ink)); }
+      .fit-cell:nth-child(2n) { border-right: 0; }
+      .fit-cell.wide { grid-column: span 2; }
       .panel { padding: 24px 20px; }
-      .get { padding: 56px 0; }
-      .who { padding: 56px 0; min-height: 0; }
+      .get, .fit { padding: 56px 0; }
       .stream { padding: 56px 0 32px; }
       .btn { width: 100%; }
       .hero-cta .btn { width: auto; }
@@ -508,11 +528,15 @@
       .photo-cap { display: none; }
       .hero-cta { flex-direction: column; align-items: stretch; }
       .hero-cta .btn { width: 100%; }
+      .fit-grid { grid-template-columns: 1fr; }
+      .fit-cell, .fit-cell:nth-child(2n), .fit-cell:nth-child(4n) { border-right: 0; }
+      .fit-cell.wide { grid-column: span 1; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .btn { transition: none; }
       .btn:hover { transform: none; }
+      .scroll-cue svg { animation: none; }
     }
   </style>
 </head>
@@ -526,15 +550,20 @@
     <section class="hero">
       <div class="hero-left">
         <div class="hero-inner">
-          <p class="eyebrow">Предзапись · нутрициолог</p>
-          <div class="date-badge">20 сентября · 18:00 мск</div>
-          <h1><span>Эфир</span>Почему причина не в силе воли</h1>
-          <p class="lead">Вздутие, усталость и вес. Разберём на эфире.</p>
+          <p class="eyebrow">Предзапись · первый поток</p>
+          <h1><span>Пошаговая система</span>оздоровления через кишечник</h1>
+          <p class="lead">30 дней. Смотри → делай → результат. Причина вздутия, усталости и веса в кишечнике.</p>
           <div class="hero-cta">
             <a class="btn" href="#form">Занять место</a>
-            <p class="hero-aside">Займи место в предзаписи — и зайдёшь на эфир. Оплаты нет.</p>
+            <p class="hero-aside">Займи место в анкете предзаписи. Лучшие условия и скидки первого потока только тем, кто внутри.</p>
           </div>
         </div>
+        <a class="scroll-cue" href="#get">
+          <span>условия</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </a>
       </div>
       <div class="hero-right">
         <img src="hero.jpg" alt="Наталья Алифер, нутрициолог" width="900" height="1200">
@@ -545,49 +574,24 @@
       </div>
     </section>
 
-    <section class="who" id="who">
-      <div class="col">
-        <div class="fw">
-          <div class="fw-card fw-yes">
-            <h3>Это для тебя, если</h3>
-            <ul>
-              <li>Перепробовала диеты, результат не держится</li>
-              <li>Шар к вечеру, усталость без причины, кожа или вес, который не слушается</li>
-              <li>Нужна система, не список запретов</li>
-              <li>Готова 30–40 минут в день</li>
-            </ul>
-          </div>
-          <div class="fw-card fw-no">
-            <h3>Не для тебя, если</h3>
-            <ul>
-              <li>Быстрый результат без смены еды</li>
-              <li>Только список БАДов «для кишечника»</li>
-              <li>Не готова делать сама</li>
-              <li>Острый живот, кровь, температура — сначала врач</li>
-            </ul>
-          </div>
-        </div>
-        <p class="lock">Я сама шла через «всё правильно — не работает». Эфир и курс не отменяют врача и не ставят диагноз.</p>
-      </div>
-    </section>
-
     <section class="get" id="get">
       <div class="col">
         <h2 class="center">В предзаписи <em>ты получишь</em></h2>
-        <p class="center lead-get">Вздутие, усталость и лишний вес — сигналы кишечника, не характер.</p>
-        <div class="center-wrap"><span class="center-pill">Первый поток · эфир 20 сентября · бонус после анкеты</span></div>
+        <p class="center lead-get">Анкета ничего не стоит. Место в первом потоке и закрытый канал только отсюда.</p>
 
         <div class="panel">
-          <h3>На эфире <em>ты узнаешь</em></h3>
+          <h3>На закрытом эфире <em>ты узнаешь</em></h3>
+          <p class="panel-note">20 сентября · 18:00 мск. Ссылка только в канал после анкеты.</p>
           <div class="cols2">
             <ul>
-              <li>Почему диеты, чистки и БАДы работают — и потом всё по кругу</li>
+              <li>Почему диеты, чистки и БАДы держат две недели и это не сила воли</li>
               <li>Как кишечник управляет весом, кожей, энергией и тягой к сладкому</li>
-              <li>Почему «анализы в норме» — а тебе не норма</li>
+              <li>Почему «анализы в норме», а тебе не норма</li>
             </ul>
             <ul>
-              <li>С чего начать: какие анализы первыми, что убрать из тарелки, что добавить</li>
-              <li>Как устроена система на 30 дней, если после эфира зайдёшь в поток</li>
+              <li>Почему Оземпик даёт извне то, что здоровый кишечник умеет сам</li>
+              <li>С чего начать: какие анализы первыми, что убрать, что добавить</li>
+              <li>Как устроен первый поток на 30 дней, если зайдёшь после эфира</li>
             </ul>
           </div>
         </div>
@@ -595,19 +599,44 @@
         <div class="cards3">
           <article class="card">
             <div class="ico ico-place" aria-hidden="true"></div>
-            <h3>Место на эфире 20 сентября</h3>
-            <p>18:00 мск. Без анкеты ссылки в канал не будет.</p>
+            <h3>Место на первый поток по эксклюзивным условиям</h3>
+            <p>Курс «Пошаговая система оздоровления через кишечник». Условия старта назовём на эфире тем, кто в анкете.</p>
+          </article>
+          <article class="card">
+            <div class="ico ico-stamp" aria-hidden="true"></div>
+            <h3>Бонусы и максимально лучшие скидки</h3>
+            <p>Только участникам анкеты. Цифры на эфире. В канал сразу серия голосовых: почему откат за две недели, норма в бланке, пять шагов.</p>
+            <span class="stamp">лучшие условия анкеты</span>
           </article>
           <article class="card">
             <div class="ico ico-gift" aria-hidden="true"></div>
             <h3>Бонус-видео сразу после анкеты</h3>
-            <p>«Паразитоз. Кто убивает твой организм изнутри?» — в закрытый канал.</p>
+            <p>«Паразитоз. Кто убивает твой организм изнутри?» плюс вход на закрытый эфир 20 сентября.</p>
           </article>
-          <article class="card">
-            <div class="ico ico-door" aria-hidden="true"></div>
-            <h3>Условия старта первого потока</h3>
-            <p>Смотри → делай → результат. 30 дней. Цифры и дата учёбы — только на эфире, тем кто в анкете.</p>
-          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="fit" id="fit">
+      <div class="col">
+        <h2>Курс подойдёт, <em>если ты</em></h2>
+        <div class="fit-grid">
+          <div class="fit-cell">Перепробовала диеты и чистки, результат не держится</div>
+          <div class="fit-cell">К вечеру живот шаром, усталость без причины, кожа или вес не слушаются</div>
+          <div class="fit-cell">Нужна система, не список запретов</div>
+          <div class="fit-cell">Готова 30–40 минут в день в своём темпе</div>
+          <div class="fit-cell wide">
+            <strong>Анкета не обязывает купить</strong>
+            Заполняешь, чтобы понять, заходишь ли в первый поток, и забрать условия, которые будут только внутри.
+          </div>
+          <div class="fit-cell wide">
+            <strong>Не для тебя, если</strong>
+            Ждёшь быстрый результат без смены еды, нужен только список БАДов или острый живот, кровь, температура: сначала врач.
+          </div>
+        </div>
+        <p class="fit-lock">Я сама шла через «всё правильно не работает». Курс не ставит диагноз и не отменяет врача.</p>
+        <div class="fit-cta">
+          <a class="btn" href="#form">Занять место в предзаписи</a>
         </div>
       </div>
     </section>
@@ -616,39 +645,46 @@
       <div class="col">
         <p class="eyebrow">Первый поток</p>
         <h2>Пошаговая система оздоровления через кишечник</h2>
-        <p class="lead">Не диета и не список БАДов. Понимание, что происходит в твоём теле, и план на 30 дней. <b>Смотри → делай → получаешь результат.</b></p>
+        <p class="lead">Не диета и не список БАДов. Понимание, что происходит в теле, и план на 30 дней. <b>Смотри → делай → получаешь результат.</b></p>
+        <div class="prog-pills">
+          <span>15+ уроков</span>
+          <span>20–30 минут</span>
+          <span>PDF и чек-листы</span>
+          <span>три двери</span>
+          <span>30 дней</span>
+        </div>
 
         <div class="bento">
           <article class="b-card">
             <div class="b-k">Уроки</div>
-            <p>15+ уроков по 20–30 минут: сигналы тела, микробиом, питание без жёстких запретов, кожа, гормоны и вес, стресс, желчь, сон</p>
+            <p>Сигналы тела, микробиом, питание без жёстких запретов, кожа, гормоны и вес, стресс, желчь, сон</p>
           </article>
           <article class="b-card dim">
             <div class="b-k">Материалы</div>
-            <p>PDF, схемы, чек-листы — применять, не конспектировать с нуля</p>
+            <p>PDF, схемы, чек-листы применять, не конспектировать с нуля</p>
           </article>
           <article class="b-card dim">
-            <div class="b-k">После эфира</div>
+            <div class="b-k">Если зайдёшь</div>
             <p>Три двери: «Я сама» · «Хочу с нутрициологом» · «VIP с Наташей»</p>
           </article>
         </div>
-        <p class="note">Цифры и дата старта учёбы — на эфире.</p>
+        <p class="note">Цифры и дата старта учёбы на эфире, тем кто в анкете.</p>
 
         <div class="reg" id="form">
           <div>
-            <p class="eyebrow">Анкета</p>
-            <h2>Если хочешь быть в первом потоке — заполняй анкету</h2>
-            <p class="lead" style="margin-bottom:0">Жду на эфире 20 сентября.</p>
+            <p class="eyebrow">Анкета предзаписи</p>
+            <h2>Собираю первый поток тех, кто устал кружить по диетам</h2>
+            <p class="lead" style="margin-bottom:0">Если хочешь быть в их числе заполняй анкету. Лучшие условия и скидки только внутри.</p>
             <div class="bonus">
               <div>
-                <b>Бонус за анкету</b>
-                <span>Видео-разбор «Паразитоз. Кто убивает твой организм изнутри?» — сразу в закрытый канал.</span>
+                <b>После анкеты</b>
+                <span>Закрытый эфир 20 сентября, видео «Паразитоз» и серия голосовых в канал.</span>
               </div>
             </div>
           </div>
           <form class="form" action="#" method="post">
-            <h3>Анкета предзаписи</h3>
-            <p class="hint">Оплаты нет. Место в предзаписи — это вход на эфир.</p>
+            <h3>Занять место в потоке</h3>
+            <p class="hint">Оплаты нет. Анкета держит место в предзаписи и вход на закрытый эфир.</p>
             <div class="field">
               <label for="name1">Как тебя зовут</label>
               <input id="name1" name="name" type="text" autocomplete="name" required>
@@ -667,7 +703,7 @@
               <label class="pill"><input type="checkbox" name="pain" value="fog"><span>Туман в голове</span></label>
             </div>
             <label class="consent"><input type="checkbox" name="pd" required><span>Согласна на обработку персональных данных</span></label>
-            <label class="consent"><input type="checkbox" name="mail" required><span>Письма про эфир и про первый поток</span></label>
+            <label class="consent"><input type="checkbox" name="mail" required><span>Письма про первый поток и закрытый эфир</span></label>
             <button class="btn btn-wide" type="submit">Заполнить анкету и занять место</button>
             <p class="legal">Это не диагностика и не лечение.</p>
           </form>
@@ -678,7 +714,7 @@
     <footer class="footer">
       <div class="logo">Наталья Алифер · нутрициолог</div>
       <p class="f-ip">Индивидуальный предприниматель Алифер Наталья Сергеевна<br>ОГРНИП: 325508100162127 · ИНН: 502716470653</p>
-      <p class="f-copy">© 2026 Наталья Алифер. Информация носит образовательный характер и не является медицинской рекомендацией. При остром состоянии — к врачу.</p>
+      <p class="f-copy">© 2026 Наталья Алифер. Информация носит образовательный характер и не является медицинской рекомендацией. При остром состоянии к врачу.</p>
     </footer>
   </div>
 
@@ -686,7 +722,7 @@
     <div class="thanks-card">
       <p class="eyebrow">Предзапись</p>
       <h1>Место в предзаписи занято</h1>
-      <p class="lead">Эфир 20 сентября · 18:00 мск. За час напомню. Старт курса назовём на эфире — кто в анкете, услышит первой. Канал и бонус пришлёт бот.</p>
+      <p class="lead">Канал и бонус-видео пришлёт бот. Эфир 20 сентября · 18:00 мск, напомню за час. Условия первого потока назовём на эфире.</p>
     </div>
   </section>
 
