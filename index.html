@@ -144,16 +144,45 @@
     #tab4:checked ~ .main .switches label[for="tab4"] {
       background: #fdeee4; border-color: #e8c4a0; color: #8a4b12;
     }
+    label[for="tab5"] { background: #f3f7f1; border-color: #c9d9c4; }
+    #tab5:checked ~ .main .switches label[for="tab5"] {
+      background: #e7f1e3; border-color: #a8c49e; color: #2e5a28;
+    }
     #tab0:checked ~ .main .p0,
     #tab1:checked ~ .main .p1,
     #tab2:checked ~ .main .p2,
     #tab3:checked ~ .main .p3,
-    #tab4:checked ~ .main .p4 { display: block; }
+    #tab4:checked ~ .main .p4,
+    #tab5:checked ~ .main .p5 { display: block; }
     .panel.p4 { box-shadow: inset 4px 0 0 #c47a3a, var(--shadow); }
+    .panel.p5 { box-shadow: inset 4px 0 0 #5c7a52, var(--shadow); }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+    .tag { font-size: 11px; padding: 3px 9px; border-radius: 20px; }
+    .t-red { background: #fdecea; color: #b52a1c; }
+    .t-amber { background: #fef3e2; color: #8c4e0b; }
+    .t-green { background: #eaf5e2; color: #2e6e10; }
+    .t-teal { background: #e0f5ef; color: #0a6644; }
+    .t-purple { background: #eeeefe; color: #4b3bb0; }
+    .t-gray { background: #f0ede8; color: #5a5955; }
+    .vs { display: flex; gap: 10px; margin-top: 10px; }
+    .vs-col { flex: 1; border-radius: 10px; padding: 14px; }
+    .vs-bad { background: #fdecea; border: 1px solid #f5c0bc; }
+    .vs-good { background: #e0f5ef; border: 1px solid #9edecb; }
+    .vs-col-label { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .vs-bad .vs-col-label { color: #b52a1c; }
+    .vs-good .vs-col-label { color: #0a6644; }
+    .vs-item { font-size: 13.5px; line-height: 1.7; color: var(--ink); }
+    .grid4 { display: grid; gap: 10px; grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .card-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+    .inline-tab {
+      display: inline; cursor: pointer; color: var(--accent); font-weight: 700;
+      border-bottom: 1px dashed #8fb0d4;
+    }
     @media (max-width: 1080px) {
       .layout { grid-template-columns: 1fr; }
       .side { position: static; }
-      .grid2, .grid3 { grid-template-columns: 1fr; }
+      .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+      .vs { flex-direction: column; }
     }
   </style>
 </head>
@@ -164,10 +193,11 @@
     <input type="radio" name="main-tab" id="tab2">
     <input type="radio" name="main-tab" id="tab3">
     <input type="radio" name="main-tab" id="tab4">
+    <input type="radio" name="main-tab" id="tab5">
 
     <aside class="side main">
       <h1>Наталья Алифер</h1>
-      <p>Пять глав. Читай слева сверху вниз, как книгу. Не прыгай.</p>
+      <p>Пять глав книги. Склад внизу — смысловая карта запуска про кишечник. Книгу читай сверху вниз. В склад заходи, когда пишешь запуск.</p>
       <div class="switches">
         <p class="nav-kicker">По порядку</p>
         <label class="switch" for="tab0">1. Что это<small>проект, Наталья, слова-ключи</small></label>
@@ -176,6 +206,8 @@
         <label class="switch" for="tab3">4. Как продают<small>письма, ленды, её фразы</small></label>
         <p class="nav-kicker other">Потом</p>
         <label class="switch" for="tab4">5. Что нельзя путать<small>цифры и обещания спорят</small></label>
+        <p class="nav-kicker" style="color:#2e5a28">Склад запуска</p>
+        <label class="switch" for="tab5">Смысловая карта<small>веб 23 июня · кишечник</small></label>
       </div>
       <div class="mini">
         <div><b>5</b><span>глав</span></div>
@@ -188,7 +220,7 @@
     <div class="main">
       <section class="panel p0">
         <h2>Глава 1. Что это за проект</h2>
-        <p class="lead">Если ты первый раз открываешь эту папку и ничего не знаешь — начни здесь. Дочитай главу до конца. Потом главу 2, потом 3, потом 4. Пятую открой, когда пойдёшь писать текст или ставить цену.</p>
+        <p class="lead">Если ты первый раз открываешь эту папку и ничего не знаешь — начни здесь. Дочитай главу до конца. Потом главу 2, потом 3, потом 4. Пятую открой, когда пойдёшь писать текст или ставить цену. <label for="tab5" class="inline-tab">Смысловая карта</label> — не шестая глава. Это склад запуска: сжатая выгрузка веба 23 июня про кишечник.</p>
         <div class="order">
           <b>Как читать этот файл</b>
           Это инструкция для команды, не сайт для клиентки. Серые цитаты — её слова с лендов и из писем. Чёрные блоки — как нам писать, чтобы не сломать доверие. Оранжевое — осторожно. Красное — нельзя в рекламу.
@@ -312,7 +344,7 @@
         </nav>
 
         <h3 class="chapter" id="c2-bone">Костяк. Прочитать первым</h3>
-        <div class="callout">Откуда это. Портрет собран с живого ленда курса на GetCourse, ленда эфира, писем клуба и комбо и с сайта. Плюс исследование рынка: русскоязычные женщины примерно 25–45, здоровье через кишечник. Её собственного разговора с ученицами в этой папке нет. Фразы с форумов совпадают с тем, что уже стоит на ленде. Это не опрос «почему купили у Натальи».</div>
+        <div class="callout">Откуда это. Портрет собран с живого ленда курса на GetCourse, ленда эфира, писем клуба и комбо и с сайта. Плюс исследование рынка: русскоязычные женщины примерно 25–45, здоровье через кишечник. Её собственного разговора с ученицами в этой папке нет. Фразы с форумов совпадают с тем, что уже стоит на ленде. Это не опрос «почему купили у Натальи». Сжатая карта того же человека с веба 23 июня лежит отдельно: <label for="tab5" class="inline-tab">Смысловая карта</label>. Глава 2 — книга. Карта — склад запуска. Не наоборот.</div>
         <div class="prose">
           <p>Покупает женщина, которая всё уже пробовала и больше не верит, что дело в силе воли. К вечеру живот как шар. Утром нет сил. Врач сказал «анализы норма». Она слышит: ты выдумываешь. Хочет наконец понять, почему ничего не работало, и получить систему, а не очередной список запретов.</p>
           <p>Наталья отвечает одной фразой: причина не слабая воля. Причина в кишечнике. Вес, кожа, сладкое, цикл, молочница могут расти из одного места. Это и есть человек, для которого пишутся тексты.</p>
@@ -1026,7 +1058,296 @@
         </ul>
 
         <div class="stopbox">Следующий шаг команды: выбрать один главный продукт нового запуска. Пока на прилавке четыре кассы сразу. Этот файл — инструкция, как устроено сейчас. Не стратегия «продаём всё».</div>
-        <div class="callout">Если пришло новое сырьё (ленд, цифры, голос, решение «что запускаем») — кладём в источники, потом точечно правим эти пять глав. Не плодить шестую вкладку.</div>
+        <div class="callout">Если пришло новое сырьё (ленд, цифры, голос) — кладём в источники, потом точечно правим эти пять глав. Шестую главу книги не плодить. Склад запуска — отдельная вкладка <label for="tab5" class="inline-tab">Смысловая карта</label>: туда кладём выгрузку веба про кишечник, не размазываем её по главам 1–5.</div>
+      </section>
+      <section class="panel p5">
+        <h2>Смысловая карта</h2>
+        <p class="lead">Склад запуска про кишечник. Не глава книги. Пять глав слева — инструкция по всему прилавку. Здесь — выгрузка веба 23 июня 2025: кто она, что болит, чего хочет, чем Наталья отличается, какой продукт продаём.</p>
+        <div class="order">
+          <b>Как этим пользоваться</b>
+          Это костяк следующего потока курса. Пишешь предзапись, VSL, эфир, пост — открывай эту вкладку. Пишешь клуб, комбо, ведение — вернись в главы 3–4. Серые цитаты — её слова и слова аудитории с веба.
+        </div>
+        <nav class="toc">
+          <a href="#map-hero">Герой</a>
+          <a href="#map-who">Портрет</a>
+          <a href="#map-pain">Боли</a>
+          <a href="#map-want">Желания</a>
+          <a href="#map-lang">Язык</a>
+          <a href="#map-vs">Отстройка</a>
+          <a href="#map-mech">Смыслы эфира</a>
+          <a href="#map-link">Связка симптомов</a>
+          <a href="#map-sku">Продукт</a>
+          <a href="#map-lock">Что не копировать слепо</a>
+        </nav>
+
+        <h3 class="chapter" id="map-hero">Герой и главный нарратив</h3>
+        <div class="callout">
+          <p>Женщина, которая всё перепробовала — и ничего не работает. Она не слабая. Дело не в силе воли. Дело в кишечнике.</p>
+        </div>
+        <div class="flow">
+          <span class="box">Оффер — не «похудеть»</span>
+          <span class="arr">→</span>
+          <span class="box">«Наконец понять причину, почему ничего не работало»</span>
+        </div>
+
+        <h3 class="chapter" id="map-who">Портрет аудитории</h3>
+        <div class="grid3">
+          <div class="card">
+            <div class="card-label">Кто она</div>
+            <h3>Женщины 30–50 лет</h3>
+            <p>Русскоязычные. Активные. Следят за собой. Уже вложили деньги в здоровье — и разочарованы результатом.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Её история</div>
+            <h3>Многолетний круг попыток</h3>
+            <p>Диеты, детоксы, БАДы, чистки, подсчёт калорий. Временный эффект — и всё по кругу снова.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Её запрос</div>
+            <h3>Система, а не диета</h3>
+            <p>Хочет понять причину раз и навсегда. Устала от временных решений. Ищет объяснение, не очередной список.</p>
+          </div>
+        </div>
+        <p class="hint">В главе 2 исследование держит возраст примерно 25–45, в отзывах ленда 27–41. Карта веба ставит 30–50. В новых текстах не спорить цифрами. Писать к женщине, которая уже всё пробовала.</p>
+
+        <h3 class="chapter" id="map-pain">Боли — что болит прямо сейчас</h3>
+        <div class="grid2">
+          <div class="card">
+            <div class="card-label">Тело / физические симптомы</div>
+            <div class="tags">
+              <span class="tag t-red">вздутие</span>
+              <span class="tag t-red">живот как шар к вечеру</span>
+              <span class="tag t-red">запор</span>
+              <span class="tag t-red">отёки</span>
+              <span class="tag t-red">усталость с утра</span>
+              <span class="tag t-red">акне, высыпания</span>
+              <span class="tag t-red">выпадение волос</span>
+              <span class="tag t-red">тяга к сладкому</span>
+              <span class="tag t-red">туман в голове</span>
+              <span class="tag t-red">нет фокуса</span>
+              <span class="tag t-red">сбой цикла</span>
+            </div>
+            <div class="quote">Живот хожу как беременная. Сижу на работе и сдерживаюсь весь день.</div>
+            <div class="quote">Лицо какое-то одутловатое, одутловатое. Состояние как будто я слегка отравилась.</div>
+          </div>
+          <div class="card">
+            <div class="card-label">Эмоции / психология</div>
+            <div class="tags">
+              <span class="tag t-amber">стыд за тело</span>
+              <span class="tag t-amber">качели с весом</span>
+              <span class="tag t-amber">срывы и вина</span>
+              <span class="tag t-amber">«я слабая»</span>
+              <span class="tag t-amber">потеря контроля</span>
+              <span class="tag t-amber">отчаяние</span>
+              <span class="tag t-amber">непонимание своего тела</span>
+              <span class="tag t-amber">ночные зажоры</span>
+              <span class="tag t-amber">чувство вины после еды</span>
+            </div>
+            <div class="quote">Почему я не могу похудеть. Уже столько диет. Не могу не жрать. Помогите мне.</div>
+            <div class="quote">Я уже устала от этих качелей с весом.</div>
+          </div>
+          <div class="card">
+            <div class="card-label">Разочарование в медицине и методах</div>
+            <div class="tags">
+              <span class="tag t-gray">врач говорит норма, но мне не норма</span>
+              <span class="tag t-gray">сдала анализы — ничего не нашли</span>
+              <span class="tag t-gray">таблетка от симптома</span>
+              <span class="tag t-gray">лечу одно — возвращается другое</span>
+              <span class="tag t-gray">пробиотики не помогают</span>
+            </div>
+            <div class="quote">Убрала глютен — полегчало. Добавила обратно — снова плохо. Потому что симптом — это не проблема. Это сигнал.</div>
+          </div>
+          <div class="card">
+            <div class="card-label">Социальные боли (стыд как триггер)</div>
+            <div class="tags">
+              <span class="tag t-purple">стыжусь живота на пляже</span>
+              <span class="tag t-purple">сдерживаюсь в кабинете</span>
+              <span class="tag t-purple">не влезаю в платье</span>
+              <span class="tag t-purple">не нравлюсь себе в зеркале</span>
+              <span class="tag t-purple">на свидании — тревога</span>
+            </div>
+            <div class="quote">Урчит очень сильно, все сидящие со мной в одном кабинете слышали бы мой живот. Вроде ерунда — а меняет жизнь напрочь.</div>
+          </div>
+        </div>
+
+        <h3 class="chapter" id="map-want">Желания — что она хочет на самом деле</h3>
+        <div class="grid3">
+          <div class="card">
+            <div class="card-label">Желание 1 (самое сильное)</div>
+            <h3>Понять причину раз и навсегда</h3>
+            <p>«Наконец всё сложилось». Не ещё одна диета — а объяснение, почему ничего не работало раньше.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Желание 2</div>
+            <h3>Вернуть энергию и жизнь</h3>
+            <p>Проснуться и захотеть жить. Не тащить себя через день. Без трёх чашек кофе и «ещё 5 минут».</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Желание 3</div>
+            <h3>Перестать воевать с собой</h3>
+            <p>Снять чувство вины. Доказать себе, что дело не в силе воли. Есть без страха и без срывов.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Желание 4</div>
+            <h3>Результат навсегда</h3>
+            <p>Не временный эффект. Знание, которое остаётся. Система, а не список запрещённых продуктов.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Желание 5</div>
+            <h3>По-человечески, без жести</h3>
+            <p>Без голодовок. Без крайностей. Мягко и безопасно. С удовольствием от еды — не со страхом.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Желание 6</div>
+            <h3>«Именно про меня»</h3>
+            <p>Не поток из 1000 человек. Не шаблон. Ощущение: мне объяснили именно мой случай, мой организм.</p>
+          </div>
+        </div>
+
+        <h3 class="chapter" id="map-lang">Язык аудитории — как писать и говорить</h3>
+        <div class="grid2">
+          <div class="card">
+            <div class="card-label">Слова-маркеры (использовать в текстах)</div>
+            <div class="tags">
+              <span class="tag t-teal">качели с весом</span>
+              <span class="tag t-teal">всё перепробовала</span>
+              <span class="tag t-teal">наконец всё сложилось</span>
+              <span class="tag t-teal">дело не в силе воли</span>
+              <span class="tag t-teal">дело в кишечнике</span>
+              <span class="tag t-teal">без жёстких ограничений</span>
+              <span class="tag t-teal">по-человечески</span>
+              <span class="tag t-teal">дырявый кишечник</span>
+              <span class="tag t-teal">срывы и заедания</span>
+              <span class="tag t-teal">симптом — это сигнал</span>
+              <span class="tag t-teal">понять причину</span>
+              <span class="tag t-teal">система</span>
+              <span class="tag t-teal">корень проблемы</span>
+              <span class="tag t-teal">работа с причиной</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-label">Слова-антитриггеры (переформулировать или избегать)</div>
+            <div class="tags">
+              <span class="tag t-red">диета</span>
+              <span class="tag t-red">похудеть</span>
+              <span class="tag t-red">сила воли</span>
+              <span class="tag t-red">запрещённые продукты</span>
+              <span class="tag t-red">детокс</span>
+              <span class="tag t-red">чистка</span>
+              <span class="tag t-red">ограничения</span>
+              <span class="tag t-red">подсчёт калорий</span>
+              <span class="tag t-red">правильное питание</span>
+            </div>
+            <p class="hint">Эти слова ассоциируются с прошлыми провалами. Аудитория уже это пробовала — и это не сработало. Они вызывают усталость, а не интерес.</p>
+          </div>
+        </div>
+
+        <h3 class="chapter" id="map-vs">Позиционирование — чем Наталья отличается</h3>
+        <div class="vs">
+          <div class="vs-col vs-bad">
+            <div class="vs-col-label">Конкуренты / как не надо</div>
+            <div class="vs-item">
+              Поток из 500–1000 человек<br>
+              Навязывание БАДов на каждый запрос<br>
+              «Ещё один список продуктов»<br>
+              «Решим все проблемы» — обещания без системы<br>
+              Работа с симптомом, а не причиной<br>
+              Жёсткие ограничения и запреты
+            </div>
+          </div>
+          <div class="vs-col vs-good">
+            <div class="vs-col-label">Наталья Алифер</div>
+            <div class="vs-item">
+              Без потока, без аптеки<br>
+              Треки и план под твои симптомы<br>
+              Система — не список, а понимание<br>
+              Объясняю именно твой случай<br>
+              Работа с причиной, не симптомом<br>
+              Мягко, без голодовок и жести
+            </div>
+          </div>
+        </div>
+        <p class="hint">«Без потока» на вебе — про ощущение «мне объяснили мой случай», не про то, что курса с набором нет. Мы продаём следующий поток. В текстах держать «именно про тебя / треки под симптомы», не обещать индивидуальное ведение на тарифе курса.</p>
+
+        <h3 class="chapter" id="map-mech">Ключевые смыслы для вебинара и контента</h3>
+        <div class="grid2">
+          <div class="card">
+            <div class="card-label">Механизм убеждения</div>
+            <p>Кишечник — центр управления. Когда он разбалансирован — ломается всё: вес, кожа, энергия, настроение, гормоны.</p>
+            <div class="flow">
+              <span class="box">Лечишь симптом</span>
+              <span class="arr">→</span>
+              <span class="box">он возвращается</span>
+              <span class="arr">→</span>
+              <span class="box">потому что причина осталась</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-label">Ключевой инсайт для аудитории</div>
+            <p>Ты не слабая. Ты просто искала ответ не там. Причина не в еде и не в калориях. Причина — в кишечнике.</p>
+            <div class="flow">
+              <span class="box">Симптом — это сигнал</span>
+              <span class="arr">→</span>
+              <span class="box">не враг, а сообщение от тела</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="chapter" id="map-link">Связка симптомов с кишечником</h3>
+        <p class="hint">Для объяснений на эфире и в постах. Один корень, четыре входа.</p>
+        <div class="grid4">
+          <div class="card">
+            <div class="card-label">Симптом</div>
+            <h3>Лишний вес / не худеет</h3>
+            <p>Кишечник управляет лептином, инсулином и кортизолом. Вес не уходит — не из-за калорий.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Симптом</div>
+            <h3>Акне, тусклая кожа</h3>
+            <p>Ось кишечник–кожа. Проблему не решить косметикой — только через микробиом.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Симптом</div>
+            <h3>Хроническая усталость</h3>
+            <p>95% серотонина — в кишечнике. 70% иммунитета — там же. Нет энергии = проблема внутри.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Симптом</div>
+            <h3>Тяга к сладкому / срывы</h3>
+            <p>Дисбиоз и кандидоз управляют тягой к еде. Это не слабый характер — это биохимия.</p>
+          </div>
+        </div>
+
+        <h3 class="chapter" id="map-sku">Продукт вебинара — «Пошаговая система оздоровления через кишечник»</h3>
+        <div class="grid3">
+          <div class="card">
+            <div class="card-label">Что продаём</div>
+            <h3>Систему, а не курс</h3>
+            <p>Смотри → Делай → Получай результат. 30 дней. 15+ видеоуроков. PDF, гайды, схемы. Куратор рядом.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Главный результат</div>
+            <h3>«Наконец всё сложилось»</h3>
+            <p>Понимаешь, почему раньше ничего не работало. Появляется система — не диета, не БАДы. Знание навсегда.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Отстройка от конкурентов</div>
+            <h3>Без потока. Без аптеки.</h3>
+            <p>Не поток на 1000 человек. Не навязывание добавок. Треки под симптомы. Ощущение «именно про меня».</p>
+          </div>
+        </div>
+        <div class="say"><i>Как писать с этой карты</i>Причина вздутия, усталости и лишнего веса не слабая воля. Причина в кишечнике. Продаём не диету и не список банок, а систему: понять, что происходит в своём теле, и получить план на 30 дней.</div>
+
+        <h3 class="chapter" id="map-lock">Что из карты не копировать слепо в новый текст</h3>
+        <div class="warnbox">
+          <p>Выгрузка веба сохранена целиком. Три места не тащить на предзапись и в рекламу как есть.</p>
+          <ul>
+            <li>«Навсегда» и «знание навсегда» — в карте как желание аудитории. В нашем обещании стоп. Можно: система, которая остаётся, план на месяцы.</li>
+            <li>«Без потока» — ощущение «объяснили мой случай». Мы продаём следующий поток курса, не ведение один на один.</li>
+            <li>Цифры «95% серотонина / 70% иммунитета» — аргумент эфира. На ленд не ставить без её источника.</li>
+          </ul>
+        </div>
+        <p class="hint">Исходник выгрузки: <code>00_БАЗА/источники/2026-09-04_смысловая_карта.html</code>. Колода веба: <code>00_БАЗА/источники/2026-09-02_веб_23.06_колода.md</code>.</p>
       </section>
     </div>
   </div>
