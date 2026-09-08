@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Три лекции · Наталья Алифер</title>
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --paper: #fff;
+      --ink: #17222d;
+      --muted: #4c5e70;
+      --line: #e6dfd3;
+      --accent: #0f4f92;
+      --soft: #eaf3fd;
+      --ok: #1a7f4e;
+      --warn: #b45309;
+      --stop: #9b2335;
+      --radius: 14px;
+      --shadow: 0 10px 24px rgba(20, 33, 45, 0.08);
+      --max: 1320px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      line-height: 1.5;
+      background:
+        radial-gradient(circle at 8% 0%, #efe6d8 0%, transparent 42%),
+        radial-gradient(circle at 93% 5%, #e6effb 0%, transparent 34%),
+        var(--bg);
+    }
+    .layout {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 22px 16px 40px;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 14px;
+    }
+    .side, .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .side { position: sticky; top: 12px; height: fit-content; padding: 14px; }
+    .side h1 { margin: 0; font-size: 21px; letter-spacing: -0.03em; line-height: 1.15; }
+    .side p { margin: 8px 0 12px; color: var(--muted); font-size: 13px; }
+    .nav-kicker {
+      margin: 12px 0 4px; font-size: 10px; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted); font-weight: 700;
+    }
+    .nav-kicker:first-of-type { margin-top: 2px; }
+    .switches { display: grid; gap: 6px; margin-bottom: 10px; }
+    .switch {
+      display: block; padding: 10px 12px; border-radius: 10px;
+      border: 1px solid var(--line); background: #faf8f3;
+      font-size: 13.5px; font-weight: 650; cursor: pointer; line-height: 1.3;
+    }
+    .switch small { display: block; font-size: 11px; font-weight: 550; color: var(--muted); margin-top: 2px; }
+    .switch:focus-visible { outline: 3px solid #c9daef; outline-offset: 2px; }
+    .mini { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .mini div { border: 1px solid var(--line); border-radius: 10px; text-align: center; padding: 8px; background: #fffdf9; }
+    .mini b { display: block; color: var(--accent); font-size: 15px; line-height: 1.15; }
+    .mini span { font-size: 11px; color: var(--muted); }
+    .main { display: grid; gap: 12px; min-width: 0; }
+    .tabs input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+    .panel { display: none; padding: 20px 24px 36px; overflow-x: auto; }
+    .panel h2 { margin: 0; font-size: 26px; letter-spacing: -0.03em; line-height: 1.25; }
+    .lead { margin: 8px 0 14px; color: var(--muted); font-size: 15px; max-width: 72ch; }
+    .grid2 { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+    .card { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: #fffdfa; }
+    .card h3 { margin: 0 0 8px; font-size: 16px; }
+    .lecture {
+      border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px;
+      background: #fffdfa; margin-top: 14px;
+    }
+    .lecture h3 { margin: 0 0 12px; font-size: 20px; letter-spacing: -0.02em; line-height: 1.3; }
+    .lecture p { margin: 0 0 12px; font-size: 16px; line-height: 1.65; max-width: 74ch; }
+    .lecture p:last-child { margin-bottom: 0; }
+    table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); overflow: hidden; background: #fff; }
+    th, td { padding: 8px 9px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 13.5px; }
+    th { background: #f6f8fb; font-weight: 700; }
+    tr:last-child td { border-bottom: none; }
+    ul, ol { margin: 8px 0 0; padding-left: 22px; }
+    li + li { margin-top: 8px; }
+    .hint { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+    .callout {
+      border-left: 4px solid var(--accent); background: #f8fbff;
+      border-radius: 10px; padding: 12px 14px; margin-top: 12px; font-size: 15px; line-height: 1.55;
+    }
+    .quote {
+      margin: 12px 0 0; padding: 12px 14px; border-left: 3px solid var(--accent);
+      background: #f7fafd; font-size: 15px; line-height: 1.55;
+    }
+    .quote small { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .panel .chapter { margin: 32px 0 0; padding-top: 20px; border-top: 1px solid var(--line); font-size: 21px; letter-spacing: -0.03em; }
+    .panel .kicker {
+      margin: 0 0 8px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .panel .prose { max-width: 74ch; font-size: 16px; line-height: 1.65; }
+    .panel .prose p { margin: 0 0 12px; }
+    .warnbox { border-left: 4px solid var(--warn); background: #fff8ee; border-radius: 10px; padding: 12px 14px; margin-top: 12px; font-size: 15px; line-height: 1.55; max-width: 74ch; }
+    .stopbox { border-left: 4px solid var(--stop); background: #fdf2f4; border-radius: 10px; padding: 12px 14px; margin-top: 12px; font-size: 15px; line-height: 1.55; max-width: 74ch; }
+    .say {
+      margin-top: 12px; padding: 12px 14px; background: #17222d; color: #eef2f6;
+      border-radius: 10px; font-size: 14.5px; line-height: 1.55; max-width: 74ch;
+    }
+    .say i { display: block; font-style: normal; color: #9ec5f0; font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 5px; }
+    .card-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+    .back { display: inline-block; margin-bottom: 10px; font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 650; }
+    .nameplate {
+      margin: 14px 0 18px; padding: 16px 18px; background: #17222d; color: #fff;
+      border-radius: 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.35;
+    }
+    .nameplate small { display: block; margin-top: 8px; font-size: 13.5px; font-weight: 550; color: #9ec5f0; line-height: 1.5; }
+    #tab2:checked ~ .main .switches label[for="tab2"],
+    #tab3:checked ~ .main .switches label[for="tab3"] {
+      background: #eef5fd; border-color: #c9daef; color: var(--accent);
+    }
+    label[for="tab4"] { background: #fdf6f0; border-color: #ead8c8; }
+    #tab4:checked ~ .main .switches label[for="tab4"] {
+      background: #fdeee4; border-color: #e8c4a0; color: #8a4b12;
+    }
+    label[for="tab5"] { background: #f3f7f1; border-color: #c9d9c4; }
+    #tab5:checked ~ .main .switches label[for="tab5"] {
+      background: #e7f1e3; border-color: #a8c49e; color: #2e5a28;
+    }
+    #tab2:checked ~ .main .p2,
+    #tab3:checked ~ .main .p3,
+    #tab4:checked ~ .main .p4,
+    #tab5:checked ~ .main .p5 { display: block; }
+    .panel.p4 { box-shadow: inset 4px 0 0 #c47a3a, var(--shadow); }
+    .panel.p5 { box-shadow: inset 4px 0 0 #5c7a52, var(--shadow); }
+    @media (max-width: 1080px) {
+      .layout { grid-template-columns: 1fr; }
+      .side { position: static; }
+      .grid2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="tabs layout">
+    <input type="radio" name="main-tab" id="tab2" checked>
+    <input type="radio" name="main-tab" id="tab3">
+    <input type="radio" name="main-tab" id="tab4">
+    <input type="radio" name="main-tab" id="tab5">
+
+    <aside class="side main">
+      <a class="back" href="../">← Хаб Алифер</a>
+      <h1>Три лекции</h1>
+      <p>Наталья сидит и рассказывает. Берём одну историю из трёх.</p>
+      <div class="switches">
+        <p class="nav-kicker">Три истории. Берём одну</p>
+        <label class="switch" for="tab2">Почему к вечеру живот как шар<small>хотя врач сказал «всё хорошо», а днём ты ела нормально</small></label>
+        <label class="switch" for="tab3">Почему ты просыпаешься без сил<small>после восьми часов сна, хотя кофе уже не берёт</small></label>
+        <label class="switch" for="tab4">Почему в десять вечера ты берёшь сладкое<small>хотя весь день держалась</small></label>
+        <p class="nav-kicker" style="color:#2e5a28">Съёмка</p>
+        <label class="switch" for="tab5">Как снимать<small>Наталья сидит. На экране слайды и вставки.</small></label>
+      </div>
+      <div class="mini">
+        <div><b>1</b><span>историю снимаем</span></div>
+        <div><b>3</b><span>лекции в одной истории</span></div>
+        <div><b>15–20</b><span>минут одна лекция</span></div>
+        <div><b>2 и 3</b><span>лекции с анкетой</span></div>
+      </div>
+    </aside>
+
+    <div class="main">
+
+      <section class="panel p2">
+        <h2>Почему к вечеру живот как шар, хотя врач сказал «всё хорошо», а днём ты ела нормально</h2>
+        <p class="lead">Эта история для женщины, у которой к вечеру не сходятся брюки, а в кабинете врача ей уже сказали, что она выдумывает.</p>
+
+        <h3 class="chapter">О чём эта история</h3>
+        <div class="prose">
+          <p>Женщина приходит не за кишечником. Она приходит за вечером, в который брюки, спокойно застёгнутые утром, уже не сходятся. Днём она ела так, как считает правильным. В кабинете ей сказали «всё хорошо». Дома к шести часам она снова выглядит так, будто день прожит зря.</p>
+          <p>Три лекции помогают понять, почему живот к вечеру становится как шар, если с едой вроде порядок и врач уже отпустил. Мы не говорим, что за три лекции живот уйдёт навсегда. Мы собираем картину: это не четыре разные неудачи и не её характер.</p>
+          <p>Сладкое вечером и утреннюю усталость здесь можно назвать одним предложением, рядом с шаром в животе. Отдельными лекциями их не делаем, чтобы не смешать эту историю со второй и третьей.</p>
+        </div>
+
+        <h3 class="chapter">Три лекции</h3>
+        <article class="lecture">
+          <div class="card-label">Первый день · первая лекция</div>
+          <h3>Почему живот к вечеру становится как шар, хотя днём ты ела нормально</h3>
+          <p>Наталья рассказывает один вечер, в который брюки уже жмут. Не весь календарь и не четыре беды подряд. Женщина узнаёт себя. Она слышит, что шар в животе это не наказание за обед и не мысль «я снова не удержалась». Это одно тело.</p>
+          <p>На экране брюки вечером и тарелка «правильного» обеда. Это слайд или вставка. Квартиру не снимаем.</p>
+          <p>К концу первой лекции человек понимает свой вечер. Он ещё не понимает бумажку из кабинета врача. Этот вопрос зовёт на второй день. Анкету в этом видео почти не просим.</p>
+        </article>
+        <article class="lecture">
+          <div class="card-label">Второй день · вторая лекция</div>
+          <h3>Почему врач мог сказать «всё хорошо», а брюки вечером всё равно не сходятся</h3>
+          <p>Вторая лекция отвечает на вопрос, который первая специально оставила. На бумажке написано спокойно. Дома к вечеру женщине плохо. Наталья говорит, что спокойная бумажка и плохой вечер могут жить рядом. Это не значит, что женщина выдумывает. Это не значит, что врачи дураки.</p>
+          <p>На экране бланк со словом «норма» и те же брюки вечером. Кабинет врача не снимаем.</p>
+          <p>Здесь внутри видео первый раз просим заполнить анкету. Не в первую минуту, а когда мысль про бумажку уже сложилась. Потом остаётся вопрос в третий день: если это не выдумка и не «надо меньше есть», почему тогда новая диета снова держится две недели.</p>
+        </article>
+        <article class="lecture">
+          <div class="card-label">Третий день · третья лекция</div>
+          <h3>Почему новая диета снова поможет только две недели</h3>
+          <p>Третья лекция собирает историю. Диета и банка с полки глушат то, что видно снаружи, и не смотрят, откуда растёт шар в животе. Поэтому через две недели вечер тот же, и женщина снова винит себя.</p>
+          <p>Потом коротко, без меню на завтрак, Наталья говорит, что делают тридцать дней системы: сначала находят, откуда это растёт, и только потом еда и привычки. Список покупок в этом ролике не нужен.</p>
+          <p>Анкету просим второй раз, уже прямее. Цены курса в этом видео нет.</p>
+        </article>
+
+        <h3 class="chapter">Как человек открывает вторую лекцию</h3>
+        <div class="prose">
+          <p>В конце первой лекции Наталья не говорит «смотрите продолжение». Она задаёт вопрос, на который сама в этом ролике не отвечает: если шар в животе это не обед и не характер, почему врач уже сказал, что всё хорошо.</p>
+          <p>Под видео три коротких ответа про её жизнь. Например: мне уже говорили «норма»; я ещё не сдавала анализы; я не знаю, что думать. После ответа открывается вторая лекция. Без ответа второе видео не открывается.</p>
+          <p>Во второй лекции, когда мысль про бумажку сложилась, Наталья говорит про анкету своими словами: две минуты, это список следующего потока, не оплата. Потом задаёт вопрос в третий день: почему тогда очередная диета снова держится две недели. Снова три коротких ответа, снова открывается следующая лекция.</p>
+          <p>В третьей лекции анкета стоит ближе к концу. Мы не просим купить курс. Мы просим оставить себя в списке, когда откроется поток.</p>
+        </div>
+        <div class="warnbox">В этой истории нельзя делать отдельную лекцию про шоколадку и отдельную лекцию про утро без сил. Иначе три истории снова станут одной. Сладкое вечером и усталость утром можно назвать одним предложением, рядом с шаром в животе.</div>
+      </section>
+
+      <section class="panel p3">
+        <h2>Почему ты просыпаешься без сил после восьми часов сна, хотя кофе уже не берёт</h2>
+        <p class="lead">Эта история для женщины, которая высыпается и всё равно встаёт, как будто ночи не было. Кофе её уже не берёт.</p>
+
+        <h3 class="chapter">О чём эта история</h3>
+        <div class="prose">
+          <p>Женщина спит восемь часов и всё равно встаёт, как будто ночи не было. Кофе не берёт. К обеду она уже торгуется с собой. Она не думает про кишечник. Она думает: может, мне просто нужно раньше ложиться. Может, я слабая. Может, возраст.</p>
+          <p>Три лекции помогают понять, почему сон не отдаёт силы, если ночь уже была. Мы не говорим: «после трёх лекций ты будешь вставать как в двадцать». Мы убираем ложную вину и показываем, что усталость может расти из того же места, что и другие жалобы тела, даже если в туалет она ходит «нормально».</p>
+          <p>Эту историю снимать, если в рекламе люди приходят с усталостью и кофе. Если в рекламе люди приходят с животом вечером, снимаем первую историю, не эту.</p>
+        </div>
+
+        <h3 class="chapter">Три лекции</h3>
+        <article class="lecture">
+          <div class="card-label">Первый день · первая лекция</div>
+          <h3>Почему восемь часов сна не отдают силы утром</h3>
+          <p>Наталья рассказывает утро: будильник, тело как ватное, кофе, который уже не помогает. Женщина узнаёт себя. Она слышит, что это не «надо ещё поспать» и не лень. Ночь уже была, а сил нет.</p>
+          <p>На экране кровать после восьми часов сна и кружка, которая не берёт. Анкету в этом видео почти не просим. В конце вопрос, который зовёт на второй день: если это не недосып, почему тогда врач мог сказать, что всё спокойно.</p>
+        </article>
+        <article class="lecture">
+          <div class="card-label">Второй день · вторая лекция</div>
+          <h3>Почему анализы могут быть спокойными, а утро всё равно тяжёлое</h3>
+          <p>Вторая лекция разбирает бумажку. Спокойный бланк не отменяет ватное утро. Наталья не воюет с врачами. Она говорит, что лаборатория и самочувствие могут жить отдельно.</p>
+          <p>Здесь первый раз просим анкету. Потом вопрос в третий день: почему тогда банки «для энергии» и новый режим сна снова помогают две недели.</p>
+        </article>
+        <article class="lecture">
+          <div class="card-label">Третий день · третья лекция</div>
+          <h3>Почему новая кружка кофе, новая банка и новый режим сна снова держатся две недели</h3>
+          <p>Если глушить только утреннюю усталость и не смотреть, откуда берётся пустое тело, через две недели кофе снова не берёт. Коротко про тридцать дней системы, без расписания сна на завтра. Анкету просим второй раз.</p>
+        </article>
+
+        <h3 class="chapter">Как человек открывает вторую лекцию</h3>
+        <div class="prose">
+          <p>В конце первой лекции стоит вопрос про её утро, не фраза «смотрите продолжение». Три коротких ответа: мне уже говорили, что я здорова; я списываю это на недосып; я не знаю, куда это девать. После ответа открывается вторая лекция.</p>
+          <p>Во второй лекции, когда мысль про бумажку сложилась, просим анкету. Потом вопрос в третий день про банки и режим, которые уже были. Снова ответ, снова открывается лекция. В третьей лекции анкета ближе к концу.</p>
+        </div>
+        <div class="warnbox">В этой истории нельзя поллекции рассказывать про шар в брюках и про шоколадку. Иначе это снова первая история, только с другим заголовком. Живот вечером можно назвать одним предложением, рядом с усталостью.</div>
+      </section>
+
+      <section class="panel p4">
+        <h2>Почему в десять вечера ты снова берёшь сладкое, хотя весь день держалась</h2>
+        <p class="lead">Эта история для женщины, которая пришла из ролика про вес и срывы. В голове нет мысли про кишечник. В голове стоит мысль: я снова не сдержалась.</p>
+
+        <h3 class="chapter">О чём эта история</h3>
+        <div class="prose">
+          <p>День был «правильный». В десять вечера рука всё равно идёт к шоколадке. Женщина не ищет лекцию про кишечник. Она ищет ответ, почему она опять слабая. Если начать со слов «ешьте овощи», она закроет.</p>
+          <p>Три лекции помогают понять, почему вечер забирает день, хотя характер весь день работал. Мы не говорим: «после трёх лекций ты разлюбишь сладкое». Мы снимаем вину с характера и показываем, что тело само должно сказать «хватит». Когда это ощущение молчит, выигрывает холодильник.</p>
+          <p>Эту историю снимать, если в рекламе люди приходят со сладкого и веса. Если в рекламе люди приходят с живота вечером, снимаем первую историю.</p>
+        </div>
+
+        <h3 class="chapter">Три лекции</h3>
+        <article class="lecture">
+          <div class="card-label">Первый день · первая лекция</div>
+          <h3>Почему после «хорошего» дня вечером всё равно побеждает сладкое</h3>
+          <p>Наталья начинает с десяти вечера, потому что из-за этого вечера человек пришёл. Это не слабый характер. Тело само должно сказать «ты поела, хватит». Когда это ощущение молчит, выигрывает холодильник.</p>
+          <p>Чтобы ролик не казался историей только про силу воли, в той же лекции одним абзацем звучат утро без сил и живот вечером. Это не отдельная глава. Одним дыханием: эти вещи часто приходят вместе. Анкету в этом видео почти не просим. В конце вопрос во второй день: если это не характер, почему тогда ещё кожа и живот.</p>
+        </article>
+        <article class="lecture">
+          <div class="card-label">Второй день · вторая лекция</div>
+          <h3>Почему вместе со сладким часто приходят живот и кожа</h3>
+          <p>Вторая лекция собирает вину в одно место. Сладкое, шар в животе и кожа могут расти из одного места, а не из трёх разных слабостей. Банку «с бактериями» здесь не продаём. Пять признаков из подарка за анкету не перечисляем.</p>
+          <p>Здесь первый раз просим анкету. Потом вопрос в третий день: что делать с понедельником, который она себе обещает каждый раз.</p>
+        </article>
+        <article class="lecture">
+          <div class="card-label">Третий день · третья лекция</div>
+          <h3>Почему «с понедельника без сладкого» снова сломается через две недели</h3>
+          <p>Запрет не чинит то, из-за чего рука вечером сама идёт к сладкому. Поэтому через две недели всё возвращается, и вина становится тяжелее. Коротко про тридцать дней системы, если это не очередное «нельзя шоколад». Без рецепта ужина. Анкету просим второй раз.</p>
+        </article>
+
+        <h3 class="chapter">Как человек открывает вторую лекцию</h3>
+        <div class="prose">
+          <p>В конце первой лекции стоит вопрос про её вечер: это характер или тело само не останавливается. Три коротких ответа. После ответа открывается вторая лекция.</p>
+          <p>Во второй лекции, когда вина уже не держится как единственное объяснение, просим анкету. Потом вопрос про понедельник. В третьей лекции анкета ближе к концу.</p>
+        </div>
+        <div class="warnbox">Первая лекция не должна быть только про шоколадку. Если утро без сил и живот вечером не прозвучат хотя бы одним абзацем, на вторую лекцию человек не придёт: он решит, что это ролик про силу воли, и закроет.</div>
+      </section>
+
+      <section class="panel p5">
+        <h2>Как это снимается</h2>
+        <p class="lead">Для любой из трёх историй камера одна. Наталья сидит перед камерой и рассказывает. Три лекции переходят одна в другую. Клипа и выезда по квартире не будет.</p>
+
+        <h3 class="chapter">Что в кадре</h3>
+        <div class="prose">
+          <p>Наталья в одном месте, смотрит в камеру. Рядом слайды, как в уже снятом ролике про кишечник. Человек слушает лекцию, а не клип из десяти мест.</p>
+          <p>Когда она говорит про брюки, бланк, кружку кофе или шоколадку, на экране нужна картинка той же сцены. Картинку делаем слайдом или короткой вставкой, в том числе через ИИ. Саму квартиру, кабинет врача и холодильник не снимаем.</p>
+          <p>Три истории это три разных текста. Камера одна. Меняется речь и картинки на экране.</p>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <div class="card-label">Делаем</div>
+            <h3>Она рассказывает, на экране стоит сцена</h3>
+            <p>На слайде законченная фраза, которую можно прочитать вслух. Следом вставка: джинсы к вечеру, бланк «норма», кружка кофе, шоколадка в десять. Без картинки часть людей слушает и не видит свой вечер.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">Не делаем</div>
+            <h3>Клип, выезд и «крутой монтаж»</h3>
+            <p>Не ходим по квартире. Не снимаем жизнь как в рилсе. Если пытаться так снять, получится плохо и долго. Лекция держит, если в речи есть её вечер, её утро или её десять вечера.</p>
+          </div>
+        </div>
+
+        <h3 class="chapter">Как человек открывает следующую лекцию</h3>
+        <div class="prose">
+          <p>Первая лекция оставляет вопрос, на который не отвечает. Человек выбирает короткий ответ про свою жизнь. После ответа открывается вторая лекция.</p>
+          <p>Если ответа нет, на следующий вечер пишет бот. Коротко, тем же языком, без фразы «вы не закончили смотреть».</p>
+          <p>Между второй и третьей лекцией можно поставить короткий кружок с историей двух вечеров. Имена и цифры не выдумываем. Пока разрешения нет, можно рассказать её собственный путь.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+</html>
