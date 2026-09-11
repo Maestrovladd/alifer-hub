@@ -7,3 +7,5 @@
 Инструкция для команды, не лендинг покупательнице.
 
 Страница: https://maestrovladd.github.io/alifer-hub/
+
+Серия из трёх лекций: https://maestrovladd.github.io/alifer-hub/tri-lekcii/
