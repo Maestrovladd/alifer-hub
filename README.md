@@ -10,4 +10,4 @@
 
 Серия из трёх лекций: https://maestrovladd.github.io/alifer-hub/tri-lekcii/
 
-Лидмагнит · одно видео (колода слайдов): https://maestrovladd.github.io/alifer-hub/lidmagnit/?v=3
+Лидмагнит · одно видео (колода слайдов): https://maestrovladd.github.io/alifer-hub/lidmagnit/?v=4
