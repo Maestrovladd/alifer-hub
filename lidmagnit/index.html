@@ -72,124 +72,220 @@ body { background: #D6D0C2; color: var(--ink); font-family: Manrope, system-ui, 
 .step i { font-style: normal; color: var(--terra); font-weight: 800; font-size: 1.55cqw; padding-top: .2cqw; }
 
 @media (max-width: 900px) {
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
   body { background: #CFC8B8; }
   .layout {
-    grid-template-columns: 1fr;
-    gap: 14px;
-    padding: 12px 12px calc(28px + env(safe-area-inset-bottom));
+    display: block;
+    width: 100%;
     max-width: 100%;
+    padding: 12px;
+    padding-bottom: calc(28px + env(safe-area-inset-bottom));
   }
   .nav {
     position: sticky;
     top: 0;
     z-index: 20;
+    width: 100%;
+    max-width: 100%;
     max-height: none;
-    overflow: visible;
-    border-radius: 0 0 14px 14px;
+    overflow: hidden;
+    border-radius: 14px;
     padding: 12px 10px 10px;
-    margin: -12px -12px 0;
+    margin: 0 0 14px;
     box-shadow: 0 8px 20px rgba(0,0,0,.18);
   }
-  .nav h1 { margin: 0 4px 4px; font-size: 12px; }
+  .nav h1 { margin: 0 2px 6px; font-size: 12px; }
   .nav p {
-    margin: 0 4px 10px;
+    margin: 0 2px 10px;
     font-size: 13px;
     line-height: 1.35;
   }
-  .nav p::after { content: " Листай вниз пальцем."; }
   .nav-links {
     display: flex;
     gap: 8px;
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
-    padding: 2px 2px 6px;
+    padding: 2px 0 4px;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
     scrollbar-width: none;
   }
   .nav-links::-webkit-scrollbar { display: none; }
   .nav a {
     flex: 0 0 auto;
-    width: min(78vw, 260px);
+    width: 220px;
+    max-width: 75vw;
     margin: 0;
     padding: 10px 12px;
     font-size: 13px;
     line-height: 1.35;
+    white-space: normal;
+  }
+  main {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
   .section {
-    margin: 22px 0 10px;
+    margin: 20px 0 8px;
     font-size: 11px;
-    letter-spacing: .12em;
+    letter-spacing: .1em;
+    max-width: 100%;
   }
   .row {
-    grid-template-columns: 1fr;
-    gap: 6px;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     margin-bottom: 14px;
   }
   .rownum {
-    padding-top: 0;
+    display: block;
+    padding: 0 0 6px;
     font-size: 12px;
   }
   .slide {
+    container-type: normal;
     aspect-ratio: auto;
-    min-height: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: auto;
     overflow: visible;
     border-radius: 12px;
   }
   .s-cover, .s-std, .s-cmp, .s-scenes, .s-list, .s-final {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     height: auto;
-    padding: 18px 16px 16px;
-    gap: 10px;
+    padding: 16px;
   }
   .s-cover {
-    grid-template-columns: 1fr;
+    display: block;
   }
-  .cv-pic {
-    display: none;
+  .cv-col {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .cv-pic,
+  .mid .pic,
+  .cmp .pic,
+  .pic.flex {
+    display: none !important;
   }
   .mid, .cmp-row, .scene-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    flex: none;
+    display: block;
+    width: 100%;
+    max-width: 100%;
   }
-  .mid .pic, .cmp .pic, .pic.flex {
-    display: none;
+  .cmp, .scene-grid p {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 10px;
   }
-  .eyebrow { font-size: 11px; margin-bottom: 6px; }
+  .eyebrow,
+  .hit,
+  .sub,
+  .quote,
+  .plate,
+  .ital,
+  .name,
+  .promise,
+  .promise-t,
+  .promise li,
+  .cap-l,
+  .cap-t,
+  .list,
+  .list > p,
+  .steps,
+  .step,
+  .scene-grid p {
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+  }
+  .eyebrow { font-size: 11px; margin-bottom: 8px; }
   .hit {
-    font-size: clamp(22px, 6.2vw, 28px);
-    line-height: 1.22;
-    margin-bottom: 8px;
+    font-size: 24px;
+    line-height: 1.25;
+    margin: 0 0 10px;
   }
-  .sub, .quote, .plate, .ital, .cap-t, .list > p, .scene-grid p, .promise-t, .promise li, .step {
+  .sub {
     font-size: 15px;
     line-height: 1.45;
+    margin: 0 0 10px;
   }
   .quote {
-    padding: 12px 14px;
-    margin: 4px 0;
-    max-width: none;
+    font-size: 15px;
+    line-height: 1.45;
+    padding: 12px;
+    margin: 0 0 10px;
     border-radius: 10px;
   }
   .quote.right {
     margin-left: 0;
-    max-width: none;
   }
   .plate {
-    margin-top: 8px;
-    padding: 12px 14px;
+    display: block;
+    font-size: 15px;
+    line-height: 1.45;
+    margin: 12px 0 0;
+    padding: 12px;
     border-left-width: 4px;
     border-radius: 0 10px 10px 0;
   }
-  .sub { max-width: none; margin-bottom: 6px; }
-  .cap-l { font-size: 11px; }
-  .list { gap: 10px; margin: 6px 0; }
-  .list > p { grid-template-columns: 28px 1fr; gap: 8px; }
+  .ital {
+    font-size: 15px;
+    line-height: 1.45;
+    margin: 0 0 10px;
+  }
+  .name { font-size: 12px; margin-top: 10px; }
+  .promise { margin: 0 0 10px; }
+  .promise-t { font-size: 15px; margin-bottom: 6px; }
+  .promise ul { padding-left: 18px; margin: 0; }
+  .promise li { font-size: 15px; margin-bottom: 6px; }
+  .list { display: block; margin: 0 0 10px; }
+  .list > p {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 8px;
+    font-size: 15px;
+    line-height: 1.45;
+    margin: 0 0 10px;
+  }
   .list > p > i { font-size: 13px; }
-  .steps { margin-top: 8px; gap: 10px; }
-  .step { grid-template-columns: 28px 1fr; }
+  .cap-l { font-size: 11px; margin-bottom: 4px; }
+  .cap-t { font-size: 15px; line-height: 1.45; margin-bottom: 10px; }
+  .scene-grid p {
+    font-size: 15px;
+    line-height: 1.45;
+    padding: 12px;
+    border-radius: 10px;
+  }
+  .steps { display: block; margin-top: 8px; }
+  .step {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 8px;
+    font-size: 15px;
+    line-height: 1.45;
+    margin: 0 0 10px;
+  }
   .step i { font-size: 13px; }
-  .name { font-size: 12px; }
-  .promise ul { padding-left: 18px; }
-  .scene-grid p { padding: 12px 14px; border-radius: 10px; }
 }
 </style>
 </head>
@@ -197,7 +293,7 @@ body { background: #D6D0C2; color: var(--ink); font-family: Manrope, system-ui, 
 <div class="layout">
   <nav class="nav">
     <h1>Наталья Алифер · видео</h1>
-    <p>58 слайдов подряд. Листай вниз — оглавление сверху.</p>
+    <p>58 слайдов. Листай вниз.</p>
     <div class="nav-links"><a href="#s01"><span>01–03</span>С чего начинается это видео</a><a href="#s04"><span>04–05</span>Что будет в этом разборе</a><a href="#s06"><span>06–09</span>Почему анализы в норме, а тебе всё равно плохо</a><a href="#s10"><span>10–18</span>Как выглядит обычный день: сахар и вечерний срыв</a><a href="#s19"><span>19–26</span>Почему от банок, диет и укола результат держится две недели</a><a href="#s27"><span>27–32</span>Наталья: кто она и что было с её телом</a><a href="#s33"><span>33–34</span>История Анны целиком: от диет к причине</a><a href="#s35"><span>35–41</span>В чём суть: один корень у разных симптомов</a><a href="#s42"><span>42–44</span>Как устроены эти тридцать дней</a><a href="#s45"><span>45–47</span>Ещё две истории женщин с сайта</a><a href="#s48"><span>48–55</span>Частые сомнения и короткая анкета</a><a href="#s56"><span>56–58</span>Можно оставить всё как есть — или заполнить анкету</a></div>
   </nav>
   <main><h2 class="section" id="sec-01">С чего начинается это видео</h2><section class="row" id="s01">
