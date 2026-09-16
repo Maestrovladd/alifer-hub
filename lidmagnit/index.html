@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Алифер · готовый ЛМ · 58 слайдов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F6F2E9;
+  --sage: #DCE2D2;
+  --dark: #23281F;
+  --ink: #23281F;
+  --terra: #B4553A;
+  --muted: #6C7266;
+  --box: #EAE5D8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: #D6D0C2; color: var(--ink); font-family: Manrope, system-ui, sans-serif; }
+.layout { display: grid; grid-template-columns: 236px minmax(0, 1fr); gap: 30px; max-width: 1460px; margin: 0 auto; padding: 26px 24px 100px; align-items: start; }
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .nav { position: static !important; } }
+.nav { position: sticky; top: 18px; background: #1b1f18; color: var(--cream); border-radius: 16px; padding: 18px 12px; max-height: calc(100vh - 36px); overflow: auto; }
+.nav h1 { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #E2A98F; margin: 0 8px 6px; }
+.nav p { font-size: 12.5px; opacity: .65; margin: 0 8px 14px; line-height: 1.45; }
+.nav a { display: block; color: var(--cream); text-decoration: none; padding: 9px 11px; border-radius: 10px; margin-bottom: 3px; font-size: 13.5px; line-height: 1.3; background: #262b23; }
+.nav a span { display: block; color: #E2A98F; font-size: 10.5px; letter-spacing: .1em; font-weight: 700; margin-bottom: 2px; }
+.nav a:hover { background: #303626; }
+.section { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #7A5C4E; font-weight: 700; margin: 34px 0 14px; }
+.section:first-child { margin-top: 0; }
+.row { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 12px; align-items: start; margin-bottom: 18px; }
+.rownum { font-size: 13px; font-weight: 800; color: #84806E; padding-top: 6px; }
+.slide { container-type: inline-size; aspect-ratio: 16 / 9; background: var(--cream); border-radius: 6px; overflow: hidden; box-shadow: 0 8px 24px rgba(35,40,31,.14); }
+.slide.scenes { background: var(--dark); color: #EFEADF; }
+.slide.compare, .slide.cover { background: var(--sage); }
+.s-cover, .s-std, .s-cmp, .s-scenes, .s-list, .s-final { height: 100%; padding: 3.6cqw 4.2cqw; display: flex; flex-direction: column; }
+.s-cover { display: grid; grid-template-columns: 1.15fr .85fr; gap: 2.4cqw; }
+.cv-col { display: flex; flex-direction: column; min-width: 0; }
+.cv-pic, .pic { background: #C9C3B4; border-radius: .35cqw; display: grid; place-items: center; color: #6E6A5C; font-size: 1.4cqw; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
+.cv-pic { min-height: 100%; }
+.eyebrow { font-size: 1.25cqw; letter-spacing: .16em; text-transform: uppercase; color: var(--terra); font-weight: 700; margin-bottom: .6cqw; }
+.hit { font-family: "Source Serif 4", Georgia, serif; font-size: 2.55cqw; font-weight: 700; line-height: 1.18; color: var(--dark); margin-bottom: .7cqw; }
+.slide.scenes .hit { color: #F3EEE4; }
+.sub { font-size: 1.55cqw; line-height: 1.4; color: var(--muted); margin-bottom: 1.2cqw; max-width: 92%; }
+.slide.scenes .sub { color: #C9C4B8; }
+.quote { background: var(--box); border-radius: .4cqw; padding: 1.1cqw 1.4cqw; font-size: 1.55cqw; line-height: 1.4; margin: .7cqw 0; max-width: 96%; }
+.slide.scenes .quote { background: #2E342A; }
+.quote.right { margin-left: auto; max-width: 88%; }
+.plate { margin-top: auto; background: #F0E4DC; border-left: .35cqw solid var(--terra); padding: 1cqw 1.3cqw; font-size: 1.55cqw; line-height: 1.35; font-weight: 600; }
+.slide.scenes .plate { background: #2A3126; color: #F0E4DC; }
+.ital { font-style: italic; font-size: 1.55cqw; margin: .8cqw 0; color: var(--muted); }
+.slide.scenes .ital { color: #D8C2B4; }
+.name { font-size: 1.25cqw; color: var(--muted); margin-top: .8cqw; }
+.promise { margin: 1cqw 0; }
+.promise-t { font-size: 1.45cqw; font-weight: 700; margin-bottom: .5cqw; }
+.promise ul { padding-left: 1.2cqw; }
+.promise li { font-size: 1.4cqw; line-height: 1.4; margin-bottom: .35cqw; }
+.mid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4cqw; margin: 1cqw 0; flex: 1; min-height: 0; }
+.mid .pic { min-height: 14cqw; }
+.cmp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6cqw; margin: 1cqw 0; flex: 1; }
+.cmp .pic { min-height: 11cqw; margin-bottom: .6cqw; }
+.cap-l { font-size: 1.2cqw; letter-spacing: .1em; text-transform: uppercase; color: var(--terra); font-weight: 800; margin-bottom: .35cqw; }
+.cap-t { font-size: 1.45cqw; line-height: 1.35; }
+.scene-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9cqw; margin: 1cqw 0; }
+.scene-grid p { background: #2E342A; padding: 1cqw 1.2cqw; border-radius: .35cqw; font-size: 1.45cqw; line-height: 1.35; }
+.list { display: grid; gap: .85cqw; margin: 1cqw 0; }
+.list > p { font-size: 1.55cqw; line-height: 1.35; display: grid; grid-template-columns: 3.2cqw 1fr; gap: .6cqw; }
+.list > p > i { font-style: normal; color: var(--terra); font-weight: 800; font-size: 1.35cqw; }
+.pic.flex { margin-top: auto; min-height: 8cqw; }
+.steps { margin-top: 1.8cqw; display: grid; gap: 1cqw; }
+.step { font-size: 1.85cqw; line-height: 1.38; display: grid; grid-template-columns: 4cqw 1fr; }
+.step i { font-style: normal; color: var(--terra); font-weight: 800; font-size: 1.55cqw; padding-top: .2cqw; }
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="nav">
+    <h1>Алифер · готовый ЛМ</h1>
+    <p>58 кадров подряд. Структура по почкам. Слог текущей колоды.</p>
+    <a href="#s01"><span>01–03</span>Вход и обещание</a><a href="#s04"><span>04–05</span>Что будет сегодня</a><a href="#s06"><span>06–09</span>Почему сейчас и бланк ≠ тело</a><a href="#s10"><span>10–18</span>День, сахар, сигнал</a><a href="#s19"><span>19–26</span>Старые подходы мертвы</a><a href="#s27"><span>27–32</span>Кто я и моё тело</a><a href="#s33"><span>33–34</span>Путь клиентки целиком</a><a href="#s35"><span>35–41</span>Подход: один корень</a><a href="#s42"><span>42–44</span>Что такое 30 дней</a><a href="#s45"><span>45–47</span>Ещё две живые истории</a><a href="#s48"><span>48–55</span>Возражения и анкета</a><a href="#s56"><span>56–58</span>Выбор и финал</a>
+  </nav>
+  <main><h2 class="section" id="sec-01">Вход и обещание</h2><section class="row" id="s01">
+  <div class="rownum">01</div>
+  <div class="slide cover"><div class="s-cover">
+      <div class="cv-col">
+        <p class="eyebrow">@ALIFER_NATALIA</p><h3 class="hit">Почему тело не слушается, даже если ты ешь мало и ходишь в зал</h3><p class="sub">Разбираю как нутрициолог: что происходит с весом, кожей и животом, когда привычные способы уже перестали помогать</p>
+        <p class="quote">«Если ты убрала сладкое, ходишь в зал и пьёшь воду, а вес стоит, живот к вечеру раздувается и кожа высыпает — дело не в силе воли.»</p>
+        <div class="promise"><p class="promise-t">Если досмотришь до конца, ты поймёшь:</p><ul><li>почему от банки и детокса легче только на две недели</li><li>откуда к вечеру берётся вздутие, а днём тяга на сладкое</li><li>почему заняться этим лучше сейчас, а не через год</li></ul></div>
+        <p class="plate">В конце скажу, кому этот разбор подходит, а кому лучше не тратить время</p>
+        <p class="name">Наталья Алифер · нутрициолог, health-коуч</p>
+      </div>
+      <div class="cv-pic"><span>портрет</span></div>
+    </div></div>
+</section><section class="row" id="s02">
+  <div class="rownum">02</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">К вечеру живот раздувается так, что хочется расстегнуть джинсы</h3><p class="sub">Утром те же джинсы застёгиваются свободно, а к вечеру пояс уже давит</p>
+      <p class="quote">«Вечером заранее выбираешь что-нибудь посвободнее.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div><p class="quote right">«Дома первым делом переодеваешься, потому что к этому часу уже неудобно.»</p></div>
+      <p class="plate">Ты так привыкла, что перестала считать это проблемой</p>
+    </div></div>
+</section><section class="row" id="s03">
+  <div class="rownum">03</div>
+  <div class="slide list"><div class="s-list">
+      <h3 class="hit">Если досмотришь это видео до конца, ты поймёшь три вещи</h3><p class="sub">Разберём по порядку: откуда берётся твоё состояние и почему обычные способы перестали помогать</p>
+      <div class="list"><p><i>01</i>почему «ем мало и хожу в зал» больше не даёт результата</p><p><i>02</i>почему банка, детокс и укол помогают только пока ты их принимаешь</p><p><i>03</i>откуда к вечеру вздутие, а днём тяга на сладкое</p></div>
+      <p class="plate">И почему лучше разобраться сейчас, пока к одному симптому не добавились ещё три</p>
+      <div class="pic flex"><span>иллюстрация</span></div>
+    </div></div>
+</section><h2 class="section" id="sec-04">Что будет сегодня</h2><section class="row" id="s04">
+  <div class="rownum">04</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Сегодня я не дам тебе список, что есть этим вечером</h3><p class="sub">Не потому что жалко отдать, а потому что такой список тебе сейчас ничем не поможет</p>
+      <p class="quote">«Ты уже видела десятки таких списков, и почти ни один не дожил до конца недели.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">С едой стоит разбираться в конце, а не в начале</p>
+    </div></div>
+</section><section class="row" id="s05">
+  <div class="rownum">05</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">С готовым меню кажется, что ты уже начала, хотя тело так и не меняется</h3><p class="sub">Ощущение «я взялась за себя» приходит сразу, а изменений нет, потому что причину никто не смотрел</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что обычно дают с экрана</p><p class="cap-t">меню, запреты и список добавок «начни сегодня»</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что будет в этом видео</p><p class="cap-t">разбор, почему у тебя так, и куда идти дальше</p></div></div>
+      <p class="plate">Сначала нужно понять, что происходит именно у тебя, и только потом менять еду</p>
+    </div></div>
+</section><h2 class="section" id="sec-06">Почему сейчас и бланк ≠ тело</h2><section class="row" id="s06">
+  <div class="rownum">06</div>
+  <div class="slide scenes"><div class="s-scenes">
+      <h3 class="hit">Почему вокруг столько решений, а вечером у тебя всё повторяется</h3><p class="sub">Ты пробовала почти всё, что предлагали, и каждый раз надеялась, что новый способ наконец сработает</p>
+      <div class="scene-grid"><p>Реклама обещает плоский живот за две недели</p><p>Врач смотрит анализы и говорит, что всё в порядке</p><p>Подруга приносит банку, которая помогла ей</p><p>Рилс объясняет, что надо просто убрать хлеб</p></div>
+      <p class="ital">А в девять вечера ты всё так же расстёгиваешь джинсы</p><p class="plate">Значит, дело не в том, что ты мало старалась</p>
+      <div class="pic flex"><span>иллюстрация</span></div>
+    </div></div>
+</section><section class="row" id="s07">
+  <div class="rownum">07</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">«Наташа, я делаю всё правильно. Что со мной не так?»</h3><p class="sub">Эту фразу я слышу почти от каждой женщины, которая приходит на консультацию</p>
+      <p class="quote">«Я считаю калории, хожу на шаги, сдала анализы и пью витамины, а понимания всё равно нет.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div><p class="quote right">«В какой-то момент начинаешь думать, что дело в тебе.»</p></div>
+      <p class="plate">Дело не в том, что ты стараешься мало. Дело в том, что причину никто не искал</p>
+    </div></div>
+</section><section class="row" id="s08">
+  <div class="rownum">08</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Ты слышишь «по анализам всё хорошо» и думаешь, что сама себя накрутила</h3><p class="sub">Приём закончился, бланк закрыли, а живот, кожа и усталость остались такими же</p>
+      <p class="quote">«Врач сказал, что отклонений нет, и я вышла с теми же симптомами.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div><p class="quote right">«После этого неудобно жаловаться дальше: анализы хорошие, предъявить нечего.»</p></div>
+      <p class="plate">Но вздутие к вечеру и усталость с утра ты не придумала</p>
+    </div></div>
+</section><section class="row" id="s09">
+  <div class="rownum">09</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">По анализам ты здорова, и при этом каждый день чувствуешь себя плохо</h3><p class="sub">Анализы ловят болезнь. Твоё самочувствие в них часто просто не помещается</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что видит врач</p><p class="cap-t">цифры в границах нормы, лечить вроде нечего</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что чувствуешь ты</p><p class="cap-t">тяжесть в животе, высыпания, плохой сон и силы только до обеда</p></div></div>
+      <p class="plate">Поэтому вопрос закрывают, а состояние остаётся с тобой</p>
+    </div></div>
+</section><h2 class="section" id="sec-10">День, сахар, сигнал</h2><section class="row" id="s10">
+  <div class="rownum">10</div>
+  <div class="slide scenes"><div class="s-scenes">
+      <h3 class="hit">Узнаёшь свой день?</h3><p class="sub">Каждый пункт по отдельности выглядит мелочью. Вместе это твоя обычная неделя</p>
+      <div class="scene-grid"><p>Просыпаешься уставшей, даже если спала восемь часов</p><p>К обеду тянет на сладкое, срываешься и потом винишь себя</p><p>К вечеру живот раздувается, и джинсы начинают жать</p><p>Кожа то успокаивается, то снова высыпает</p></div>
+      <p class="ital">«Всё в норме» — а ты себя нормально не чувствуешь</p>
+      <div class="pic flex"><span>иллюстрация</span></div>
+    </div></div>
+</section><section class="row" id="s11">
+  <div class="rownum">11</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">За один день живот меняется так, что вечером в джинсы уже не влезаешь</h3><p class="sub">И меняется он не от количества еды: за день ты съела совсем немного</p>
+      <p class="quote">«Я почти не ела, а живот такой, будто только что вышла из-за стола.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Вопрос не в том, сколько ты съела, а в том, что с этой едой происходит внутри</p>
+    </div></div>
+</section><section class="row" id="s12">
+  <div class="rownum">12</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Утром хватаешь то, что готовится быстро: круассан, хлопья, кашу с соком или кофе с сиропом</h3><p class="sub">Так делают почти все: между будильником и выходом из дома пять минут</p>
+      <p class="quote">«Позавтракала, села работать — а через час снова хочется есть и тянет на сладкое.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Такой завтрак не кормит до обеда. Он запускает день, в котором ты голодная с утра до ночи</p>
+    </div></div>
+</section><section class="row" id="s13">
+  <div class="rownum">13</div>
+  <div class="slide compare"><div class="s-cmp">
+      <p class="eyebrow">САХАРНАЯ ГОНКА</p><h3 class="hit">Сначала прилив сил, а через два часа пустота и мысли о сладком</h3><p class="sub">Быстрый завтрак резко поднимает сахар в крови, а потом так же резко его роняет</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Первые двадцать минут</p><p class="cap-t">сил много, голова ясная, спокойно берёшься за дела</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Через два часа</p><p class="cap-t">пустота, раздражение и мысль про печенье к кофе</p></div></div>
+      <p class="plate">Это не слабость характера. Это качели, которые запускает каждый такой завтрак</p>
+    </div></div>
+</section><section class="row" id="s14">
+  <div class="rownum">14</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Кофе утром, сладкое днём и «добрать» вечером складываются в один и тот же круг</h3><p class="sub">Вечерний срыв готовится с утра. Бороться с ним вечером уже поздно</p>
+      <p class="quote">«Днём держусь, а вечером открываю шкаф и ем то, что не собиралась.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div><p class="quote right">«И так каждый день, поэтому кажется, что проблема во мне.»</p></div>
+      <p class="plate">Ты ругаешь себя вечером, хотя день поехал ещё за завтраком</p>
+    </div></div>
+</section><section class="row" id="s15">
+  <div class="rownum">15</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Сила воли здесь не помогает, потому что ты воюешь не с тем</h3><p class="sub">Терпеть можно неделю-две. Потом тело всё равно возьмёт своё, потому что это биология</p>
+      <p class="quote">«Я просто слабая: у других получается, а я не могу удержаться.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Тело просит еду каждые два часа не потому что ты плохая, а потому что его так раскачало</p>
+    </div></div>
+</section><section class="row" id="s16">
+  <div class="rownum">16</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">С кожей идёшь к косметологу, с животом к гастроэнтерологу, с усталостью идёшь проверять гормоны</h3><p class="sub">Каждый врач честно закрывает свой участок. И это нормально</p>
+      <p class="quote">«Кабинетов было три, а что со мной происходит в целом, так никто и не сказал.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Симптомы лечат по отдельности, поэтому причина остаётся ненайденной</p>
+    </div></div>
+</section><section class="row" id="s17">
+  <div class="rownum">17</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">Симптом не равен проблеме. Он показывает, что внутри что-то горит</h3><p class="sub">Мы привыкли выключать сигнал, потому что он мешает жить, и думать, что вопрос закрыт</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что мы обычно делаем</p><p class="cap-t">крем на лицо, таблетку на живот, кофе на усталость</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что происходит потом</p><p class="cap-t">звук выключен, а огонь остался там же</p></div></div>
+      <p class="plate">Сигнал выключить можно. Огонь от этого не гаснет</p>
+    </div></div>
+</section><section class="row" id="s18">
+  <div class="rownum">18</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Крем убрал высыпания, таблетка убрала вздутие, и на время стало тихо</h3><p class="sub">На две-три недели правда кажется, что вопрос решён</p>
+      <p class="quote">«Потом всё возвращается, и я снова иду за тем же кремом и той же таблеткой.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Симптом ушёл. То, из-за чего он появился, осталось на месте</p>
+    </div></div>
+</section><h2 class="section" id="sec-19">Старые подходы мертвы</h2><section class="row" id="s19">
+  <div class="rownum">19</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Расскажу про маму, чтобы было видно, как это устроено в жизни, а не в теории</h3><p class="sub">Похожий путь проходят почти все. На каждом шаге всё выглядит правильно</p>
+      <p class="quote">«Сначала жалоба, потом приём на пятнадцать минут, потом рецепт, и вроде всё сделано.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Я рассказываю это не для того, чтобы напугать тебя. Я хочу, чтобы ты узнала знакомую дорогу</p>
+    </div></div>
+</section><section class="row" id="s20">
+  <div class="rownum">20</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Она пришла с жалобой и через пятнадцать минут вышла с рецептом</h3><p class="sub">У короткого приёма своя задача: закрыть жалобу, а не разобрать, как человек живёт</p>
+      <p class="quote">«Её не спросили, как она ест, во сколько ложится и что происходило последние полгода.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Разговор закончился там, где он только должен был начаться</p>
+    </div></div>
+</section><section class="row" id="s21">
+  <div class="rownum">21</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Через несколько недель мама ела один раз в день и была совсем зелёная</h3><p class="sub">Лекарство делало своё дело. Но никто не посмотрел, что происходит с едой, сном и силами</p>
+      <p class="quote">«Есть не хочется, сил нет, зато все назначения выполнены.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">У быстрого решения тоже есть цена. Платить за него приходится позже</p>
+    </div></div>
+</section><section class="row" id="s22">
+  <div class="rownum">22</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">Она убрала глютен, и ей стало легче</h3><p class="sub">А когда через месяц вернула хлеб, всё вернулось: причину так и не тронули</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Пока глютена не было</p><p class="cap-t">живот вёл себя тише, казалось, что причина найдена</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Когда хлеб вернулся</p><p class="cap-t">через неделю всё стало как раньше</p></div></div>
+      <p class="quote">«Месяц пила пробиотик, а к вечеру живот был всё такой же.»</p><p class="plate">Одно дело убрать продукт на время. Другое дело понять, почему он перестал перевариваться</p>
+    </div></div>
+</section><section class="row" id="s23">
+  <div class="rownum">23</div>
+  <div class="slide scenes"><div class="s-scenes">
+      <h3 class="hit">Минус три на диете, потом плюс пять, потом соки, кето, банка и укол</h3><p class="sub">Названия меняются каждый год. Схема одна и та же</p>
+      <div class="scene-grid"><p>Сначала детокс на соках — «почистить организм»</p><p>Потом кето — «виноваты углеводы»</p><p>Потом добавки из рилса — «помогло знакомой»</p><p>Потом укол — «своими силами уже не получается»</p></div>
+      <p class="ital">Ты не виновата, что всё это покупала: где искать причину, тебе никто не объяснил</p><p class="plate">Две недели легче, а потом ты снова идёшь по тому же кругу</p>
+      <div class="pic flex"><span>иллюстрация</span></div>
+    </div></div>
+</section><section class="row" id="s24">
+  <div class="rownum">24</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">Если пропить курс банок или поставить укол, тебе правда станет легче</h3><p class="sub">Только ненадолго: банка и укол делают за тело то, что оно перестало делать само</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Пока принимаешь</p><p class="cap-t">живот тише, вес чуть уходит, кажется, что наконец нашла</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Когда курс закончился</p><p class="cap-t">через две-три недели всё возвращается, иногда с прибавкой</p></div></div>
+      <p class="plate">Мы убираем то, что чувствуется, и не трогаем то, из-за чего это началось</p>
+    </div></div>
+</section><section class="row" id="s25">
+  <div class="rownum">25</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Проще объяснить себе, что виноваты стресс, отпуск или «просто такой метаболизм»</h3><p class="sub">Такое объяснение всегда удобно: после него можно ничего не менять</p>
+      <p class="quote">«Сейчас просто период. Разгребу дела и займусь собой.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div><p class="quote right">«У меня просто такой организм, всё в живот, это наследственное.»</p></div>
+      <p class="plate">Пока есть удобная версия, вопрос откладывается ещё на год</p>
+    </div></div>
+</section><section class="row" id="s26">
+  <div class="rownum">26</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">Само по себе это состояние не проходит. Со временем к одному симптому добавляется второй, потом третий</h3><p class="sub">Причина остаётся на месте, поэтому список того, что мешает, медленно растёт</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Пять лет назад</p><p class="cap-t">было только вздутие к вечеру, и то не каждый день</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Сейчас</p><p class="cap-t">к нему добавились кожа, вес, плохой сон и тяга на сладкое</p></div></div>
+      <p class="plate">Время само не лечит. Оно только дописывает новые пункты</p>
+    </div></div>
+</section><h2 class="section" id="sec-27">Кто я и моё тело</h2><section class="row" id="s27">
+  <div class="rownum">27</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Меня зовут Наталья Алифер, я нутрициолог, и такие истории я вижу каждый день</h3><p class="sub">Ко мне приходят женщины, которые годами делают всё правильно и в итоге винят характер</p>
+      <p class="quote">«Я не ленивая и не глупая. Я правда старалась.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">И дело почти никогда не в характере</p>
+    </div></div>
+</section><section class="row" id="s28">
+  <div class="rownum">28</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Я говорю об этом не из учебника: сама годами жила с этим животом и этой усталостью</h3><p class="sub">Знаю, каково делать всё по правилам и злиться на себя, что результата всё равно нет</p>
+      <p class="quote">«Мне тоже говорили: просто меньше ешь и больше двигайся.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Дальше расскажу свою историю, а не перескажу учебник</p>
+    </div></div>
+</section><section class="row" id="s29">
+  <div class="rownum">29</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Мне было двадцать, и я тоже делала всё правильно: зал пять раз в неделю, диеты, массажи</h3><p class="sub">Я не искала лёгких путей. Я искала то, что наконец даст результат</p>
+      <p class="quote">«Держала дефицит, ходила на тренировки, покупала обёртывания и ждала.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Результата не было, и я решила, что со мной что-то не так</p>
+    </div></div>
+</section><section class="row" id="s30">
+  <div class="rownum">30</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Целлюлит, вздутие и усталость никак не реагировали на мои старания</h3><p class="sub">Получалось наоборот: чем сильнее ограничивала себя, тем хуже себя чувствовала</p>
+      <p class="quote">«Смотрела в зеркало и не понимала, что ещё от меня требуется.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Тогда я ещё не знала, что старалась не в том месте</p>
+    </div></div>
+</section><section class="row" id="s31">
+  <div class="rownum">31</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">Я лечила симптомы годами. Причина была в другом месте</h3><p class="sub">Занималась лицом, весом и тренировками. Смотреть нужно было на кишечник</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Сначала</p><p class="cap-t">ушло вздутие, и стало свободнее в одежде</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Потом</p><p class="cap-t">успокоилась кожа, и к вечеру начали оставаться силы</p></div></div>
+      <p class="plate">Тогда поняла: всё это время воевала со следствием</p>
+    </div></div>
+</section><section class="row" id="s32">
+  <div class="rownum">32</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Я не обещаю, что у тебя будет так же и в те же сроки</h3><p class="sub">У каждой свой стаж, свой быт и своё тело. Поэтому и путь у каждой получается свой</p>
+      <p class="quote">«Мне нужны гарантии, что за месяц всё пройдёт.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Таких гарантий у меня нет, и придумывать их я не буду</p>
+    </div></div>
+</section><h2 class="section" id="sec-33">Путь клиентки целиком</h2><section class="row" id="s33">
+  <div class="rownum">33</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Анна, 34, Москва: годы диет и списков «нельзя», и ей ни разу не объяснили, почему с ней так</h3><p class="sub">Это её текст с сайта программы. Не выдумка и не обещание твоих сроков</p>
+      <p class="quote">«Пробовала всё: интервальное голодание, кето, детокс-соки. Везде давали список запретов.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Везде говорили, что убрать. Нигде не говорили, откуда это берётся</p>
+    </div></div>
+</section><section class="row" id="s34">
+  <div class="rownum">34</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">Здесь ей впервые объяснили причину, и тело ответило</h3><p class="sub">Как она написала: на третьей неделе ушло вздутие, за месяц минус пять килограммов</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что было годами</p><p class="cap-t">запреты, банки и ощущение, что она снова «не справилась»</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что изменилось</p><p class="cap-t">поняла, что делает и зачем, и перестала воевать вслепую</p></div></div>
+      <p class="quote">«Главное не килограммы. Главное: я понимаю, что делаю и зачем.»</p><p class="plate">Это один полный путь. Сейчас покажу, как он устроен, и добавлю ещё две короткие истории</p>
+    </div></div>
+</section><h2 class="section" id="sec-35">Подход: один корень</h2><section class="row" id="s35">
+  <div class="rownum">35</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Пока убираешь только симптом, причина остаётся с тобой</h3><p class="sub">Симптом можно приглушить на месяц. Он вернётся, потому что причину никто не тронул</p>
+      <p class="quote">«Каждый раз кажется, что это новая проблема. Это та же, только с другой стороны.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Вместе с причиной остаются вздутие, тяга на сладкое и усталость</p>
+    </div></div>
+</section><section class="row" id="s36">
+  <div class="rownum">36</div>
+  <div class="slide compare"><div class="s-cmp">
+      <p class="eyebrow">GLP-1 · ГОРМОН НАСЫЩЕНИЯ</p><h3 class="hit">Оземпик даёт извне то, что здоровый кишечник делает сам</h3><p class="sub">Гормон насыщения вырабатывается в кишечнике. У здорового человека он приходит после еды без уколов</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Здоровый кишечник</p><p class="cap-t">сам вовремя сообщает мозгу, что ты наелась</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">С уколом</p><p class="cap-t">тот же сигнал приходит снаружи и работает, пока ты колешь</p></div></div>
+      <p class="ital">Вопрос не в том, принимать или нет.<br>Вопрос в том, почему кишечник перестал делать это сам</p>
+    </div></div>
+</section><section class="row" id="s37">
+  <div class="rownum">37</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Пока колешь, сытость приходит снаружи. После отмены тяга часто возвращается</h3><p class="sub">Я не спорю с врачами и никого не отговариваю. Укол работает. Важно понять, что будет после отмены</p>
+      <p class="quote">«Пока колю, ем мало и спокойно. Отменила — через месяц всё вернулось.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Разговор начинается не с укола, а с того, почему своё насыщение выключилось</p>
+    </div></div>
+</section><section class="row" id="s38">
+  <div class="rownum">38</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">Кишечник отвечает не только за пищеварение. Это среда размером с теннисный корт</h3><p class="sub">Площадь внутри огромная. От того, что там происходит, зависит почти всё остальное</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что мы про него думаем</p><p class="cap-t">что он отвечает только за пищеварение</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Чем он занят на самом деле</p><p class="cap-t">иммунитетом, гормонами, сытостью, настроением и кожей</p></div></div>
+      <p class="plate">Его не видно, и поэтому кажется, что о нём можно не думать</p>
+    </div></div>
+</section><section class="row" id="s39">
+  <div class="rownum">39</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">От кишечника зависят вес, кожа, энергия, настроение и то, как сильно тянет на сладкое</h3><p class="sub">Поэтому симптомы приходят пачкой, хотя выглядят как пять разных проблем</p>
+      <p class="quote">«Мажу лицо, считаю калории, пью витамины, а место, откуда всё идёт, никто так и не посмотрел.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Пять разных симптомов часто растут из одного места</p>
+    </div></div>
+</section><section class="row" id="s40">
+  <div class="rownum">40</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">По шкале от нуля до ста ты можешь быть на двадцати и услышать, что у тебя всё хорошо</h3><p class="sub">Анализы показывают болезнь. Не то, как ты себя чувствуешь день за днём</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что говорит бланк</p><p class="cap-t">болезни нет, лечить нечего, приходите если станет хуже</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что чувствуешь ты</p><p class="cap-t">сил нет, живот мешает, кожа подводит</p></div></div>
+      <p class="plate">«Не больна» ещё не значит «здорова»</p>
+    </div></div>
+</section><section class="row" id="s41">
+  <div class="rownum">41</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Сначала нужно увидеть, где горит, и только потом менять еду, сон и привычки</h3><p class="sub">Если пропустить этот шаг, любые изменения в еде снова превращаются в диету</p>
+      <p class="quote">«Я уже начинала с еды. Каждый раз всё заканчивалось через две недели.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Не надо только выключать сигнализацию. Надо зайти в ту комнату, где горит</p>
+    </div></div>
+</section><h2 class="section" id="sec-42">Что такое 30 дней</h2><section class="row" id="s42">
+  <div class="rownum">42</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">Это не диета и не список добавок из рекламы</h3><p class="sub">Сначала разбираемся, откуда вздутие, усталость и тяга на сладкое, а уже потом меняем еду</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Чего здесь нет</p><p class="cap-t">запретов, голода и банок из рилса</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что здесь есть</p><p class="cap-t">разбор твоей ситуации и понятные шаги на каждый день</p></div></div>
+      <p class="plate">Поэтому результат держится дольше, чем две недели</p>
+    </div></div>
+</section><section class="row" id="s43">
+  <div class="rownum">43</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">Когда причина найдена, женщины сначала замечают, что стало легче</h3><p class="sub">Не цифры на весах, а то, что вечером живот не мешает и силы не кончаются уже в три часа дня</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Что чаще всего уходит первым</p><p class="cap-t">тяжесть и вздутие</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Дальше по-разному</p><p class="cap-t">кожа, вес, сон и тяга на сладкое</p></div></div>
+      <p class="plate">Порядок у каждой свой. Один календарь для всех я не обещаю</p>
+    </div></div>
+</section><section class="row" id="s44">
+  <div class="rownum">44</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Тридцать дней нужны не для подвига, а чтобы увидеть, как работает именно твоё тело</h3><p class="sub">Смотришь, делаешь и замечаешь: на что тело отвечает, а на что нет</p>
+      <p class="quote">«За месяц становится понятно, что мне подходит, а что просто не моё.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Это не тридцать дней терпения. Это тридцать дней наблюдения за собой</p>
+    </div></div>
+</section><h2 class="section" id="sec-45">Ещё две живые истории</h2><section class="row" id="s45">
+  <div class="rownum">45</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Екатерина, 29, Петербург: годы кабинетов, которые не разговаривали друг с другом</h3><p class="sub">Акне с подросткового возраста. Дерматолог к гинекологу, гинеколог обратно. Кишечник никто не связывал</p>
+      <p class="quote">«После второй недели лицо начало очищаться само. Три месяца без тонального.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Кожу, живот и вес лечили отдельно. Причина у истории оказалась одна</p>
+    </div></div>
+</section><section class="row" id="s46">
+  <div class="rownum">46</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Ольга, 38, Краснодар: перестала воевать с шоколадом, когда поняла, откуда тяга</h3><p class="sub">Годами считала вечернее сладкое слабостью и каждый вечер боролась с собой</p>
+      <p class="quote">«Раньше вечером боролась с собой. Теперь мне просто не нужно столько сладкого.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Победила не сила воли. Просто стало понятно, откуда эта тяга</p>
+    </div></div>
+</section><section class="row" id="s47">
+  <div class="rownum">47</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Живот, кожа и тяга на сладкое ведут в один и тот же разговор</h3><p class="sub">Заходят по-разному. Причина у историй часто оказывается одна</p>
+      <p class="quote">«Кто-то приходит из-за вздутия, кто-то из-за лица, кто-то из-за вечерних срывов.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Если ты не узнала себя ни в одной из этих историй, дальше можно не смотреть</p>
+    </div></div>
+</section><h2 class="section" id="sec-48">Возражения и анкета</h2><section class="row" id="s48">
+  <div class="rownum">48</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">«Я уже всё пробовала» чаще всего значит: ты пробовала убрать симптом</h3><p class="sub">Диеты, добавки, кремы и тренировки работают со следствием, а не с причиной</p>
+      <p class="quote">«Дома полка банок и папка с диетами. Я правда не знаю, что ещё делать.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Работать надо с тем, из-за чего твой вечер выглядит именно так</p>
+    </div></div>
+</section><section class="row" id="s49">
+  <div class="rownum">49</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">«Я уже столько денег потратила», и ошибиться снова особенно обидно</h3><p class="sub">Я понимаю эту усталость и не спорю с ней сверху</p>
+      <p class="quote">«Больше не хочу платить за надежду. Хочу понять, что со мной происходит.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Каждая новая банка в сумме стоит дороже, чем один нормальный разбор</p>
+    </div></div>
+</section><section class="row" id="s50">
+  <div class="rownum">50</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">«Сначала пойду к врачу». Иди, правда иди</h3><p class="sub">Если болит, если есть кровь и если врач сказал срочно, сначала иди к врачу, а не ко мне в программу</p>
+      <p class="quote">«Была у врача. Ничего не нашёл и сказал, что я здорова.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Я не заменяю врача. Я начинаю там, где болезни не нашли, а тебе всё равно плохо</p>
+    </div></div>
+</section><section class="row" id="s51">
+  <div class="rownum">51</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">«У меня нет времени». Здесь нужно тридцать-сорок минут в день</h3><p class="sub">Это не второй рабочий день. Столько обычно уходит в телефон</p>
+      <p class="quote">«Я и так ничего не успеваю.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">А на ещё один год в этом состоянии времени почему-то хватает</p>
+    </div></div>
+</section><section class="row" id="s52">
+  <div class="rownum">52</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Если тебе нужна банка, после которой всё пройдёт само, тебе не сюда</h3><p class="sub">Я не буду делать вид, что дешёвое чудо бывает</p>
+      <p class="quote">«Скажите просто, что выпить. Я не хочу ничего менять.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">С таким запросом мы друг другу не поможем</p>
+    </div></div>
+</section><section class="row" id="s53">
+  <div class="rownum">53</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">Если хочешь понять, нужна ли тебе программа, заполни короткую анкету под видео</h3><p class="sub">Две-три минуты: коротко рассказать, что с тобой происходит</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">О чём спрошу</p><p class="cap-t">что беспокоит, как давно длится, что уже пробовала</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Сколько займёт</p><p class="cap-t">две-три минуты с телефона, без созвонов</p></div></div>
+      <p class="plate">Анкету читаю я сама, а не менеджер</p>
+    </div></div>
+</section><section class="row" id="s54">
+  <div class="rownum">54</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Я прочитаю твою анкету и честно скажу: нужно тебе сюда или нет</h3><p class="sub">Мне важно понять твою ситуацию, а не собрать номер телефона</p>
+      <p class="quote">«Боюсь оставлять данные: потом звонят каждый день и уговаривают.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Здесь так не будет. Если тебе не сюда, я скажу прямо</p>
+    </div></div>
+</section><section class="row" id="s55">
+  <div class="rownum">55</div>
+  <div class="slide compare"><div class="s-cmp">
+      <h3 class="hit">Кому-то сначала правда нужен врач, а не я</h3><p class="sub">Скажу об этом прямо, даже если ты уже готова начать</p>
+      <div class="cmp-row"><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">Сначала к врачу</p><p class="cap-t">если болит, если есть кровь, если врач сказал срочно</p></div><div class="cmp"><div class="pic"><span>картинка</span></div><p class="cap-l">И ещё не сюда</p><p class="cap-t">если нужен просто список добавок на неделю</p></div></div>
+      <p class="plate">Я беру не всех, кто написал</p>
+    </div></div>
+</section><h2 class="section" id="sec-56">Выбор и финал</h2><section class="row" id="s56">
+  <div class="rownum">56</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">Можно оставить всё как есть: с понедельника, с новой банкой, с новой виной</h3><p class="sub">Самый простой вариант ничего от тебя сегодня не требует</p>
+      <p class="quote">«С понедельника начну. Сейчас просто не время.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Ты говорила это не один раз. Через год будешь расстёгивать те же джинсы в тот же вечер</p>
+    </div></div>
+</section><section class="row" id="s57">
+  <div class="rownum">57</div>
+  <div class="slide std"><div class="s-std">
+      <h3 class="hit">А можно принять простую вещь: дело не в твоём характере</h3><p class="sub">Если ни в одном кабинете не спросили, как ты ешь, значит этот вопрос тебе ещё никто не задавал</p>
+      <p class="quote">«Меня ни разу не спросили, что я ем на завтрак и во сколько ужинаю.»</p>
+      <div class="mid"><div class="pic"><span>иллюстрация</span></div></div>
+      <p class="plate">Этот вопрос до сих пор без ответа. И по-честному посмотреть на него можешь только ты</p>
+    </div></div>
+</section><section class="row" id="s58">
+  <div class="rownum">58</div>
+  <div class="slide final"><div class="s-final">
+      <h3 class="hit">Если узнала себя в этом видео, заполни анкету под ним</h3><p class="sub">Две-три минуты. После них я честно скажу: нужно тебе сюда или нет</p>
+      <div class="steps"><p class="step"><i>01</i>Заполняешь короткую анкету под этим видео</p><p class="step"><i>02</i>Я читаю её и отвечаю: нужно тебе сюда или нет</p><p class="step"><i>03</i>Если тебе не сюда, я скажу прямо и подскажу, к кому идти</p></div>
+      <p class="plate">Анкета бесплатная и ни к чему тебя не обязывает</p><p class="ital">Если ищешь замену врачу, это не сюда</p>
+      <p class="name">Наталья Алифер · нутрициолог, health-коуч</p>
+    </div></div>
+</section></main>
+</div>
+</body>
+</html>
