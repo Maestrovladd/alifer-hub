@@ -21,783 +21,657 @@
   --lilac: #e6e0f2;
   --cream: #fffdf8;
   --cta: #b4553a;
+  --panel: #1b1f18;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
 body {
   font-family: Manrope, system-ui, sans-serif;
   background: var(--bg);
   color: var(--ink);
-  font-size: 14px;
-  line-height: 1.4;
-}
-.top {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background: rgba(244,242,236,.96);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--line);
-  padding: 14px 18px 12px;
-}
-.top h1 {
-  font-size: 20px;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-.top p { color: var(--muted); font-size: 13px; max-width: 90ch; }
-.legend {
+  font-size: 13px;
+  line-height: 1.35;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
+  flex-direction: column;
+  min-height: 100dvh;
 }
-.legend span {
-  display: inline-flex;
-  align-items: center;
+
+.top {
+  flex: 0 0 auto;
+  background: rgba(244,242,236,.97);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 14px 8px;
+}
+.top h1 { font-size: 16px; font-weight: 800; }
+.top p { color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+.phase-bar {
+  display: flex;
   gap: 6px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 5px 10px;
-  font-size: 12px;
-  font-weight: 600;
+  padding: 8px 14px;
+  overflow-x: auto;
+  flex: 0 0 auto;
+  border-bottom: 1px solid var(--line);
+  background: #efece4;
+  scrollbar-width: thin;
 }
-.sw { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.phase-bar button {
+  flex: 0 0 auto;
+  appearance: none;
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 8px;
+  padding: 7px 10px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--ink);
+}
+.phase-bar button[aria-pressed="true"] {
+  background: var(--panel);
+  color: #f6f2e9;
+  border-color: var(--panel);
+}
+
+.main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
 
 .board-wrap {
+  flex: 1 1 auto;
   overflow-x: auto;
-  padding: 16px 18px 60px;
+  overflow-y: hidden;
+  padding: 10px 14px;
+  min-height: 0;
   -webkit-overflow-scrolling: touch;
 }
 .board {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 280px;
-  gap: 12px;
+  grid-auto-columns: minmax(168px, 200px);
+  gap: 8px;
   width: max-content;
-  align-items: start;
+  height: 100%;
+  align-items: stretch;
 }
 
 .col {
   background: var(--cream);
   border: 1px solid var(--line);
-  border-radius: 12px;
-  min-height: 100%;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  max-height: calc(100dvh - 168px);
+  cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease;
+  overflow: hidden;
 }
-.col.phase-end { border-color: #c9b59a; }
+.col:hover { border-color: #cbbba8; }
+.col[aria-selected="true"] {
+  border-color: var(--cta);
+  box-shadow: 0 0 0 2px rgba(180,85,58,.18);
+}
+.col.hidden { display: none; }
 
 .num {
   background: var(--yellow);
   font-weight: 800;
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
-  padding: 8px;
-  border-radius: 11px 11px 0 0;
+  padding: 6px;
+  flex: 0 0 auto;
 }
 .date {
   text-align: center;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
   color: var(--muted);
-  padding: 6px 8px;
+  padding: 4px 6px;
   border-bottom: 1px solid var(--line);
   background: #fff;
+  flex: 0 0 auto;
 }
 .phase {
   background: var(--gray);
-  padding: 10px 12px;
-  font-size: 12px;
+  padding: 7px 8px;
+  font-size: 10px;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.3;
   border-bottom: 1px solid var(--line);
-  min-height: 72px;
+  flex: 0 0 auto;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .phase small {
   display: block;
-  margin-top: 4px;
-  font-weight: 600;
+  margin-top: 3px;
+  font-weight: 700;
   color: var(--cta);
-  font-size: 11px;
+  font-size: 10px;
+  -webkit-line-clamp: unset;
 }
 .sense {
   background: var(--gray2);
-  padding: 12px;
-  font-size: 13px;
+  padding: 8px;
+  font-size: 12px;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.3;
   border-bottom: 1px solid var(--line);
-  min-height: 88px;
+  flex: 1 1 auto;
+  overflow: auto;
 }
-.flow {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
+.preview {
+  padding: 7px 8px;
+  font-size: 10px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  flex: 0 0 auto;
+  line-height: 1.3;
 }
-.card {
-  border-radius: 10px;
-  padding: 10px 11px;
-  font-size: 12.5px;
-  line-height: 1.4;
-  position: relative;
-}
-.card h4 {
-  font-size: 11px;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-  opacity: .75;
-}
-.card strong.t {
-  display: block;
-  font-size: 13px;
-  font-weight: 800;
-  margin-bottom: 6px;
-  text-transform: none;
-  letter-spacing: 0;
-  opacity: 1;
-}
-.card ul { padding-left: 1.05em; }
-.card li { margin-bottom: 3px; }
-.card.blue { background: var(--blue); }
-.card.pink { background: var(--pink); }
-.card.green { background: var(--green); }
-.card.lilac { background: var(--lilac); }
-.card.yellow { background: var(--yellow); }
-.arrow {
-  text-align: center;
-  color: #b0aaa0;
-  font-size: 14px;
-  line-height: 1;
-  margin: -2px 0;
-}
+.preview b { color: var(--ink); font-weight: 700; }
 .cta {
-  margin-top: auto;
-  background: #1b1f18;
+  background: var(--panel);
   color: #f6f2e9;
-  border-radius: 10px;
-  padding: 10px 11px;
-  font-size: 12.5px;
+  padding: 8px;
+  font-size: 11px;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.3;
+  flex: 0 0 auto;
 }
 .cta em {
   display: block;
   font-style: normal;
   color: #e2a98f;
-  font-size: 11px;
-  margin-bottom: 3px;
+  font-size: 9px;
   letter-spacing: .06em;
   text-transform: uppercase;
+  margin-bottom: 2px;
 }
-
-.phase-bar {
-  display: flex;
-  gap: 10px;
-  padding: 0 18px 8px;
-  overflow-x: auto;
-}
-.phase-bar a {
+.hint {
+  text-align: center;
+  font-size: 10px;
+  color: var(--muted);
+  padding: 5px;
+  background: #faf8f3;
   flex: 0 0 auto;
-  text-decoration: none;
-  color: var(--ink);
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 8px 12px;
-  font-size: 12px;
-  font-weight: 700;
 }
-.phase-bar a:hover { border-color: var(--cta); }
 
-@media (min-width: 1400px) {
-  body { font-size: 15px; }
-  .board { grid-auto-columns: 300px; }
+/* Detail drawer */
+.drawer {
+  flex: 0 0 auto;
+  max-height: 42dvh;
+  border-top: 1px solid var(--line);
+  background: #fff;
+  display: none;
+  flex-direction: column;
+  min-height: 0;
+}
+.drawer.open { display: flex; }
+.drawer-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px 8px;
+  border-bottom: 1px solid var(--line);
+  background: #faf8f3;
+  flex: 0 0 auto;
+}
+.drawer-head h2 {
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+.drawer-head p {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.drawer-head button {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.drawer-body {
+  overflow: auto;
+  padding: 10px 14px 14px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  min-height: 0;
+}
+.card {
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+.card h4 {
+  font-size: 10px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  opacity: .7;
+  margin-bottom: 4px;
+}
+.card strong.t {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.card ul { padding-left: 1.05em; }
+.card li { margin-bottom: 2px; }
+.card.blue { background: var(--blue); }
+.card.pink { background: var(--pink); }
+.card.green { background: var(--green); }
+.card.lilac { background: var(--lilac); }
+.card.yellow { background: var(--yellow); }
+.card.full { grid-column: 1 / -1; }
+
+@media (max-width: 900px) {
+  .board { grid-auto-columns: minmax(150px, 170px); }
+  .col { max-height: calc(100dvh - 280px); }
+  .drawer { max-height: 48dvh; }
+  .drawer-body { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .board { grid-auto-columns: minmax(140px, 58vw); }
+  .drawer { max-height: 50dvh; }
+}
+@media (min-height: 900px) {
+  .col { max-height: calc(100dvh - 150px); }
+  .drawer { max-height: 36dvh; }
 }
 </style>
 </head>
 <body>
 
 <header class="top">
-  <h1>Контент-план · Наталья Алифер</h1>
-  <p>Разбег ~2,5 недели до закрытого эфира. Даты старта пока нет — дни относительные. Листай вправо. В каждом дне: смысл → посты / сторис / подкаст → куда зовём.</p>
-  <div class="legend">
-    <span><i class="sw" style="background:#dceaf5"></i> пост</span>
-    <span><i class="sw" style="background:#e6e0f2"></i> сторис</span>
-    <span><i class="sw" style="background:#f3ddd6"></i> подкаст / кружок</span>
-    <span><i class="sw" style="background:#dde9d4"></i> кейс</span>
-    <span><i class="sw" style="background:#f5e6a8"></i> практика / давление</span>
-  </div>
+  <h1>Контент-план · Алифер</h1>
+  <p>~2,5 недели до закрытого эфира. Кликни день — раскладка снизу. Листай этапы вправо.</p>
 </header>
 
 <nav class="phase-bar" aria-label="Этапы">
-  <a href="#d1">Этап 1 · дни 1–4 · анкета</a>
-  <a href="#d5">Этап 2 · дни 5–11 · магнит</a>
-  <a href="#d12">Этап 3 · дни 12–17 · предзапись</a>
-  <a href="#d18">День 18 · закрытый эфир</a>
+  <button type="button" data-filter="all" aria-pressed="true">Все 18 дней</button>
+  <button type="button" data-filter="1" aria-pressed="false">Этап 1 · анкета</button>
+  <button type="button" data-filter="2" aria-pressed="false">Этап 2 · магнит</button>
+  <button type="button" data-filter="3" aria-pressed="false">Этап 3 · предзапись</button>
+  <button type="button" data-filter="4" aria-pressed="false">День 18 · эфир</button>
 </nav>
 
-<div class="board-wrap">
-<div class="board">
+<div class="main">
+  <div class="board-wrap">
+    <div class="board" id="board"></div>
+  </div>
 
-<!-- ========== ЭТАП 1 ========== -->
-<article class="col" id="d1">
-  <div class="num">1</div>
-  <div class="date">День 1</div>
-  <div class="phase">Этап 1 · Узнавание<br>«О господи, это про меня»
-    <small>Куда ведём этап: анкета сигналов + лекция «5 признаков»</small>
-  </div>
-  <div class="sense">Показываем: видим ваши проблемы с телом и в ближайшие дни разберём, почему «всё правильно» не работает</div>
-  <div class="flow">
-    <div class="card yellow">
-      <h4>Пост / кружок</h4>
-      <strong class="t">Открываем разговор</strong>
-      <ul>
-        <li>Сколько женщин живут с шаром к вечеру, усталостью с утра и спокойным бланком — и считают это нормой.</li>
-        <li>В ближайшие дни разберём, почему так, и с чего начинать, если устала ходить по кругу.</li>
-      </ul>
+  <aside class="drawer" id="drawer" aria-live="polite">
+    <div class="drawer-head">
+      <div>
+        <h2 id="d-title"></h2>
+        <p id="d-sub"></p>
+      </div>
+      <button type="button" id="d-close">Свернуть</button>
     </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — «Если узнала себя хотя бы в одном — оставайся»</li>
-        <li>2 — варианты: вздутие / вес / кожа / сладкое / нет сил</li>
-        <li>3 — опрос: что больше всего бесит прямо сейчас</li>
-        <li>4 — мягко: «ниже анкета, если хочешь разобрать свои сигналы»</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Мягко: анкета сигналов. Главный удар — день 4.</div>
-  </div>
-</article>
-
-<article class="col" id="d2">
-  <div class="num">2</div>
-  <div class="date">День 2</div>
-  <div class="phase">Этап 1 · Узнавание<br>«О господи, это про меня»
-    <small>Куда ведём этап: анкета сигналов + лекция «5 признаков»</small>
-  </div>
-  <div class="sense">Погружаем в ситуации тела: живот как шар, утро уже не плоский, стыд в кабинете</div>
-  <div class="flow">
-    <div class="card blue">
-      <h4>Пост</h4>
-      <strong class="t">Сцены, в которых узнают себя</strong>
-      <ul>
-        <li>Проснулась — уже устала. К обеду живот не тот. К вечеру пуговица.</li>
-        <li>В кабинете сдерживаешься. В зеркале «как будто слегка отравилась».</li>
-        <li>Подводим: это не характер и не «просто возраст».</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — утро: кофе не берёт</li>
-        <li>2 — день: джинсы к вечеру</li>
-        <li>3 — чужие формулировки / скрины «как у меня»</li>
-        <li>4 — «если это про тебя — анкета в шапке / следующем слайде»</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Анкета сигналов</div>
-  </div>
-</article>
-
-<article class="col" id="d3">
-  <div class="num">3</div>
-  <div class="date">День 3</div>
-  <div class="phase">Этап 1 · Узнавание<br>«О господи, это про меня»
-    <small>Куда ведём этап: анкета сигналов + лекция «5 признаков»</small>
-  </div>
-  <div class="sense">Бланк спокойный — тебе не спокойно. «Норма» в лаборатории ещё не здоровье</div>
-  <div class="flow">
-    <div class="card blue">
-      <h4>Пост</h4>
-      <strong class="t">Анализы «всё хорошо», а жить тяжело</strong>
-      <ul>
-        <li>Врач / бланк: норма. Утро: шар, туман, тяга к сладкому.</li>
-        <li>Можно быть «на двадцати из ста» и услышать «всё ок».</li>
-        <li>Вывод: бумага не отменяет сигнал тела.</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card pink">
-      <h4>Кружок Натальи</h4>
-      Говорит своими словами: почему она не останавливается на референсе лаборатории и смотрит дальше.
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — скрин «норма» vs самочувствие</li>
-        <li>2 — вопрос: бывало ли «анализы ок, а мне нет»?</li>
-        <li>3 — мост к анкете и подарку-лекции</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Анкета + намёк на подарок «5 признаков»</div>
-  </div>
-</article>
-
-<article class="col phase-end" id="d4">
-  <div class="num">4</div>
-  <div class="date">День 4</div>
-  <div class="phase">Этап 1 · Узнавание<br>«О господи, это про меня»
-    <small>Куда ведём этап: анкета сигналов + лекция «5 признаков»</small>
-  </div>
-  <div class="sense">Пять признаков, что кишечник уже просит помощи. Закрываем этап одним шагом</div>
-  <div class="flow">
-    <div class="card blue">
-      <h4>Пост</h4>
-      <strong class="t">Признаки без полного разбора</strong>
-      <ul>
-        <li>Утро уже вздутое · сыпет на молочку · вес стоит · волосы / железо · сладкое до трясучки</li>
-        <li>Не спойлерим всю лекцию — зовём забрать её в подарок за анкету</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card yellow">
-      <h4>Давление</h4>
-      «Если узнала себя хотя бы в двух — заполни анкету. Лекция откроется на 14 дней.»
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1–3 — по одному признаку</li>
-        <li>4 — кнопка / ссылка на форму</li>
-        <li>5 — «уже заполнили — лекция внутри письма / GC»</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Главный шаг этапа 1: анкета → лекция «5 признаков»</div>
-  </div>
-</article>
-
-<!-- ========== ЭТАП 2 ========== -->
-<article class="col" id="d5">
-  <div class="num">5</div>
-  <div class="date">День 5</div>
-  <div class="phase">Этап 2 · Старые способы не держат. Корень — кишечник
-    <small>Куда ведём этап: видео-магнит</small>
-  </div>
-  <div class="sense">Что люди делают годами вместо реальной помощи себе — и почему состояние остаётся</div>
-  <div class="flow">
-    <div class="card blue">
-      <h4>Пост</h4>
-      <strong class="t">Терпеть · отвлекаться · «само отпустит» · волшебная банка</strong>
-      <ul>
-        <li>Знакомый круг: две недели легче — потом как было.</li>
-        <li>Честный вопрос: если это помогало — почему ты всё ещё здесь?</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — список «что уже пробовала»</li>
-        <li>2 — опрос: что из списка твоё</li>
-        <li>3 — «завтра разберём, почему „правильно есть“ часто не чинит»</li>
-        <li>4 — мягко магнит</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Магнит: «если устала ходить по кругу»</div>
-  </div>
-</article>
-
-<article class="col" id="d6">
-  <div class="num">6</div>
-  <div class="date">День 6</div>
-  <div class="phase">Этап 2 · Старые способы не держат. Корень — кишечник
-    <small>Куда ведём этап: видео-магнит</small>
-  </div>
-  <div class="sense">Почему «просто правильно питаться» и отдых часто не чинят круг, если среда внутри уже другая</div>
-  <div class="flow">
-    <div class="card pink">
-      <h4>Подкаст</h4>
-      <strong class="t">Делаю всё правильно. Что со мной не так</strong>
-      <ul>
-        <li>Убрала глютен — полегчало — вернула — снова плохо.</li>
-        <li>Спала 8 часов — с утра уже не свежая.</li>
-        <li>Подводим: бьёшься не с тем, если тушишь только симптом.</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — нарезка тезисов подкаста</li>
-        <li>2 — «это не лень и не слабая воля»</li>
-        <li>3 — ссылка на магнит</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Магнит</div>
-  </div>
-</article>
-
-<article class="col" id="d7">
-  <div class="num">7</div>
-  <div class="date">День 7</div>
-  <div class="phase">Этап 2 · Старые способы не держат. Корень — кишечник
-    <small>Куда ведём этап: видео-магнит</small>
-  </div>
-  <div class="sense">История: впервые объяснили причину, а не очередной список запретов</div>
-  <div class="flow">
-    <div class="card green">
-      <h4>Кейс</h4>
-      <strong class="t">Анна · всё перепробовала</strong>
-      <ul>
-        <li>Интервальное, кето, детокс-соки — везде список «нельзя».</li>
-        <li>Здесь впервые: почему ничего не держало.</li>
-        <li>Не обещаем её сроки зрителю. Услышь: «причина», не «запреты».</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — было: круг диет</li>
-        <li>2 — что отозвалось в её словах</li>
-        <li>3 — «полный разбор логики — в магните»</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Магнит → после просмотра предзапись</div>
-  </div>
-</article>
-
-<article class="col" id="d8">
-  <div class="num">8</div>
-  <div class="date">День 8</div>
-  <div class="phase">Этап 2 · Старые способы не держат. Корень — кишечник
-    <small>Куда ведём этап: видео-магнит</small>
-  </div>
-  <div class="sense">Одно ведро на горящий дом: банка, детокс, укол — две недели и откат</div>
-  <div class="flow">
-    <div class="card blue">
-      <h4>Пост</h4>
-      <strong class="t">Почему одна капсула / чистка / «волшебство» не тушат пожар</strong>
-      <ul>
-        <li>Аналогия: ведро воды на горящий дом.</li>
-        <li>Симптом ушёл — причина на месте.</li>
-        <li>Индустрия любит продавать симптом: он возвращается.</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — мем / схема «две недели → откат»</li>
-        <li>2 — что пробовала ты (стикеры)</li>
-        <li>3 — магнит</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Магнит</div>
-  </div>
-</article>
-
-<article class="col" id="d9">
-  <div class="num">9</div>
-  <div class="date">День 9</div>
-  <div class="phase">Этап 2 · Старые способы не держат. Корень — кишечник
-    <small>Куда ведём этап: видео-магнит</small>
-  </div>
-  <div class="sense">Кишечник — центр: вес, кожа, энергия, настроение и сладкое из одного места</div>
-  <div class="flow">
-    <div class="card blue">
-      <h4>Пост / длинное</h4>
-      <strong class="t">Не четыре отдельные проблемы — один корень</strong>
-      <ul>
-        <li>Мажешь лицо. Считаешь ложки. Орёшь на себя вечером.</li>
-        <li>А вход в дом — кишечник — не смотришь.</li>
-        <li>Связки коротко: вес · кожа · тяга · силы.</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1–4 — по одной связке «симптом → кишечник»</li>
-        <li>5 — «собрать картину целиком — в магните»</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Магнит</div>
-  </div>
-</article>
-
-<article class="col" id="d10">
-  <div class="num">10</div>
-  <div class="date">День 10</div>
-  <div class="phase">Этап 2 · Старые способы не держат. Корень — кишечник
-    <small>Куда ведём этап: видео-магнит</small>
-  </div>
-  <div class="sense">Система 30 дней: смотри → делай. Не меню с экрана и не «сделайте за меня»</div>
-  <div class="flow">
-    <div class="card blue">
-      <h4>Пост</h4>
-      <strong class="t">Что такое программа простыми словами</strong>
-      <ul>
-        <li>Короткие уроки. В своём темпе. Сначала увидеть причину — потом говорить с телом.</li>
-        <li>С экрана не раздаём список «сделай сегодня вечером» — иначе снова две недели и откат.</li>
-        <li>Кому не сюда: только банка и результат за неделю без смены еды.</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — скрин структуры / «30 дней»</li>
-        <li>2 — «для кого да / для кого нет»</li>
-        <li>3 — магнит и предзапись после него</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Магнит → анкета предзаписи</div>
-  </div>
-</article>
-
-<article class="col phase-end" id="d11">
-  <div class="num">11</div>
-  <div class="date">День 11</div>
-  <div class="phase">Этап 2 · Старые способы не держат. Корень — кишечник
-    <small>Куда ведём этап: видео-магнит</small>
-  </div>
-  <div class="sense">Кто уже смотрит. Предзапись = место дальше по пути</div>
-  <div class="flow">
-    <div class="card yellow">
-      <h4>Давление</h4>
-      <strong class="t">Собрать внимание к шагу</strong>
-      <ul>
-        <li>Не пугать — собрать: «если узнала себя в этих днях — досмотри магнит и заполни предзапись».</li>
-        <li>Без предзаписи дальше по закрытому эфиру места не будет.</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — «уже смотрят / уже в анкете»</li>
-        <li>2 — повтор кнопки магнит</li>
-        <li>3 — повтор предзапись</li>
-        <li>4 — завтра углубим спорные темы</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Магнит + предзапись</div>
-  </div>
-</article>
-
-<!-- ========== ЭТАП 3 ========== -->
-<article class="col" id="d12">
-  <div class="num">12</div>
-  <div class="date">День 12</div>
-  <div class="phase">Этап 3 · Можно изменить. Система, кейсы, предзапись
-    <small>Куда ведём этап: предзапись → закрытый эфир</small>
-  </div>
-  <div class="sense">Гормон в аренду: укол даёт снаружи то, что здоровый кишечник делает сам. Вопрос — почему своё выключилось</div>
-  <div class="flow">
-    <div class="card pink">
-      <h4>Подкаст / пост</h4>
-      <strong class="t">Осторожно и по-честному</strong>
-      <ul>
-        <li>Не зло и не святыня. Пока колешь — эффект. Курс кончился — часто откат сильнее.</li>
-        <li>Вопрос не «колоть или нет с экрана». Вопрос: почему кишечник перестал делать свою работу.</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — без страшилок: физиология простыми словами</li>
-        <li>2 — «если это про тебя — досмотри магнит / зайди в предзапись»</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Магнит / предзапись</div>
-  </div>
-</article>
-
-<article class="col" id="d13">
-  <div class="num">13</div>
-  <div class="date">День 13</div>
-  <div class="phase">Этап 3 · Можно изменить. Система, кейсы, предзапись
-    <small>Куда ведём этап: предзапись → закрытый эфир</small>
-  </div>
-  <div class="sense">Норма ≠ здоровье. ChatGPT видит бумажку — не твоё утро и не как ты ешь во вторник</div>
-  <div class="flow">
-    <div class="card blue">
-      <h4>Пост</h4>
-      <strong class="t">Три пути</strong>
-      <ul>
-        <li>«Всё норма» у врача и гуглить дальше.</li>
-        <li>Вбить бланк в нейросеть.</li>
-        <li>Разобрать системно: анализы + еда + тело в одном месте.</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — опрос: какой путь ты выбирала чаще</li>
-        <li>2 — третий путь = предзапись на разбор / эфир</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Предзапись</div>
-  </div>
-</article>
-
-<article class="col" id="d14">
-  <div class="num">14</div>
-  <div class="date">День 14</div>
-  <div class="phase">Этап 3 · Можно изменить. Система, кейсы, предзапись
-    <small>Куда ведём этап: предзапись → закрытый эфир</small>
-  </div>
-  <div class="sense">Что замечают первыми: живот, кожа, сладкое, силы — не «новая личность за три дня»</div>
-  <div class="flow">
-    <div class="card green">
-      <h4>Кейсы · короткие фразы</h4>
-      <ul>
-        <li>«Впервые объяснили причину»</li>
-        <li>Кожа спокойнее / меньше тонального</li>
-        <li>Сладкое перестало быть единственным способом дожить до ночи</li>
-        <li>Энергия ровнее без трёх чашек</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1–3 — по одной цитате</li>
-        <li>4 — предзапись: «хочу так же разобрать своё»</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Предзапись</div>
-  </div>
-</article>
-
-<article class="col" id="d15">
-  <div class="num">15</div>
-  <div class="date">День 15</div>
-  <div class="phase">Этап 3 · Можно изменить. Система, кейсы, предзапись
-    <small>Куда ведём этап: предзапись → закрытый эфир</small>
-  </div>
-  <div class="sense">Страх не похудеть мешает похудеть: стресс вокруг еды бьёт по результату даже при «правильной» тарелке</div>
-  <div class="flow">
-    <div class="card pink">
-      <h4>Подкаст</h4>
-      <strong class="t">Состояние, в котором ты что-то делаешь, влияет на результат</strong>
-      <ul>
-        <li>Кортизол, тревога, «нельзя лишнее».</li>
-        <li>Организм в режиме выживания не отдаёт жир так, как ты хочешь из приложения.</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — узнавание: считаешь / боишься / срываешься</li>
-        <li>2 — «это тоже разберём на закрытом»</li>
-        <li>3 — предзапись</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Предзапись · намёк на закрытый эфир</div>
-  </div>
-</article>
-
-<article class="col" id="d16">
-  <div class="num">16</div>
-  <div class="date">День 16</div>
-  <div class="phase">Этап 3 · Можно изменить. Система, кейсы, предзапись
-    <small>Куда ведём этап: предзапись → закрытый эфир</small>
-  </div>
-  <div class="sense">Пять шагов: с чего начинать. Без полной продажи тарифов — картина пути</div>
-  <div class="flow">
-    <div class="card blue">
-      <h4>Длинное / YouTube</h4>
-      <strong class="t">Пошагово</strong>
-      <ul>
-        <li>1 — какие анализы первыми</li>
-        <li>2 — что убрать (не картонная коробка навсегда)</li>
-        <li>3 — что добавить на восстановление</li>
-        <li>4 — заметить стресс вокруг еды</li>
-        <li>5 — добавки не наугад</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card yellow">
-      <h4>Анонс</h4>
-      На закрытом эфире соберём это целиком и ответим на вопросы из анкет.
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1–5 — по шагу</li>
-        <li>6 — предзапись обязательна для ссылки на закрытый</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Предзапись → закрытый эфир</div>
-  </div>
-</article>
-
-<article class="col phase-end" id="d17">
-  <div class="num">17</div>
-  <div class="date">День 17</div>
-  <div class="phase">Этап 3 · Можно изменить. Система, кейсы, предзапись
-    <small>Куда ведём этап: предзапись → закрытый эфир</small>
-  </div>
-  <div class="sense">Завтра закрытый эфир. Если узнала себя в этих двух неделях — нельзя пропускать</div>
-  <div class="flow">
-    <div class="card yellow">
-      <h4>Финальный дожим</h4>
-      <ul>
-        <li>Коротко: что будет на эфире (таблетки → корень → норма → страх → шаги).</li>
-        <li>Без предзаписи ссылки не будет.</li>
-        <li>После эфира — понятный следующий шаг, не хаос ссылок.</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>Сторис</h4>
-      <ul>
-        <li>1 — таймер / «завтра»</li>
-        <li>2 — для кого эфир</li>
-        <li>3 — для кого нет</li>
-        <li>4 — кнопка предзапись + напоминание</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Предзапись · явка на закрытый эфир</div>
-  </div>
-</article>
-
-<article class="col phase-end" id="d18">
-  <div class="num">18</div>
-  <div class="date">День 18</div>
-  <div class="phase">Закрытый эфир
-    <small>Только кто в предзаписи</small>
-  </div>
-  <div class="sense">Собираем систему целиком. Отвечаем на вопросы. Показываем, как выбирать формат работы дальше</div>
-  <div class="flow">
-    <div class="card blue">
-      <h4>Эфир · каркас</h4>
-      <ul>
-        <li>Почему «правильные» способы не держат</li>
-        <li>Кишечник как центр</li>
-        <li>Норма ≠ здоровье</li>
-        <li>Страх и еда</li>
-        <li>Пять шагов + Q&amp;A</li>
-      </ul>
-    </div>
-    <div class="arrow">↓</div>
-    <div class="card lilac">
-      <h4>В день эфира</h4>
-      <ul>
-        <li>Сторис утром / за час / «мы в эфире»</li>
-        <li>Напоминание в боте</li>
-      </ul>
-    </div>
-    <div class="cta"><em>Куда зовём</em>Явка на закрытый. После — мост к открытому эфиру или к тарифам (решение запуска)</div>
-  </div>
-</article>
-
-</div>
+    <div class="drawer-body" id="d-body"></div>
+  </aside>
 </div>
 
+<script>
+const DAYS = [
+  {
+    n: 1, phase: 1,
+    phaseTitle: "Этап 1 · Узнавание",
+    phaseCta: "Анкета + «5 признаков»",
+    sense: "Видим ваши проблемы с телом и в ближайшие дни разберём, почему «всё правильно» не работает",
+    preview: "Пост-открытие · опрос в сторис",
+    cta: "Мягко: анкета. Главный удар — день 4",
+    blocks: [
+      { type: "yellow", label: "Пост / кружок", title: "Открываем разговор",
+        items: ["Сколько женщин живут с шаром к вечеру, усталостью с утра и спокойным бланком — и считают это нормой.", "В ближайшие дни разберём, почему так, и с чего начинать."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — «Если узнала себя хотя бы в одном — оставайся»", "2 — вздутие / вес / кожа / сладкое / нет сил", "3 — опрос: что бесит сейчас", "4 — мягко анкета"] }
+    ]
+  },
+  {
+    n: 2, phase: 1,
+    phaseTitle: "Этап 1 · Узнавание",
+    phaseCta: "Анкета + «5 признаков»",
+    sense: "Ситуации тела: живот как шар, утро уже не плоский, стыд в кабинете",
+    preview: "Пост-сцены · сторис по частям дня",
+    cta: "Анкета сигналов",
+    blocks: [
+      { type: "blue", label: "Пост", title: "Сцены, в которых узнают себя",
+        items: ["Проснулась — уже устала. К обеду живот не тот. К вечеру пуговица.", "В кабинете сдерживаешься. В зеркале «как будто слегка отравилась».", "Это не характер и не «просто возраст»."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — утро: кофе не берёт", "2 — день: джинсы к вечеру", "3 — чужие формулировки «как у меня»", "4 — анкета"] }
+    ]
+  },
+  {
+    n: 3, phase: 1,
+    phaseTitle: "Этап 1 · Узнавание",
+    phaseCta: "Анкета + «5 признаков»",
+    sense: "Бланк спокойный — тебе не спокойно. «Норма» ещё не здоровье",
+    preview: "Пост · кружок · сторис",
+    cta: "Анкета + намёк на подарок",
+    blocks: [
+      { type: "blue", label: "Пост", title: "Анализы «всё хорошо», а жить тяжело",
+        items: ["Врач / бланк: норма. Утро: шар, туман, тяга к сладкому.", "Можно быть «на двадцати из ста» и услышать «всё ок».", "Бумага не отменяет сигнал тела."] },
+      { type: "pink", label: "Кружок", title: "Наталья",
+        items: ["Почему она не останавливается на референсе лаборатории и смотрит дальше."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — скрин «норма» vs самочувствие", "2 — бывало ли «анализы ок, а мне нет»?", "3 — мост к анкете и лекции"] }
+    ]
+  },
+  {
+    n: 4, phase: 1,
+    phaseTitle: "Этап 1 · Узнавание",
+    phaseCta: "Анкета + «5 признаков»",
+    sense: "Пять признаков, что кишечник уже просит помощи. Закрываем этап",
+    preview: "Пост · давление · сторис-кнопка",
+    cta: "Главный шаг: анкета → лекция",
+    blocks: [
+      { type: "blue", label: "Пост", title: "Признаки без полного разбора",
+        items: ["Утро уже вздутое · сыпет на молочку · вес стоит · волосы / железо · сладкое до трясучки", "Не спойлерим всю лекцию — зовём забрать в подарок за анкету"] },
+      { type: "yellow", label: "Давление", title: "Закрытие этапа",
+        items: ["Если узнала себя хотя бы в двух — заполни анкету. Лекция на 14 дней."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1–3 — по одному признаку", "4 — ссылка на форму", "5 — «уже заполнили — лекция внутри»"] }
+    ]
+  },
+  {
+    n: 5, phase: 2,
+    phaseTitle: "Этап 2 · Старые способы / кишечник",
+    phaseCta: "Видео-магнит",
+    sense: "Что делают годами вместо помощи — и почему состояние остаётся",
+    preview: "Пост · опрос в сторис",
+    cta: "Магнит",
+    blocks: [
+      { type: "blue", label: "Пост", title: "Терпеть · банка · «само отпустит»",
+        items: ["Круг: две недели легче — потом как было.", "Если это помогало — почему ты всё ещё здесь?"] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — список «что уже пробовала»", "2 — опрос", "3 — тизер завтра", "4 — мягко магнит"] }
+    ]
+  },
+  {
+    n: 6, phase: 2,
+    phaseTitle: "Этап 2 · Старые способы / кишечник",
+    phaseCta: "Видео-магнит",
+    sense: "Почему «правильно питаться» и отдых часто не чинят круг",
+    preview: "Подкаст · нарезка в сторис",
+    cta: "Магнит",
+    blocks: [
+      { type: "pink", label: "Подкаст", title: "Делаю всё правильно. Что со мной не так",
+        items: ["Убрала глютен — полегчало — вернула — снова плохо.", "Спала 8 часов — с утра уже не свежая.", "Бьёшься не с тем, если тушишь только симптом."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — тезисы подкаста", "2 — «не лень и не слабая воля»", "3 — магнит"] }
+    ]
+  },
+  {
+    n: 7, phase: 2,
+    phaseTitle: "Этап 2 · Старые способы / кишечник",
+    phaseCta: "Видео-магнит",
+    sense: "История: впервые объяснили причину, не список запретов",
+    preview: "Кейс Анны · сторис",
+    cta: "Магнит → предзапись после видео",
+    blocks: [
+      { type: "green", label: "Кейс", title: "Анна · всё перепробовала",
+        items: ["Интервальное, кето, детокс — везде список «нельзя».", "Здесь впервые: почему ничего не держало.", "Не обещаем её сроки. Услышь: причина, не запреты."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — было: круг диет", "2 — что отозвалось", "3 — полный разбор в магните"] }
+    ]
+  },
+  {
+    n: 8, phase: 2,
+    phaseTitle: "Этап 2 · Старые способы / кишечник",
+    phaseCta: "Видео-магнит",
+    sense: "Одно ведро на горящий дом: банка, детокс, укол — две недели и откат",
+    preview: "Пост · сторис",
+    cta: "Магнит",
+    blocks: [
+      { type: "blue", label: "Пост", title: "Почему одна капсула не тушит пожар",
+        items: ["Ведро воды на горящий дом.", "Симптом ушёл — причина на месте.", "Симптом продают охотнее: он возвращается."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — схема «две недели → откат»", "2 — что пробовала ты", "3 — магнит"] }
+    ]
+  },
+  {
+    n: 9, phase: 2,
+    phaseTitle: "Этап 2 · Старые способы / кишечник",
+    phaseCta: "Видео-магнит",
+    sense: "Кишечник — центр: вес, кожа, энергия, настроение, сладкое",
+    preview: "Пост / длинное · сторис-связки",
+    cta: "Магнит",
+    blocks: [
+      { type: "blue", label: "Пост / длинное", title: "Не четыре проблемы — один корень",
+        items: ["Мажешь лицо. Считаешь ложки. Орёшь на себя вечером.", "Вход в дом — кишечник — не смотришь.", "Связки: вес · кожа · тяга · силы."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1–4 — по одной связке", "5 — собрать картину в магните"] }
+    ]
+  },
+  {
+    n: 10, phase: 2,
+    phaseTitle: "Этап 2 · Старые способы / кишечник",
+    phaseCta: "Видео-магнит",
+    sense: "Система 30 дней: смотри → делай. Не меню с экрана",
+    preview: "Пост про программу · сторис",
+    cta: "Магнит → предзапись",
+    blocks: [
+      { type: "blue", label: "Пост", title: "Программа простыми словами",
+        items: ["Короткие уроки. В своём темпе. Сначала причина — потом тело.", "Список «сделай сегодня» с экрана снова даёт две недели и откат.", "Не сюда: только банка и результат за неделю без смены еды."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — «30 дней»", "2 — для кого да / нет", "3 — магнит и предзапись"] }
+    ]
+  },
+  {
+    n: 11, phase: 2,
+    phaseTitle: "Этап 2 · Старые способы / кишечник",
+    phaseCta: "Видео-магнит",
+    sense: "Кто уже смотрит. Предзапись = место дальше",
+    preview: "Давление · сторис",
+    cta: "Магнит + предзапись",
+    blocks: [
+      { type: "yellow", label: "Давление", title: "Собрать внимание",
+        items: ["Если узнала себя — досмотри магнит и заполни предзапись.", "Без предзаписи дальше по закрытому эфиру места не будет."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — уже смотрят / в анкете", "2 — магнит", "3 — предзапись", "4 — завтра углубим"] }
+    ]
+  },
+  {
+    n: 12, phase: 3,
+    phaseTitle: "Этап 3 · Система, кейсы, предзапись",
+    phaseCta: "Предзапись → закрытый эфир",
+    sense: "Гормон в аренду. Вопрос — почему своё выключилось",
+    preview: "Подкаст / пост · сторис",
+    cta: "Магнит / предзапись",
+    blocks: [
+      { type: "pink", label: "Подкаст / пост", title: "Осторожно и по-честному",
+        items: ["Не зло и не святыня. Пока колешь — эффект. Курс кончился — часто откат.", "Вопрос не «колоть или нет с экрана». Вопрос: почему кишечник перестал делать свою работу."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — физиология просто", "2 — магнит / предзапись"] }
+    ]
+  },
+  {
+    n: 13, phase: 3,
+    phaseTitle: "Этап 3 · Система, кейсы, предзапись",
+    phaseCta: "Предзапись → закрытый эфир",
+    sense: "Норма ≠ здоровье. ChatGPT видит бумажку — не твоё утро",
+    preview: "Пост «три пути» · опрос",
+    cta: "Предзапись",
+    blocks: [
+      { type: "blue", label: "Пост", title: "Три пути",
+        items: ["«Всё норма» у врача и гуглить дальше.", "Вбить бланк в нейросеть.", "Разобрать системно: анализы + еда + тело в одном месте."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — опрос: какой путь чаще", "2 — третий путь = предзапись"] }
+    ]
+  },
+  {
+    n: 14, phase: 3,
+    phaseTitle: "Этап 3 · Система, кейсы, предзапись",
+    phaseCta: "Предзапись → закрытый эфир",
+    sense: "Что замечают первыми: живот, кожа, сладкое, силы",
+    preview: "Подборка кейсов · сторис",
+    cta: "Предзапись",
+    blocks: [
+      { type: "green", label: "Кейсы", title: "Короткие фразы",
+        items: ["«Впервые объяснили причину»", "Кожа спокойнее", "Сладкое перестало быть единственным способом дожить до ночи", "Энергия ровнее без трёх чашек"] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1–3 — по цитате", "4 — предзапись"] }
+    ]
+  },
+  {
+    n: 15, phase: 3,
+    phaseTitle: "Этап 3 · Система, кейсы, предзапись",
+    phaseCta: "Предзапись → закрытый эфир",
+    sense: "Страх не похудеть мешает похудеть",
+    preview: "Подкаст · сторис",
+    cta: "Предзапись · намёк на закрытый",
+    blocks: [
+      { type: "pink", label: "Подкаст", title: "Состояние влияет на результат",
+        items: ["Кортизол, тревога, «нельзя лишнее».", "В режиме выживания тело не отдаёт жир так, как хочется из приложения."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — узнавание", "2 — разберём на закрытом", "3 — предзапись"] }
+    ]
+  },
+  {
+    n: 16, phase: 3,
+    phaseTitle: "Этап 3 · Система, кейсы, предзапись",
+    phaseCta: "Предзапись → закрытый эфир",
+    sense: "Пять шагов: с чего начинать. Картина пути без полной продажи тарифов",
+    preview: "Длинное · анонс закрытого",
+    cta: "Предзапись → закрытый эфир",
+    blocks: [
+      { type: "blue", label: "Длинное / YouTube", title: "Пошагово",
+        items: ["1 — какие анализы первыми", "2 — что убрать", "3 — что добавить", "4 — стресс вокруг еды", "5 — добавки не наугад"] },
+      { type: "yellow", label: "Анонс", title: "Закрытый",
+        items: ["На закрытом соберём это целиком и ответим на вопросы из анкет."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1–5 — по шагу", "6 — предзапись обязательна"] }
+    ]
+  },
+  {
+    n: 17, phase: 3,
+    phaseTitle: "Этап 3 · Система, кейсы, предзапись",
+    phaseCta: "Предзапись → закрытый эфир",
+    sense: "Завтра закрытый эфир. Если узнала себя — нельзя пропускать",
+    preview: "Финальный дожим · сторис",
+    cta: "Предзапись · явка",
+    blocks: [
+      { type: "yellow", label: "Дожим", title: "Завтра",
+        items: ["Что будет: таблетки → корень → норма → страх → шаги.", "Без предзаписи ссылки не будет."] },
+      { type: "lilac", label: "Сторис", title: "Раскладка",
+        items: ["1 — завтра", "2 — для кого да", "3 — для кого нет", "4 — предзапись + напоминание"] }
+    ]
+  },
+  {
+    n: 18, phase: 4,
+    phaseTitle: "Закрытый эфир",
+    phaseCta: "Только предзапись",
+    sense: "Собираем систему целиком. Вопросы. Как выбирать формат дальше",
+    preview: "Эфир · сторис в день",
+    cta: "Явка. После — открытый или тарифы",
+    blocks: [
+      { type: "blue", label: "Эфир", title: "Каркас",
+        items: ["Почему «правильные» способы не держат", "Кишечник как центр", "Норма ≠ здоровье", "Страх и еда", "Пять шагов + Q&A"] },
+      { type: "lilac", label: "В день эфира", title: "Сторис / бот",
+        items: ["Утром / за час / «мы в эфире»", "Напоминание в боте"] }
+    ]
+  }
+];
+
+const board = document.getElementById("board");
+const drawer = document.getElementById("drawer");
+const dTitle = document.getElementById("d-title");
+const dSub = document.getElementById("d-sub");
+const dBody = document.getElementById("d-body");
+let selected = null;
+
+function renderBoard(filter) {
+  board.innerHTML = "";
+  DAYS.forEach(d => {
+    if (filter !== "all" && String(d.phase) !== String(filter)) return;
+    const col = document.createElement("article");
+    col.className = "col";
+    col.dataset.phase = d.phase;
+    col.dataset.n = d.n;
+    col.tabIndex = 0;
+    col.setAttribute("role", "button");
+    col.setAttribute("aria-selected", selected === d.n ? "true" : "false");
+    col.innerHTML = `
+      <div class="num">${d.n}</div>
+      <div class="date">День ${d.n}</div>
+      <div class="phase">${d.phaseTitle}<small>${d.phaseCta}</small></div>
+      <div class="sense">${d.sense}</div>
+      <div class="preview"><b>Внутри:</b> ${d.preview}</div>
+      <div class="cta"><em>Куда зовём</em>${d.cta}</div>
+      <div class="hint">нажми · раскладка</div>
+    `;
+    col.addEventListener("click", () => openDay(d.n));
+    col.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openDay(d.n); }
+    });
+    board.appendChild(col);
+  });
+}
+
+function openDay(n) {
+  const d = DAYS.find(x => x.n === n);
+  if (!d) return;
+  if (selected === n && drawer.classList.contains("open")) {
+    closeDrawer();
+    return;
+  }
+  selected = n;
+  document.querySelectorAll(".col").forEach(c => {
+    c.setAttribute("aria-selected", c.dataset.n === String(n) ? "true" : "false");
+  });
+  dTitle.textContent = `День ${d.n}. ${d.sense}`;
+  dSub.textContent = `${d.phaseTitle} · ${d.cta}`;
+  dBody.innerHTML = d.blocks.map(b => `
+    <div class="card ${b.type}${d.blocks.length === 1 ? " full" : ""}">
+      <h4>${b.label}</h4>
+      <strong class="t">${b.title}</strong>
+      <ul>${b.items.map(i => `<li>${i}</li>`).join("")}</ul>
+    </div>
+  `).join("");
+  drawer.classList.add("open");
+  const col = document.querySelector(`.col[data-n="${n}"]`);
+  col?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+}
+
+function closeDrawer() {
+  selected = null;
+  drawer.classList.remove("open");
+  document.querySelectorAll(".col").forEach(c => c.setAttribute("aria-selected", "false"));
+}
+
+document.getElementById("d-close").addEventListener("click", closeDrawer);
+
+document.querySelectorAll(".phase-bar button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".phase-bar button").forEach(b => b.setAttribute("aria-pressed", "false"));
+    btn.setAttribute("aria-pressed", "true");
+    closeDrawer();
+    renderBoard(btn.dataset.filter);
+    board.parentElement.scrollLeft = 0;
+  });
+});
+
+renderBoard("all");
+</script>
 </body>
 </html>
