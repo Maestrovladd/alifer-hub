@@ -161,7 +161,8 @@ body {
 .phase-block {
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  flex-shrink: 0;
+  min-width: max-content;
 }
 .phase-block + .phase-block { border-left: 2px solid var(--dark); }
 .ribbon {
@@ -383,6 +384,8 @@ body {
   }
   .phase-block {
     width: 100%;
+    min-width: 0;
+    flex-shrink: 1;
     background: var(--paper);
     border-radius: 14px;
     overflow: hidden;
