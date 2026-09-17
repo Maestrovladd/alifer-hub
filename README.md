@@ -10,6 +10,6 @@
 
 Серия из трёх лекций: https://maestrovladd.github.io/alifer-hub/tri-lekcii/
 
-Лидмагнит · одно видео: https://maestrovladd.github.io/alifer-hub/lidmagnit/?v=16
+Лидмагнит · одно видео: https://maestrovladd.github.io/alifer-hub/lidmagnit/?v=17
 
 Контент-план прогрева (лестница Ханта): https://maestrovladd.github.io/alifer-hub/kontent-plan/
