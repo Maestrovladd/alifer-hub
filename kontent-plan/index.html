@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Алифер · контент-план · лестница</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F6F2E9;
+  --sage: #DCE2D2;
+  --dark: #23281F;
+  --ink: #23281F;
+  --terra: #B4553A;
+  --muted: #6C7266;
+  --box: #EAE5D8;
+  --panel: #1b1f18;
+  --ok: #2e6e10;
+  --warn: #8c4e0b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: #D6D0C2;
+  color: var(--ink);
+  font-family: Manrope, system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+}
+.wrap { max-width: 1480px; margin: 0 auto; padding: 22px 22px 80px; }
+
+/* TV-first: large type, fat targets */
+.top {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.card {
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 8px 24px rgba(35,40,31,.1);
+}
+.card.dark {
+  background: var(--panel);
+  color: var(--cream);
+}
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--terra);
+  margin-bottom: 8px;
+}
+.card.dark .eyebrow { color: #E2A98F; }
+h1 {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.lead { font-size: 18px; color: var(--muted); max-width: 54ch; }
+.card.dark .lead { color: #C9C4B8; }
+.verdict {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: #F0E4DC;
+  border-left: 4px solid var(--terra);
+  border-radius: 0 10px 10px 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.card.dark .verdict {
+  background: #2A3126;
+  color: #F0E4DC;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.chip {
+  background: var(--sage);
+  color: var(--dark);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.card.dark .chip { background: #303626; color: var(--cream); }
+
+.nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 18px;
+  position: sticky;
+  top: 10px;
+  z-index: 30;
+  background: rgba(214,208,194,.92);
+  backdrop-filter: blur(8px);
+  padding: 8px 0;
+}
+.nav-tabs button {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  background: #1b1f18;
+  color: var(--cream);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 12px 16px;
+  border-radius: 12px;
+}
+.nav-tabs button[aria-selected="true"] {
+  background: var(--terra);
+}
+.nav-tabs button:hover { filter: brightness(1.08); }
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+.section-title {
+  font-size: 13px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #7A5C4E;
+  margin: 26px 0 12px;
+}
+
+/* Parallel Hunt map */
+.hunt-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+.hunt-head, .hunt-cell, .hunt-step {
+  border-radius: 12px;
+  padding: 14px 14px;
+}
+.hunt-head {
+  background: var(--panel);
+  color: #E2A98F;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.hunt-step {
+  background: var(--sage);
+  font-weight: 800;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+.hunt-step small {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--muted);
+}
+.hunt-cell {
+  background: var(--cream);
+  font-size: 15px;
+  line-height: 1.4;
+}
+.hunt-cell strong { display: block; margin-bottom: 4px; font-size: 14px; color: var(--terra); }
+
+/* Week board */
+.week {
+  background: var(--cream);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 24px rgba(35,40,31,.08);
+}
+.week-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.week-head h2 {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+.week-meta { color: var(--muted); font-size: 15px; max-width: 60ch; }
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+.day {
+  appearance: none;
+  border: 2px solid transparent;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 10px;
+  text-align: left;
+  cursor: pointer;
+  min-height: 148px;
+  font: inherit;
+  color: inherit;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.day:hover { border-color: #C9B8A8; transform: translateY(-1px); }
+.day[aria-expanded="true"] {
+  border-color: var(--terra);
+  background: #FFF8F3;
+}
+.day .d-num {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 6px;
+}
+.day .d-thesis {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.day .d-meta {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+.day .d-meta span {
+  display: inline-block;
+  background: var(--box);
+  border-radius: 6px;
+  padding: 2px 6px;
+  margin: 0 4px 4px 0;
+  font-weight: 600;
+}
+
+.detail {
+  display: none;
+  margin-top: 12px;
+  background: var(--panel);
+  color: var(--cream);
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+.detail.open { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 16px; }
+.detail h3 {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 22px;
+  grid-column: 1 / -1;
+  margin-bottom: 2px;
+}
+.detail .subline {
+  grid-column: 1 / -1;
+  color: #C9C4B8;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+.detail .col h4 {
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #E2A98F;
+  margin-bottom: 8px;
+}
+.detail .col p, .detail .col li {
+  font-size: 15px;
+  line-height: 1.45;
+  color: #EFEADF;
+}
+.detail .col ul { padding-left: 1.1em; }
+.detail .col li { margin-bottom: 6px; }
+.detail .cta {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  padding: 12px 14px;
+  background: #2A3126;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 16px;
+}
+.detail .close-row {
+  grid-column: 1 / -1;
+}
+.detail .close-row button {
+  appearance: none;
+  border: 0;
+  background: #303626;
+  color: var(--cream);
+  font: inherit;
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.note {
+  background: var(--sage);
+  border-radius: 14px;
+  padding: 16px 18px;
+  font-size: 16px;
+  margin: 12px 0 20px;
+}
+.note strong { color: var(--terra); }
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.legend i {
+  font-style: normal;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--cream);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  display: inline-block;
+}
+.dot.m { background: #3d6b8a; }
+.dot.e { background: var(--terra); }
+.dot.p { background: var(--ok); }
+
+@media (max-width: 1100px) {
+  .top { grid-template-columns: 1fr; }
+  .hunt-grid { grid-template-columns: 1fr; }
+  .hunt-head:nth-child(n+2) { display: none; }
+  .days { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .detail.open { grid-template-columns: 1fr; }
+}
+@media (min-width: 1400px) {
+  body { font-size: 18px; }
+  .day .d-thesis { font-size: 16px; }
+  .day { min-height: 160px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <section class="card dark">
+      <div class="eyebrow">Алифер · прогрев</div>
+      <h1>Одна лестница. Три длины. Один продукт.</h1>
+      <p class="lead">Магнит, эфир и недельный контент — не три разные истории. Это один путь по лестнице Бена Ханта: от «я просто устала» до «беру следующий шаг». Разная длина и разная кнопка в конце.</p>
+      <div class="verdict">Твоя мысль верная и ложится. Контент-план надо резать битами магнита и эфира, а не придумывать параллельную вселенную смыслов.</div>
+      <div class="chips">
+        <span class="chip">Внешнее → внутрь</span>
+        <span class="chip">Греем к шагу фазы</span>
+        <span class="chip">Смыслы продукта</span>
+      </div>
+    </section>
+    <section class="card">
+      <div class="eyebrow">Как смотреть на ТВ</div>
+      <p style="font-size:17px;margin-bottom:10px">Сверху — сверка трёх источников. Ниже — недели. На экране видны <strong>тезисы всех дней</strong>. Кликни день — откроется расклад: смысл, форматы, откуда бит, куда зовём.</p>
+      <p style="color:var(--muted);font-size:15px">Источник смыслов: смысловая карта · магнит · эфир 23.06 · курс «система через кишечник».</p>
+      <p style="margin-top:12px;font-size:15px"><a href="https://maestrovladd.github.io/alifer-hub/lidmagnit/" style="color:var(--terra);font-weight:700">Магнит на хабе</a> · <a href="../lidmagnit/" style="color:var(--terra);font-weight:700">локально</a></p>
+    </section>
+  </div>
+
+  <nav class="nav-tabs" role="tablist" aria-label="Разделы">
+    <button type="button" role="tab" aria-selected="true" data-panel="p-idea">Мысль</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="p-ladder">Лестница × 3</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="p-a">Фаза A · 4 дня</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="p-b1">Фаза B · нед. 1</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="p-b2">Фаза B · нед. 2</button>
+    <button type="button" role="tab" aria-selected="false" data-panel="p-cd">Фазы C–D</button>
+  </nav>
+
+  <!-- IDEA -->
+  <div class="panel active" id="p-idea" role="tabpanel">
+    <div class="section-title">Насколько мысль верная</div>
+    <div class="note">
+      <strong>Норм.</strong> Магнит уже ведёт человека по лестнице за ~30 минут. Эфир делает то же за ~50–90 минут и в конце продаёт курс. Недельный контент делает то же медленнее: один бит в день, кнопка = текущий шаг (анкета → магнит → предзапись → эфир → тариф).
+    </div>
+    <div class="card" style="margin-bottom:14px">
+      <h2 style="font-family:'Source Serif 4',Georgia,serif;font-size:22px;margin-bottom:10px">Что одинаковое</h2>
+      <ul style="padding-left:1.2em;display:grid;gap:8px">
+        <li>Сначала актуальность и узнавание («это про меня»).</li>
+        <li>Потом проблема в сценах тела, не в диагнозе.</li>
+        <li>Потом «старые решения мертвы» (диета, банка, детокс, укол).</li>
+        <li>Потом один корень — кишечник — и система.</li>
+        <li>Потом кейсы и снятие «со мной что-то не так».</li>
+        <li>В конце один следующий шаг. Не три ссылки.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2 style="font-family:'Source Serif 4',Georgia,serif;font-size:22px;margin-bottom:10px">Что разное</h2>
+      <ul style="padding-left:1.2em;display:grid;gap:8px">
+        <li><strong>Контент</strong> — режет лестницу на дни. Кнопка меняется по фазе.</li>
+        <li><strong>Магнит</strong> — вся лестница в одном видео. Кнопка: анкета предзаписи.</li>
+        <li><strong>Эфир</strong> — вся лестница + тарифы. Кнопка: оплата / рассрочка.</li>
+        <li><strong>Внутренний слой</strong> (бот после анкеты) не повторяет ленту: добивает сомнения у тех, кто уже шагнул.</li>
+      </ul>
+    </div>
+    <div class="note" style="margin-top:14px">
+      <strong>Правка плана:</strong> каждый день ниже помечен, из какого бита он вырезан — магнит, эфир или продукт. Так прогрев не разъезжается с тем, что человек потом увидит на экране.
+    </div>
+  </div>
+
+  <!-- LADDER -->
+  <div class="panel" id="p-ladder" role="tabpanel">
+    <div class="section-title">Лестница Бена Ханта · три источника рядом</div>
+    <div class="legend">
+      <i><span class="dot m"></span> бит магнита</i>
+      <i><span class="dot e"></span> бит эфира</i>
+      <i><span class="dot p"></span> смысл продукта</i>
+    </div>
+    <div class="hunt-grid">
+      <div class="hunt-head">Ступень</div>
+      <div class="hunt-head">Магнит</div>
+      <div class="hunt-head">Эфир 23.06</div>
+      <div class="hunt-head">Продукт / карта</div>
+
+      <div class="hunt-step">0<small>Ещё не видит проблему</small></div>
+      <div class="hunt-cell"><strong>Актуальность</strong>«Банка в каждой аптеке. Джинсы к вечеру. Анализы спокойные — тебе нет.»</div>
+      <div class="hunt-cell"><strong>Заход</strong>«Делаю правильно — не работает». Симптом = сигнал, не корень.</div>
+      <div class="hunt-cell"><strong>Герой</strong>Женщина, всё перепробовала. Не слабая. Дело не в силе воли.</div>
+
+      <div class="hunt-step">1<small>Видит проблему</small></div>
+      <div class="hunt-cell"><strong>Сцены утра</strong>Устала, шар, сахарная гонка, кожа, вина за сладкое.</div>
+      <div class="hunt-cell"><strong>Запросы из чата</strong>Вес, вздутие, нет сил, сладкое, энергия.</div>
+      <div class="hunt-cell"><strong>Боли карты</strong>Живот как шар, лимон, качели, стыд в кабинете.</div>
+
+      <div class="hunt-step">2<small>Знает «решения»</small></div>
+      <div class="hunt-cell"><strong>Старые подходы мертвы</strong>Глютен, пробиотик-ведро, калории, детокс, Оземпик как аренда.</div>
+      <div class="hunt-cell"><strong>Блок 1</strong>Волшебные таблетки. Индустрия на симптоме.</div>
+      <div class="hunt-cell"><strong>Анти</strong>Не волшебная таблетка. Не аптека на 10к в лоб.</div>
+
+      <div class="hunt-step">3<small>Знает вашу систему</small></div>
+      <div class="hunt-cell"><strong>Кто я + корень</strong>Кишечник = центр. Формула: увидеть причину → говорить с телом.</div>
+      <div class="hunt-cell"><strong>Блоки 2–3</strong>Второй мозг. Норма ≠ здоровье.</div>
+      <div class="hunt-cell"><strong>Оффер</strong>«Наконец понять причину». Система 30 дней, не диета.</div>
+
+      <div class="hunt-step">4<small>Выгоды, сомнения</small></div>
+      <div class="hunt-cell"><strong>Анна / Катя / Ольга</strong>+ возражения: ChatGPT, врач, нет времени, уже тратила.</div>
+      <div class="hunt-cell"><strong>Блоки 4–5</strong>Страх не похудеть. 5 шагов. Кейсы на эфире.</div>
+      <div class="hunt-cell"><strong>Желания</strong>Энергия, без войны с собой, «именно про меня».</div>
+
+      <div class="hunt-step">5<small>Готова к шагу</small></div>
+      <div class="hunt-cell"><strong>Кнопка</strong>Анкета под видео. Бронь. Без списания.</div>
+      <div class="hunt-cell"><strong>Кнопка</strong>Тарифы. 24 часа. Бонусы. Рассрочка.</div>
+      <div class="hunt-cell"><strong>Сетка</strong>«Я сама» / с нутрициологом / VIP.</div>
+    </div>
+  </div>
+
+  <!-- PHASE A -->
+  <div class="panel" id="p-a" role="tabpanel">
+    <div class="section-title">Фаза A · ~4 дня · анкета сигналов</div>
+    <p class="week-meta" style="margin-bottom:12px">Куда зовём: <a href="https://forms.yandex.ru/u/697848d6505690ac24fffa73/" style="color:var(--terra);font-weight:700">Яндекс-форма</a> → подарок «5 признаков». Лестница: 0→2. Ещё не магнит.</p>
+    <div class="week" data-week="a">
+      <div class="week-head">
+        <h2>Неделя захода</h2>
+        <p class="week-meta">Узнавание. «О господи, это про меня». Закладываем: состояние можно разобрать.</p>
+      </div>
+      <div class="days" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
+        <button class="day" type="button" data-day="a1" aria-expanded="false">
+          <div class="d-num">A1 · Хант 0→1</div>
+          <div class="d-thesis">Делаю всё правильно. Что со мной не так</div>
+          <div class="d-meta"><span>подкаст</span><span class="dot m" style="margin-right:4px"></span>магнит вход</div>
+        </button>
+        <button class="day" type="button" data-day="a2" aria-expanded="false">
+          <div class="d-num">A2 · Хант 1</div>
+          <div class="d-thesis">Сцены: шар, кабинет, утро уже не плоский</div>
+          <div class="d-meta"><span>кейс / фразы</span><span class="dot m"></span>сцены утра</div>
+        </button>
+        <button class="day" type="button" data-day="a3" aria-expanded="false">
+          <div class="d-num">A3 · Хант 1→2</div>
+          <div class="d-thesis">Бланк спокойный. Тебе не спокойно</div>
+          <div class="d-meta"><span>экспертный</span><span class="dot e"></span>норма≠здоровье</div>
+        </button>
+        <button class="day" type="button" data-day="a4" aria-expanded="false">
+          <div class="d-num">A4 · Хант 2→3</div>
+          <div class="d-thesis">Пять признаков, что кишечник уже просит помощи</div>
+          <div class="d-meta"><span>давление</span><span class="dot p"></span>лекция-подарок</div>
+        </button>
+      </div>
+      <div class="detail" id="detail-a" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- PHASE B1 -->
+  <div class="panel" id="p-b1" role="tabpanel">
+    <div class="section-title">Фаза B · неделя 1 · магнит</div>
+    <p class="week-meta" style="margin-bottom:12px">Куда зовём: видео-магнит. После просмотра — предзапись. Неделя закрывает схему Витали: кейс · экспертный · давление · подкаст · длинное.</p>
+    <div class="week" data-week="b1">
+      <div class="week-head">
+        <h2>Биты 1–7 из позвоночника магнита</h2>
+        <p class="week-meta">От «что делают годами» до «есть система» и первого давления на предзапись.</p>
+      </div>
+      <div class="days">
+        <button class="day" type="button" data-day="b1" aria-expanded="false">
+          <div class="d-num">B1 · 1</div>
+          <div class="d-thesis">Годы вместо помощи: терпеть, банка, «само»</div>
+          <div class="d-meta"><span>экспертный</span><span class="dot m"></span></div>
+        </button>
+        <button class="day" type="button" data-day="b2" aria-expanded="false">
+          <div class="d-num">B2 · 1→2</div>
+          <div class="d-thesis">Почему «просто правильно есть» не чинит круг</div>
+          <div class="d-meta"><span>подкаст</span><span class="dot m"></span></div>
+        </button>
+        <button class="day" type="button" data-day="b3" aria-expanded="false">
+          <div class="d-num">B3 · 2</div>
+          <div class="d-thesis">История: впервые объяснили причину, не список</div>
+          <div class="d-meta"><span>кейс</span><span class="dot m"></span>Анна</div>
+        </button>
+        <button class="day" type="button" data-day="b4" aria-expanded="false">
+          <div class="d-num">B4 · 2</div>
+          <div class="d-thesis">Одно ведро на горящий дом</div>
+          <div class="d-meta"><span>экспертный</span><span class="dot e"></span>таблетки</div>
+        </button>
+        <button class="day" type="button" data-day="b5" aria-expanded="false">
+          <div class="d-num">B5 · 2→3</div>
+          <div class="d-thesis">Кишечник — центр: вес, кожа, энергия, настроение</div>
+          <div class="d-meta"><span>длинное</span><span class="dot e"></span>2-й мозг</div>
+        </button>
+        <button class="day" type="button" data-day="b6" aria-expanded="false">
+          <div class="d-num">B6 · 3</div>
+          <div class="d-thesis">Система 30 дней: смотри → делай. Без меню с экрана</div>
+          <div class="d-meta"><span>экспертный</span><span class="dot p"></span></div>
+        </button>
+        <button class="day" type="button" data-day="b7" aria-expanded="false">
+          <div class="d-num">B7 · 4→5</div>
+          <div class="d-thesis">Кто уже смотрит. Предзапись = место дальше</div>
+          <div class="d-meta"><span>давление</span><span class="dot m"></span>кнопка</div>
+        </button>
+      </div>
+      <div class="detail" id="detail-b1" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- PHASE B2 -->
+  <div class="panel" id="p-b2" role="tabpanel">
+    <div class="section-title">Фаза B · неделя 2 · предзапись</div>
+    <p class="week-meta" style="margin-bottom:12px">Куда зовём жёстче: анкета предзаписи. Биты из хвоста магнита и середины–финала эфира.</p>
+    <div class="week" data-week="b2">
+      <div class="week-head">
+        <h2>Биты 8–14 · сомнения и шаг</h2>
+        <p class="week-meta">Оземпик, норма≠здоровье, кейсы, страх, пазл, 5 шагов, финальный дожим.</p>
+      </div>
+      <div class="days">
+        <button class="day" type="button" data-day="b8" aria-expanded="false">
+          <div class="d-num">B8 · 2</div>
+          <div class="d-thesis">Гормон в аренду. Курс кончился — часто откат</div>
+          <div class="d-meta"><span>подкаст</span><span class="dot m"></span><span class="dot e"></span></div>
+        </button>
+        <button class="day" type="button" data-day="b9" aria-expanded="false">
+          <div class="d-num">B9 · 3</div>
+          <div class="d-thesis">Норма в бланке ≠ здоровье. ChatGPT не видит твоё утро</div>
+          <div class="d-meta"><span>экспертный</span><span class="dot e"></span></div>
+        </button>
+        <button class="day" type="button" data-day="b10" aria-expanded="false">
+          <div class="d-num">B10 · 3→4</div>
+          <div class="d-thesis">Что замечают первыми: живот, кожа, сладкое</div>
+          <div class="d-meta"><span>кейс</span><span class="dot m"></span></div>
+        </button>
+        <button class="day" type="button" data-day="b11" aria-expanded="false">
+          <div class="d-num">B11 · 3</div>
+          <div class="d-thesis">Страх не похудеть мешает похудеть</div>
+          <div class="d-meta"><span>подкаст</span><span class="dot e"></span></div>
+        </button>
+        <button class="day" type="button" data-day="b12" aria-expanded="false">
+          <div class="d-num">B12 · 4</div>
+          <div class="d-thesis">Пазл самой по гуглу не складывается</div>
+          <div class="d-meta"><span>экспертный</span><span class="dot m"></span>возражения</div>
+        </button>
+        <button class="day" type="button" data-day="b13" aria-expanded="false">
+          <div class="d-num">B13 · 4</div>
+          <div class="d-thesis">Пять шагов: с чего начинать (без полной продажи)</div>
+          <div class="d-meta"><span>YouTube</span><span class="dot e"></span></div>
+        </button>
+        <button class="day" type="button" data-day="b14" aria-expanded="false">
+          <div class="d-num">B14 · 5</div>
+          <div class="d-thesis">Узнала себя — предзапись. Иначе дальше без ссылки</div>
+          <div class="d-meta"><span>давление</span><span class="dot p"></span></div>
+        </button>
+      </div>
+      <div class="detail" id="detail-b2" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- C-D -->
+  <div class="panel" id="p-cd" role="tabpanel">
+    <div class="section-title">Фазы C–D · закрытый и открытый эфир</div>
+    <div class="week" data-week="c">
+      <div class="week-head">
+        <h2>C · только предзапись</h2>
+        <p class="week-meta">Целостная картина. По сути — сжатый эфир для тёплых. Кнопка: прийти.</p>
+      </div>
+      <div class="days" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
+        <button class="day" type="button" data-day="c1" aria-expanded="false">
+          <div class="d-num">C1</div>
+          <div class="d-thesis">Что будет на закрытом и зачем</div>
+          <div class="d-meta"><span>анонс</span></div>
+        </button>
+        <button class="day" type="button" data-day="c2" aria-expanded="false">
+          <div class="d-num">C2</div>
+          <div class="d-thesis">Стресс вокруг еды блокирует даже «правильную» тарелку</div>
+          <div class="d-meta"><span>кружок</span><span class="dot e"></span></div>
+        </button>
+        <button class="day" type="button" data-day="c3" aria-expanded="false">
+          <div class="d-num">C3</div>
+          <div class="d-thesis">Кейс под тему эфира</div>
+          <div class="d-meta"><span>кейс</span></div>
+        </button>
+        <button class="day" type="button" data-day="c4" aria-expanded="false">
+          <div class="d-num">C4</div>
+          <div class="d-thesis">Завтра система целиком</div>
+          <div class="d-meta"><span>давление</span></div>
+        </button>
+        <button class="day" type="button" data-day="c5" aria-expanded="false">
+          <div class="d-num">C5</div>
+          <div class="d-thesis">Закрытый эфир</div>
+          <div class="d-meta"><span>эфир</span><span class="dot e"></span></div>
+        </button>
+      </div>
+      <div class="detail" id="detail-c" aria-live="polite"></div>
+    </div>
+
+    <div class="week" data-week="d">
+      <div class="week-head">
+        <h2>D · открытый эфир + дожим</h2>
+        <p class="week-meta">Внешний повтор лестницы эфира. В конце — тарифы, как на июньском вебе.</p>
+      </div>
+      <div class="days" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
+        <button class="day" type="button" data-day="d1" aria-expanded="false">
+          <div class="d-num">D1</div>
+          <div class="d-thesis">Первый анонс темой аудитории</div>
+          <div class="d-meta"><span>пост</span></div>
+        </button>
+        <button class="day" type="button" data-day="d2" aria-expanded="false">
+          <div class="d-num">D2</div>
+          <div class="d-thesis">Узнавание + что будет на эфире</div>
+          <div class="d-meta"><span>подкаст</span></div>
+        </button>
+        <button class="day" type="button" data-day="d3" aria-expanded="false">
+          <div class="d-num">D3</div>
+          <div class="d-thesis">Кейсы. Кого жду / кого нет</div>
+          <div class="d-meta"><span>кейс+давление</span></div>
+        </button>
+        <button class="day" type="button" data-day="d4" aria-expanded="false">
+          <div class="d-num">D4</div>
+          <div class="d-thesis">Финальный анонс: нельзя пропускать</div>
+          <div class="d-meta"><span>давление</span></div>
+        </button>
+        <button class="day" type="button" data-day="d5" aria-expanded="false">
+          <div class="d-num">D5</div>
+          <div class="d-thesis">Эфир → окно тарифов 24 часа</div>
+          <div class="d-meta"><span>эфир</span><span class="dot p"></span></div>
+        </button>
+      </div>
+      <div class="detail" id="detail-d" aria-live="polite"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const DAYS = {
+  a1: {
+    title: "Делаю всё правильно. Что со мной не так",
+    sub: "Фаза A · Хант 0→1 · внешнее",
+    sense: [
+      "Открыть актуальность: вокруг полно «правильного», а вечером джинсы.",
+      "Снять вину с характера. Пока без продажи курса."
+    ],
+    formats: ["Подкаст или длинный пост", "Опрос: вздутие / вес / усталость / сладкое", "Сторис-бутерброд"],
+    source: "Магнит 00:00–02:50 — вход и фраза «что со мной не так».",
+    cta: "Мягко: анкета сигналов. Главный удар — день A4."
+  },
+  a2: {
+    title: "Сцены: шар, кабинет, утро уже не плоский",
+    sub: "Фаза A · Хант 1 · внешнее",
+    sense: [
+      "Узнавание телом: утро, обед, вечер, стыд.",
+      "Эффект «это всё пишут про меня»."
+    ],
+    formats: ["Подборка коротких фраз", "Кейс-иллюстрация проблемы", "Сторис"],
+    source: "Магнит — сцены утра и сахарная гонка. Карта — боли «живот как шар».",
+    cta: "Анкета: если узнала себя хотя бы в одном."
+  },
+  a3: {
+    title: "Бланк спокойный. Тебе не спокойно",
+    sub: "Фаза A · Хант 1→2 · внешнее",
+    sense: [
+      "Показать разрыв: референс лаборатории vs самочувствие.",
+      "Подвести к мысли, что «норма» не отменяет сигнал."
+    ],
+    formats: ["Экспертный пост", "Кружок Натальи", "Схема шкалы 0–100"],
+    source: "Эфир блок 3 + магнит про «на двадцати из ста».",
+    cta: "Анкета + намёк на подарок-лекцию."
+  },
+  a4: {
+    title: "Пять признаков, что кишечник уже просит помощи",
+    sub: "Фаза A · Хант 2→3 · внешнее",
+    sense: [
+      "Собрать признаки без полного разбора.",
+      "Закрыть фазу одним шагом."
+    ],
+    formats: ["Пост-давление", "Сторис с дедлайном внимания", "Кнопка на форму"],
+    source: "Подарок-лекция «5 признаков» + тезисы ПОДАРОК_АНКЕТА.",
+    cta: "Главный шаг фазы: форма → лекция 14 дней. Внутри бота курс не продаём."
+  },
+  b1: {
+    title: "Годы вместо помощи",
+    sub: "Фаза B · Хант 1 · к магниту",
+    sense: ["Терпеть, отвлекаться, ждать чуда, искать одну технику.", "Честный вопрос: если помогало — почему состояние всё ещё с вами?"],
+    formats: ["Экспертный пост", "Сторис"],
+    source: "Магнит — «чем люди занимаются годами»; эфир — круг симптомов.",
+    cta: "Магнит: если устала ходить по кругу."
+  },
+  b2: {
+    title: "Почему «правильно есть» не чинит круг",
+    sub: "Фаза B · Хант 1→2 · к магниту",
+    sense: ["Питание одно не спасает при дисбиозе и грибке.", "Отдых телом ≠ тишина внутри, если среда каждый вечер заводится."],
+    formats: ["Подкаст", "Микропост"],
+    source: "Магнит + лекция «5 признаков» вступление.",
+    cta: "Магнит."
+  },
+  b3: {
+    title: "Впервые объяснили причину, не список",
+    sub: "Фаза B · Хант 2 · кейс",
+    sense: ["Не «минус пять» как обещание.", "Услышь: везде был список запретов — здесь причина."],
+    formats: ["Кейс Анны с ленда", "До-после аккуратно"],
+    source: "Магнит — Анна 34, Москва.",
+    cta: "Магнит / после видео — предзапись."
+  },
+  b4: {
+    title: "Одно ведро на горящий дом",
+    sub: "Фаза B · Хант 2 · анти-решения",
+    sense: ["Пробиотик / детокс / чистка как ведро.", "Симптом глушим — пожар остаётся."],
+    formats: ["Экспертный пост", "Аналогия в сторис"],
+    source: "Магнит + эфир блок «волшебные таблетки».",
+    cta: "Магнит."
+  },
+  b5: {
+    title: "Кишечник — центр",
+    sub: "Фаза B · Хант 2→3 · корень",
+    sense: ["Вес, кожа, энергия, настроение — один центр.", "Не сила воли."],
+    formats: ["Длинное / рилс-серия", "Карта связок из смысловой карты"],
+    source: "Эфир блок 2 + магнит «три литра среды».",
+    cta: "Магнит."
+  },
+  b6: {
+    title: "Система 30 дней без меню с экрана",
+    sub: "Фаза B · Хант 3 · продукт",
+    sense: ["Смотри → делай. Список с экрана снова делает продукт ненужным.", "Кому не сюда: банка и «сделайте за меня»."],
+    formats: ["Экспертный + структура", "Скрины модулей без полного КАК"],
+    source: "Магнит 20:20–26:40 + продукт курса C.",
+    cta: "Магнит → предзапись."
+  },
+  b7: {
+    title: "Кто уже смотрит. Предзапись",
+    sub: "Фаза B · Хант 4→5 · давление",
+    sense: ["Собрать внимание к шагу, не пугать.", "Предзапись = вход дальше."],
+    formats: ["Hype-пост", "Сторис с числом / «уже в анкете»"],
+    source: "Кнопка магнита + логика предзаписи.",
+    cta: "Анкета предзаписи."
+  },
+  b8: {
+    title: "Гормон в аренду",
+    sub: "Фаза B · Хант 2 · осторожно",
+    sense: ["Оземпик не зло и не святыня.", "Вопрос: почему своё выключилось."],
+    formats: ["Подкаст / экспертный", "Без запугивания"],
+    source: "Магнит + эфир блок 1.",
+    cta: "Магнит."
+  },
+  b9: {
+    title: "Норма ≠ здоровье",
+    sub: "Фаза B · Хант 3",
+    sense: ["Серая зона. Превентивные нормы.", "ChatGPT видит бумажку, не утро."],
+    formats: ["Экспертный пост", "Кружок"],
+    source: "Эфир блок 3 + магнит возражения.",
+    cta: "Магнит → предзапись."
+  },
+  b10: {
+    title: "Что замечают первыми",
+    sub: "Фаза B · Хант 3→4 · кейсы",
+    sense: ["Короткие фразы: живот, кожа, сладкое, силы.", "Не новая личность — маленькие сдвиги."],
+    formats: ["Подборка отзывов", "Видео до-после если есть"],
+    source: "Магнит Катя/Ольга + отзывы эфира.",
+    cta: "Предзапись."
+  },
+  b11: {
+    title: "Страх не похудеть мешает",
+    sub: "Фаза B · Хант 3 · эфирный бит",
+    sense: ["Кортизол, стресс вокруг еды.", "Состояние, в котором делаешь, влияет на результат."],
+    formats: ["Подкаст"],
+    source: "Эфир блок 4.",
+    cta: "Магнит / предзапись."
+  },
+  b12: {
+    title: "Пазл самой по гуглу",
+    sub: "Фаза B · Хант 4 · возражения",
+    sense: ["Уже тратила. Можно самой. Нет времени.", "Ответы как в магните — честно, без давления стыда."],
+    formats: ["Экспертный", "Микропост"],
+    source: "Магнит блок возражений.",
+    cta: "Предзапись."
+  },
+  b13: {
+    title: "Пять шагов: с чего начинать",
+    sub: "Фаза B · Хант 4 · продающее видео",
+    sense: ["Анализы → убрать разрушающее → питание → стресс → добавки не наугад.", "Без полной сетки тарифов в этом ролике."],
+    formats: ["YouTube / длинное"],
+    source: "Эфир блок 5.",
+    cta: "Предзапись."
+  },
+  b14: {
+    title: "Финальный дожим предзаписи",
+    sub: "Фаза B · Хант 5",
+    sense: ["Если узнала себя — анкета.", "Без анкеты дальше по цепочке эфира нет."],
+    formats: ["Hype", "Сторис"],
+    source: "Логика предзаписи VSL + финал магнита.",
+    cta: "Анкета предзаписи."
+  },
+  c1: {
+    title: "Что будет на закрытом",
+    sub: "Фаза C · внутреннее",
+    sense: ["Соберём систему целиком для тех, кто в предзаписи.", "Не «ещё польза», а картина."],
+    formats: ["Анонс в боте / закрытом канале"],
+    source: "Структура эфира 5 блоков.",
+    cta: "Напоминание / регистрация на слот."
+  },
+  c2: {
+    title: "Стресс вокруг еды",
+    sub: "Фаза C · углубление",
+    sense: ["Даже при тарелке результат блокируется страхом и кортизолом."],
+    formats: ["Кружок", "Короткий пост"],
+    source: "Эфир блок 4.",
+    cta: "Закрытый эфир."
+  },
+  c3: {
+    title: "Кейс под тему",
+    sub: "Фаза C",
+    sense: ["Живая история под завтрашний разбор."],
+    formats: ["Кейс"],
+    source: "Отзывы курса / ленда.",
+    cta: "Эфир."
+  },
+  c4: {
+    title: "Завтра система целиком",
+    sub: "Фаза C · давление",
+    sense: ["Собрать явку."],
+    formats: ["Hype в боте"],
+    source: "—",
+    cta: "Эфир завтра."
+  },
+  c5: {
+    title: "День закрытого эфира",
+    sub: "Фаза C · Хант 3→5",
+    sense: ["Пройти лестницу эфира для тёплых.", "Мост к открытому или к тарифу — по решению запуска."],
+    formats: ["Эфир"],
+    source: "Колода / расшифровка 23.06.",
+    cta: "После: опрос + следующий шаг."
+  },
+  d1: {
+    title: "Первый открытый анонс",
+    sub: "Фаза D · внешнее",
+    sense: ["Тема словами аудитории: вес, акне, усталость, вздутие → кишечник."],
+    formats: ["Пост", "Сторис"],
+    source: "Заголовок эфира июня.",
+    cta: "Регистрация / предзапись если ещё открыта."
+  },
+  d2: {
+    title: "Узнавание + что будет",
+    sub: "Фаза D",
+    sense: ["Повторить позвоночник: таблетки → корень → норма → страх → шаги."],
+    formats: ["Подкаст / экспертный"],
+    source: "5 блоков эфира.",
+    cta: "Эфир."
+  },
+  d3: {
+    title: "Кейсы. Кого жду / кого нет",
+    sub: "Фаза D",
+    sense: ["Социальное доказательство + фильтр анти-ЦА."],
+    formats: ["Кейс + hype"],
+    source: "Ленд курса + магнит «кому не сюда».",
+    cta: "Эфир."
+  },
+  d4: {
+    title: "Финальный анонс",
+    sub: "Фаза D · давление",
+    sense: ["Если узнала себя хотя бы в части дней — нельзя пропускать."],
+    formats: ["Hype"],
+    source: "Финал прогревов как у вас в примере тренажёров — форма, смыслы алиферские.",
+    cta: "Эфир."
+  },
+  d5: {
+    title: "Эфир → тарифы",
+    sub: "Фаза D · Хант 5 · продукт",
+    sense: ["Полная лестница + сетка «я сама / нутрициолог / VIP».", "24 часа, бонусы, рассрочка — как на июньском."],
+    formats: ["Эфир", "Дожим сторис/бот"],
+    source: "Расшифровка эфира + продукт C.",
+    cta: "Оплата / рассрочка."
+  }
+};
+
+const DETAIL_HOST = {
+  a: "detail-a",
+  b1: "detail-b1",
+  b2: "detail-b2",
+  c: "detail-c",
+  d: "detail-d"
+};
+
+function renderDetail(id) {
+  const d = DAYS[id];
+  if (!d) return "";
+  return `
+    <h3>${d.title}</h3>
+    <p class="subline">${d.sub}</p>
+    <div class="col">
+      <h4>Смысл дня</h4>
+      <ul>${d.sense.map(x => `<li>${x}</li>`).join("")}</ul>
+    </div>
+    <div class="col">
+      <h4>Форматы</h4>
+      <ul>${d.formats.map(x => `<li>${x}</li>`).join("")}</ul>
+      <p style="margin-top:10px;color:#C9C4B8">${d.source}</p>
+    </div>
+    <div class="col">
+      <h4>Куда зовём</h4>
+      <p>${d.cta}</p>
+    </div>
+    <div class="cta">Один шаг сегодня: ${d.cta}</div>
+    <div class="close-row"><button type="button" data-close>Свернуть</button></div>
+  `;
+}
+
+function weekKeyFromDay(dayId) {
+  if (dayId.startsWith("a")) return "a";
+  if (dayId.startsWith("b")) {
+    const n = parseInt(dayId.slice(1), 10);
+    return n <= 7 ? "b1" : "b2";
+  }
+  if (dayId.startsWith("c")) return "c";
+  if (dayId.startsWith("d")) return "d";
+  return null;
+}
+
+document.querySelectorAll(".nav-tabs button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".nav-tabs button").forEach(b => b.setAttribute("aria-selected", "false"));
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+    btn.setAttribute("aria-selected", "true");
+    document.getElementById(btn.dataset.panel).classList.add("active");
+  });
+});
+
+document.querySelectorAll(".day").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.day;
+    const wk = weekKeyFromDay(id);
+    const host = document.getElementById(DETAIL_HOST[wk]);
+    const week = btn.closest(".week");
+    const open = btn.getAttribute("aria-expanded") === "true";
+
+    week.querySelectorAll(".day").forEach(d => d.setAttribute("aria-expanded", "false"));
+    if (open) {
+      host.classList.remove("open");
+      host.innerHTML = "";
+      return;
+    }
+    btn.setAttribute("aria-expanded", "true");
+    host.innerHTML = renderDetail(id);
+    host.classList.add("open");
+    host.querySelector("[data-close]")?.addEventListener("click", () => {
+      btn.setAttribute("aria-expanded", "false");
+      host.classList.remove("open");
+      host.innerHTML = "";
+    });
+    host.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+});
+</script>
+</body>
+</html>
