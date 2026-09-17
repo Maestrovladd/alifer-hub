@@ -3,448 +3,245 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Алифер · контент-план</title>
+<title>Алифер · контент-план · 21 день</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f3f1eb;
-  --ink: #1f1f1c;
-  --muted: #6f6b63;
-  --line: #ddd7cc;
-  --yellow: #ffe566;
-  --phase: #efefef;
-  --sense: #e7e7e7;
-  --blue: #d7ebfa;
-  --pink: #f8d9d2;
-  --green: #d9ecd0;
-  --lilac: #e4ddf4;
-  --cream: #fff4cc;
-  --terra: #b4553a;
-  --paper: #fff;
+  --bg: #f3f1eb; --ink: #1f1f1c; --muted: #6f6b63; --line: #ddd7cc;
+  --yellow: #ffe566; --sense: #e7e7e7; --blue: #d7ebfa; --pink: #f8d9d2;
+  --green: #d9ecd0; --lilac: #e4ddf4; --cream: #fff4cc; --terra: #b4553a; --paper: #fff;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: Manrope, system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  font-size: 13px;
-  line-height: 1.35;
-  min-height: 100dvh;
-}
-
-.top {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(243,241,235,.96);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--line);
-  padding: 12px 16px 10px;
-}
+body { font-family: Manrope, system-ui, sans-serif; background: var(--bg); color: var(--ink); font-size: 13px; line-height: 1.35; min-height: 100dvh; }
+.top { position: sticky; top: 0; z-index: 20; background: rgba(243,241,235,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); padding: 12px 16px 10px; }
 .top h1 { font-size: 16px; font-weight: 800; }
-.top p { margin-top: 3px; font-size: 12px; color: var(--muted); max-width: 90ch; }
-
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 8px;
-}
-.legend i {
-  font-style: normal;
-  font-size: 11px;
-  font-weight: 700;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 4px 9px;
-}
-
-.wrap {
-  padding: 12px 16px 28px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* —— matrix like Miro table —— */
-.matrix {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 210px;
-  width: max-content;
-  gap: 0;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--paper);
-  box-shadow: 0 8px 24px rgba(0,0,0,.05);
-}
-
-.col {
-  border-right: 1px solid var(--line);
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  background: var(--paper);
-}
+.top p { margin-top: 3px; font-size: 12px; color: var(--muted); max-width: 95ch; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.legend i { font-style: normal; font-size: 11px; font-weight: 700; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 4px 9px; }
+.jump { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 16px 0; }
+.jump button { appearance: none; border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 6px 10px; font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; }
+.jump button:hover { border-color: var(--terra); }
+.wrap { padding: 12px 16px 28px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.matrix { display: grid; grid-auto-flow: column; grid-auto-columns: 200px; width: max-content; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--paper); box-shadow: 0 8px 24px rgba(0,0,0,.05); }
+.col { border-right: 1px solid var(--line); display: flex; flex-direction: column; background: var(--paper); }
 .col:last-child { border-right: 0; }
 .col[aria-selected="true"] { background: #fffaf6; }
-.col[aria-selected="true"] .sense-cell {
-  outline: 2px solid var(--terra);
-  outline-offset: -2px;
-}
-
-.num-cell {
-  background: var(--yellow);
-  text-align: center;
-  font-weight: 800;
-  font-size: 15px;
-  padding: 8px 6px;
-  border-bottom: 1px solid #ead97a;
-}
-.date-cell {
-  text-align: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--muted);
-  padding: 6px;
-  border-bottom: 1px solid var(--line);
-  background: #fafafa;
-}
-.phase-cell {
-  background: var(--phase);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.3;
-  padding: 8px 9px;
-  border-bottom: 1px solid var(--line);
-  min-height: 64px;
-}
-.phase-cell .to {
-  display: block;
-  margin-top: 4px;
-  color: var(--terra);
-  font-size: 10px;
-  font-weight: 800;
-}
-.sense-cell {
-  appearance: none;
-  border: 0;
-  background: var(--sense);
-  width: 100%;
-  text-align: left;
-  font: inherit;
-  font-size: 12.5px;
-  font-weight: 700;
-  line-height: 1.3;
-  padding: 10px 9px;
-  cursor: pointer;
-  border-bottom: 1px solid var(--line);
-  min-height: 92px;
-  color: inherit;
-}
+.col[aria-selected="true"] .sense-cell { outline: 2px solid var(--terra); outline-offset: -2px; }
+.num-cell { background: var(--yellow); text-align: center; font-weight: 800; font-size: 15px; padding: 8px 6px; border-bottom: 1px solid #ead97a; }
+.date-cell { text-align: center; font-size: 11px; font-weight: 700; color: var(--muted); padding: 6px; border-bottom: 1px solid var(--line); background: #fafafa; }
+.phase-cell { font-size: 11px; font-weight: 700; line-height: 1.3; padding: 8px 9px; border-bottom: 1px solid var(--line); min-height: 70px; }
+.phase-cell .to { display: block; margin-top: 4px; color: var(--terra); font-size: 10px; font-weight: 800; }
+.sense-cell { appearance: none; border: 0; background: var(--sense); width: 100%; text-align: left; font: inherit; font-size: 12.5px; font-weight: 700; line-height: 1.3; padding: 10px 9px; cursor: pointer; border-bottom: 1px solid var(--line); min-height: 96px; color: inherit; }
 .sense-cell:hover { filter: brightness(.98); }
-.cta-cell {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 8px 9px;
-  background: #1c1f1a;
-  color: #f4efe6;
-  line-height: 1.3;
-}
-.cta-cell span {
-  display: block;
-  color: #e2a98f;
-  font-size: 9px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  margin-bottom: 2px;
-  font-weight: 800;
-}
-.open-hint {
-  font-size: 10px;
-  color: var(--muted);
-  text-align: center;
-  padding: 5px 6px;
-  background: #f7f5f0;
-  border-top: 1px solid var(--line);
-  font-weight: 600;
-}
-
-/* phase band visual continuity */
+.cta-cell { font-size: 11px; font-weight: 700; padding: 8px 9px; background: #1c1f1a; color: #f4efe6; line-height: 1.3; }
+.cta-cell span { display: block; color: #e2a98f; font-size: 9px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 2px; font-weight: 800; }
+.open-hint { font-size: 10px; color: var(--muted); text-align: center; padding: 5px 6px; background: #f7f5f0; border-top: 1px solid var(--line); font-weight: 600; }
 .col[data-phase="1"] .phase-cell { background: #ececec; }
 .col[data-phase="2"] .phase-cell { background: #e8eef5; }
 .col[data-phase="3"] .phase-cell { background: #eee8f3; }
 .col[data-phase="4"] .phase-cell { background: #f5e9e4; }
-
-/* —— detail under board —— */
-.detail {
-  display: none;
-  margin-top: 14px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--paper);
-  overflow: hidden;
-}
+.detail { display: none; margin-top: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); overflow: hidden; }
 .detail.open { display: block; }
-.detail-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--line);
-  background: #faf8f3;
-}
-.detail-head h2 {
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1.3;
-  max-width: 70ch;
-}
-.detail-head p {
-  margin-top: 3px;
-  font-size: 12px;
-  color: var(--muted);
-}
-.detail-head button {
-  appearance: none;
-  border: 1px solid var(--line);
-  background: #fff;
-  border-radius: 8px;
-  padding: 7px 11px;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.flow {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0;
-}
-.card {
-  padding: 12px 14px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  font-size: 12.5px;
-  line-height: 1.4;
-  min-height: 0;
-}
+.detail-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; padding: 12px 14px; border-bottom: 1px solid var(--line); background: #faf8f3; }
+.detail-head h2 { font-size: 14px; font-weight: 800; line-height: 1.3; max-width: 70ch; }
+.detail-head p { margin-top: 3px; font-size: 12px; color: var(--muted); }
+.detail-head button { appearance: none; border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 7px 11px; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.card { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 12.5px; line-height: 1.4; }
 .card:last-child { border-right: 0; }
-.card .label {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: #666;
-  margin-bottom: 4px;
-}
-.card .title {
-  font-size: 13px;
-  font-weight: 800;
-  margin-bottom: 6px;
-}
+.card .label { font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #666; margin-bottom: 4px; }
+.card .title { font-size: 13px; font-weight: 800; margin-bottom: 6px; }
 .card ul { padding-left: 1.1em; }
 .card li { margin-bottom: 3px; }
-.card.blue { background: var(--blue); }
-.card.pink { background: var(--pink); }
-.card.green { background: var(--green); }
-.card.lilac { background: var(--lilac); }
-.card.cream { background: var(--cream); }
-
-.jump {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin: 0 16px 4px;
-}
-.jump button {
-  appearance: none;
-  border: 1px solid var(--line);
-  background: #fff;
-  border-radius: 8px;
-  padding: 6px 10px;
-  font: inherit;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-}
-.jump button:hover { border-color: var(--terra); }
-
-@media (max-width: 700px) {
-  .matrix { grid-auto-columns: 168px; }
-  .sense-cell { font-size: 12px; min-height: 110px; }
-  .phase-cell { min-height: 72px; font-size: 10px; }
-}
+.card.blue { background: var(--blue); } .card.pink { background: var(--pink); } .card.green { background: var(--green); }
+.card.lilac { background: var(--lilac); } .card.cream { background: var(--cream); }
+@media (max-width: 700px) { .matrix { grid-auto-columns: 168px; } .sense-cell { min-height: 110px; font-size: 12px; } }
 </style>
 </head>
 <body>
-
 <header class="top">
-  <h1>Контент-план · Алифер</h1>
-  <p>Горизонтальная лента: этап → смысл дня → куда греем. Листай вправо. Кликни смысл дня — раскладка поста / сторис ниже.</p>
+  <h1>Контент-план · Алифер · 21 день</h1>
+  <p>Три недели до закрытого эфира. Лента слева направо: этап → смысл дня → куда греем. Неделя 2 — длинный прогрев к магниту. Неделя 3 — предзапись и сбор на закрытый. Кликни смысл — раскладка поста и сторис.</p>
   <div class="legend">
-    <i>серый — смысл дня</i>
-    <i>цвет этапа — куда ведём блок дней</i>
-    <i>чёрная полоса — куда зовём сегодня</i>
+    <i>нед.1 — узнавание → анкета</i>
+    <i>нед.2 — мифы + кишечник → магнит</i>
+    <i>нед.3 — система + кейсы → предзапись</i>
+    <i>день 21 — закрытый эфир</i>
   </div>
 </header>
-
-<nav class="jump" aria-label="Этапы">
-  <button type="button" data-jump="1">Этап 1 · дни 1–4 · анкета</button>
-  <button type="button" data-jump="5">Этап 2 · дни 5–11 · магнит</button>
-  <button type="button" data-jump="12">Этап 3 · дни 12–17 · предзапись</button>
-  <button type="button" data-jump="18">День 18 · закрытый эфир</button>
+<nav class="jump" aria-label="Недели">
+  <button type="button" data-jump="1">Нед.1 · 1–7 · анкета</button>
+  <button type="button" data-jump="8">Нед.2 · 8–14 · магнит</button>
+  <button type="button" data-jump="15">Нед.3 · 15–20 · предзапись</button>
+  <button type="button" data-jump="21">День 21 · закрытый эфир</button>
 </nav>
-
 <div class="wrap">
   <div class="matrix" id="matrix"></div>
   <aside class="detail" id="detail" aria-live="polite">
     <div class="detail-head">
-      <div>
-        <h2 id="d-title"></h2>
-        <p id="d-sub"></p>
-      </div>
+      <div><h2 id="d-title"></h2><p id="d-sub"></p></div>
       <button type="button" id="d-close">Свернуть</button>
     </div>
     <div class="flow" id="d-flow"></div>
   </aside>
 </div>
-
 <script>
 const DAYS = [
-  { n:1, phase:1, phaseTitle:"Этап 1 · Узнавание. «Это про меня»", phaseCta:"Куда греем этап: анкета + «5 признаков»",
-    sense:"Показываем: видим ваши проблемы с телом и разберём, почему «всё правильно» не работает",
-    cta:"Мягко анкета · удар в день 4",
-    blocks:[
-      {type:"cream",label:"Пост / кружок",title:"Открываем разговор",items:["Сколько женщин живут с шаром к вечеру, усталостью с утра и спокойным бланком — и считают это нормой.","В ближайшие дни разберём, почему так, и с чего начинать."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — «Если узнала себя — оставайся»","2 — вздутие / вес / кожа / сладкое / нет сил","3 — опрос","4 — мягко анкета"]}
-    ]},
-  { n:2, phase:1, phaseTitle:"Этап 1 · Узнавание. «Это про меня»", phaseCta:"Куда греем этап: анкета + «5 признаков»",
-    sense:"Ситуации тела: живот как шар, утро уже не плоский, стыд в кабинете",
-    cta:"Анкета сигналов",
-    blocks:[
-      {type:"blue",label:"Пост",title:"Сцены, в которых узнают себя",items:["Проснулась — уже устала. К обеду живот не тот. К вечеру пуговица.","В кабинете сдерживаешься. В зеркале «как будто слегка отравилась».","Это не характер и не «просто возраст»."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — утро: кофе не берёт","2 — день: джинсы к вечеру","3 — формулировки «как у меня»","4 — анкета"]}
-    ]},
-  { n:3, phase:1, phaseTitle:"Этап 1 · Узнавание. «Это про меня»", phaseCta:"Куда греем этап: анкета + «5 признаков»",
-    sense:"Бланк спокойный — тебе не спокойно. «Норма» ещё не здоровье",
-    cta:"Анкета + намёк на подарок",
-    blocks:[
-      {type:"blue",label:"Пост",title:"Анализы «всё хорошо», а жить тяжело",items:["Врач / бланк: норма. Утро: шар, туман, тяга к сладкому.","Можно быть «на двадцати из ста» и услышать «всё ок».","Бумага не отменяет сигнал тела."]},
-      {type:"pink",label:"Кружок",title:"Наталья",items:["Почему она не останавливается на референсе лаборатории."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — «норма» vs самочувствие","2 — бывало ли «анализы ок, а мне нет»?","3 — мост к анкете"]}
-    ]},
-  { n:4, phase:1, phaseTitle:"Этап 1 · Узнавание. «Это про меня»", phaseCta:"Куда греем этап: анкета + «5 признаков»",
-    sense:"Пять признаков, что кишечник уже просит помощи. Закрываем этап",
-    cta:"Главный шаг: анкета → лекция",
-    blocks:[
-      {type:"blue",label:"Пост",title:"Признаки без полного разбора",items:["Утро уже вздутое · сыпет на молочку · вес стоит · волосы / железо · сладкое до трясучки","Зовём забрать лекцию в подарок за анкету"]},
-      {type:"cream",label:"Давление",title:"Закрытие этапа",items:["Если узнала себя хотя бы в двух — заполни анкету. Лекция на 14 дней."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1–3 — по признаку","4 — ссылка на форму","5 — «лекция внутри»"]}
-    ]},
-  { n:5, phase:2, phaseTitle:"Этап 2 · Старые способы не держат. Корень — кишечник", phaseCta:"Куда греем этап: видео-магнит",
-    sense:"Что делают годами вместо помощи — и почему состояние остаётся",
-    cta:"Магнит",
-    blocks:[
-      {type:"blue",label:"Пост",title:"Терпеть · банка · «само отпустит»",items:["Круг: две недели легче — потом как было.","Если это помогало — почему ты всё ещё здесь?"]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — что уже пробовала","2 — опрос","3 — тизер завтра","4 — мягко магнит"]}
-    ]},
-  { n:6, phase:2, phaseTitle:"Этап 2 · Старые способы не держат. Корень — кишечник", phaseCta:"Куда греем этап: видео-магнит",
-    sense:"Почему «правильно питаться» и отдых часто не чинят круг",
-    cta:"Магнит",
-    blocks:[
-      {type:"pink",label:"Подкаст",title:"Делаю всё правильно. Что со мной не так",items:["Убрала глютен — полегчало — вернула — снова плохо.","Спала 8 часов — с утра уже не свежая.","Бьёшься не с тем, если тушишь только симптом."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — тезисы подкаста","2 — «не лень»","3 — магнит"]}
-    ]},
-  { n:7, phase:2, phaseTitle:"Этап 2 · Старые способы не держат. Корень — кишечник", phaseCta:"Куда греем этап: видео-магнит",
-    sense:"История: впервые объяснили причину, не список запретов",
-    cta:"Магнит → предзапись после видео",
-    blocks:[
-      {type:"green",label:"Кейс",title:"Анна · всё перепробовала",items:["Интервальное, кето, детокс — везде список «нельзя».","Здесь впервые: почему ничего не держало.","Не обещаем её сроки. Услышь: причина, не запреты."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — круг диет","2 — что отозвалось","3 — разбор в магните"]}
-    ]},
-  { n:8, phase:2, phaseTitle:"Этап 2 · Старые способы не держат. Корень — кишечник", phaseCta:"Куда греем этап: видео-магнит",
-    sense:"Одно ведро на горящий дом: банка, детокс, укол — две недели и откат",
-    cta:"Магнит",
-    blocks:[
-      {type:"blue",label:"Пост",title:"Почему одна капсула не тушит пожар",items:["Ведро воды на горящий дом.","Симптом ушёл — причина на месте.","Симптом продают охотнее: он возвращается."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — «две недели → откат»","2 — что пробовала ты","3 — магнит"]}
-    ]},
-  { n:9, phase:2, phaseTitle:"Этап 2 · Старые способы не держат. Корень — кишечник", phaseCta:"Куда греем этап: видео-магнит",
-    sense:"Кишечник — центр: вес, кожа, энергия, настроение, сладкое",
-    cta:"Магнит",
-    blocks:[
-      {type:"blue",label:"Пост / длинное",title:"Не четыре проблемы — один корень",items:["Мажешь лицо. Считаешь ложки. Орёшь на себя вечером.","Вход в дом — кишечник — не смотришь.","Связки: вес · кожа · тяга · силы."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1–4 — по связке","5 — картина в магните"]}
-    ]},
-  { n:10, phase:2, phaseTitle:"Этап 2 · Старые способы не держат. Корень — кишечник", phaseCta:"Куда греем этап: видео-магнит",
-    sense:"Система 30 дней: смотри → делай. Не меню с экрана",
-    cta:"Магнит → предзапись",
-    blocks:[
-      {type:"blue",label:"Пост",title:"Программа простыми словами",items:["Короткие уроки. В своём темпе. Сначала причина — потом тело.","Список «сделай сегодня» с экрана снова даёт две недели и откат.","Не сюда: только банка и результат за неделю без смены еды."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — «30 дней»","2 — для кого да / нет","3 — магнит и предзапись"]}
-    ]},
-  { n:11, phase:2, phaseTitle:"Этап 2 · Старые способы не держат. Корень — кишечник", phaseCta:"Куда греем этап: видео-магнит",
-    sense:"Кто уже смотрит. Предзапись = место дальше",
-    cta:"Магнит + предзапись",
-    blocks:[
-      {type:"cream",label:"Давление",title:"Собрать внимание",items:["Если узнала себя — досмотри магнит и заполни предзапись.","Без предзаписи дальше по закрытому эфиру места не будет."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — уже смотрят","2 — магнит","3 — предзапись","4 — завтра углубим"]}
-    ]},
-  { n:12, phase:3, phaseTitle:"Этап 3 · Можно изменить. Система, кейсы, предзапись", phaseCta:"Куда греем этап: предзапись → закрытый эфир",
-    sense:"Гормон в аренду. Вопрос — почему своё выключилось",
-    cta:"Магнит / предзапись",
-    blocks:[
-      {type:"pink",label:"Подкаст / пост",title:"Осторожно и по-честному",items:["Не зло и не святыня. Пока колешь — эффект. Курс кончился — часто откат.","Вопрос не «колоть или нет с экрана». Вопрос: почему кишечник перестал делать свою работу."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — физиология просто","2 — магнит / предзапись"]}
-    ]},
-  { n:13, phase:3, phaseTitle:"Этап 3 · Можно изменить. Система, кейсы, предзапись", phaseCta:"Куда греем этап: предзапись → закрытый эфир",
-    sense:"Норма ≠ здоровье. ChatGPT видит бумажку — не твоё утро",
-    cta:"Предзапись",
-    blocks:[
-      {type:"blue",label:"Пост",title:"Три пути",items:["«Всё норма» у врача и гуглить дальше.","Вбить бланк в нейросеть.","Разобрать системно: анализы + еда + тело в одном месте."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — опрос: какой путь чаще","2 — третий путь = предзапись"]}
-    ]},
-  { n:14, phase:3, phaseTitle:"Этап 3 · Можно изменить. Система, кейсы, предзапись", phaseCta:"Куда греем этап: предзапись → закрытый эфир",
-    sense:"Что замечают первыми: живот, кожа, сладкое, силы",
-    cta:"Предзапись",
-    blocks:[
-      {type:"green",label:"Кейсы",title:"Короткие фразы",items:["«Впервые объяснили причину»","Кожа спокойнее","Сладкое перестало быть единственным способом дожить до ночи","Энергия ровнее"]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1–3 — по цитате","4 — предзапись"]}
-    ]},
-  { n:15, phase:3, phaseTitle:"Этап 3 · Можно изменить. Система, кейсы, предзапись", phaseCta:"Куда греем этап: предзапись → закрытый эфир",
-    sense:"Страх не похудеть мешает похудеть",
-    cta:"Предзапись · намёк на закрытый",
-    blocks:[
-      {type:"pink",label:"Подкаст",title:"Состояние влияет на результат",items:["Кортизол, тревога, «нельзя лишнее».","В режиме выживания тело не отдаёт жир так, как хочется из приложения."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — узнавание","2 — разберём на закрытом","3 — предзапись"]}
-    ]},
-  { n:16, phase:3, phaseTitle:"Этап 3 · Можно изменить. Система, кейсы, предзапись", phaseCta:"Куда греем этап: предзапись → закрытый эфир",
-    sense:"Пять шагов: с чего начинать. Картина пути без полной продажи тарифов",
-    cta:"Предзапись → закрытый эфир",
-    blocks:[
-      {type:"blue",label:"Длинное / YouTube",title:"Пошагово",items:["1 — какие анализы первыми","2 — что убрать","3 — что добавить","4 — стресс вокруг еды","5 — добавки не наугад"]},
-      {type:"cream",label:"Анонс",title:"Закрытый",items:["На закрытом соберём это целиком и ответим на вопросы из анкет."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1–5 — по шагу","6 — предзапись обязательна"]}
-    ]},
-  { n:17, phase:3, phaseTitle:"Этап 3 · Можно изменить. Система, кейсы, предзапись", phaseCta:"Куда греем этап: предзапись → закрытый эфир",
-    sense:"Завтра закрытый эфир. Если узнала себя — нельзя пропускать",
-    cta:"Предзапись · явка",
-    blocks:[
-      {type:"cream",label:"Дожим",title:"Завтра",items:["Что будет: таблетки → корень → норма → страх → шаги.","Без предзаписи ссылки не будет."]},
-      {type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — завтра","2 — для кого да","3 — для кого нет","4 — предзапись"]}
-    ]},
-  { n:18, phase:4, phaseTitle:"Закрытый эфир", phaseCta:"Только кто в предзаписи",
-    sense:"Собираем систему целиком. Вопросы. Как выбирать формат дальше",
-    cta:"Явка · после — открытый или тарифы",
-    blocks:[
-      {type:"blue",label:"Эфир",title:"Каркас",items:["Почему «правильные» способы не держат","Кишечник как центр","Норма ≠ здоровье","Страх и еда","Пять шагов + Q&A"]},
-      {type:"lilac",label:"В день эфира",title:"Сторис / бот",items:["Утром / за час / «мы в эфире»","Напоминание в боте"]}
-    ]}
+{n:1,phase:1,phaseTitle:"Нед.1 · Узнавание. «Это всё про меня»",phaseCta:"Куда греем неделю: анкета + «5 признаков»",
+sense:"Открываем разговор: видим шар, усталость, спокойный бланк — и не считаем это нормой",
+cta:"Мягко: анкета. Удар — дни 4–5",
+blocks:[
+{type:"cream",label:"Пост / кружок",title:"Сколько женщин так живут",items:["Шар к вечеру, кофе не берёт, бланк «норма» — и жизнь как будто так и должна выглядеть.","В ближайшие дни разберём, почему «всё правильно» не держит — и с чего начинать."]},
+{type:"lilac",label:"Сторис",title:"Бутерброд: лайв → смысл",items:["1–2 — живое утро / день Натальи (не сразу продажа)","3 — опрос: вздутие / вес / кожа / сладкое / нет сил","4 — «если узнала себя — оставайся»","5 — мягко анкета"]}
+]},
+{n:2,phase:1,phaseTitle:"Нед.1 · Узнавание. «Это всё про меня»",phaseCta:"Куда греем неделю: анкета + «5 признаков»",
+sense:"Сцены тела: утро уже не плоский, кабинет, зеркало «как будто слегка отравилась»",
+cta:"Анкета сигналов",
+blocks:[
+{type:"blue",label:"Пост",title:"День, который узнают руками",items:["Проснулась — уже устала. К обеду живот не тот. К вечеру пуговица.","В кабинете сдерживаешься. В брюках стыдно.","Это не характер и не «просто возраст»."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв: «сегодня про тело»","2 — утро / обед / вечер","3 — чужие формулировки «как у меня»","4 — анкета"]}
+]},
+{n:3,phase:1,phaseTitle:"Нед.1 · Узнавание. «Это всё про меня»",phaseCta:"Куда греем неделю: анкета + «5 признаков»",
+sense:"Сахарная гонка дня: круассан → туман → сладкое → вина. Не сила воли",
+cta:"Анкета",
+blocks:[
+{type:"pink",label:"Подкаст / рилс",title:"Почему вечером «я слабая»",items:["Взлёт после быстрых углеводов → пустота → снова сладкое.","Флора тоже просит. Воля к вечеру кончается.","Бьёшься не с характером — с кругом."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв еда / кофе","2 — схема дня гонки","3 — «узнала? анкета»"]}
+]},
+{n:4,phase:1,phaseTitle:"Нед.1 · Узнавание. «Это всё про меня»",phaseCta:"Куда греем неделю: анкета + «5 признаков»",
+sense:"Бланк спокойный — тебе не спокойно. «Норма» ещё не здоровье",
+cta:"Анкета + намёк на подарок",
+blocks:[
+{type:"blue",label:"Пост",title:"Можно быть на 20 из 100 и услышать «всё ок»",items:["Референс лаборатории про болезнь. Тебе уже не норма.","ChatGPT видит бумажку — не твоё утро."]},
+{type:"pink",label:"Кружок",title:"Наталья",items:["Почему она не останавливается на «всё в норме»."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв","2 — «норма» vs самочувствие","3 — опрос","4 — анкета"]}
+]},
+{n:5,phase:1,phaseTitle:"Нед.1 · Узнавание. «Это всё про меня»",phaseCta:"Куда греем неделю: анкета + «5 признаков»",
+sense:"Пять признаков, что кишечник уже просит помощи. Закрываем анкету",
+cta:"Главный шаг нед.1: анкета → лекция 14 дней",
+blocks:[
+{type:"blue",label:"Пост",title:"Признаки без спойлера всей лекции",items:["Утро уже вздутое · сыпь на молочку · вес стоит · волосы/железо · сладкое до трясучки","Подарок за анкету — лекция на 14 дней."]},
+{type:"cream",label:"Давление",title:"Закрытие",items:["Если узнала себя хотя бы в двух — заполни сегодня."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1–3 — по признаку","4 — кнопка формы","5 — «уже внутри — лекция»"]}
+]},
+{n:6,phase:1,phaseTitle:"Нед.1 · Узнавание. «Это всё про меня»",phaseCta:"Куда греем неделю: анкета + «5 признаков»",
+sense:"После анкеты: что люди делают годами вместо помощи — терпеть, банка, «само»",
+cta:"Кто ещё не в анкете — догнать. Мягко магнит",
+blocks:[
+{type:"blue",label:"Пост",title:"Если помогало — почему ты всё ещё здесь?",items:["Две недели легче — потом как было.","Отвлекаться, ждать чуда, искать одну технику."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв","2 — список «что пробовала»","3 — опрос","4 — анкета / тизер магнита"]}
+]},
+{n:7,phase:1,phaseTitle:"Нед.1 · Узнавание. «Это всё про меня»",phaseCta:"Куда греем неделю: анкета + «5 признаков»",
+sense:"Кейс-узнавание: всё перепробовала — впервые про причину, не про список «нельзя»",
+cta:"Анкета добить. Завтра неделя магнита",
+blocks:[
+{type:"green",label:"Кейс",title:"Анна · интервальное, кето, детокс",items:["Везде список запретов. Здесь — почему ничего не держало.","Не обещаем её сроки. Услышь: причина."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв","2 — цитаты кейса","3 — «полная логика — в магните со следующей недели»","4 — анкета"]}
+]},
+{n:8,phase:2,phaseTitle:"Нед.2 · Старые способы мертвы. Корень — кишечник",phaseCta:"Куда греем неделю: видео-магнит (длинный прогрев)",
+sense:"История Натальи с нуля: диеты, зал, массажи — лечила симптомы. Причина была в другом",
+cta:"Магнит",
+blocks:[
+{type:"pink",label:"Подкаст / длинное",title:"Я тоже крутила этот круг",items:["Целлюлит, вздутие, усталость. Зал 5 раз. Ограничения.","Когда пошла через кишечник — вздутие, кожа, живот, энергия. Сроки у всех разные — без гарантии календаря."]},
+{type:"lilac",label:"Сторис",title:"Бутерброд",items:["1–3 — лайв / «тогда и сейчас» без позы","4 — смысл: не сила воли","5 — магнит"]}
+]},
+{n:9,phase:2,phaseTitle:"Нед.2 · Старые способы мертвы. Корень — кишечник",phaseCta:"Куда греем неделю: видео-магнит",
+sense:"Миф: одна капсула / детокс / «уберу глютен навсегда». Ведро на горящий дом",
+cta:"Магнит",
+blocks:[
+{type:"blue",label:"Пост",title:"Почему банка из рилса не тушит пожар",items:["Убрала глютен — полегчало — вернула — снова плохо.","Одна капсула в вакханалию микробиома.","Симптом ушёл — причина на месте."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв аптека / кухня","2 — схема «2 недели → откат»","3 — магнит"]}
+]},
+{n:10,phase:2,phaseTitle:"Нед.2 · Старые способы мертвы. Корень — кишечник",phaseCta:"Куда греем неделю: видео-магнит",
+sense:"Миф: подсчёт калорий и «ем как птичка». 1200 — норма ребёнка",
+cta:"Магнит",
+blocks:[
+{type:"blue",label:"Пост",title:"Почему «меньше есть» часто делает хуже",items:["Подруга ест что хочет. Ты — как птичка и пухнешь.","Голод ≠ стройность. Телу нечем собрать даже стул."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв тарелка","2 — узнавание","3 — магнит"]}
+]},
+{n:11,phase:2,phaseTitle:"Нед.2 · Старые способы мертвы. Корень — кишечник",phaseCta:"Куда греем неделю: видео-магнит",
+sense:"Миф: укол / «волшебная» пилюля. Гормон в аренду. Вопрос — почему своё выключилось",
+cta:"Магнит",
+blocks:[
+{type:"pink",label:"Подкаст",title:"Оземпик и аналоги — осторожно и по-честному",items:["Не зло и не святыня. Пока колешь — эффект. Курс кончился — часто откат сильнее.","Вопрос не «колоть или нет с экрана». Вопрос: почему кишечник перестал делать GLP-1 сам."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв (не страшилка)","2 — тезис аренды","3 — магнит"]}
+]},
+{n:12,phase:2,phaseTitle:"Нед.2 · Старые способы мертвы. Корень — кишечник",phaseCta:"Куда греем неделю: видео-магнит",
+sense:"Выгода способа: почему кишечник как центр лучше, чем ещё одна диета / аптека / поток",
+cta:"Магнит · первый вброс: готовим поток / эфир",
+blocks:[
+{type:"blue",label:"Пост",title:"Сравниваем пути",items:["Диета · банка · укол · «врач сказал норма» · ChatGPT.","Система через кишечник: вес, кожа, энергия, настроение из одного места.","Мягко: скоро разберём на видео и на эфире для тех, кто в предзаписи."]},
+{type:"cream",label:"Вброс продукта",title:"Даты ещё уточним",items:["Уже можно смотреть магнит. Предзапись откроем на следующей неделе."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв","2 — сравнение карточками","3 — магнит"]}
+]},
+{n:13,phase:2,phaseTitle:"Нед.2 · Старые способы мертвы. Корень — кишечник",phaseCta:"Куда греем неделю: видео-магнит",
+sense:"Кишечник — второй мозг. Вес, кожа, тяга, силы — не четыре разные «программы»",
+cta:"Магнит (длинное / YouTube)",
+blocks:[
+{type:"blue",label:"YouTube / длинное",title:"Один корень",items:["Мажешь лицо. Считаешь ложки. Орёшь на себя вечером. Вход в дом не смотришь.","Связки из карты: вес · кожа · усталость · сладкое.","В конце — магнит как следующее видео."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв","2–5 — по связке","6 — магнит"]}
+]},
+{n:14,phase:2,phaseTitle:"Нед.2 · Старые способы мертвы. Корень — кишечник",phaseCta:"Куда греем неделю: видео-магнит",
+sense:"Закрытие недели магнита: кто уже смотрит. Предзапись = следующий лёгкий шаг",
+cta:"Магнит + тизер предзаписи",
+blocks:[
+{type:"cream",label:"Давление",title:"Собрать просмотры",items:["Если узнала себя в мифах и в корне — досмотри магнит до конца.","Со следующей недели — предзапись на закрытый. Без неё ссылки не будет."]},
+{type:"green",label:"Кейс короткий",title:"Что замечают первыми",items:["Живот · кожа · сладкое · силы. Не «новая личность за 3 дня»."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв","2 — уже смотрят","3 — магнит","4 — «завтра про систему 30 дней»"]}
+]},
+{n:15,phase:3,phaseTitle:"Нед.3 · Система, кейсы, предзапись",phaseCta:"Куда греем неделю: предзапись → закрытый эфир",
+sense:"Система 30 дней: смотри → делай. Не меню с экрана и не «сделайте за меня»",
+cta:"Предзапись",
+blocks:[
+{type:"blue",label:"Пост",title:"Что такое программа простыми словами",items:["Короткие уроки. В своём темпе. Сначала причина — потом тело.","Список «сделай сегодня» с экрана снова даёт две недели и откат.","Кому не сюда: только банка и результат за неделю без смены еды."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв","2 — «30 дней»","3 — для кого да / нет","4 — предзапись"]}
+]},
+{n:16,phase:3,phaseTitle:"Нед.3 · Система, кейсы, предзапись",phaseCta:"Куда греем неделю: предзапись → закрытый эфир",
+sense:"Мощные кейсы: кожа, живот, сладкое. Show, don't tell",
+cta:"Предзапись",
+blocks:[
+{type:"green",label:"Кейсы",title:"Екатерина · Ольга · фразы с ленда",items:["Годы кабинетов, которые не разговаривают друг с другом — потом один корень.","Шоколад перестал быть единственным способом дожить до ночи.","«Впервые объяснили причину»."]},
+{type:"lilac",label:"Сторис",title:"Бутерброд + кейсы",items:["1–2 — лайв / эмоция","3–6 — скрины / цитаты","7 — предзапись"]}
+]},
+{n:17,phase:3,phaseTitle:"Нед.3 · Система, кейсы, предзапись",phaseCta:"Куда греем неделю: предзапись → закрытый эфир",
+sense:"Возражения: ChatGPT, «сначала к врачу», нет времени, уже тратила. Сама по гуглу — пазл не складывается",
+cta:"Предзапись",
+blocks:[
+{type:"blue",label:"Пост",title:"Почему одной пользы из ленты мало",items:["Врач — да, если надо. Этот путь не вместо кабинета.","Нет времени: 30–40 минут в день в своём темпе. Что будет, если ещё год как сейчас — ты и так знает."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв","2 — опрос возражений","3 — честные ответы","4 — предзапись"]}
+]},
+{n:18,phase:3,phaseTitle:"Нед.3 · Система, кейсы, предзапись",phaseCta:"Куда греем неделю: предзапись → закрытый эфир",
+sense:"Карта шагов: 5 шагов с чего начинать. На закрытом соберём целиком",
+cta:"Предзапись → закрытый",
+blocks:[
+{type:"blue",label:"YouTube / длинное",title:"Пошагово",items:["1 — какие анализы первыми","2 — что убрать (не картонная коробка)","3 — что добавить на восстановление","4 — стресс вокруг еды","5 — добавки не наугад","В конце — предзапись."]},
+{type:"cream",label:"Анонс закрытого",title:"Для тех, кто в анкете",items:["Соберём систему. Ответим на вопросы из анкет."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв","2–6 — по шагу","7 — предзапись"]}
+]},
+{n:19,phase:3,phaseTitle:"Нед.3 · Система, кейсы, предзапись",phaseCta:"Куда греем неделю: предзапись → закрытый эфир",
+sense:"Ажиотаж: кто уже в предзаписи. Подготовка к эфиру. Страх не похудеть — тоже в теме",
+cta:"Предзапись",
+blocks:[
+{type:"pink",label:"Подкаст / пост",title:"Страх не похудеть мешает похудеть",items:["Кортизол, «нельзя лишнее», режим выживания.","Состояние, в котором делаешь, влияет на результат."]},
+{type:"cream",label:"Ажиотаж",title:"Очередь",items:["Скрин / число в предзаписи. Обратный отсчёт до закрытого."]},
+{type:"lilac",label:"Сторис",title:"Бутерброд",items:["1–3 — лайв / жизнь","4 — страх и еда","5 — кто уже внутри","6 — предзапись"]}
+]},
+{n:20,phase:3,phaseTitle:"Нед.3 · Система, кейсы, предзапись",phaseCta:"Куда греем неделю: предзапись → закрытый эфир",
+sense:"Стрит-флеш: лучший кейс + «сама не сложишь» + финальный дожим предзаписи. Завтра эфир",
+cta:"Предзапись · явка",
+blocks:[
+{type:"green",label:"Кейс дня",title:"Самый сильный за три недели",items:["Живая история: было тяжело → появилась опора / понятная система. Без магии «за 3 дня»."]},
+{type:"cream",label:"Дожим",title:"Завтра закрытый",items:["Каркас: таблетки → корень → норма ≠ здоровье → страх → 5 шагов.","Без предзаписи ссылки не будет."]},
+{type:"lilac",label:"Сторис",title:"Раскладка",items:["1 — лайв","2 — кейс","3 — для кого да / нет","4 — предзапись","5 — «завтра»"]}
+]},
+{n:21,phase:4,phaseTitle:"Закрытый эфир",phaseCta:"Только кто в предзаписи",
+sense:"Собираем систему целиком. Вопросы. Как выбирать формат дальше",
+cta:"Явка. После — открытый или тарифы",
+blocks:[
+{type:"blue",label:"Эфир",title:"Каркас = лестница за один вечер",items:["Актуальность и мифы","Кишечник как центр","Норма ≠ здоровье","Страх и еда","Пять шагов + Q&A"]},
+{type:"lilac",label:"В день эфира",title:"Сторис / бот",items:["Утром · за час · «мы в эфире»","Напоминание в боте"]}
+]}
 ];
 
 const matrix = document.getElementById("matrix");
@@ -468,58 +265,38 @@ function render() {
       <div class="phase-cell">${d.phaseTitle}<span class="to">${d.phaseCta}</span></div>
       <button type="button" class="sense-cell" data-open="${d.n}">${d.sense}</button>
       <div class="cta-cell"><span>Куда зовём</span>${d.cta}</div>
-      <div class="open-hint">нажми смысл · раскладка</div>
-    `;
+      <div class="open-hint">нажми смысл · раскладка</div>`;
     matrix.appendChild(col);
   });
 }
-
 function openDay(n) {
   const d = DAYS.find(x => x.n === n);
   if (!d) return;
-  if (selected === n && detail.classList.contains("open")) {
-    closeDetail();
-    return;
-  }
+  if (selected === n && detail.classList.contains("open")) { closeDetail(); return; }
   selected = n;
-  document.querySelectorAll(".col").forEach(c => {
-    c.setAttribute("aria-selected", c.dataset.n === String(n) ? "true" : "false");
-  });
+  document.querySelectorAll(".col").forEach(c => c.setAttribute("aria-selected", c.dataset.n === String(n) ? "true" : "false"));
   dTitle.textContent = `День ${d.n}. ${d.sense}`;
   dSub.textContent = `${d.phaseTitle} · ${d.cta}`;
-  dFlow.innerHTML = d.blocks.map(b => `
-    <section class="card ${b.type}">
-      <div class="label">${b.label}</div>
-      <div class="title">${b.title}</div>
-      <ul>${b.items.map(i => `<li>${i}</li>`).join("")}</ul>
-    </section>
-  `).join("");
+  dFlow.innerHTML = d.blocks.map(b => `<section class="card ${b.type}"><div class="label">${b.label}</div><div class="title">${b.title}</div><ul>${b.items.map(i => `<li>${i}</li>`).join("")}</ul></section>`).join("");
   detail.classList.add("open");
   detail.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
-
 function closeDetail() {
   selected = null;
   detail.classList.remove("open");
   document.querySelectorAll(".col").forEach(c => c.setAttribute("aria-selected", "false"));
 }
-
 matrix.addEventListener("click", e => {
   const btn = e.target.closest("[data-open]");
-  if (!btn) return;
-  openDay(Number(btn.dataset.open));
+  if (btn) openDay(Number(btn.dataset.open));
 });
-
 document.getElementById("d-close").addEventListener("click", closeDetail);
-
 document.querySelectorAll(".jump button").forEach(btn => {
   btn.addEventListener("click", () => {
-    const el = document.getElementById(`day-${btn.dataset.jump}`);
-    el?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+    document.getElementById(`day-${btn.dataset.jump}`)?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
     openDay(Number(btn.dataset.jump));
   });
 });
-
 render();
 </script>
 </body>
