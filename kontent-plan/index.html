@@ -8,20 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f4f2ec;
-  --ink: #1a1a18;
-  --muted: #6a6760;
-  --line: #e2ddd3;
-  --yellow: #f5e6a8;
-  --gray: #eceae4;
-  --gray2: #e4e1d9;
-  --blue: #dceaf5;
-  --pink: #f3ddd6;
-  --green: #dde9d4;
-  --lilac: #e6e0f2;
-  --cream: #fffdf8;
-  --cta: #b4553a;
-  --panel: #1b1f18;
+  --bg: #ebe7df;
+  --paper: #ffffff;
+  --ink: #222;
+  --muted: #75716a;
+  --line: #ddd8ce;
+  --yellow: #ffe566;
+  --gray: #efefef;
+  --sense: #e8e8e8;
+  --blue: #d7ebfa;
+  --pink: #f8d9d2;
+  --green: #d9ecd0;
+  --lilac: #e4ddf4;
+  --cream: #fff6d6;
+  --terra: #b4553a;
+  --rail: #f7f5f0;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
@@ -29,273 +30,266 @@ body {
   font-family: Manrope, system-ui, sans-serif;
   background: var(--bg);
   color: var(--ink);
-  font-size: 13px;
-  line-height: 1.35;
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-}
-
-.top {
-  flex: 0 0 auto;
-  background: rgba(244,242,236,.97);
-  border-bottom: 1px solid var(--line);
-  padding: 10px 14px 8px;
-}
-.top h1 { font-size: 16px; font-weight: 800; }
-.top p { color: var(--muted); font-size: 12px; margin-top: 2px; }
-
-.phase-bar {
-  display: flex;
-  gap: 6px;
-  padding: 8px 14px;
-  overflow-x: auto;
-  flex: 0 0 auto;
-  border-bottom: 1px solid var(--line);
-  background: #efece4;
-  scrollbar-width: thin;
-}
-.phase-bar button {
-  flex: 0 0 auto;
-  appearance: none;
-  border: 1px solid var(--line);
-  background: #fff;
-  border-radius: 8px;
-  padding: 7px 10px;
-  font: inherit;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  color: var(--ink);
-}
-.phase-bar button[aria-pressed="true"] {
-  background: var(--panel);
-  color: #f6f2e9;
-  border-color: var(--panel);
-}
-
-.main {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-
-.board-wrap {
-  flex: 1 1 auto;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 10px 14px;
-  min-height: 0;
-  -webkit-overflow-scrolling: touch;
-}
-.board {
+  height: 100dvh;
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(168px, 200px);
-  gap: 8px;
-  width: max-content;
-  height: 100%;
-  align-items: stretch;
-}
-
-.col {
-  background: var(--cream);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  height: 100%;
-  max-height: calc(100dvh - 168px);
-  cursor: pointer;
-  transition: border-color .15s ease, box-shadow .15s ease;
+  grid-template-rows: auto 1fr;
   overflow: hidden;
 }
-.col:hover { border-color: #cbbba8; }
-.col[aria-selected="true"] {
-  border-color: var(--cta);
-  box-shadow: 0 0 0 2px rgba(180,85,58,.18);
-}
-.col.hidden { display: none; }
 
-.num {
-  background: var(--yellow);
-  font-weight: 800;
-  font-size: 14px;
-  text-align: center;
-  padding: 6px;
-  flex: 0 0 auto;
-}
-.date {
-  text-align: center;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--muted);
-  padding: 4px 6px;
+/* —— header —— */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
-  background: #fff;
-  flex: 0 0 auto;
 }
-.phase {
-  background: var(--gray);
-  padding: 7px 8px;
+.top h1 { font-size: 15px; font-weight: 800; letter-spacing: -.01em; }
+.top .meta { font-size: 12px; color: var(--muted); }
+.top .meta b { color: var(--terra); font-weight: 700; }
+
+/* —— shell —— */
+.shell {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* —— left rail —— */
+.rail {
+  background: var(--rail);
+  border-right: 1px solid var(--line);
+  overflow: auto;
+  min-height: 0;
+  padding: 10px 10px 24px;
+}
+.phase-label {
   font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 12px 8px 6px;
+}
+.phase-label:first-child { padding-top: 4px; }
+.phase-cta {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--terra);
+  margin-top: 2px;
+}
+
+.day-btn {
+  width: 100%;
+  appearance: none;
+  border: 1px solid transparent;
+  background: var(--paper);
+  border-radius: 10px;
+  padding: 8px 8px 8px 8px;
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 8px;
+  align-items: start;
+  margin-bottom: 6px;
+  font: inherit;
+  color: inherit;
+  box-shadow: 0 1px 0 rgba(0,0,0,.03);
+  transition: border-color .12s ease, background .12s ease;
+}
+.day-btn:hover { border-color: #cfc8bb; }
+.day-btn[aria-current="true"] {
+  border-color: var(--terra);
+  background: #fffaf7;
+  box-shadow: 0 0 0 1px rgba(180,85,58,.2);
+}
+.day-btn .n {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--yellow);
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 800;
+}
+.day-btn .t {
+  font-size: 12px;
   font-weight: 700;
   line-height: 1.3;
-  border-bottom: 1px solid var(--line);
-  flex: 0 0 auto;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.phase small {
-  display: block;
-  margin-top: 3px;
-  font-weight: 700;
-  color: var(--cta);
+.day-btn .c {
+  grid-column: 2;
   font-size: 10px;
-  -webkit-line-clamp: unset;
-}
-.sense {
-  background: var(--gray2);
-  padding: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.3;
-  border-bottom: 1px solid var(--line);
-  flex: 1 1 auto;
-  overflow: auto;
-}
-.preview {
-  padding: 7px 8px;
-  font-size: 10px;
-  color: var(--muted);
-  border-bottom: 1px solid var(--line);
-  flex: 0 0 auto;
-  line-height: 1.3;
-}
-.preview b { color: var(--ink); font-weight: 700; }
-.cta {
-  background: var(--panel);
-  color: #f6f2e9;
-  padding: 8px;
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.3;
-  flex: 0 0 auto;
-}
-.cta em {
-  display: block;
-  font-style: normal;
-  color: #e2a98f;
-  font-size: 9px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  margin-bottom: 2px;
-}
-.hint {
-  text-align: center;
-  font-size: 10px;
-  color: var(--muted);
-  padding: 5px;
-  background: #faf8f3;
-  flex: 0 0 auto;
-}
-
-/* Detail drawer */
-.drawer {
-  flex: 0 0 auto;
-  max-height: 42dvh;
-  border-top: 1px solid var(--line);
-  background: #fff;
-  display: none;
-  flex-direction: column;
-  min-height: 0;
-}
-.drawer.open { display: flex; }
-.drawer-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 14px 8px;
-  border-bottom: 1px solid var(--line);
-  background: #faf8f3;
-  flex: 0 0 auto;
-}
-.drawer-head h2 {
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1.3;
-}
-.drawer-head p {
-  font-size: 11px;
   color: var(--muted);
   margin-top: 2px;
+  font-weight: 600;
 }
-.drawer-head button {
-  appearance: none;
-  border: 1px solid var(--line);
-  background: #fff;
-  border-radius: 8px;
-  padding: 6px 10px;
-  font: inherit;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.drawer-body {
+
+/* —— detail canvas (Miro-like) —— */
+.canvas {
   overflow: auto;
-  padding: 10px 14px 14px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
   min-height: 0;
+  padding: 20px 28px 40px;
+  background:
+    radial-gradient(circle at 1px 1px, #d9d4cb 1px, transparent 0) 0 0 / 22px 22px,
+    var(--bg);
 }
-.card {
+
+.sheet {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.sheet-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.badge {
+  background: var(--yellow);
+  min-width: 36px;
+  height: 36px;
   border-radius: 8px;
-  padding: 8px 10px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 16px;
+  border: 1px solid #ead97a;
+}
+.sheet-head .when {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.sheet-head .where {
   font-size: 12px;
+  color: var(--terra);
+  font-weight: 700;
+}
+
+.box {
+  border-radius: 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.box.sense {
+  background: var(--sense);
+  font-size: 15px;
+  font-weight: 700;
   line-height: 1.35;
 }
-.card h4 {
-  font-size: 10px;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  opacity: .7;
-  margin-bottom: 4px;
+.box.phase {
+  background: var(--gray);
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+  padding: 10px 14px;
 }
-.card strong.t {
-  display: block;
-  font-size: 12.5px;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-.card ul { padding-left: 1.05em; }
-.card li { margin-bottom: 2px; }
-.card.blue { background: var(--blue); }
-.card.pink { background: var(--pink); }
-.card.green { background: var(--green); }
-.card.lilac { background: var(--lilac); }
-.card.yellow { background: var(--yellow); }
-.card.full { grid-column: 1 / -1; }
+.box.phase b { color: var(--terra); }
 
-@media (max-width: 900px) {
-  .board { grid-auto-columns: minmax(150px, 170px); }
-  .col { max-height: calc(100dvh - 280px); }
-  .drawer { max-height: 48dvh; }
-  .drawer-body { grid-template-columns: 1fr; }
+.arrow {
+  display: flex;
+  justify-content: center;
+  color: #aaa;
+  font-size: 18px;
+  line-height: 1;
+  padding: 6px 0;
+  user-select: none;
 }
-@media (max-width: 600px) {
-  .board { grid-auto-columns: minmax(140px, 58vw); }
-  .drawer { max-height: 50dvh; }
+
+.box.blue { background: var(--blue); }
+.box.pink { background: var(--pink); }
+.box.green { background: var(--green); }
+.box.lilac { background: var(--lilac); }
+.box.cream { background: var(--cream); }
+
+.box .label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 6px;
 }
-@media (min-height: 900px) {
-  .col { max-height: calc(100dvh - 150px); }
-  .drawer { max-height: 36dvh; }
+.box .title {
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.box ul {
+  padding-left: 1.1em;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.box li { margin-bottom: 4px; }
+.box li:last-child { margin-bottom: 0; }
+
+.box.cta {
+  background: #1c1f1a;
+  color: #f5f1e8;
+  border: 0;
+}
+.box.cta .label { color: #e2a98f; }
+.box.cta .title { color: #fff; margin-bottom: 0; font-size: 14px; }
+
+.empty {
+  max-width: 420px;
+  margin: 12vh auto 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* —— mobile —— */
+@media (max-width: 820px) {
+  body {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    overflow: hidden;
+  }
+  .shell {
+    display: contents;
+  }
+  .rail {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 8px 10px;
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .phase-label {
+    display: none;
+  }
+  .day-btn {
+    flex: 0 0 150px;
+    margin: 0;
+    grid-template-columns: 24px 1fr;
+    padding: 8px;
+  }
+  .day-btn .n { width: 24px; height: 24px; font-size: 12px; }
+  .day-btn .t { -webkit-line-clamp: 3; font-size: 11px; }
+  .day-btn .c { display: none; }
+  .canvas { padding: 14px 14px 32px; }
+  .sheet { max-width: none; }
 }
 </style>
 </head>
@@ -303,32 +297,14 @@ body {
 
 <header class="top">
   <h1>Контент-план · Алифер</h1>
-  <p>~2,5 недели до закрытого эфира. Кликни день — раскладка снизу. Листай этапы вправо.</p>
+  <div class="meta">~2,5 недели до закрытого эфира · слева день · справа раскладка</div>
 </header>
 
-<nav class="phase-bar" aria-label="Этапы">
-  <button type="button" data-filter="all" aria-pressed="true">Все 18 дней</button>
-  <button type="button" data-filter="1" aria-pressed="false">Этап 1 · анкета</button>
-  <button type="button" data-filter="2" aria-pressed="false">Этап 2 · магнит</button>
-  <button type="button" data-filter="3" aria-pressed="false">Этап 3 · предзапись</button>
-  <button type="button" data-filter="4" aria-pressed="false">День 18 · эфир</button>
-</nav>
-
-<div class="main">
-  <div class="board-wrap">
-    <div class="board" id="board"></div>
-  </div>
-
-  <aside class="drawer" id="drawer" aria-live="polite">
-    <div class="drawer-head">
-      <div>
-        <h2 id="d-title"></h2>
-        <p id="d-sub"></p>
-      </div>
-      <button type="button" id="d-close">Свернуть</button>
-    </div>
-    <div class="drawer-body" id="d-body"></div>
-  </aside>
+<div class="shell">
+  <nav class="rail" id="rail" aria-label="Дни"></nav>
+  <main class="canvas" id="canvas">
+    <div class="empty">Выбери день слева</div>
+  </main>
 </div>
 
 <script>
@@ -336,12 +312,11 @@ const DAYS = [
   {
     n: 1, phase: 1,
     phaseTitle: "Этап 1 · Узнавание",
-    phaseCta: "Анкета + «5 признаков»",
-    sense: "Видим ваши проблемы с телом и в ближайшие дни разберём, почему «всё правильно» не работает",
-    preview: "Пост-открытие · опрос в сторис",
+    phaseCta: "Анкета + лекция «5 признаков»",
+    sense: "Показываем: видим ваши проблемы с телом и в ближайшие дни разберём, почему «всё правильно» не работает",
     cta: "Мягко: анкета. Главный удар — день 4",
     blocks: [
-      { type: "yellow", label: "Пост / кружок", title: "Открываем разговор",
+      { type: "cream", label: "Пост / кружок", title: "Открываем разговор",
         items: ["Сколько женщин живут с шаром к вечеру, усталостью с утра и спокойным бланком — и считают это нормой.", "В ближайшие дни разберём, почему так, и с чего начинать."] },
       { type: "lilac", label: "Сторис", title: "Раскладка",
         items: ["1 — «Если узнала себя хотя бы в одном — оставайся»", "2 — вздутие / вес / кожа / сладкое / нет сил", "3 — опрос: что бесит сейчас", "4 — мягко анкета"] }
@@ -350,9 +325,8 @@ const DAYS = [
   {
     n: 2, phase: 1,
     phaseTitle: "Этап 1 · Узнавание",
-    phaseCta: "Анкета + «5 признаков»",
-    sense: "Ситуации тела: живот как шар, утро уже не плоский, стыд в кабинете",
-    preview: "Пост-сцены · сторис по частям дня",
+    phaseCta: "Анкета + лекция «5 признаков»",
+    sense: "Погружаем в ситуации тела: живот как шар, утро уже не плоский, стыд в кабинете",
     cta: "Анкета сигналов",
     blocks: [
       { type: "blue", label: "Пост", title: "Сцены, в которых узнают себя",
@@ -364,9 +338,8 @@ const DAYS = [
   {
     n: 3, phase: 1,
     phaseTitle: "Этап 1 · Узнавание",
-    phaseCta: "Анкета + «5 признаков»",
-    sense: "Бланк спокойный — тебе не спокойно. «Норма» ещё не здоровье",
-    preview: "Пост · кружок · сторис",
+    phaseCta: "Анкета + лекция «5 признаков»",
+    sense: "Бланк спокойный — тебе не спокойно. «Норма» в лаборатории ещё не здоровье",
     cta: "Анкета + намёк на подарок",
     blocks: [
       { type: "blue", label: "Пост", title: "Анализы «всё хорошо», а жить тяжело",
@@ -380,14 +353,13 @@ const DAYS = [
   {
     n: 4, phase: 1,
     phaseTitle: "Этап 1 · Узнавание",
-    phaseCta: "Анкета + «5 признаков»",
-    sense: "Пять признаков, что кишечник уже просит помощи. Закрываем этап",
-    preview: "Пост · давление · сторис-кнопка",
-    cta: "Главный шаг: анкета → лекция",
+    phaseCta: "Анкета + лекция «5 признаков»",
+    sense: "Пять признаков, что кишечник уже просит помощи. Закрываем этап одним шагом",
+    cta: "Главный шаг этапа 1: анкета → лекция",
     blocks: [
       { type: "blue", label: "Пост", title: "Признаки без полного разбора",
         items: ["Утро уже вздутое · сыпет на молочку · вес стоит · волосы / железо · сладкое до трясучки", "Не спойлерим всю лекцию — зовём забрать в подарок за анкету"] },
-      { type: "yellow", label: "Давление", title: "Закрытие этапа",
+      { type: "cream", label: "Давление", title: "Закрытие этапа",
         items: ["Если узнала себя хотя бы в двух — заполни анкету. Лекция на 14 дней."] },
       { type: "lilac", label: "Сторис", title: "Раскладка",
         items: ["1–3 — по одному признаку", "4 — ссылка на форму", "5 — «уже заполнили — лекция внутри»"] }
@@ -397,8 +369,7 @@ const DAYS = [
     n: 5, phase: 2,
     phaseTitle: "Этап 2 · Старые способы / кишечник",
     phaseCta: "Видео-магнит",
-    sense: "Что делают годами вместо помощи — и почему состояние остаётся",
-    preview: "Пост · опрос в сторис",
+    sense: "Что люди делают годами вместо реальной помощи себе — и почему состояние остаётся",
     cta: "Магнит",
     blocks: [
       { type: "blue", label: "Пост", title: "Терпеть · банка · «само отпустит»",
@@ -411,8 +382,7 @@ const DAYS = [
     n: 6, phase: 2,
     phaseTitle: "Этап 2 · Старые способы / кишечник",
     phaseCta: "Видео-магнит",
-    sense: "Почему «правильно питаться» и отдых часто не чинят круг",
-    preview: "Подкаст · нарезка в сторис",
+    sense: "Почему «просто правильно питаться» и отдых часто не чинят круг",
     cta: "Магнит",
     blocks: [
       { type: "pink", label: "Подкаст", title: "Делаю всё правильно. Что со мной не так",
@@ -425,8 +395,7 @@ const DAYS = [
     n: 7, phase: 2,
     phaseTitle: "Этап 2 · Старые способы / кишечник",
     phaseCta: "Видео-магнит",
-    sense: "История: впервые объяснили причину, не список запретов",
-    preview: "Кейс Анны · сторис",
+    sense: "История: впервые объяснили причину, а не очередной список запретов",
     cta: "Магнит → предзапись после видео",
     blocks: [
       { type: "green", label: "Кейс", title: "Анна · всё перепробовала",
@@ -440,7 +409,6 @@ const DAYS = [
     phaseTitle: "Этап 2 · Старые способы / кишечник",
     phaseCta: "Видео-магнит",
     sense: "Одно ведро на горящий дом: банка, детокс, укол — две недели и откат",
-    preview: "Пост · сторис",
     cta: "Магнит",
     blocks: [
       { type: "blue", label: "Пост", title: "Почему одна капсула не тушит пожар",
@@ -453,8 +421,7 @@ const DAYS = [
     n: 9, phase: 2,
     phaseTitle: "Этап 2 · Старые способы / кишечник",
     phaseCta: "Видео-магнит",
-    sense: "Кишечник — центр: вес, кожа, энергия, настроение, сладкое",
-    preview: "Пост / длинное · сторис-связки",
+    sense: "Кишечник — центр: вес, кожа, энергия, настроение и сладкое из одного места",
     cta: "Магнит",
     blocks: [
       { type: "blue", label: "Пост / длинное", title: "Не четыре проблемы — один корень",
@@ -468,7 +435,6 @@ const DAYS = [
     phaseTitle: "Этап 2 · Старые способы / кишечник",
     phaseCta: "Видео-магнит",
     sense: "Система 30 дней: смотри → делай. Не меню с экрана",
-    preview: "Пост про программу · сторис",
     cta: "Магнит → предзапись",
     blocks: [
       { type: "blue", label: "Пост", title: "Программа простыми словами",
@@ -481,11 +447,10 @@ const DAYS = [
     n: 11, phase: 2,
     phaseTitle: "Этап 2 · Старые способы / кишечник",
     phaseCta: "Видео-магнит",
-    sense: "Кто уже смотрит. Предзапись = место дальше",
-    preview: "Давление · сторис",
+    sense: "Кто уже смотрит. Предзапись = место дальше по пути",
     cta: "Магнит + предзапись",
     blocks: [
-      { type: "yellow", label: "Давление", title: "Собрать внимание",
+      { type: "cream", label: "Давление", title: "Собрать внимание",
         items: ["Если узнала себя — досмотри магнит и заполни предзапись.", "Без предзаписи дальше по закрытому эфиру места не будет."] },
       { type: "lilac", label: "Сторис", title: "Раскладка",
         items: ["1 — уже смотрят / в анкете", "2 — магнит", "3 — предзапись", "4 — завтра углубим"] }
@@ -496,7 +461,6 @@ const DAYS = [
     phaseTitle: "Этап 3 · Система, кейсы, предзапись",
     phaseCta: "Предзапись → закрытый эфир",
     sense: "Гормон в аренду. Вопрос — почему своё выключилось",
-    preview: "Подкаст / пост · сторис",
     cta: "Магнит / предзапись",
     blocks: [
       { type: "pink", label: "Подкаст / пост", title: "Осторожно и по-честному",
@@ -510,7 +474,6 @@ const DAYS = [
     phaseTitle: "Этап 3 · Система, кейсы, предзапись",
     phaseCta: "Предзапись → закрытый эфир",
     sense: "Норма ≠ здоровье. ChatGPT видит бумажку — не твоё утро",
-    preview: "Пост «три пути» · опрос",
     cta: "Предзапись",
     blocks: [
       { type: "blue", label: "Пост", title: "Три пути",
@@ -524,7 +487,6 @@ const DAYS = [
     phaseTitle: "Этап 3 · Система, кейсы, предзапись",
     phaseCta: "Предзапись → закрытый эфир",
     sense: "Что замечают первыми: живот, кожа, сладкое, силы",
-    preview: "Подборка кейсов · сторис",
     cta: "Предзапись",
     blocks: [
       { type: "green", label: "Кейсы", title: "Короткие фразы",
@@ -538,7 +500,6 @@ const DAYS = [
     phaseTitle: "Этап 3 · Система, кейсы, предзапись",
     phaseCta: "Предзапись → закрытый эфир",
     sense: "Страх не похудеть мешает похудеть",
-    preview: "Подкаст · сторис",
     cta: "Предзапись · намёк на закрытый",
     blocks: [
       { type: "pink", label: "Подкаст", title: "Состояние влияет на результат",
@@ -552,12 +513,11 @@ const DAYS = [
     phaseTitle: "Этап 3 · Система, кейсы, предзапись",
     phaseCta: "Предзапись → закрытый эфир",
     sense: "Пять шагов: с чего начинать. Картина пути без полной продажи тарифов",
-    preview: "Длинное · анонс закрытого",
     cta: "Предзапись → закрытый эфир",
     blocks: [
       { type: "blue", label: "Длинное / YouTube", title: "Пошагово",
         items: ["1 — какие анализы первыми", "2 — что убрать", "3 — что добавить", "4 — стресс вокруг еды", "5 — добавки не наугад"] },
-      { type: "yellow", label: "Анонс", title: "Закрытый",
+      { type: "cream", label: "Анонс", title: "Закрытый",
         items: ["На закрытом соберём это целиком и ответим на вопросы из анкет."] },
       { type: "lilac", label: "Сторис", title: "Раскладка",
         items: ["1–5 — по шагу", "6 — предзапись обязательна"] }
@@ -567,11 +527,10 @@ const DAYS = [
     n: 17, phase: 3,
     phaseTitle: "Этап 3 · Система, кейсы, предзапись",
     phaseCta: "Предзапись → закрытый эфир",
-    sense: "Завтра закрытый эфир. Если узнала себя — нельзя пропускать",
-    preview: "Финальный дожим · сторис",
+    sense: "Завтра закрытый эфир. Если узнала себя в этих двух неделях — нельзя пропускать",
     cta: "Предзапись · явка",
     blocks: [
-      { type: "yellow", label: "Дожим", title: "Завтра",
+      { type: "cream", label: "Дожим", title: "Завтра",
         items: ["Что будет: таблетки → корень → норма → страх → шаги.", "Без предзаписи ссылки не будет."] },
       { type: "lilac", label: "Сторис", title: "Раскладка",
         items: ["1 — завтра", "2 — для кого да", "3 — для кого нет", "4 — предзапись + напоминание"] }
@@ -580,10 +539,9 @@ const DAYS = [
   {
     n: 18, phase: 4,
     phaseTitle: "Закрытый эфир",
-    phaseCta: "Только предзапись",
-    sense: "Собираем систему целиком. Вопросы. Как выбирать формат дальше",
-    preview: "Эфир · сторис в день",
-    cta: "Явка. После — открытый или тарифы",
+    phaseCta: "Только кто в предзаписи",
+    sense: "Собираем систему целиком. Отвечаем на вопросы. Показываем, как выбирать формат дальше",
+    cta: "Явка. После — открытый эфир или тарифы",
     blocks: [
       { type: "blue", label: "Эфир", title: "Каркас",
         items: ["Почему «правильные» способы не держат", "Кишечник как центр", "Норма ≠ здоровье", "Страх и еда", "Пять шагов + Q&A"] },
@@ -593,85 +551,92 @@ const DAYS = [
   }
 ];
 
-const board = document.getElementById("board");
-const drawer = document.getElementById("drawer");
-const dTitle = document.getElementById("d-title");
-const dSub = document.getElementById("d-sub");
-const dBody = document.getElementById("d-body");
-let selected = null;
+const PHASES = [
+  { id: 1, title: "Этап 1 · Узнавание", cta: "→ анкета + «5 признаков»" },
+  { id: 2, title: "Этап 2 · Старые способы / кишечник", cta: "→ магнит" },
+  { id: 3, title: "Этап 3 · Система и кейсы", cta: "→ предзапись → закрытый" },
+  { id: 4, title: "День эфира", cta: "→ явка" }
+];
 
-function renderBoard(filter) {
-  board.innerHTML = "";
-  DAYS.forEach(d => {
-    if (filter !== "all" && String(d.phase) !== String(filter)) return;
-    const col = document.createElement("article");
-    col.className = "col";
-    col.dataset.phase = d.phase;
-    col.dataset.n = d.n;
-    col.tabIndex = 0;
-    col.setAttribute("role", "button");
-    col.setAttribute("aria-selected", selected === d.n ? "true" : "false");
-    col.innerHTML = `
-      <div class="num">${d.n}</div>
-      <div class="date">День ${d.n}</div>
-      <div class="phase">${d.phaseTitle}<small>${d.phaseCta}</small></div>
-      <div class="sense">${d.sense}</div>
-      <div class="preview"><b>Внутри:</b> ${d.preview}</div>
-      <div class="cta"><em>Куда зовём</em>${d.cta}</div>
-      <div class="hint">нажми · раскладка</div>
-    `;
-    col.addEventListener("click", () => openDay(d.n));
-    col.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openDay(d.n); }
+const rail = document.getElementById("rail");
+const canvas = document.getElementById("canvas");
+let current = 1;
+
+function shortSense(s) {
+  return s.length > 78 ? s.slice(0, 76).trim() + "…" : s;
+}
+
+function buildRail() {
+  rail.innerHTML = "";
+  PHASES.forEach(ph => {
+    const days = DAYS.filter(d => d.phase === ph.id);
+    if (!days.length) return;
+    const label = document.createElement("div");
+    label.className = "phase-label";
+    label.innerHTML = `${ph.title}<span class="phase-cta">${ph.cta}</span>`;
+    rail.appendChild(label);
+    days.forEach(d => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "day-btn";
+      btn.dataset.n = d.n;
+      btn.setAttribute("aria-current", d.n === current ? "true" : "false");
+      btn.innerHTML = `
+        <span class="n">${d.n}</span>
+        <span class="t">${shortSense(d.sense)}</span>
+        <span class="c">${d.cta}</span>
+      `;
+      btn.addEventListener("click", () => selectDay(d.n));
+      rail.appendChild(btn);
     });
-    board.appendChild(col);
   });
 }
 
-function openDay(n) {
+function selectDay(n) {
+  current = n;
+  document.querySelectorAll(".day-btn").forEach(b => {
+    b.setAttribute("aria-current", b.dataset.n === String(n) ? "true" : "false");
+  });
   const d = DAYS.find(x => x.n === n);
   if (!d) return;
-  if (selected === n && drawer.classList.contains("open")) {
-    closeDrawer();
-    return;
-  }
-  selected = n;
-  document.querySelectorAll(".col").forEach(c => {
-    c.setAttribute("aria-selected", c.dataset.n === String(n) ? "true" : "false");
-  });
-  dTitle.textContent = `День ${d.n}. ${d.sense}`;
-  dSub.textContent = `${d.phaseTitle} · ${d.cta}`;
-  dBody.innerHTML = d.blocks.map(b => `
-    <div class="card ${b.type}${d.blocks.length === 1 ? " full" : ""}">
-      <h4>${b.label}</h4>
-      <strong class="t">${b.title}</strong>
-      <ul>${b.items.map(i => `<li>${i}</li>`).join("")}</ul>
-    </div>
+
+  const blocks = d.blocks.map((b, i) => `
+    ${i ? '<div class="arrow">↓</div>' : ''}
+    <section class="box ${b.type}">
+      <div class="label">${b.label}</div>
+      <div class="title">${b.title}</div>
+      <ul>${b.items.map(item => `<li>${item}</li>`).join("")}</ul>
+    </section>
   `).join("");
-  drawer.classList.add("open");
-  const col = document.querySelector(`.col[data-n="${n}"]`);
-  col?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+
+  canvas.innerHTML = `
+    <article class="sheet">
+      <div class="sheet-head">
+        <div class="badge">${d.n}</div>
+        <div>
+          <div class="when">День ${d.n}</div>
+          <div class="where">${d.cta}</div>
+        </div>
+      </div>
+      <div class="box phase">${d.phaseTitle} · <b>${d.phaseCta}</b></div>
+      <div class="box sense">${d.sense}</div>
+      <div class="arrow">↓</div>
+      ${blocks}
+      <div class="arrow">↓</div>
+      <div class="box cta">
+        <div class="label">Куда зовём</div>
+        <div class="title">${d.cta}</div>
+      </div>
+    </article>
+  `;
+  canvas.scrollTop = 0;
+
+  const active = rail.querySelector(`.day-btn[data-n="${n}"]`);
+  active?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
 }
 
-function closeDrawer() {
-  selected = null;
-  drawer.classList.remove("open");
-  document.querySelectorAll(".col").forEach(c => c.setAttribute("aria-selected", "false"));
-}
-
-document.getElementById("d-close").addEventListener("click", closeDrawer);
-
-document.querySelectorAll(".phase-bar button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".phase-bar button").forEach(b => b.setAttribute("aria-pressed", "false"));
-    btn.setAttribute("aria-pressed", "true");
-    closeDrawer();
-    renderBoard(btn.dataset.filter);
-    board.parentElement.scrollLeft = 0;
-  });
-});
-
-renderBoard("all");
+buildRail();
+selectDay(1);
 </script>
 </body>
 </html>
