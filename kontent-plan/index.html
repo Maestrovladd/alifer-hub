@@ -5,87 +5,355 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Алифер · контент-план · 21 день</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f3f1eb; --ink: #1f1f1c; --muted: #6f6b63; --line: #ddd7cc;
-  --yellow: #ffe566; --sense: #e7e7e7; --blue: #d7ebfa; --pink: #f8d9d2;
-  --green: #d9ecd0; --lilac: #e4ddf4; --cream: #fff4cc; --terra: #b4553a; --paper: #fff;
+  --cream: #F6F2E9;
+  --sage: #DCE2D2;
+  --dark: #23281F;
+  --ink: #23281F;
+  --terra: #B4553A;
+  --muted: #6C7266;
+  --box: #EAE5D8;
+  --paper: #FBF8F1;
+  --line: #D8D1C3;
+  --bg: #D6D0C2;
+  --peach: #F0E4DC;
+  --rose: #E8D0C6;
+  --moss: #C9D4BC;
+  --clay: #E2A98F;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Manrope, system-ui, sans-serif; background: var(--bg); color: var(--ink); font-size: 13px; line-height: 1.35; min-height: 100dvh; }
-.top { position: sticky; top: 0; z-index: 20; background: rgba(243,241,235,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); padding: 12px 16px 10px; }
-.top h1 { font-size: 16px; font-weight: 800; }
-.top p { margin-top: 3px; font-size: 12px; color: var(--muted); max-width: 95ch; }
-.legend { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.legend i { font-style: normal; font-size: 11px; font-weight: 700; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 4px 9px; }
-.jump { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 16px 0; }
-.jump button { appearance: none; border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 6px 10px; font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; }
-.jump button:hover { border-color: var(--terra); }
-.wrap { padding: 12px 16px 28px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.matrix { display: grid; grid-auto-flow: column; grid-auto-columns: 200px; width: max-content; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--paper); box-shadow: 0 8px 24px rgba(0,0,0,.05); }
-.col { border-right: 1px solid var(--line); display: flex; flex-direction: column; background: var(--paper); }
-.col:last-child { border-right: 0; }
-.col[aria-selected="true"] { background: #fffaf6; }
-.col[aria-selected="true"] .sense-cell { outline: 2px solid var(--terra); outline-offset: -2px; }
-.num-cell { background: var(--yellow); text-align: center; font-weight: 800; font-size: 15px; padding: 8px 6px; border-bottom: 1px solid #ead97a; }
-.date-cell { text-align: center; font-size: 11px; font-weight: 700; color: var(--muted); padding: 6px; border-bottom: 1px solid var(--line); background: #fafafa; }
-.phase-cell { font-size: 11px; font-weight: 700; line-height: 1.3; padding: 8px 9px; border-bottom: 1px solid var(--line); min-height: 70px; }
-.phase-cell .to { display: block; margin-top: 4px; color: var(--terra); font-size: 10px; font-weight: 800; }
-.sense-cell { appearance: none; border: 0; background: var(--sense); width: 100%; text-align: left; font: inherit; font-size: 12.5px; font-weight: 700; line-height: 1.3; padding: 10px 9px; cursor: pointer; border-bottom: 1px solid var(--line); min-height: 96px; color: inherit; }
-.sense-cell:hover { filter: brightness(.98); }
-.cta-cell { font-size: 11px; font-weight: 700; padding: 8px 9px; background: #1c1f1a; color: #f4efe6; line-height: 1.3; }
-.cta-cell span { display: block; color: #e2a98f; font-size: 9px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 2px; font-weight: 800; }
-.open-hint { font-size: 10px; color: var(--muted); text-align: center; padding: 5px 6px; background: #f7f5f0; border-top: 1px solid var(--line); font-weight: 600; }
-.col[data-phase="1"] .phase-cell { background: #ececec; }
-.col[data-phase="2"] .phase-cell { background: #e8eef5; }
-.col[data-phase="3"] .phase-cell { background: #eee8f3; }
-.col[data-phase="4"] .phase-cell { background: #f5e9e4; }
-.detail { display: none; margin-top: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); overflow: hidden; }
+body {
+  font-family: Manrope, system-ui, sans-serif;
+  background:
+    radial-gradient(900px 420px at 12% -10%, rgba(220,226,210,.55), transparent 60%),
+    radial-gradient(700px 380px at 88% 0%, rgba(226,169,143,.22), transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.4;
+  min-height: 100dvh;
+}
+
+.shell { max-width: 100%; padding: 18px 18px 36px; }
+
+.hero {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding: 18px 20px;
+  background: var(--cream);
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(35,40,31,.08);
+  border: 1px solid rgba(35,40,31,.06);
+}
+.hero .eyebrow {
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--terra);
+  font-weight: 800;
+}
+.hero h1 {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 700;
+  line-height: 1.2;
+  max-width: 28ch;
+}
+.hero p {
+  color: var(--muted);
+  font-size: 13.5px;
+  max-width: 70ch;
+}
+
+.stage-nav {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.stage-nav button {
+  appearance: none;
+  border: 0;
+  text-align: left;
+  border-radius: 14px;
+  padding: 14px 14px 12px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink);
+  box-shadow: 0 6px 18px rgba(35,40,31,.07);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.stage-nav button:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(35,40,31,.12); }
+.stage-nav .days {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  opacity: .75;
+}
+.stage-nav strong {
+  display: block;
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+.stage-nav em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--terra);
+}
+.stage-nav .s1 { background: var(--sage); }
+.stage-nav .s2 { background: #E8EEE4; border: 1px solid #C9D4BC; }
+.stage-nav .s3 { background: var(--peach); }
+.stage-nav .s4 { background: var(--dark); color: var(--cream); }
+.stage-nav .s4 em { color: var(--clay); }
+
+.board-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 18px;
+  background: var(--paper);
+  box-shadow: 0 12px 32px rgba(35,40,31,.1);
+  border: 1px solid rgba(35,40,31,.06);
+}
+
+/* one grid: stage band + days */
+.board {
+  display: grid;
+  grid-auto-flow: dense;
+  width: max-content;
+  min-width: 100%;
+  --col: 196px;
+  grid-template-columns: repeat(21, var(--col));
+  grid-template-rows: auto auto auto auto auto;
+}
+
+.stage-band {
+  grid-row: 1;
+  padding: 16px 16px 14px;
+  border-right: 1px solid rgba(35,40,31,.08);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.stage-band .count {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .7;
+  margin-bottom: 4px;
+}
+.stage-band .name {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.stage-band .to {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--terra);
+}
+.stage-band.p1 { grid-column: 1 / span 7; background: linear-gradient(180deg, #E6EDE0, var(--sage)); }
+.stage-band.p2 { grid-column: 8 / span 7; background: linear-gradient(180deg, #F3EFE6, #E8EEE4); }
+.stage-band.p3 { grid-column: 15 / span 6; background: linear-gradient(180deg, #F6E9E1, var(--peach)); }
+.stage-band.p4 { grid-column: 21 / span 1; background: var(--dark); color: var(--cream); min-width: var(--col); }
+.stage-band.p4 .to { color: var(--clay); }
+
+.num {
+  grid-row: 2;
+  background: #FFE27A;
+  text-align: center;
+  font-weight: 800;
+  font-size: 16px;
+  padding: 10px 6px;
+  border-right: 1px solid rgba(35,40,31,.08);
+  border-top: 1px solid rgba(35,40,31,.06);
+}
+.label-day {
+  grid-row: 3;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  padding: 7px 6px;
+  background: #F7F3EA;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.sense {
+  grid-row: 4;
+  appearance: none;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.35;
+  padding: 12px 11px;
+  min-height: 118px;
+  cursor: pointer;
+  color: var(--ink);
+  background: #F1EDE3;
+}
+.sense:hover { background: #EAE4D6; }
+.sense.col-selected {
+  outline: 2px solid var(--terra);
+  outline-offset: -2px;
+  background: #FFF8F0;
+}
+.cta {
+  grid-row: 5;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 11px 11px 12px;
+  background: var(--dark);
+  color: var(--cream);
+  line-height: 1.35;
+  border-right: 1px solid #2f342c;
+}
+.cta span {
+  display: block;
+  color: var(--clay);
+  font-size: 9px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+  font-weight: 800;
+}
+
+/* tint by phase for sense cells */
+[data-phase="1"].sense { background: #E9EFE4; }
+[data-phase="1"].sense:hover { background: #E0E8D8; }
+[data-phase="2"].sense { background: #F0EDE4; }
+[data-phase="2"].sense:hover { background: #E8E4D8; }
+[data-phase="3"].sense { background: #F3E6DE; }
+[data-phase="3"].sense:hover { background: #ECDDD3; }
+[data-phase="4"].sense { background: #E8DFD6; }
+
+.detail {
+  display: none;
+  margin-top: 14px;
+  border-radius: 18px;
+  background: var(--cream);
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(35,40,31,.08);
+  border: 1px solid rgba(35,40,31,.06);
+}
 .detail.open { display: block; }
-.detail-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; padding: 12px 14px; border-bottom: 1px solid var(--line); background: #faf8f3; }
-.detail-head h2 { font-size: 14px; font-weight: 800; line-height: 1.3; max-width: 70ch; }
-.detail-head p { margin-top: 3px; font-size: 12px; color: var(--muted); }
-.detail-head button { appearance: none; border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 7px 11px; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
-.flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-.card { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 12.5px; line-height: 1.4; }
-.card:last-child { border-right: 0; }
-.card .label { font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #666; margin-bottom: 4px; }
-.card .title { font-size: 13px; font-weight: 800; margin-bottom: 6px; }
-.card ul { padding-left: 1.1em; }
-.card li { margin-bottom: 3px; }
-.card.blue { background: var(--blue); } .card.pink { background: var(--pink); } .card.green { background: var(--green); }
-.card.lilac { background: var(--lilac); } .card.cream { background: var(--cream); }
-@media (max-width: 700px) { .matrix { grid-auto-columns: 168px; } .sense-cell { min-height: 110px; font-size: 12px; } }
+.detail-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  background: var(--sage);
+  border-bottom: 1px solid rgba(35,40,31,.08);
+}
+.detail-head h2 {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  max-width: 70ch;
+}
+.detail-head p { margin-top: 4px; font-size: 12.5px; color: var(--muted); }
+.detail-head button {
+  appearance: none;
+  border: 1px solid rgba(35,40,31,.12);
+  background: var(--cream);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.card { padding: 14px 16px; border-right: 1px solid rgba(35,40,31,.08); border-bottom: 1px solid rgba(35,40,31,.08); font-size: 13px; line-height: 1.45; }
+.card .label { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--terra); margin-bottom: 5px; }
+.card .title { font-size: 14px; font-weight: 800; margin-bottom: 8px; }
+.card ul { padding-left: 1.15em; }
+.card li { margin-bottom: 4px; }
+.card.blue { background: #E8EEE4; }
+.card.pink { background: var(--peach); }
+.card.green { background: var(--moss); }
+.card.lilac { background: #EDE8E0; }
+.card.cream { background: #FFF6E8; }
+
+@media (max-width: 900px) {
+  .stage-nav { grid-template-columns: 1fr 1fr; }
+  .board { --col: 168px; }
+  .stage-band .name { font-size: 15px; }
+  .sense { min-height: 130px; }
+}
+@media (max-width: 560px) {
+  .stage-nav { grid-template-columns: 1fr; }
+  .shell { padding: 12px 12px 28px; }
+}
 </style>
 </head>
 <body>
-<header class="top">
-  <h1>Контент-план · Алифер · 21 день</h1>
-  <p>Три недели до закрытого эфира. Лента слева направо: этап → смысл дня → куда греем. Неделя 2 — длинный прогрев к магниту. Неделя 3 — предзапись и сбор на закрытый. Кликни смысл — раскладка поста и сторис.</p>
-  <div class="legend">
-    <i>нед.1 — узнавание → анкета</i>
-    <i>нед.2 — мифы + кишечник → магнит</i>
-    <i>нед.3 — система + кейсы → предзапись</i>
-    <i>день 21 — закрытый эфир</i>
+<div class="shell">
+  <header class="hero">
+    <div class="eyebrow">Алифер · 21 день</div>
+    <h1>Контент-план прогрева до закрытого эфира</h1>
+    <p>Сверху — этапы и сколько дней в каждом. Ниже — лента дней. Кликни смысл — раскладка поста и сторис.</p>
+  </header>
+
+  <nav class="stage-nav" aria-label="Этапы">
+    <button type="button" class="s1" data-jump="1">
+      <span class="days">7 дней · 1–7</span>
+      <strong>Узнавание</strong>
+      <em>→ анкета + «5 признаков»</em>
+    </button>
+    <button type="button" class="s2" data-jump="8">
+      <span class="days">7 дней · 8–14</span>
+      <strong>Мифы + кишечник</strong>
+      <em>→ видео-магнит</em>
+    </button>
+    <button type="button" class="s3" data-jump="15">
+      <span class="days">6 дней · 15–20</span>
+      <strong>Система + кейсы</strong>
+      <em>→ предзапись</em>
+    </button>
+    <button type="button" class="s4" data-jump="21">
+      <span class="days">1 день · 21</span>
+      <strong>Закрытый эфир</strong>
+      <em>→ явка</em>
+    </button>
+  </nav>
+
+  <div class="board-wrap">
+    <div class="board" id="board"></div>
   </div>
-</header>
-<nav class="jump" aria-label="Недели">
-  <button type="button" data-jump="1">Нед.1 · 1–7 · анкета</button>
-  <button type="button" data-jump="8">Нед.2 · 8–14 · магнит</button>
-  <button type="button" data-jump="15">Нед.3 · 15–20 · предзапись</button>
-  <button type="button" data-jump="21">День 21 · закрытый эфир</button>
-</nav>
-<div class="wrap">
-  <div class="matrix" id="matrix"></div>
+
   <aside class="detail" id="detail" aria-live="polite">
     <div class="detail-head">
-      <div><h2 id="d-title"></h2><p id="d-sub"></p></div>
+      <div>
+        <h2 id="d-title"></h2>
+        <p id="d-sub"></p>
+      </div>
       <button type="button" id="d-close">Свернуть</button>
     </div>
     <div class="flow" id="d-flow"></div>
   </aside>
 </div>
+
 <script>
 const DAYS = [
 {n:1,phase:1,phaseTitle:"Нед.1 · Узнавание. «Это всё про меня»",phaseCta:"Куда греем неделю: анкета + «5 признаков»",
@@ -244,57 +512,97 @@ blocks:[
 ]}
 ];
 
-const matrix = document.getElementById("matrix");
+const board = document.getElementById("board");
 const detail = document.getElementById("detail");
 const dTitle = document.getElementById("d-title");
 const dSub = document.getElementById("d-sub");
 const dFlow = document.getElementById("d-flow");
 let selected = null;
 
+const STAGES = [
+  { phase: 1, cls: "p1", span: 7, count: "7 дней · 1–7", name: "Узнавание. «Это всё про меня»", to: "Куда греем: анкета + «5 признаков»" },
+  { phase: 2, cls: "p2", span: 7, count: "7 дней · 8–14", name: "Старые способы мертвы. Корень — кишечник", to: "Куда греем: видео-магнит" },
+  { phase: 3, cls: "p3", span: 6, count: "6 дней · 15–20", name: "Система, кейсы, предзапись", to: "Куда греем: предзапись → закрытый" },
+  { phase: 4, cls: "p4", span: 1, count: "1 день · 21", name: "Закрытый эфир", to: "Только кто в предзаписи" },
+];
+
 function render() {
-  matrix.innerHTML = "";
-  DAYS.forEach(d => {
-    const col = document.createElement("article");
-    col.className = "col";
-    col.id = `day-${d.n}`;
-    col.dataset.phase = d.phase;
-    col.dataset.n = d.n;
-    col.innerHTML = `
-      <div class="num-cell">${d.n}</div>
-      <div class="date-cell">День ${d.n}</div>
-      <div class="phase-cell">${d.phaseTitle}<span class="to">${d.phaseCta}</span></div>
-      <button type="button" class="sense-cell" data-open="${d.n}">${d.sense}</button>
-      <div class="cta-cell"><span>Куда зовём</span>${d.cta}</div>
-      <div class="open-hint">нажми смысл · раскладка</div>`;
-    matrix.appendChild(col);
+  board.innerHTML = "";
+  STAGES.forEach(s => {
+    const el = document.createElement("div");
+    el.className = `stage-band ${s.cls}`;
+    el.innerHTML = `<div class="count">${s.count}</div><div class="name">${s.name}</div><div class="to">${s.to}</div>`;
+    board.appendChild(el);
+  });
+  DAYS.forEach((d, i) => {
+    const col = i + 1;
+    const num = document.createElement("div");
+    num.className = "num";
+    num.style.gridColumn = String(col);
+    num.id = `day-${d.n}`;
+    num.textContent = d.n;
+    board.appendChild(num);
+
+    const label = document.createElement("div");
+    label.className = "label-day";
+    label.style.gridColumn = String(col);
+    label.textContent = `День ${d.n}`;
+    board.appendChild(label);
+
+    const sense = document.createElement("button");
+    sense.type = "button";
+    sense.className = "sense";
+    sense.dataset.phase = d.phase;
+    sense.dataset.open = d.n;
+    sense.style.gridColumn = String(col);
+    sense.textContent = d.sense;
+    board.appendChild(sense);
+
+    const cta = document.createElement("div");
+    cta.className = "cta";
+    cta.style.gridColumn = String(col);
+    cta.innerHTML = `<span>Куда зовём</span>${d.cta}`;
+    board.appendChild(cta);
   });
 }
+
+function markSelected(n) {
+  document.querySelectorAll(".sense").forEach(el => {
+    el.classList.toggle("col-selected", Number(el.dataset.open) === n);
+  });
+}
+
 function openDay(n) {
   const d = DAYS.find(x => x.n === n);
   if (!d) return;
   if (selected === n && detail.classList.contains("open")) { closeDetail(); return; }
   selected = n;
-  document.querySelectorAll(".col").forEach(c => c.setAttribute("aria-selected", c.dataset.n === String(n) ? "true" : "false"));
+  markSelected(n);
   dTitle.textContent = `День ${d.n}. ${d.sense}`;
   dSub.textContent = `${d.phaseTitle} · ${d.cta}`;
-  dFlow.innerHTML = d.blocks.map(b => `<section class="card ${b.type}"><div class="label">${b.label}</div><div class="title">${b.title}</div><ul>${b.items.map(i => `<li>${i}</li>`).join("")}</ul></section>`).join("");
+  dFlow.innerHTML = d.blocks.map(b =>
+    `<section class="card ${b.type}"><div class="label">${b.label}</div><div class="title">${b.title}</div><ul>${b.items.map(i => `<li>${i}</li>`).join("")}</ul></section>`
+  ).join("");
   detail.classList.add("open");
   detail.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
+
 function closeDetail() {
   selected = null;
   detail.classList.remove("open");
-  document.querySelectorAll(".col").forEach(c => c.setAttribute("aria-selected", "false"));
+  markSelected(-1);
 }
-matrix.addEventListener("click", e => {
+
+board.addEventListener("click", e => {
   const btn = e.target.closest("[data-open]");
   if (btn) openDay(Number(btn.dataset.open));
 });
 document.getElementById("d-close").addEventListener("click", closeDetail);
-document.querySelectorAll(".jump button").forEach(btn => {
+document.querySelectorAll("[data-jump]").forEach(btn => {
   btn.addEventListener("click", () => {
-    document.getElementById(`day-${btn.dataset.jump}`)?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
-    openDay(Number(btn.dataset.jump));
+    const n = Number(btn.dataset.jump);
+    document.getElementById(`day-${n}`)?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+    openDay(n);
   });
 });
 render();
