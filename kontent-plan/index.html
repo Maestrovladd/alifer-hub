@@ -142,11 +142,37 @@ body {
   box-shadow: 0 10px 28px rgba(35,40,31,.12);
 }
 .board {
+  display: flex;
+  width: max-content;
+  min-width: 100%;
+}
+.phase-block {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.phase-block + .phase-block { border-left: 2px solid var(--dark); }
+.ribbon {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0 10px;
+}
+.ribbon.p1 { background: var(--sage); color: #3a4634; }
+.ribbon.p2 { background: #C9D4BC; color: #3a4634; }
+.ribbon.p3 { background: #F0E4DC; color: #5a3a2e; }
+.ribbon.p4 { background: var(--dark); color: var(--clay); }
+.days-row {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 210px;
-  width: max-content;
-  min-width: 100%;
+  flex: 1;
 }
 .col {
   border-right: 1px solid var(--line);
@@ -160,18 +186,6 @@ body {
   outline-offset: -2px;
   background: #FFF8F0;
 }
-.badge {
-  padding: 8px 10px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--line);
-}
-.col[data-phase="1"] .badge { background: var(--sage); color: #3a4634; }
-.col[data-phase="2"] .badge { background: #E8EEE3; color: #3a4634; }
-.col[data-phase="3"] .badge { background: #F0E4DC; color: #5a3a2e; }
-.col[data-phase="4"] .badge { background: var(--dark); color: var(--clay); }
 .num {
   background: #FFE27A;
   text-align: center;
@@ -298,7 +312,7 @@ body {
 }
 @media (max-width: 560px) {
   .stages { grid-template-columns: 1fr; }
-  .board { grid-auto-columns: 180px; }
+  .days-row { grid-auto-columns: 180px; }
   .page { padding: 14px 12px 36px; }
 }
 </style>
@@ -738,20 +752,38 @@ const dWarm = document.getElementById("d-warm");
 const dFlow = document.getElementById("d-flow");
 let selected = null;
 
+const PHASES = [
+  { phase: 1, cls: "p1", name: "Узнавание" },
+  { phase: 2, cls: "p2", name: "Мифы + кишечник" },
+  { phase: 3, cls: "p3", name: "Предзапись" },
+  { phase: 4, cls: "p4", name: "Эфир" },
+];
+
 function render() {
   board.innerHTML = "";
-  DAYS.forEach(d => {
-    const col = document.createElement("article");
-    col.className = "col";
-    col.id = `day-${d.n}`;
-    col.dataset.phase = d.phase;
-    col.dataset.n = d.n;
-    col.innerHTML = `
-      <div class="badge">${d.badge}</div>
-      <div class="num">${d.n}</div>
-      <button type="button" class="sense" data-open="${d.n}">${d.sense}</button>
-      <div class="warm-cell"><small>Куда зовём сегодня</small>${d.warm}</div>`;
-    board.appendChild(col);
+  PHASES.forEach(ph => {
+    const block = document.createElement("div");
+    block.className = "phase-block";
+    const ribbon = document.createElement("div");
+    ribbon.className = `ribbon ${ph.cls}`;
+    ribbon.textContent = ph.name;
+    const row = document.createElement("div");
+    row.className = "days-row";
+    DAYS.filter(d => d.phase === ph.phase).forEach(d => {
+      const col = document.createElement("article");
+      col.className = "col";
+      col.id = `day-${d.n}`;
+      col.dataset.phase = d.phase;
+      col.dataset.n = d.n;
+      col.innerHTML = `
+        <div class="num">${d.n}</div>
+        <button type="button" class="sense" data-open="${d.n}">${d.sense}</button>
+        <div class="warm-cell"><small>Куда зовём сегодня</small>${d.warm}</div>`;
+      row.appendChild(col);
+    });
+    block.appendChild(ribbon);
+    block.appendChild(row);
+    board.appendChild(block);
   });
 }
 
